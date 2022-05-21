@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <odoo>
+	
+	<record model="ir.ui.view" id="tenant_ewa_excess_report_form_view">
+    	<field name="name">wiz.tenant.ewa.excess.report.form.view</field>
+   	 	<field name="model">wiz.tenant.ewa.excess.report</field>
+    	<field name="type">form</field>
+    	<field name="groups_id" eval="[(4,ref('sales_team.group_sale_salesman_all_leads'))]"/>
+    	<field name="arch" type="xml">
+      		<form string="Tenantwise EWA Excess Report">
+      		<group>
+          		<group>
+          			<field name="from_date" required='1'/>  
+          			<field name="to_date" required='1'/> 
+          			<field name="building_id" options="{'no_create': True, 'no_create_edit':True}" domain="[('building_type','in',['rent','both'])]"/>  
+          			<field name="tenant_id" options="{'no_create': True, 'no_create_edit':True}" required='1' domain="[('building_id', '=', building_id),('is_tenant','=',True)]"/>
+          		</group>
+          	</group>
+          	<footer>
+            	<button name="print_tenant_ewa_excess_report" string="Print" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+    </record>
+   
+    <act_window id="action_tenant_ewa_excess_report_wiz"
+            name="Tenantwise EWA Excess Report"
+            binding_model="zbbm.building"
+            res_model="wiz.tenant.ewa.excess.report"
+            view_mode="form"
+            target="new"
+            groups="sales_team.group_sale_salesman_all_leads"/>
+            
+    <!--tenant_excess_ewa_menu -->
+
+	<menuitem id="menu_tenant_excess_ewa_report" 
+	    name =" Tenant Wise Excess EWA Report" 
+	     sequence="3"
+	    parent="zb_building_management.menu_action_reporting"
+	    action="action_tenant_ewa_excess_report_wiz"/>
+
+</odoo>

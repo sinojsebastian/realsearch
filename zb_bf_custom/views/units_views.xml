@@ -1,0 +1,1058 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- zbbm.building.form.inherit -->
+    <record model="ir.ui.view" id="zbbm_building_form_inherit_view_bf">
+        <field name="name">zbbm_building_form_inherit_view_bf</field>
+        <field name="model">zbbm.building</field>
+        <field name="inherit_id" ref="zb_building_management.view_building_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//header/button[@name='make_available']" position="after">
+                <button name="%(zb_bf_custom.action_service_wizard)d"
+                        type="action"
+                        string="Generate Service Bill"
+                        groups="sales_team.group_sale_salesman_all_leads"
+                />
+            </xpath>
+            <xpath expr="//header/button[@name='action_delist']" position="attributes">
+                <attribute name="groups">base.user_admin</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='action_unavailable']" position="attributes">
+                <attribute name="groups">base.user_admin</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='view_attach_from_building']" position="after">
+                <button type="object" name="action_view_services" class="oe_stat_button" icon="fa-pencil-square-o"
+                        invisible="1">
+                    <field name="service_inv_count" widget="statinfo" string="Service Invoices"/>
+                </button>
+                <button type="object" name="action_view_rent_invs" class="oe_stat_button" icon="fa-pencil-square-o"
+                        invisible="1">
+                    <field name="comm_inv_count" widget="statinfo" string="Rent Invoices"/>
+                </button>
+                <button type="object" name="action_view_invoices" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="invoices_count" widget="statinfo" string="Invoices"/>
+                </button>
+                <button type="object" name="action_view_expenses" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="expenses_count" widget="statinfo" string="Expenses"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//notebook/page[1]/field[@name='unit_ids']" position="replace">
+            </xpath>
+
+            <!-- <xpath expr="//notebook/page[4]//group[1]//field[@name='bank_id']" position="after">
+               <field name="management_fees_percent"/>
+               <field name="total_commission_percent" attrs="{'invisible': [('building_type','=', 'sell')]}"/>
+            </xpath> -->
+
+            <xpath expr="//group[2]//field[@name='code']" position="after">
+                <field name="area_manager"/>
+                <field name="admin_fee"/>
+                <field name="service_charge_total"/>
+                <field name="service_charge_collected"/>
+                <field name="service_charge_remaining"/>
+            </xpath>
+            <xpath expr="//group[1]//group[2]" position="inside">
+                <div class="col-6"></div>
+            </xpath>
+            <xpath expr="//notebook/page[3]//group[1]//field[@name='cont_preparation_fee']" position="attributes">
+                <attribute name="string">Administration Fee</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[4]" position="attributes">
+                <attribute name="string">Lease Configuration</attribute>
+            </xpath>
+            <xpath expr="//field[@name='commission_percent']" position="attributes">
+                <attribute name="string">Agent Commission(%)</attribute>
+            </xpath>
+            <xpath expr="//field[@name='commission_percent']" position="before">
+                <label for="building_area"/>
+                <div class="o_row" name="building_area">
+                    <field name="building_area"/>
+                    <span>m²</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='commission_percent']" position="after">
+                <field name="management_fees_percent"/>
+                <field name="total_commission_percent" attrs="{'invisible': [('building_type','=', 'sell')]}"/>
+                <field name="resale_commission_percent" invisible="1"/>
+                <field name="rs_total_income"
+                       groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+                <field name="rs_total_expense"
+                       groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+                <field name="owner_total_income"
+                       groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+                <field name="owner_total_expense"
+                       groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+            </xpath>
+            <xpath expr="//field[@name='service_charge_remaining']" position="after">
+                <field name="resale_owner_commission_percent"/>
+                <field name="resale_buyer_commission_percent"/>
+                <field name="resale_agent_commission_percent"/>
+                <field name="pa_ids" widget="many2many_tags"/>
+                <field name="is_locked"/>
+            </xpath>
+            <xpath expr="//page[4]" position="after">
+                <page string="Accounting Configuration">
+                    <group>
+                        <group>
+                            <field name="dlp_end_date"/>
+                            <field name="hand_over_date"/>
+                            <label for="service_charge"/>
+                            <div class="o_row" name="service_charge">
+                                <field name="service_charge"/>
+                            </div>
+                            <field name="next_service_charge_invoice_date"/>
+                        </group>
+                        <group>
+                            <field name="analytic_account_id" required="1"/>
+                        </group>
+                    </group>
+                </page>
+                <page string="Common Services">
+                    <h2>Service Configuration</h2>
+                    <field name="service_ids" nolabel="1">
+                        <tree string="Services" editable="bottom">
+                            <field name="product_id" domain="[('type', '=', 'service')]"/>
+                            <field name="area" required="1"/>
+                            <field name="owner_id" invisible="1"/>
+                            <field name="package_name"/>
+                            <field name="account_no"/>
+                            <field name="bill"/>
+                            <field name="managed_by_rs" invisible="1"/>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                            <field name="initial_connection_date"/>
+
+
+                        </tree>
+                    </field>
+                    <h2>Service Bill Data</h2>
+                    <field name="raw_service_ids" widget="one2many_list" nolabel="1">
+                        <tree string="Services" editable="bottom">
+                            <field name="product_id" domain="[('type', '=', 'service')]"/>
+                            <field name="service_date"/>
+                            <field name="account_no"/>
+                            <field name="bill_no"/>
+                            <field name="amount"/>
+                            <field name="bill_date"/>
+                            <field name="due_date"/>
+                            <field name="billing_status"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button name="view_service_charge_invoice" type='object' class="oe_inline oe_stat_button" icon="fa-book"
+                        invisible="1">
+                    <field name="services_count" widget="statinfo" string="Service Charges"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='module_ids']//field[@name='tenant_id']" position="after">
+                <field name="owner_id"/>
+                <field name="managed"/>
+            </xpath>
+            <xpath expr="//field[@name='image']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[@class='oe_button_box']" position="after">
+                <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+            </xpath>
+            <xpath expr="//field[@name='building_address']" position="after">
+                <field name="address_arabic"></field>
+            </xpath>
+            <xpath expr="//notebook/page" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[2]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[3]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman_all_leads</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[4]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman_all_leads</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[5]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman_all_leads</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[6]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman_all_leads</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="zbbm_building_form_document_inherit">
+        <field name="name">zbbm_building_form_document_inherit</field>
+        <field name="model">zbbm.building</field>
+        <field name="inherit_id" ref="insurance_document.zbbm_building_form_inherited_view_ins"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[5]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman_all_leads</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- zbbm.building.kanban.inherit -->
+    <record model="ir.ui.view" id="zbbm_building_kanban_inherit_view_bf">
+        <field name="name">zbbm_building_kanban_inherit_view_bf</field>
+        <field name="model">zbbm.building</field>
+        <field name="inherit_id" ref="zb_building_management.Building_type_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='image']" position="replace">
+                <field name="image_128"/>
+            </xpath>
+            <xpath expr="//div[@class='oe_kanban_image']" position="replace">
+                <img t-att-alt="record.id" t-att-src="kanban_image('zbbm.building', 'image_128', record.id.raw_value)"/>
+            </xpath>
+            <xpath expr="//button[@name='action_lease_legal']" position="after">
+                <button name="action_total_enquires" type="object" class="oe_highlight"
+                        attrs="{'invisible': [('building_type','=', 'sell')]}">
+                    <div>
+                        <field name="total_enquires"/>
+                        Total Enquires
+                    </div>
+                </button>
+                <button name="action_open_enquires" type="object" class="oe_highlight"
+                        attrs="{'invisible': [('building_type','=', 'sell')]}">
+                    <div>
+                        <field name="open_enquires"/>
+                        Open Enquires
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="zb_building_management.action_zbbm_module_view">
+        <field name="name">Units</field>
+        <field name="res_model">zbbm.module</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="zb_building_management.view_module_filter"/>
+        <field name="context">{'search_default_building': 1}</field>
+        <field name="view_id" ref="zb_building_management.view_module_tree"/>
+    </record>
+
+
+    <menuitem id="zb_building_management.menu_modules"
+              name="Units" sequence="2"
+              parent="zb_building_management.menu_zbbm_buildings"
+              action="zb_building_management.action_zbbm_module_view"/>
+
+    <record model="ir.ui.view" id="zbbm_moduleee_inherited_treeview_bf">
+        <field name="name">zbbm.module.tree</field>
+        <field name="model">zbbm.module</field>
+        <field name="inherit_id" ref="zb_building_management.view_module_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='monthly_rate']" position="after">
+
+                <field name="feature"/>
+                <field name="type"/>
+                <field name="unit_id"/>
+                <field name="unit_view_id"/>
+                <field name="entry_date"></field>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="zbbm_unit_inherited_treeview_bf">
+        <field name="name">zbbm.unit.tree</field>
+        <field name="model">zbbm.unit</field>
+        <field name="inherit_id" ref="zb_building_management.view_unit_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='floor']" position="after">
+
+                <field name="feature"/>
+                <field name="unit_view_id"/>
+                <field name="entry_date"></field>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="zbbm_moduleee_inherited_view_bf">
+        <field name="name">zbbm.module.form</field>
+        <field name="model">zbbm.module</field>
+        <field name="inherit_id" ref="zb_building_management.view_module_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='building_id']" position="before">
+                <field name="unit_arabic"></field>
+            </xpath>
+
+            <xpath expr="//field[@name='tenant_id']" position="after">
+                <field name="owner_id" context="{'show_address': 1,'res_partner_search_mode': True,'default_owner':1}"
+                       options='{"always_reload": True}' domain="[('owner', '=', True)]"/>
+                <field name="managed"/>
+                <field name="lead_id"/>
+            </xpath>
+            <!-- commented by Ansu. ZB-6184-code changes: is_salesperson -->
+            <xpath expr="//field[@name='feature']" position="after">
+                <field name="is_salesperson" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_flatdetails_send']" position="after">
+                <button name="generate_sellable_unit" string="Generate Sellable Unit" type="object" class="btn-primary"
+                        groups="sales_team.group_sale_salesman_all_leads"/>
+            </xpath>
+
+            <xpath expr="//header/button[@name='action_delist']" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman_all_leads</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='action_flatdetails_send']" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman_all_leads</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='view_attach_from_flat']" position="after">
+                <!-- <button type="object" name="action_view_invoice" class="oe_stat_button" icon="fa-pencil-square-o">
+                      <field name="invoices_count" widget="statinfo" string="Management Invoices" />
+               </button> -->
+                <button type="object" name="action_view_rs_inv" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="rs_inv_count" widget="statinfo" string="Invoices(RS)"/>
+                </button>
+                <button type="object" name="action_view_owner_inv" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="owner_inv_count" widget="statinfo" string="Invoices(Owner)"/>
+                </button>
+                <button type="object" name="action_view_rs_expense" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="rs_exp_count" widget="statinfo" string="Expenses(RS)"/>
+                </button>
+                <button type="object" name="action_view_owner_expense" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="owner_exp_count" widget="statinfo" string="Expenses(Owner)"/>
+                </button>
+                <button type="object" name="action_view_receipts" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="receipts_count" widget="statinfo" string="Receipts"/>
+                </button>
+                <button type="object" name="action_view_payments" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="payments_count" widget="statinfo" string="Payments"/>
+                </button>
+                <button type="object" name="action_view_payment_advises" class="oe_stat_button"
+                        icon="fa-pencil-square-o" attrs="{'invisible':[('state', 'in', ('draft','sent','to approve'))]}"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="payment_advise_count" widget="statinfo" string="Payment Advises"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//notebook/page/group" position="after">
+                <group>
+                    <group>
+                        <field name="title_deed_id"/>
+                        <field name="flat_on_offer"/>
+                        <field name="offer_start_date" attrs="{'invisible': [('flat_on_offer','=',False)]}"/>
+                        <field name="offer_end_date" attrs="{'invisible': [('flat_on_offer','=',False)]}"/>
+                        <field name="service_charge"/>
+                        <field name="other_features_ids" widget="many2many_tags"/>
+                        <field name="unit_id"/>
+                    </group>
+                    <group>
+                        <field name="deposit"/>
+                        <field name="no_of_rooms"/>
+                        <field name="no_of_washroom"/>
+                        <field name="balcony"/>
+                        <field name="gym"/>
+                        <field name="have_pool"/>
+                        <field name="unit_view_id"/>
+                    </group>
+                </group>
+            </xpath>
+
+            <xpath expr="//notebook/page/group//field[@name='feature_description']" position="after">
+                <field name="management_fees_percent"/>
+                <field name="total_commission_percent"/>
+            </xpath>
+            <xpath expr="//notebook/page/group//group" position="after">
+                <group>
+                    <label for="unit_area_final_contract"/>
+                    <div class="o_row" name="unit_area_final_contract">
+                        <field name="unit_area_final_contract"/>
+                        <span>m²</span>
+                    </div>
+                    <label for="unit_area_title_deed"/>
+                    <div class="o_row" name="unit_area_title_deed">
+                        <field name="unit_area_title_deed"/>
+                        <span>m²</span>
+                    </div>
+                </group>
+            </xpath>
+
+            <xpath expr="//notebook/page//field[@name='payments_ids']" position="after">
+                <separator string="Receipts"/>
+                <field name="receipt_ids" readonly="1" groups="account.group_account_user"
+                       context="{'form_view_ref':'account.view_account_payment_form','tree_view_ref':'account.view_account_payment_tree','default_payment_type':'inbound'}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='account_analytic_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='res_com']" position="after">
+                <field name="floor_number"/>
+            </xpath>
+
+
+            <xpath expr="//notebook/page" position="after">
+                <page string="Quotations">
+                    <field name="purchase_order_ids"/>
+                </page>
+                <page string='Services' groups="sales_team.group_sale_salesman_all_leads">
+                    <h2>Service Configuration</h2>
+                    <field name="service_ids" nolabel="1">
+                        <tree string="Services" editable="bottom">
+                            <field name="product_id" domain="[('type', '=', 'service')]"/>
+                            <field name="owner_id" invisible="1"/>
+                            <field name="package_name"/>
+                            <field name="osn_extra_charge" invisible="1"/>
+                            <field name="account_no"/>
+                            <field name="trf_status" invisible="1"/>
+                            <field name="bill"/>
+                            <field name="owner_share"/>
+                            <field name="owner_share_arabic"/>
+                            <field name="tenant_share"/>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                            <field name="initial_connection_date"/>
+                            <field name="managed_by_rs"/>
+                        </tree>
+                    </field>
+                    <h2>Service Bill Data</h2>
+                    <field name="raw_service_ids" widget="one2many_list" nolabel="1">
+                        <tree string="Services" editable="bottom">
+                            <field name="product_id" domain="[('type', '=', 'service')]"/>
+                            <field name="service_date"/>
+                            <field name="owner_share"/>
+                            <field name="tenant_share"/>
+                            <!-- <field name="owner_id"/>
+                            <field name="tenant_id"/>
+                            <field name="module_id"/>
+                            <field name="building_id"/> -->
+                            <field name="move_id" string="Owner/Tenant/Invoice"/>
+                            <field name="account_no"/>
+                            <field name="bill_no"/>
+                            <field name="amount"/>
+                            <field name="bill_date"/>
+                            <field name="due_date"/>
+                            <!-- <field name="rent_invoice_id"/>
+                            <field name="payment_advice_id"/>
+                            <field name="payment_link_id"/>
+                            <field name="type_of_service"/> -->
+                            <field name="billing_status"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Reservation/Booking Period" groups="sales_team.group_sale_salesman_all_leads">
+                    <group colspan="4">
+                        <group>
+                            <separator string="Reservation Period" colspan="2"/>
+                            <label for="reservation_date"/>
+                            <div class="o_row" name="reservation_date">
+                                <field name="reservation_date"/>
+                            </div>
+                            <label for="reservation_time"/>
+                            <div class="o_row" name="reservation_time">
+                                <field name="reservation_time"/>
+                                <span>days</span>
+                            </div>
+                            <label for="las_reser"/>
+                            <div class="o_row" name="las_reser">
+                                <field name="las_reser"/>
+                            </div>
+                        </group>
+                        <group>
+                            <separator string="Booking Period" colspan="2"/>
+                            <label for="booking_date"/>
+                            <div class="o_row" name="booking_date">
+                                <field name="booking_date"/>
+                            </div>
+                            <label for="booking_time"/>
+                            <div class="o_row" name="booking_time">
+                                <field name="booking_time"/>
+                                <span>days</span>
+                            </div>
+                        </group>
+                    </group>
+                </page>
+
+                <page string="Management Agreements" groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="management_contract_ids" widget="one2many_list" nolabel="1">
+                        <tree string="Management Agreements" editable="bottom">
+                            <field name="owner_id"/>
+                            <field name="from_date"/>
+                            <field name="from_date_arabic"/>
+                            <field name="to_date"/>
+                            <field name="to_date_arabic"/>
+                            <field name="duration_arabic"/>
+                            <field name="contract_fees"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Owner History">
+                    <field name="owner_history_ids" widget="one2many_list" nolabel="1">
+                        <tree string="Owner History" editable="bottom">
+                            <field name="owner_id" context="{'default_owner':1}"/>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//header/field[@name='state']" position="attributes">
+                <attribute name="statusbar_visible">new,available,reserve,book,occupied,blocked,delisted</attribute>
+            </xpath>
+            <xpath expr="//field[@name='feature']" position="after">
+                <field name="feature_arabic"></field>
+                <field name="entry_date"></field>
+            </xpath>
+            <xpath expr="//notebook/page" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,zb_bf_custom.group_property_advisor</attribute>
+            </xpath>
+            <!-- <xpath expr="//notebook/page[7]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman</attribute>
+            </xpath> -->
+            <xpath expr="//notebook/page[2]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman_all_leads</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[3]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman_all_leads</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[6]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman_all_leads</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[7]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman_all_leads</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[8]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman_all_leads</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='action_unavailable']" position="attributes">
+                <attribute name="groups">
+                    zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="lease_agreement_inherit_tree_view">
+        <field name="name">zbbm.module.lease.rent.agreement</field>
+        <field name="model">zbbm.module.lease.rent.agreement</field>
+        <field name="inherit_id" ref="zb_building_management.view_lease_rent_agreement_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='contract_status']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='tenant_id']" position="before">
+                <field name="reference_no"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_lease_renttt_agreement_form" model="ir.ui.view">
+        <field name="name">zbbm.module.lease.rent.agreement</field>
+        <field name="model">zbbm.module.lease.rent.agreement</field>
+        <field name="inherit_id" ref="zb_building_management.view_lease_rent_agreement_form"/>
+        <field name="arch" type="xml">
+
+
+            <xpath expr="//button[@name='action_view_expense']" position="after">
+                <button type="object" name="action_view_jv" class="oe_stat_button" icon="fa-pencil-square-o"
+                        attrs="{'invisible':[('state', 'in', ('draft','sent','to approve'))]}"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="jv_count" widget="statinfo" string="Journal Entries"/>
+                </button>
+                <button type="object" name="action_view_payment_advises" class="oe_stat_button"
+                        icon="fa-pencil-square-o" attrs="{'invisible':[('state', 'in', ('draft','sent','to approve'))]}"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="payment_advise_count" widget="statinfo" string="Payment Advises"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//field[@name='agreement_start_date']" position="replace">
+                <field name="agreement_start_date"
+                       attrs="{'readonly':[('state','in',['active','terminate'])],'required':[('state','=', 'draft')]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='agreement_end_date']" position="replace">
+                <field name="agreement_end_date"
+                       attrs="{'readonly':[('state','in',['active','terminate'])],'required':[('state','=', 'draft')]}"/>
+            </xpath>
+
+
+            <xpath expr="//field[@name='commission_percent']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name='ewa_limit']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='invoice_date']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='monthly_rent']" position="after">
+                <field name="leasedpremise_rent_arabic"/>
+                <field name="potential_rent" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='security_deposit']" position="after">
+                <field name="security_deposit_arabic"/>
+            </xpath>
+            <!-- commented by ansu -->
+            <xpath expr="//field[@name='security_deposit_arabic']" position="after">
+                <field name="advance"/>
+            </xpath>
+
+            <xpath expr="//field[@name='contract_status']" position="after">
+                <field name="managed"/>
+                <field name="crm_lead_id"></field>
+                <field name="campaign_id"></field>
+                <field name="source_id"></field>
+                <field name="ref_person_id"/>
+                <field name="prep_priority"/>
+                <field name="moving_date"/>
+                <field name="handover_date_arabic"/>
+                <field name="advance_pay_mnth" invisible="1"/>
+                <field name="renewed_lease_agreement_id"
+                       attrs="{'invisible': [('renewed_lease_agreement_id','=', False)]}"/>
+                <!-- <field name="is_area_manager" invisible="1"/> -->
+            </xpath>
+
+            <xpath expr="//field[@name='contract_status']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name='vendor_id']" position="after">
+                <label for="invoice_cycle_num" class="oe_inline"/>
+                <div class="o_row">
+                    <field name="invoice_cycle_num" required="0"/>
+                    <field name="invoice_cycle" width="5" nolabel="1"/>
+                </div>
+                <field name="commission_generated" invisible="1"/>
+                <field name="is_commission" invisible="1"/>
+                <field name="commission_percent" string="Agent Commission" invisible="1"/>
+                <field name="total_commission_percent" invisible="1"/>
+                <field name="agent_commission_amount" attrs="{'invisible': [('agent','=', False)]}"/>
+                <field name="commission_percent_amount"/>
+                <field name="management_fees_percent" invisible="1"/>
+                <field name="management_fees" invisible="1"/>
+
+                <!-- <field name="invoice_cycle_num"/>
+                <field name="invoice_cycle"/> -->
+                <field name="adviser_id"/>
+                <field name="area_manager"/>
+                <field name="owner_id" context="{'res_partner_search_mode': True,'default_owner':1}"
+                       options='{"always_reload": True}' domain="[('owner', '=', True)]"/>
+                <field name="voucher_move_id" invisible="1"/>
+                <field name="commission_move_id" invisible="1"/>
+                <field name="management_move_id" invisible="1"/>
+                <field name="payment_advise_id" invisible="1"/>
+                <field name="remarks"/>
+            </xpath>
+
+
+            <xpath expr="//button[@name='action_view_invoice']" position="before">
+                <button name="view_attach_from_agreement"
+                        class="oe_stat_button"
+                        icon="fa-book"
+                        type="object">
+                    <field name="attachment_count" widget="statinfo" string="Attachments"/>
+                </button>
+                <button type="object" name="action_view_rs_inv" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="rs_inv_count" widget="statinfo" string="Invoices(RS)"/>
+                </button>
+                <button type="object" name="action_view_owner_inv" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="owner_inv_count" widget="statinfo" string="Invoices(Owner)"/>
+                </button>
+                <button type="object" name="action_view_rs_expense" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="rs_exp_count" widget="statinfo" string="Expenses(RS)"/>
+                </button>
+                <button type="object" name="action_view_owner_expense" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="owner_exp_count" widget="statinfo" string="Expenses(Owner)"/>
+                </button>
+                <button type="object" name="action_view_receipts" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="receipts_count" widget="statinfo" string="Receipts"/>
+                </button>
+                <button type="object" name="action_view_payments" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="payments_count" widget="statinfo" string="Payments"/>
+                </button>
+
+            </xpath>
+            <xpath expr="//button[@name='set_to_active']" position="before">
+                <button name="send_for_approval" string='Send For Approval' type="object" class="oe_highlight"
+                        attrs="{'invisible': [('state','not in', ['draft'])]}"/>
+            </xpath>
+            <xpath expr="//button[@name='send_for_approval']" position="after">
+
+                <button name="set_to_approved" string='Set To Approved' type="object" class="oe_highlight"
+                        attrs="{'invisible':[('state','not in', ['approval_waiting'])]}"
+                        groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+            </xpath>
+            <xpath expr="//button[@name='set_to_active']" position="replace">
+                <button name="%(action_agreement_invoice_wizard_view)d" string='Set To Active' type="action"
+                        class="oe_highlight" attrs="{'invisible': [('state','not in', ['approved'])]}"
+                        groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+            </xpath>
+            <xpath expr="//button[@name='set_to_terminate']" position="replace">
+                <button name='%(action_agreement_terminate_wizard_view)d' type='action' string='Set To Terminate'
+                        class="btn-primary" attrs="{'invisible': [('state','in', ['draft','terminate'])]}"
+                        groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+            </xpath>
+            <xpath expr="//notebook/page[1]" position="inside">
+                <field name="notes"/>
+            </xpath>
+            <xpath expr="//notebook/page" position="after">
+                <page string="Invoice Plan" groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="invoice_plan_ids">
+                        <tree string="Invoice Plan" editable="bottom">
+                            <field name="inv_date"/>
+                            <field name="amount"/>
+                            <field name="move_id"/>
+                            <button name="invoice_create" string="Create Invoice" type="object"
+                                    attrs="{'invisible':[('move_id','!=',False)]}"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Services" groups="sales_team.group_sale_salesman_all_leads">
+                    <h2>Service Configuration</h2>
+                    <field name="services_ids" invisible="1">
+                        <tree string="Services">
+                            <field name="product_id" domain="[('type', '=', 'service')]" required="1"/>
+                            <field name="owner_id" invisible="1"/>
+                            <field name="package_name"/>
+                            <field name="osn_extra_charge" invisible="1"/>
+                            <field name="account_no"/>
+                            <field name="bill"/>
+                            <field name="trf_status" invisible="1"/>
+                            <field name="module_id" invisible="1"/>
+                            <field name="owner_share"/>
+                            <field name="owner_share_arabic"/>
+                            <field name="tenant_share"/>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                            <field name="initial_connection_date"/>
+                            <field name="managed_by_rs"/>
+                        </tree>
+                    </field>
+                    <field name="lease_services_ids">
+                        <tree string="Services">
+                            <field name="product_id" domain="[('type', '=', 'service')]" required="1"/>
+                            <field name="owner_id" invisible="1"/>
+                            <field name="package_name"/>
+                            <field name="osn_extra_charge" invisible="1"/>
+                            <field name="account_no"/>
+                            <field name="bill"/>
+                            <field name="trf_status" invisible="1"/>
+                            <field name="module_id" invisible="1"/>
+                            <field name="owner_share"/>
+                            <field name="owner_share_arabic"/>
+                            <field name="tenant_share"/>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                            <field name="initial_connection_date"/>
+                            <field name="managed_by_rs"/>
+                        </tree>
+                    </field>
+                    <h2>Service Bill Data</h2>
+                    <field name="raw_service_ids">
+                        <tree string="Services" editable="bottom">
+                            <field name="product_id" domain="[('type', '=', 'service')]"/>
+                            <field name="service_date"/>
+                            <field name="owner_share"/>
+                            <field name="tenant_share"/>
+                            <field name="account_no"/>
+                            <field name="bill_no"/>
+                            <field name="amount"/>
+                            <field name="bill_date"/>
+                            <field name="due_date"/>
+                            <field name="billing_status"/>
+                        </tree>
+                    </field>
+                </page>
+
+                <!-- 	 <page string="Financials">
+                         <separator string="Payments" />
+                         <field name="payments_ids" readonly="1" context="{'default_payment_type': 'outbound',
+              'default_partner_type': 'supplier',
+              'search_default_outbound_filter': 1,
+              'res_partner_search_mode': 'supplier','form_view_ref':'account.view_account_payment_form','tree_view_ref':'account.view_account_supplier_payment_tree','payment_type':'outbound'}"/>
+                      <separator string="Receipts" />
+                         <field name="receipt_ids" readonly="1" context="{'default_payment_type': 'inbound',
+              'default_partner_type': 'customer',
+              'search_default_inbound_filter': 1,
+              'res_partner_search_mode': 'customer','form_view_ref':'account.view_account_payment_form','tree_view_ref':'account.view_account_payment_tree','payment_type':'inbound'}"/>
+                     </page> -->
+
+            </xpath>
+            <xpath expr="//button[@name='action_view_invoice']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_expense']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//group[2]//group[1]" position="inside">
+                <div class="col-6"></div>
+            </xpath>
+            <xpath expr="//group[2]//group[2]" position="inside">
+                <div class="col-6"></div>
+            </xpath>
+            <xpath expr="//button[@name='action_set_renew']" position="attributes">
+                <attribute name="attrs">{'invisible': [('state',
+                    'in',['draft','active','terminate','approved','approval_waiting'])]}
+                </attribute>
+                <attribute name="context">{'renew':'make_renew'}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='termination_date']" position="after">
+                <field name="pro_rent" readonly="1"/>
+                <field name="pro_rent_arabic"/>
+                <field name="pro_rated_amt" readonly="1"/>
+                <field name="pro_rated_amt_arabic"/>
+                <field name="prorata_payment_date"/>
+                <field name="duration_arabic"/>
+                <field name="municipality_tax" invisible="1"/>
+                <field name="tax_municipality"/>
+            </xpath>
+            <xpath expr="//field[@name='agreement_end_date']" position="after">
+                <field name="start_date_arabic"/>
+                <field name="end_date_arabic"/>
+            </xpath>
+            <!-- <xpath expr="//header/button[@name='set_to_draft']" position="attributes">
+                <attribute name="groups">zb_bf_custom.group_draft_cancel_menu</attribute>
+            </xpath> -->
+        </field>
+    </record>
+
+    <record id="view_lease_renttt_agreement_filter_inherit" model="ir.ui.view">
+        <field name="name">zbbm.module.lease.rent.agreement</field>
+        <field name="model">zbbm.module.lease.rent.agreement</field>
+        <field name="inherit_id" ref="zb_building_management.view_zbbm_building_lease_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tenant_id']" position="after">
+                <field name="reference_no" string="Reference Number"/>
+                <field name="subproperty" string="Unit"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="zbbm_unit_inherited_view_bf">
+        <field name="name">zbbm.unit.form</field>
+        <field name="model">zbbm.unit</field>
+        <field name="inherit_id" ref="zb_building_management.view_unit_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='action_view_invoice']" position="after">
+                <button type="object" name="action_view_jv" class="oe_stat_button" icon="fa-pencil-square-o"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                    <field name="jv_count" widget="statinfo" string="Journal Entries"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//field[@name='bedroom']" position="after">
+                <field name="owner_id"
+                       context="{'show_address': 1,'res_partner_search_mode': True,'default_owner':True}"
+                       options='{"always_reload": True}' domain="[('owner', '=', True)]"/>
+                <field name="unit_agent_id"/>
+                <field name="service_charge"/>
+                <field name="managed_by_rs"/>
+            </xpath>
+            <xpath expr="//field[@name='floor_plan']" position="after">
+                <field name="unit_view_id"/>
+                <field name="feature"/>
+                <field name="remarks"/>
+            </xpath>
+            <xpath expr="//field[@name='price']" position="after">
+                <field name="resale"/>
+                <field name="resale_commission_amount" invisible="1"/>
+                <field name="resale_owner_commission" attrs="{'invisible': [('resale','=', False)]}"/>
+                <field name="resale_buyer_commission" attrs="{'invisible': [('resale','=', False)]}"/>
+                <field name="resale_agent_commission" attrs="{'invisible': [('unit_agent_id','=', False)]}"/>
+                <field name="resale_move_id"/>
+                <field name="adviser_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='agent_id']" position="attributes">
+                <attribute name="string">Property Advisor</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[6]" position="after">
+                <page string="Owner History">
+                    <field name='owner_history_ids'>
+                        <tree string="Owner History" editable="bottom">
+                            <field name="owner_id" context="{'default_owner':True}"/>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='contract_date']" position="after">
+                <label for="contract_time"/>
+                <div class="o_row" name="contract_time">
+                    <field name="contract_time"></field>
+                    <span>days</span>
+                </div>
+                <field name="entry_date"></field>
+            </xpath>
+            <xpath expr="//field[@name='managed_by_rs']" position="after">
+                <field name="booking_fee_payment" attrs="{'readonly': [('state','in',['contract','sold','book'])]}"/>
+            </xpath>
+            <xpath expr="//notebook/page[4]" position="attributes">
+                <attribute name="attrs">{'invisible': [('booking_fee_payment', '!=', 'installment')]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='make_cancel']" position="before">
+                <button name="advance_payment_fee" string='Advance Payment' type="object" class="oe_highlight"
+                        attrs="{'invisible':['|',('booking_fee_payment','!=', 'advance'),('state','in',['contract','sold','cancel','book'])]}"
+                        groups="account.group_account_invoice"/>
+            </xpath>
+            <xpath expr="//field[@name='price']" position="before">
+                <field name="invoice_date" attrs="{'invisible': [('booking_fee_payment','!=','advance')]}"/>
+            </xpath>
+            <xpath expr="//button[@name='make_cancel']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="replace">
+            </xpath>
+            <xpath expr="//button[@name='make_cancel']" position="before">
+                <field name="state" widget="statusbar" statusbar_visible="new,reserved,book,contract,sold"
+                       colors='{"book": "green", "new": "blue","reserved":"yellow","sold":"green"}'/>
+            </xpath>
+            <xpath expr="//field[@name='price']" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', 'not in', ['new','reserved'])]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Inherit ir.attachment -->
+    <record model="ir.ui.view" id="view_attachment_form_inherit">
+        <field name="name">Attachments</field>
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="base.view_attachment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='mimetype']" position="after">
+                <field name="agreement_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="installment_form_view" model="ir.ui.view">
+        <field name="name">installment.form.view</field>
+        <field name="model">installment.details</field>
+        <field name="arch" type="xml">
+            <form string="Installment Details">
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="due_date"/>
+                        <field name="invoice_id" groups="account.group_account_invoice"/>
+                        <field name="unit_id"/>
+                        <field name="fee_for"/>
+                    </group>
+                    <group>
+                        <field name="amount"/>
+                        <field name="invoice_date"/>
+                        <field name="state" groups="account.group_account_invoice"/>
+                        <field name="percentage"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_owners_tree" model="ir.ui.view">
+        <field name="name">owner.tree</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree string="Owner">
+                <field name="display_name" string="Name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="building_id"/>
+                <field name="module_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="zb_building_management.view_partner_tenant_line_filter" model="ir.ui.view">
+        <field name="name">res.partner.list.tenant</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search string="Search Tenant Customers">
+                <filter string="Tenant Customer" name="tenant" icon="terp-personal" domain="[('is_tenant','=',1)]"/>
+                <filter string="Owner" name="owner" icon="terp-personal" domain="[('owner','=',1)]"/>
+                <field name="name"
+                       filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                <filter help="My Partners" name="my_partners" domain="[('user_id','=',uid)]"/>
+                <separator/>
+                <filter string="Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                <filter string="Companies" name="type_company" domain="[('is_company','=',1)]"/>
+                <separator/>
+                <filter string="Customers" name="customer" domain="[('customer','=',1), ('parent_id', '=', False)]"/>
+                <filter string="Vendors" name="supplier" domain="[('supplier','=',1), ('parent_id', '=', False)]"/>
+                <!-- <filter string="Owners" name="owner" domain="[('owner','=',1), ('parent_id', '=', False)]" /> -->
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <separator/>
+                <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+                <field name="user_id"/>
+                <field name="parent_id" domain="[('is_company','=',1)]" operator="child_of"/>
+                <group expand="0" name="group_by" string="Group By">
+                    <filter name="salesperson" string="Salesperson" domain="[]" context="{'group_by' : 'user_id'}"/>
+                    <filter string="Company" name="company" context="{'group_by': 'parent_id'}"/>
+                    <filter string="Country" name="country" context="{'group_by': 'country_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_owner_view">
+        <field name="name">Owner</field>
+        <field name="res_model">res.partner</field>
+        <!-- <field name="view_type">form</field> -->
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="zb_building_management.view_partner_tenant_line_filter"/>
+        <field name="context">{'default_owner': 1, 'owner': True}</field>
+        <field name="domain">[('owner','=',1)]</field>
+        <field name="view_id" ref="view_owners_tree"/>
+        <field name="filter" eval="True"/>
+    </record>
+
+    <!-- Tenant Menu Item -->
+    <menuitem id="menu_owner"
+              name="Owner"
+              parent="zb_building_management.menu_zbbm_buildings"
+              sequence="8"
+              action="action_owner_view"/>
+
+
+    <!-- Resale Activity Menu -->
+    <record model="ir.actions.act_window" id="action_resale_activity_view">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Resale Activity</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('process','in',['resale'])]</field>
+        <field name="filter" eval="True"/>
+    </record>
+
+    <menuitem id="menu_resale_activity"
+              name="Resale Activity"
+              parent="zb_building_management.menu_zbbm_buildings"
+              sequence="8"
+              action="action_resale_activity_view"/>
+
+    <menuitem id="zb_building_management.menu_action_reporting" name="Reporting" sequence="4"
+              parent="zb_building_management.menu_zbbm_root" groups="sales_team.group_sale_salesman_all_leads"/>
+    <menuitem id="zb_building_management.menu_zbbm_invoice" name="Income" sequence="1"
+              parent="zb_building_management.menu_zbbm_root" groups="sales_team.group_sale_salesman_all_leads"/>
+    <menuitem id="zb_building_management.menu_action_expense" name="Expense" sequence="3"
+              parent="zb_building_management.menu_zbbm_root" groups="sales_team.group_sale_salesman_all_leads"/>
+    <menuitem id="zb_building_management.menu_zbbm_buildings_products" name="Products" sequence="2"
+              parent="zb_building_management.menu_zbbm_root" groups="sales_team.group_sale_salesman_all_leads"/>
+
+
+</odoo>

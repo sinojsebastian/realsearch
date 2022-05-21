@@ -1,0 +1,207 @@
+<odoo>
+<template id="helpdesk_feedback_report">
+	<t t-call="web.html_container">
+		<t t-foreach="data" t-as="d">
+		<t t-call="zb_bf_custom.customer_call_center_feedback_layout">
+		<div class="page">
+		<div class="container" style="border-bottom:none;padding:0px;margin:0px;"> 
+             <style>
+                            .border-black,table{
+                            border:1px solid  #161A1D;
+                            }
+             tbody td.no-style{
+                border-top:None;
+                } 
+             </style>
+        </div>
+        <table class="row border-black">
+            <tr style="border:1px solid  #161A1D;">
+				<td rowspan="2" style="width:13%;text-align:center;padding-top:7mm;border:1px solid  #161A1D;">Towers Names</td>
+				<td rowspan="2" style="width:8%;text-align:center;border:1px solid  #161A1D;">Calls Conducted</td>
+				<!-- <td rowspan="2" style="width:8%;">
+					<div class="col-1 text-center">
+						Calls Conducted
+					</div>
+				</td> -->
+				<td rowspan="2" style="width:8%;text-align:center;border:1px solid  #161A1D;"> Feedback Received</td>
+				<td rowspan="2" style="width:8%;text-align:center;background-color:#32CD32;border:1px solid  #161A1D;"> Satisfactory</td>
+				<td colspan="7" style="width:40%;background-color:#FF0000;">
+					<div class="col-7 text-center">
+						Dissatisfactory
+					</div>
+				</td>
+			</tr>
+			<tr style="border:1px solid  #161A1D;">
+				<td style="width:8%;text-align:center;background-color:#FFA500;border:1px solid  #161A1D;">Job Not Completed
+				</td>
+				<td style="width:8%;text-align:center;background-color:#FFA500;border:1px solid  #161A1D;">Job Reworks &amp; Repetitive
+				</td>
+				<td style="width:8%;text-align:center;background-color:#FFA500;border:1px solid  #161A1D;">Site Clean-Up
+				</td>
+				<td style="width:8%;text-align:center;background-color:#FFA500;border:1px solid  #161A1D;">Job Delays
+				</td>
+				<td style="width:8%;text-align:center;background-color:#FF0000;border:1px solid  #161A1D;">Total
+				</td>
+			</tr>
+			<tbody>
+				<t t-set="call_sum" t-value="0"/>
+				<t t-set="feedback_sum" t-value="0"/>
+				<t t-set="satisfactory_sum" t-value="0"/>
+				<t t-set="incomplete_job_sum" t-value="0"/>
+				<t t-set="repeated_job_sum" t-value="0"/>
+				<t t-set="cleanup_job_sum" t-value="0"/>
+				<t t-set="delay_job_sum" t-value="0"/>
+				<t t-set="total_sum" t-value="0"/>
+				<t t-set="total_count" t-value="0"/>
+				<t t-set="feedback_count" t-value="0"/>
+				<t t-foreach="result" t-as="item">
+				<tr style="border:1px solid  #161A1D;">
+				<td rowspan="2" style="width:13%;text-align:center;border:1px solid  #161A1D;">
+					<span t-esc="item.name"/>
+				</td>
+				<!-- <t t-foreach="item_value" t-as="data"> -->
+				<td rowspan="2" style="width:8%;text-align:center;border:1px solid  #161A1D;">
+					<span t-esc="item_value['calls_conducted']"/>
+				</td>
+				<td rowspan="2" style="width:8%;text-align:center;border:1px solid  #161A1D;"> 
+					<t t-set="feedback_count" t-value="item_value['satisfactory']+item_value['incomplete_jobs']+item_value['repeated_jobs']+item_value['cleanup_jobs']+item_value['delayed_jobs']"/>
+					<span t-esc="feedback_count"/>
+				</td>
+				<td rowspan="2" style="width:8%;text-align:center;border:1px solid  #161A1D;"> 
+					<span t-esc="item_value['satisfactory']"/>
+				</td>
+				</tr>
+				<tr style="border:1px solid  #161A1D;">
+				<td style="width:8%;text-align:center;border:1px solid  #161A1D;">
+					<span t-esc="item_value['incomplete_jobs']"/>
+				</td>
+				<td style="width:8%;text-align:center;border:1px solid  #161A1D;">
+					<span t-esc="item_value['repeated_jobs']"/>
+				</td>
+				<td style="width:8%;text-align:center;border:1px solid  #161A1D;">
+					<span t-esc="item_value['cleanup_jobs']"/>
+				</td>
+				<td style="width:8%;text-align:center;border:1px solid  #161A1D;">
+					<span t-esc="item_value['delayed_jobs']"/>
+				</td>
+				<td style="width:8%;text-align:center;border:1px solid  #161A1D;">
+					<t t-set="total_count" t-value="item_value['incomplete_jobs']+item_value['repeated_jobs']+item_value['cleanup_jobs']+item_value['delayed_jobs']"/>
+					<span t-esc="total_count"/>
+				</td>
+				</tr>
+				<t t-set="call_sum" t-value="call_sum+item_value['calls_conducted']"/>
+				<t t-set="feedback_sum" t-value="feedback_sum+feedback_count"/>
+				<t t-set="satisfactory_sum" t-value="satisfactory_sum+item_value['satisfactory']"/>
+				<t t-set="incomplete_job_sum" t-value="incomplete_job_sum+item_value['incomplete_jobs']"/>
+				<t t-set="repeated_job_sum" t-value="repeated_job_sum+item_value['repeated_jobs']"/>
+				<t t-set="cleanup_job_sum" t-value="cleanup_job_sum+item_value['cleanup_jobs']"/>
+				<t t-set="delay_job_sum" t-value="delay_job_sum+item_value['delayed_jobs']"/>
+				<t t-set="total_sum" t-value="total_sum+total_count"/>
+				<!-- </t> -->
+				</t>
+				<tr style="border:1px solid  #161A1D;">
+					<td rowspan="2" style="width:13%;text-align:center;border:1px solid  #161A1D;background-color:#FFFF00;">
+					Total :
+					</td>
+					<td rowspan="2" style="width:8%;text-align:center;border:1px solid  #161A1D;background-color:#FFFF00;">
+						<span t-esc="call_sum"/>
+					</td>
+					<td rowspan="2" style="width:8%;text-align:center;border:1px solid  #161A1D;background-color:#FFFF00;">
+						<span t-esc="feedback_sum"/>
+					</td>
+					<td rowspan="2" style="width:8%;text-align:center;border:1px solid  #161A1D;background-color:#FFFF00;">
+						<span t-esc="satisfactory_sum"/>
+					</td>
+				</tr>
+				<tr style="border:1px solid  #161A1D;">
+					<td style="width:8%;text-align:center;border:1px solid  #161A1D;background-color:#FFFF00;">
+						<span t-esc="incomplete_job_sum"/>
+					</td>
+				<td style="width:8%;text-align:center;border:1px solid  #161A1D;background-color:#FFFF00;">
+					<span t-esc="repeated_job_sum"/>
+				</td>
+				<td style="width:8%;text-align:center;border:1px solid  #161A1D;background-color:#FFFF00;">
+					<span t-esc="cleanup_job_sum"/>
+				</td>
+				<td style="width:8%;text-align:center;border:1px solid  #161A1D;background-color:#FFFF00;">
+					<span t-esc="delay_job_sum"/>
+				</td>
+				<td style="width:8%;text-align:center;border:1px solid  #161A1D;background-color:#FFFF00;">
+					<span t-esc="total_sum"/>
+				</td>
+				</tr>
+				<!-- <tr style="border:1px #FFFFFF;">
+					<td rowspan="2" style="width:13%;text-align:center;border:1px solid  #161A1D;background-color:#FFFF00;">
+					Re-Opened
+					</td>
+					<td rowspan="2" style="width:8%;text-align:center;border:1px solid  #161A1D;background-color:#FFFF00;">
+						<span t-esc="incomplete_job_sum+repeated_job_sum"/>
+					</td>
+					<td rowspan="2" style="width:8%;text-align:center;border:1px #FFFFFF;">
+					</td>
+					<td rowspan="2" style="width:8%;text-align:center;border:1px #FFFFFF;">
+					</td>
+				</tr>
+				<tr style="border:1px #FFFFFF;">
+					<td style="width:8%;text-align:center;border:1px #FFFFFF;">
+					</td>
+				<td style="width:8%;text-align:center;border:1px #FFFFFF;">
+				</td>
+				<td style="width:8%;text-align:center;border:1px #FFFFFF;">
+				</td>
+				<td style="width:8%;text-align:center;border:1px #FFFFFF;">
+				</td>
+				<td style="width:8%;text-align:center;border:1px #FFFFFF;">
+				</td>
+				</tr>
+				<tr style="border:1px #FFFFFF;">
+					<td rowspan="2" style="width:13%;text-align:center;border:1px solid  #161A1D;background-color:#FFFF00;">
+					Actual Jobs Completed
+					</td>
+					<td rowspan="2" style="width:8%;text-align:center;border:1px solid  #161A1D;background-color:#FFFF00;">
+						<span t-esc="call_sum-(incomplete_job_sum+repeated_job_sum)"/>
+					</td>
+					<td  rowspan="2" style="width:8%;text-align:center;border:1px #FFFFFF;">
+					</td>
+					<td  rowspan="2" style="width:8%;text-align:center;border:1px #FFFFFF;">
+					</td>
+				</tr>
+				<tr style="border:1px #FFFFFF;">
+					<td style="width:8%;text-align:center;border:1px #FFFFFF;">
+					</td>
+				<td style="width:8%;text-align:center;border:1px #FFFFFF;">
+				</td>
+				<td style="width:8%;text-align:center;border:1px #FFFFFF;">
+				</td>
+				<td style="width:8%;text-align:center;border:1px #FFFFFF;">
+				</td>
+				<td style="width:8%;text-align:center;border:1px #FFFFFF;">
+				</td>
+				</tr> -->
+			</tbody>
+		</table>
+		</div>
+		</t>
+		</t>
+	</t>
+</template>
+<template id="customer_call_center_feedback_layout">
+		   <div class="header">
+			<h2 style="font-size:23px;">
+                <center><b>Customers Call Center Division</b></center>
+      		</h2>
+      		<h3 style="font-size:17px;padding-top:5mm;">
+                <center><b>Monthly Customers Feedback Report</b></center>
+      		</h3>
+      		<div class="row">
+             <div class="col-12 text-center" style="font-size:14px;padding-top:5mm;">
+	              <t t-esc="from_date"/> - <t t-esc="to_date"/>
+	         </div>
+        </div>
+		  </div>
+		  <div class="article o_report_layout_standard">
+		        <t t-raw="0"/>
+		  </div>
+  	</template>
+
+</odoo>

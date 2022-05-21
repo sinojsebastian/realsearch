@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	<template id="report_supplierstatement">
+		<t t-call="web.html_container">
+			<t t-call="web.external_layout">
+				<div class="page">
+					<t t-foreach="data" t-as="d">
+						<div class="row">
+							<div class="col-12">
+								<center><strong><b> Statement of Account</b></strong></center>
+								<center><strong><b>As on </b></strong><b><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/></b> </center>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6" align="left">
+								<b>Name:   <t t-esc="d['partner_id'][1]"/></b>
+							</div>
+							<div class="col-6" align="right">
+								<b>From Date:   <t t-esc="datetime.datetime.strptime(d['from_date'], '%Y-%m-%d').strftime('%d-%m-%Y')"/></b><br></br>
+								<b>To Date:   <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/></b>
+							</div>
+						</div>
+						<div class="col-xs-12">
+								<t t-set="total_credit" t-value="0"/>
+                    			<t t-set="total_debit" t-value="0"/>
+                    			<t t-set="balance" t-value="0"/>
+                    			<t t-set="opening_balance" t-value="0"/>
+							<table class="table table-bordered mb32">
+								<thead>
+									<tr>
+										<th>Date</th>                        
+										<th>Particulars</th>                        
+										<th>Debit</th>                        
+										<th>Credit</th>                        
+										<th>Balance</th>  
+										<th>Due on</th>
+										<th>Overdue by days</th>                            
+									</tr>
+								</thead>
+								<tbody>
+									<tr t-foreach="statement_data" t-as="data">
+												<td width="10%">
+						                			<strong>
+						                				<t t-esc="data['date']"/> 
+						                			</strong>
+						                		</td>
+						                		<td width="15%">
+						                			<strong>
+						                				<t t-esc="data['ref']" />
+						                				
+						                			</strong>
+							               		</td>
+							               		<td width ="7%" style="text-align:right">
+						                			<strong>
+						                			    <t t-set="total_debit" t-value="total_debit+data['debit']"/>
+						                				<t t-esc="'{0:,.3f}'.format(float('%.3f'%(data['debit'])))" /> 
+						                			</strong>
+							               		</td>
+							               		<td width ="7%" style="text-align:right">
+						                			<strong>
+						                			    <t t-set="total_credit" t-value="total_credit+data['credit']"/>
+						                				<t t-esc="'{0:,.3f}'.format(float('%.3f'%(data['credit'])))" /> 
+						                			</strong>
+							               		</td>
+							               		<td width ="7%" style="text-align:right">
+						                			<strong>
+						                				<t t-set="opening_balance" t-value="data['open_balance']"/>
+						                				<t style="text-align:right" t-esc="'{0:,.3f}'.format(float('%.3f'%(data['open_balance'])))" /> 
+						                			</strong>
+							               		</td>
+											   <td width ="10%">
+						                			<strong>
+						                			<t t-if="data['due_date']">
+						                				<t t-esc="data['due_date']" />
+						                			</t>
+						                			</strong>
+							               		</td>
+							               		<td width ="7%">
+						                			<strong>
+						                				<t t-esc="data['due_days']" /> 
+						                			</strong>
+							               		</td>
+											
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
+						<div>
+							<strong>
+                				<div style="text-align: center;">
+	                				<span>Balance:</span>
+	                			
+	                					<t t-if="total_credit &gt; total_debit">
+	                						<t t-esc="'{0:,.3f}'.format(float('%.3f'%(data['open_balance'])))" />                 						
+	                						<span style ="font-size:12px">Cr</span>               						
+	                					</t>
+	                					<t t-if="total_credit &lt; total_debit">                						
+	                						<t t-esc="'{0:,.3f}'.format(float('%.3f'%(data['open_balance'])))" />                 						
+	                						<span style ="font-size:12px">Dr</span>
+	                					</t>
+	                					
+	                					<t t-if="total_credit==0 and total_debit ==0">
+	                						<t t-esc="'{0:,.3f}'.format(float('%.3f'%(data['open_balance'])))" />                 						
+	                					</t>
+	                					
+	                					<t t-if="total_credit and total_debit &gt; 0 and total_debit == total_credit">               					
+	                						<t t-set="balance" t-value="total_debit-total_credit"/> 
+	                						<t t-esc="'{0:,.3f}'.format(float('%.3f'%(balance)))" /> 
+	                					</t>			
+                				</div>
+                			</strong>                			
+                	  </div>
+					</t>
+				</div> 
+			
+			</t>
+		</t>
+	</template>
+	
+</odoo>
+
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- supplier_statement_form_views -->
+	<record model="ir.ui.view" id="wizard_supplier_statement_form">
+    	<field name="name">wizard.supplier.statement.form</field>
+   	 	<field name="model">zb_bf_custom.supplier.statement.report</field>
+    	<field name="type">form</field>
+    	<field name="arch" type="xml">
+      		<form string="Supplier Wise Statement" version="7.0">
+      		<group>
+          		<group>
+          			<field name="date"/>   
+          		</group>
+          	</group>
+          	<footer>
+            	<button name="print_supplier_statement" string="Print" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" />
+          	</footer>
+      		</form>
+    	</field>
+   </record>
+
+<!-- supplier_statement_report_action --> 
+   
+   <record id="supplier_statement_report_action" model="ir.actions.act_window">
+        <field name="name">Supplier Statement Report</field>
+        <field name="res_model">zb_bf_custom.supplier.statement.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    
+<!--Partner_reports_menu -->
+
+	<!-- <menuitem id="menu_partner_reports" 
+	    name ="Partner Reports" 
+	     sequence="5"
+	    parent="account.menu_finance_reports"/> -->
+	   
+	    
+<!-- supplier_statement_report_menu -->
+    
+    <menuitem id="supplier_statement_report_menu" name="Supplier Wise Statement" action="supplier_statement_report_action" parent="account.menu_finance_reports" sequence="5" />
+</odoo>

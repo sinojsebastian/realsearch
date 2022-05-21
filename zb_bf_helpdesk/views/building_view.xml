@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- zbbm.building.kanban.inherit -->
+		<record model="ir.ui.view" id="zbbm_building_kanban_inherit_view_helpdesk">
+    		<field name="name">zbbm_building_kanban_inherit_view_helpdesk</field>
+    		<field name="model">zbbm.building</field>
+    		<field name="inherit_id" ref="zb_building_management.Building_type_kanban"/>
+	    		<field name="arch" type="xml">
+	    		<xpath expr="//button[@name='action_lease_legal']" position="after">	
+	    		<button name="action_total_tickets" type="object" class="oe_highlight" groups="helpdesk.group_helpdesk_user,zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice" attrs="{'invisible': [('building_type','=', 'sell')]}">
+                     <div>
+                        <field name="total_tickets" /> Total Tickets</div>
+                </button>
+                <button name="action_open_tickets" type="object" class="oe_highlight" groups="helpdesk.group_helpdesk_user,zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice" attrs="{'invisible': [('building_type','=', 'sell')]}">
+                     <div>
+                        <field name="open_tickets" /> Open Tickets</div>
+                </button> 
+	    		</xpath>
+	    		</field>
+	    </record>
+</odoo>

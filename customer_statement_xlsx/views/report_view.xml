@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+	
+		
+         <report
+            id="report_customer_statement_xlsx"
+            string="Customer Statement Xlsx"
+            model="customer.statement.report.xlsx"
+            report_type="xlsx"
+            name="customer_statement_xlsx.report_customerstatement.xlsx"
+            file="CustomerStatementReport"/>
+	     
+		
+	   </data> 
+</odoo>

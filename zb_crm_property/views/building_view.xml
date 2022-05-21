@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	  <data>
+	  
+	  
+	  <record id="view_partner_lead_line_filter" model="ir.ui.view">
+	       <field name="name">res.partner.list.tenant</field>
+	       <field name="model">res.partner</field>
+	       <field name="arch" type="xml">
+	           <search string="Search Tenant Customers">
+	               <filter string="Prospect" name="lead" icon="terp-personal" domain="[('is_a_prospect','=',1)]"/>
+	           </search>
+	       </field>
+	 </record>
+	  
+	  <record model="ir.actions.act_window" id="action_lead_partner_view">
+	       <field name="name">Prospect</field>
+	       <field name="res_model">res.partner</field>
+	       <!-- <field name="view_type">form</field> -->
+	       <field name="view_mode">tree,form</field>
+	       <field name="search_view_id" ref="view_partner_lead_line_filter"/>
+	       <field name="context">{'search_default_lead': 1, 'lead': True}</field>
+	       <field name="filter" eval="True"/>
+       </record>
+       
+  	   <menuitem id="menu_tenant" 
+		  	     name="Prospect" 
+		  	     parent="crm.crm_menu_sales" 
+		  	     sequence="2"
+		  	     action="action_lead_partner_view"/>
+		  	     
+	
+		<record id="view_partner_lead_line_form" model="ir.ui.view">
+	       <field name="name">zbbm.unit.form</field>
+	       <field name="model">zbbm.unit</field>
+	       <field name="inherit_id" ref="zb_building_management.view_unit_form"/>
+	       <field name="arch" type="xml">
+	               <field name="agent_id" position="after">
+	               		<field name="dummy"/>
+	               </field>
+	       </field>
+	  </record>
+		  	     
+		  	     
+			  	     
+	  </data>
+</openerp>

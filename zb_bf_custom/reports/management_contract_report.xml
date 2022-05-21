@@ -1,0 +1,1588 @@
+<odoo>
+<data>
+	
+
+	<template id="management_contract">
+	<t t-call="web.html_container">
+	<t t-foreach="docs" t-as="o">
+	<t t-call="zb_bf_custom.management_contract_external_layout">
+	<!--   First page  -->
+		<div class="page">
+		
+		<style>
+			ol {
+			  margin-left: 0;
+			  padding-left: 0;
+			}
+			ul {
+			  margin-left: 0;
+			  padding-left: 0;
+			}
+			ol li {
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			ol li::before {
+			  display: inline-block;
+			  content: attr(seq) ") ";
+			  width: 2em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			}
+			
+			ol li.first {
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			ol li.first::before {
+			  display: inline-block;
+			  content: attr(seq) ") ";
+			  width: 2em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			  font-weight: bold;
+			}
+			
+			ul li{
+			  list-style-type: none;
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			ul li::before {
+			  list-style-type: none;
+			  display: inline-block;
+			  width: 2em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			}
+			
+			ol li.subbullets {
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			
+			ol li.subbullets::before {
+			display: inline-block;
+			  content: attr(seq) ") ";
+			  width: 2em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			  
+			}
+			
+			ol li.subbulletss {
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			
+			ol li.subbulletss::before {
+			display: inline-block;
+			  content: attr(seq) ") ";
+			  width: 3em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			}
+			
+			ol li.roman {
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			
+			ol li.roman::before {
+			display: inline-block;
+			  content: attr(seq) ". ";
+			  width: 2em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			}
+		
+		</style>
+		
+		<div class="row">
+			<div class="col-6 text-center" style="font-size:19px;">
+			<b>PROPERTY MANAGEMENT CONTRACT SUMMARY</b>
+			</div>
+			<div class="col-6 text-center" style="font-size:19px;">
+			<b>موجز عقد إدارة عقار</b>
+			</div>
+		</div>
+		<br/>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"> This Property Management Contract, (the <b>“Contract”</b>), is made and effective from <t t-if="latest_contract"><t t-if="latest_contract.from_date"><span t-field="latest_contract.from_date"/></t></t>. </div>
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:15px;text-align:right;">
+			 ‫     حرر عقد إدارة عقار (<b>"العقد"</b>) في اليوم  
+			 <t t-if="latest_contract">
+			 <t t-if="latest_contract.from_date">
+			 <span t-field="latest_contract.from_date"/>
+			 </t>
+			 </t>
+			 </div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:15px;">
+			<b>Parties</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			<b>الطرفان</b>
+			</div>
+		</div>
+		<ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:15px;text-align:justify;">
+			<li class ='first' seq="1"><b>
+			<t t-if="o.owner_id.company_type == 'person'">
+			<span t-esc="o.owner_id.title.shortcut"/>
+			</t>
+			<t t-else="">
+			M/S
+			</t>
+			 <t t-if="o.owner_id.name">
+			   <span t-esc="o.owner_id.name"/>,</t>
+			  	<t t-if="not o.owner_id.name">..................... ,</t>
+			 <t t-if="o.owner_id.nationality_id.name">
+			   <span t-esc="o.owner_id.nationality_id.name"/> National,</t>
+			  	<t t-if="not o.owner_id.nationality_id.name">..................... National,</t>
+			  Holder of ID Card No.
+			  <t t-if="o.owner_id.cpr">
+				<span t-esc="o.owner_id.cpr"/>
+			  ,</t>
+				<t t-if="not o.owner_id.cpr">
+				..................... ,
+				</t>
+			and Passport No.
+			<t t-if="o.owner_id.passport">
+				<span t-esc="o.owner_id.passport"/>
+			  ,</t>
+				<t t-if="not o.owner_id.passport">
+				..................... ,
+				</t>
+			whose registered address is
+			<t t-if="o.owner_id.street">
+			<span t-field="o.owner_id.street"/>
+			</t>
+			<t t-if="o.owner_id.street2" t-esc="o.owner_id.street2"/>
+			<t t-if="o.owner_id.city" t-esc="o.owner_id.city"/>
+			<t t-if="o.owner_id.country_id.name" t-esc="o.owner_id.country_id.name"/>.</b>
+			(hereinafter referred to as the <b>“First Party”</b>)
+			</li>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			<li class ='first' seq="1" dir='rtl'>
+ 			<b>
+ 			<t t-if="o.owner_id.company_type == 'person'">
+			<span t-esc="o.owner_id.title.abbr_arabic"/>
+			</t>
+			<t t-else="">
+			السيدة
+			</t>
+ 			<t t-if="o.owner_id.name_arabic">
+ 			<span t-esc="o.owner_id.name_arabic"/>،</t>
+ 			<t t-if="not o.owner_id.name_arabic">..................... ،</t>
+			 <t t-if="o.owner_id.nationality_id.nationality_arabic">
+			   <span t-esc="o.owner_id.nationality_id.nationality_arabic"/>الجنسيه</t>
+			 <t t-if="not o.owner_id.nationality_id.name">..................... الجنسيه</t>
+			والحامله بطاقة الهوية رقم
+			<t t-if="o.owner_id.cpr_arabic">
+				<span t-esc="o.owner_id.cpr_arabic"/>
+			،</t>
+			<t t-if="not o.owner_id.cpr_arabic">
+				................ ،
+			</t>
+			وجواز سفر رقم
+ 			<t t-if="o.owner_id.passport_arabic">
+				<span t-esc="o.owner_id.passport_arabic"/>
+			،</t>
+			<t t-if="not o.owner_id.passport_arabic">
+				..................... ،
+			</t>
+ 			و عنوانها فيلا
+ 			<t t-if="o.owner_id.address_arabic">
+				<span t-esc="o.owner_id.address_arabic"/>
+			</t>
+			<t t-if="not o.owner_id.address_arabic">
+				..................... 
+			</t>
+						     ‫  ويشار اليها فيما بعد ب <b>"الطرف الاول"</b>)
+ 			</b>
+ 			</li>
+ 			</div>
+			</div>
+		</ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:15px;">
+			<b>And</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			<b>و</b>
+			</div>
+			<!-- <div class="col-1"/> -->
+		</div>
+		<br></br>
+		<ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:15px;text-align:justify;"> 
+			<li class ='first' seq="2">
+				<b>M/S Real Search W.L.L.,</b> incorporated in the Kingdom of Bahrain with commercial registration number <b>111554-1</b>, whose registered office is at Office 164, Building 3232, Road 4654, Block 346, P.O. Box 20007 Manama Sea Front, Kingdom of Bahrain, whose authorized signatory is <b>Mr. Abdulla Abdulsamad Mohamed Rasheed Awadhi</b>, Bahraini Nationality, Holder of ID Card No. <b>781104637</b>, as per the Authorization dated <b>08 September 2019</b>. (hereinafter referred to as the <b>“Second Party”</b>).
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"><li class ='first' seq="2" dir='rtl'>
+			<b>
+						     ‫  شركة البحث الحقيقي ذ.م.م.،
+			</b>
+						     ‫  والمسجلة في مملكة البحرين بموجب سجل تجاري رقم
+			<b>
+						     ‫  111554-1
+			</b>
+					        ‫  وعنوانها مكتب رقم 164، مبنى 3232، طريق 4654، مجمع 346، المنامة الواجهة البحرية، ويمثلها في التوقيع على هذا العقد
+			<b>
+						     ‫  السيد/ عبدالله عبدالصمد محمد رشيد عوضي،
+			</b>
+						    ‫  يحمل بطاقة هوية رقم
+			<b>
+						     781104637
+			</b>
+							 ‫  ، بموجب التفويض المؤرخ
+			<b>
+						     ‫ 08 سبتمبر 2019
+			</b>
+							 ‫   (ويشار اليها فيما بعد ب 
+			<b>
+						     ‫ "الطرف الثاني").
+			</b>
+			</li>
+			</div>
+		</div>
+		</ol>
+		<div class="row">
+			<div class="col-6 text-left" style="font-size:15px;">
+			<b>DESCRIPTION OF THE PROPERTY</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;"><b>
+			 ‫      مواصفات العقار
+			</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-left" style="font-size:15px;text-align:justify;">Flat <t t-esc="o.name"></t>, Building <t t-esc="o.building_id.name"></t>,Road <t t-esc="o.building_id.building_address.street2"></t>,<t t-esc="o.building_id.building_address.city"></t>,<t t-esc="o.building_id.building_address.country_id.name"></t>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;text-align:right;">
+						 ‫       شقة  
+			<t t-if="o.unit_arabic">
+			<t t-esc="o.unit_arabic"/>,</t>
+			<t t-else="">
+			<t t-esc="o.name"/>,</t>
+			<t t-esc="o.building_id.address_arabic"/>
+			 </div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:15px;">
+			<b>Management Contract Duration</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;"><b>
+			 ‫       مدة عقد الإدارة
+			</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-left" style="font-size:15px;"><b>
+			Duration: <span t-esc="duration"/></b>
+			<br/><b>
+			Commencement Date: <t t-if="latest_contract">
+			<t t-if="latest_contract.from_date">
+			<span t-field="latest_contract.from_date"/></t>
+			</t>
+			</b>
+			<br/>
+			<b>
+			Expiry Date: <t t-if="latest_contract">
+			<t t-if="latest_contract.from_date">
+			<span t-field="latest_contract.to_date"/></t>
+			</t>
+			</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;"><b>
+			 ‫المدة: &#160;                          
+			<t t-if="latest_contract"><span t-esc="latest_contract.duration_arabic"/></t>
+			</b>
+			<br/><b>
+‫     تاريخ النفاذ:			
+			<t t-if="latest_contract"><span t-esc="latest_contract.from_date_arabic"/></t>
+			<br/>
+‫     تاريخ الانتهاء: 			
+			<t t-if="latest_contract"><span t-esc="latest_contract.to_date_arabic"/></t>
+			</b>
+			</div>
+			</div>
+			
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:15px;">
+			<b>Monthly Management Fees</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;"><b>
+			 ‫       رسوم الإدارة الشهرية
+			</b>
+			</div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:15px;">
+			<b><span t-esc="mngmnt_percent"/>% </b> of the monthly rental value shall pay to the Second Party <b>("Monthly Management Fees")</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+									 ‫       <b>%<span t-esc="mngmnt_percent"/> </b> من مبلغ الايجار الشهري للعقار تدفع للطرف الثاني 
+			<b>("رسوم الإدارة الشهرية")
+			</b>
+			</div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:15px;">
+			<b>Lease contract registration</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;"><b>
+			 ‫       تسجيل عقد الإيجار
+			</b>
+			</div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:15px;">
+			The First Party undertakes to register any lease contract, or any amendments thereof, in connection with the Property at the lease agreements registration office in the relevant municipality. The fees for the registration of the lease thereof shall be borne by the First Party  
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			 ‫       يلتزم الطرف الأول  بتسجيل أي عقد ايجار، او أي تعديلات تطرأ عليه، فيما يتعلق بالعقار، في مكتب تسجيل عقود الايجار في البلدية ذات الصلة. ويتحمل الطرف الأول رسوم تسجيل عقد الايجار.
+			
+			</div>
+		</div>
+		
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:15px;">
+			<b>Annual Service Charges</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;"><b>
+			 ‫       رسوم الخدمة السنوية
+			</b>
+			</div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:15px;">
+			The Second Party is authorized to deduct any outstanding annual service charges attributed to the Property from the monthly rental value of the Property until the outstanding amount thereof is settled completely
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			 ‫       يحق للطرف الثاني خصم أي رسوم خدمة سنوية متعلقة و منسوبة للعقار و التي تكون مستحقة الدفع من قيمة الإيجارات الشهرية للعقار حتى تتم تسوية المبلغ المستحق بالكامل
+			
+			</div>
+		</div>
+		<p style="page-break-before:always;">
+		<div class="row">
+			<div class="col-6 text-center" style="font-size:19px;">
+			<b>PROPERTY MANAGEMENT CONTRACT</b>
+			</div>
+			<div class="col-6 text-center" style="font-size:19px;">
+			<b>عقد إدارة عقار</b>
+			</div>
+		</div>
+		<br/>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"> This Property Management Contract, (the <b>“Contract”</b>), is made and effective from <t t-if="latest_contract"><t t-if="latest_contract.from_date"><span t-field="latest_contract.from_date"/></t></t>. </div>
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:15px;text-align:right;">
+			 ‫     حرر عقد إدارة عقار (<b>"العقد"</b>) في اليوم  
+			 <t t-if="latest_contract"><t t-if="latest_contract.from_date"><span t-field="latest_contract.from_date"/></t></t>
+			 </div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:15px;">
+			<b>Between</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			<b>بين</b>
+			</div>
+		</div>
+		<ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:15px;text-align:justify;">
+			<li class ='first' seq="1"><b>
+			<t t-if="o.owner_id.company_type == 'person'">
+			<span t-esc="o.owner_id.title.shortcut"/>
+			</t>
+			<t t-else="">
+			M/S
+			</t>
+			 <t t-if="o.owner_id.name">
+			   <span t-esc="o.owner_id.name"/>,</t>
+			  	<t t-if="not o.owner_id.name">..................... ,</t>
+			 <t t-if="o.owner_id.nationality_id.name">
+			   <span t-esc="o.owner_id.nationality_id.name"/> National,</t>
+			  	<t t-if="not o.owner_id.nationality_id.name">..................... National,</t>
+			  Holder of ID Card No.
+			  <t t-if="o.owner_id.cpr">
+				<span t-esc="o.owner_id.cpr"/>
+			  ,</t>
+				<t t-if="not o.owner_id.cpr">
+				..................... ,
+				</t>
+			and Passport No.
+			<t t-if="o.owner_id.passport">
+				<span t-esc="o.owner_id.passport"/>
+			  ,</t>
+				<t t-if="not o.owner_id.passport">
+				..................... ,
+				</t>
+			whose registered address is
+			<t t-if="o.owner_id.street">
+			<span t-field="o.owner_id.street"/>
+			</t>
+			<t t-if="o.owner_id.street2" t-esc="o.owner_id.street2"/>
+			<t t-if="o.owner_id.city" t-esc="o.owner_id.city"/>
+			<t t-if="o.owner_id.country_id.name" t-esc="o.owner_id.country_id.name"/>.</b>
+			(hereinafter referred to as the <b>“First Party”</b>)
+			</li>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			<li class ='first' seq="1" dir='rtl'>
+ 			<b>
+ 			<t t-if="o.owner_id.company_type == 'person'">
+			<span t-esc="o.owner_id.title.abbr_arabic"/>
+			</t>
+			<t t-else="">
+			السيدة
+			</t>
+ 			<t t-if="o.owner_id.name_arabic">
+ 			<span t-esc="o.owner_id.name_arabic"/>،</t>
+ 			<t t-if="not o.owner_id.name_arabic">..................... ،</t>
+			 <t t-if="o.owner_id.nationality_id.nationality_arabic">
+			   <span t-esc="o.owner_id.nationality_id.nationality_arabic"/>الجنسيه</t>
+			 <t t-if="not o.owner_id.nationality_id.name">..................... الجنسيه</t>
+			والحامله بطاقة الهوية رقم
+			<t t-if="o.owner_id.cpr_arabic">
+				<span t-esc="o.owner_id.cpr_arabic"/>
+			،</t>
+			<t t-if="not o.owner_id.cpr_arabic">
+				................ ،
+			</t>
+			وجواز سفر رقم
+ 			<t t-if="o.owner_id.passport_arabic">
+				<span t-esc="o.owner_id.passport_arabic"/>
+			،</t>
+			<t t-if="not o.owner_id.passport_arabic">
+				..................... ،
+			</t>
+ 			و عنوانها فيلا
+ 			<t t-if="o.owner_id.address_arabic">
+				<span t-esc="o.owner_id.address_arabic"/>
+			</t>
+			<t t-if="not o.owner_id.address_arabic">
+				..................... 
+			</t>
+						     ‫  ويشار اليها فيما بعد ب <b>"الطرف الاول"</b>)
+ 			</b>
+ 			</li>
+ 			</div>
+			</div>
+		</ol>
+		
+		
+		<div class="row">
+			<div class="col-6" style="font-size:15px;">
+			<b>Email Address:</b>
+				<span t-field="o.owner_id.email"/>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			     ‫   <b>البريد الالكتروني:</b>
+			<span t-esc="o.owner_id.email"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;">
+			<b>Watsapp Number:</b>
+			
+			<t t-if="o.owner_id.mobile">
+			<span t-esc="o.owner_id.mobile"/>
+			</t>
+			
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			<t t-if="o.owner_id.mobile">
+			<span t-esc="o.owner_id.mobile"/>
+			</t>
+			
+			<b>:رقم الواتساب</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:15px;">
+			<b>And</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			<b>و</b>
+			</div>
+			<!-- <div class="col-1"/> -->
+		</div>
+		<br></br>
+		<ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:15px;text-align:justify;"> 
+			<li class ='first' seq="2">
+				<b>M/S Real Search W.L.L.,</b> incorporated in the Kingdom of Bahrain with commercial registration number <b>111554-1</b>, whose registered office is at Office 164, Building 3232, Road 4654, Block 346, P.O. Box 20007 Manama Sea Front, Kingdom of Bahrain, whose authorized signatory is <b>Mr. Abdulla Abdulsamad Mohamed Rasheed Awadhi</b>, Bahraini Nationality, Holder of ID Card No. <b>781104637</b>, as per the Authorization dated <b>08 September 2019</b>. (hereinafter referred to as the <b>“Second Party”</b>).
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"><li class ='first' seq="2" dir='rtl'>
+			<b>
+						     ‫  شركة البحث الحقيقي ذ.م.م.،
+			</b>
+						     ‫  والمسجلة في مملكة البحرين بموجب سجل تجاري رقم
+			<b>
+						     ‫  111554-1
+			</b>
+					        ‫  وعنوانها مكتب رقم 164، مبنى 3232، طريق 4654، مجمع 346، المنامة الواجهة البحرية، ويمثلها في التوقيع على هذا العقد
+			<b>
+						     ‫  السيد/ عبدالله عبدالصمد محمد رشيد عوضي،
+			</b>
+						    ‫  يحمل بطاقة هوية رقم
+			<b>
+						     781104637
+			</b>
+							 ‫  ، بموجب التفويض المؤرخ
+			<b>
+						     ‫ 08 سبتمبر 2019
+			</b>
+							 ‫   (ويشار اليها فيما بعد ب 
+			<b>
+						     ‫ "الطرف الثاني").
+			</b>
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		<div class="row">
+			<div class="col-6" style="font-size:15px;">
+			<b>Email Address:</b>
+				<span t-field="o.tenant_id.email"/>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			     ‫   <b>البريد الالكتروني:</b>
+			<span t-esc="o.tenant_id.email"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;">
+			<b>Watsapp Number:</b>
+			
+			<t t-if="o.tenant_id.mobile">
+			<span t-esc="o.tenant_id.mobile"/>
+			</t>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			<t t-if="o.tenant_id.mobile">
+			<span t-esc="o.tenant_id.mobile"/>
+			</t>
+			
+			<b>:رقم الواتساب</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-left" style="font-size:15px;">
+			<b>PREAMBLE</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			<b>:التمهيد</b>
+			</div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:15px;text-align:justify;"> Whereas, 
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;">
+‫     حيث أن:			
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"> 
+			The First Party is the owner and holds the legal title of the property located at <b>Flat <t t-esc="o.name"></t>,Building <t t-esc="o.building_id.name"></t>,Road <t t-esc="o.building_id.building_address.street2"></t>,<t t-esc="o.building_id.building_address.city"></t>,<t t-esc="o.building_id.building_address.country_id.name"></t>.(the “Property”).</b>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;">
+‫     الطرف الأول هو المالك الفعلي والقانوني للعقار الكائن في			
+			<b>
+			شقة
+			<t t-if="o.unit_arabic">
+			<t t-esc="o.unit_arabic"/>,</t>
+			<t t-else="">
+			<t t-esc="o.name"/>,</t>
+			<t t-esc="o.building_id.address_arabic"/>
+			‫     ("العقار").			
+			</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"> 
+The Second Party is experienced in the business of managing, maintaining, operating, resale, and leasing of real estate properties (hereinafter referred to as the <b>“Services”</b>). 
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;">
+‫     الطرف الثاني شركة تزاول نشاط إدارة وتشغيل و إعادة بيع وتأجيرو العقارات، وذي خبرة واسعة في هذا المجال ويشار إلى هذه الخدمات فيما بعد ب ("<b>الخدمات</b>")،			
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"> 
+			The First Party requested The Second Party to act on its behalf with regard to the performance the Services of and The Second Party agrees to provide the Services to The First Party.
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;">
+‫    	الطرف الأول طلب من الطرف الثاني التصرف نيابة عنه فيما يتعلق بأداء الخدمات ، حيث  وافق الطرف الثاني على توفير الخدمات إلى الطرف الأول.
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"> 
+			The Parties, acknowledging their legal capacity to enter into the Contract, hereby agree on the following terms and conditions:
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;">
+‫    	وبناءً على ذلك، تم الاتفاق والتراضي بين الطرفين على ما يلي:
+			</div>
+		</div>
+		<br></br>
+		<ol>
+		<div class="row">
+		<div class="col-6 text-left" style="font-size:15px;"><li style="font-weight: bold;" seq="1"> The aforesaid preamble shall be deemed an integral part of this Contract.</li>  </div>
+		<div class="col-6 text-right" style="font-size:15px;"><li style="font-weight: bold;" seq="1" dir='rtl'>
+			 ‫   يعتبر التمهيد الوارد أعلاه جزءاً لا يتجزأ من هذا العقد ويكون مكملاً له في جميع الأحوال والمقاصد. 
+			
+		</li>     </div>
+		</div>
+		</ol>
+		<!-- </p>
+		<p style="page-break-before:always;"> -->
+		<ol>
+		<div class="row">
+		<div class="col-6 text-left" style="font-size:15px;"><li style="font-weight: bold;" seq="2"> DESCRIPTION OF THE PROPERTY</li>  </div>
+		<div class="col-6 text-right" style="font-size:15px;"><li style="font-weight: bold;" seq="2" dir='rtl'>
+			 ‫   مواصفات العقار 
+			
+		</li>     </div>
+		</div>
+		</ol>
+		<div class="row">
+		<div class="col-6 text-left" style="font-size:15px;">
+		<b>Flat <t t-esc="o.name"></t>,Building <t t-esc="o.building_id.name"></t>,Road <t t-esc="o.building_id.building_address.street2"></t>,<t t-esc="o.building_id.building_address.city"></t>,<t t-esc="o.building_id.building_address.country_id.name"></t></b>
+		</div>
+		<div class="col-6 text-right" style="font-size:15px;">
+			<b>
+			شقة
+			<t t-if="o.unit_arabic">
+			<t t-esc="o.unit_arabic"/>,</t>
+			<t t-else="">
+			<t t-esc="o.name"/>,</t>
+			<t t-esc="o.building_id.address_arabic"/>
+			</b> 
+			
+		</div>
+		</div>
+		<ol>
+		<div class="row">
+		<div class="col-6 text-left" style="font-size:15px;"><li style="font-weight: bold;" seq="3"> DURATION OF THE CONTRACT</li>  </div>
+		<div class="col-6 text-right" style="font-size:15px;"><li style="font-weight: bold;" seq="3" dir='rtl'>
+			 ‫   مدة العقد 
+			
+		</li>     </div>
+		</div>
+		</ol>
+		<div class="row">
+		<div class="col-6 text-left" style="font-size:15px;">
+		The Contract duration shall be for a period of <span t-esc="duration"/>, commencing on <b><t t-if="latest_contract"><t t-if="latest_contract.from_date"><span t-field="latest_contract.from_date"/></t></t></b> (hereinafter referred to as the <b>“Commencement Date”</b>), and expiring on <b><t t-if="latest_contract"><t t-if="latest_contract.to_date"><span t-field="latest_contract.to_date"/></t></t></b> (hereinafter referred to as the <b>“Expiry Date”</b>). The Contract shall be automatically renewed for the same duration and terms and conditions unless it is terminated as per Clause (10) of this Contract.
+		</div>
+		<div class="col-6 text-right" style="font-size:15px;">
+						 ‫   تكون مدة هذا العقد    
+			<t t-if="latest_contract"><span t-esc="latest_contract.duration_arabic"/></t>
+			تبدأ من
+			<b><t t-if="latest_contract"><span t-esc="latest_contract.from_date_arabic"/></t>
+								 ‫   ("تاريخ سريان العقد") 
+		
+		</b>
+		وتنتهي
+		<b>
+		<t t-if="latest_contract"><span t-esc="latest_contract.to_date_arabic"/></t>
+						 ‫   ("تاريخ انتهاء العقد"). 
+		</b>
+								 ‫   ويتجدد هذا العقد تلقائياً وبنفس الشروط والأحكام الا إذا تم انتهائه وفقاً لأحكام المادة (10) من هذا العقد. 
+		</div>
+		</div>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: bold;" seq="4">
+			 PRIOR INSPECTION OF PROPERTY
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li style="font-weight: bold;" seq="4" dir='rtl'>
+						‫     المعاينة المسبقة للعقار 
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="a">
+			Prior to the Commencement Date, it shall be understood and agreed that the Parties have inspected the Property and verified its suitability to be managed for the purpose of the Services (hereinafter referred to as the <b>“Inspection”</b>).
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="أ" dir='rtl'>
+						‫     يقر الطرفان بانه قد تمت معاينة العقار قبل تاريخ سريان العقد وبأن العقار في حالة جيدة ومناسبة لتقديم الخدمات (<b>"المعاينة"</b>).
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="b">
+				After the Inspection and prior to the Commencement Date, The Second Party shall inform The First Party of any required repairs and/or modifications that the Property requires. Any repairs and/or modifications shall be carried out by either The First Party or by The Second Party; in the latter instance, the repair and/or modifications shall be subject to the written approval of The First Party.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ب" dir='rtl'>
+						‫     بعد المعاينة وقبل تاريخ سريان العقد، على الطرف الثاني إبلاغ الطرف الأول بأي تعديلات او تغييرات لازمة يتطلب إجراءها على العقار. يجوز لأي من الطرفين القيام بهذه التعديلات او التغييرات. في حال رغب الطرف الثاني في القيام باي تعديلات وتغييرات فانه يتطلب موافقة الطرف الأول عليها كتابياً.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: bold;" seq="5">
+			 Scope of Work
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li style="font-weight: bold;" seq="5" dir='rtl'>
+						‫     نطاق العمل  
+			</li>
+			</div>
+		</div>
+		</ol>
+		<div class="row">
+		<div class="col-6" style="font-size:15px;text-align:justify;">
+		In pursuit of the Services, the Second Party shall:
+		</div>
+		<div class="col-6" style="font-size:15px;text-align:right;">
+								‫     من أجل تقديم الخدمات  يكون الطرف الثاني :  
+		
+		</div>
+		</div>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="a">
+			Be the real estate lease and sale agent tasked with the performance of the Services in connection to the Property.  The First Party shall have the right to procure the services of an agent or agency for the purpose of listing and advertising the Property in the Kingdom of Bahrain. However, the First Party shall request from the agent or agency to directly seek out the Second Party for the purpose drafting and preparing a lease contract and to sign on behalf of the First Party as per clause (8-a).
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="أ" dir='rtl'>
+						‫     وكيلاً عن الطرف الأول في تأجير وبيع العقار والمكلف بأداء الخدمات المتعلقة بالعقار. للطرف الأول الحق في الحصول على خدمات وكيل آخر لغرض الإعلان عن العقار في مملكة البحرين. و مع ذلك، يجب على الطرف الأول ان يطلب من هذا الوكيل الاستعانة بالطرف الثاني لغرض صياغة و اعداد عقد الايجار و التوقيع نيابة عن الطرف الأول بموجب البند (8-أ) من هذا العقد.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="b">
+			Receive and utilize certain information with regard to the Property such as but not limited to: the price, brochures, photographs, and all necessary related material.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ب" dir='rtl'>
+						‫     يحق للطرف الثاني إستلام واستخدام بعض المعلومات المتعلقة بالعقار ، على سبيل المثال لا الحصر: السعر والكتيبات والصور الفوتوغرافية وجميع المواد ذات الصلة.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="c">
+			Market and advertise the Property, such as but not limited to the following methods: promotions, events, various types of media publicity and outlets, and various forms of marketing channels and avenues, leaflets, banners, and adverts on websites. However, the Second Party shall have the sole and ultimate decision to choose and select its preferred methods to perform the marketing and advertising Services without notice to the First Party or by the First Party’s approval,
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ج" dir='rtl'>
+						‫     يجوز للطرف الثاني تسويق العقار والإعلان عنه، على سبيل المثال لا الحصر، بالطرق التالية : العروض الترويجية ، المعارض ، الأنواع المختلفة من الدعاية الإعلامية ومنافذ البيع ، والأشكال المختلفة من القنوات والسبل التسويقية ، المنشورات ، الشعارات ، و الاعلانات على المواقع الألكترونية، و للطرف الثاني القرار الوحيد والنهائي باختيار وتحديد اساليبه المفضلة لأداء خدمات التسويق والإعلان دون إشعار الى الطرف الأول أو موافقته.
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: bold;" seq="6">
+			 REPAIR AND MAINTENANCE
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li style="font-weight: bold;" seq="6" dir='rtl'>
+						‫     الصيانة والتصليحات  
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="a">
+			After the Commencement Date, The Second Party shall commence the Services and ensure that: the Property is kept in a suitable condition, in a good state of repair, properly maintained to be safe for occupation; furthermore, The Second Party shall ensure that services required for the upkeep and good order of the Property are carried out in a proper and efficient manner.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="أ" dir='rtl'>
+						‫     بعد تاريخ سريان العقد، يتعهد الطرف الثاني بتقديم الخدمات مع التقييد بما يلي: المحافظة على العقار في حالة جيدة وأن يكون العقار قابلاً للانتفاع والتأكد من أن أي من الخدمات اللازمة للمحافظة على العقار قد أجريت بكفاءة و بطريقة سليمة.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="b">
+			Any charges and costs arising from the Services, which do not exceed the agreed upon budget of BD <t t-esc="contract_fees"/> /-, shall be incurred by The Second Party without the prior approval of The First Party. However, any charges and costs arising from the Services pertaining to the performance of one task or for a matter that requires several cumulative and/or related tasks which exceed the agreed upon budget of BD <t t-esc="contract_fees"/>/- shall require the prior approval of The First Party.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ب" dir='rtl'>
+						‫     أي رسوم او تكاليف تنتج عن تقديم الخدمات ولا تتجاوز قيمة المبلغ المتفق عليه (-/<t t-esc="contract_fees"/>دينار بحريني)، لا تتطلب تسويتها موافقة الطرف الأول المسبقة عليها  من قبل الطرف الثاني. أما الرسوم والتكاليف الناتجة من تقديم الخدمات فيما يتعلق بغرض واحد او أغراض متعددة وتتجاوز قيمتها المبلغ المتفق عليه (-/<t t-esc="contract_fees"/> دينار بحريني) فانه يتطلب الموافقة المسبقة عليها من قبل الطرف الأول من اجل تسويتها.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="c">
+			In emergency or urgent cases or when The Second Party becomes aware that the Property requires immediate and swift action to protect it from gross damage, or to prevent injury to persons or tenants in the Property or the building where the Property is contained (hereinafter referred to as the “<b>Emergency Maintenance</b>”), The Second Party shall make necessary decisions without the prior approval of The First Party or as limited by the budget indicated in Subclause (5) (c) above.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ج" dir='rtl'>
+						‫     في الحالات الطارئة او المستعجلة، او في الحالات التي يقرر فيها الطرف الثاني بأنه يتطلب القيام بإجراءات مستعجلة وسريعة لحماية العقار من ضرر جسيم او من الهلاك، او لمنع إصابة الأشخاص او المستأجرين في العقار او المبنى الذي يقع فيه العقار ("<b>الصيانة الطارئة</b>")، يجوز للطرف الثاني اتخاذ الإجراءات الضرورية دون موافقة الطرف الأول المسبقة او التقييد بالمبلغ المتفق عليه في البند (5) (ج) أعلاه.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:15px;"><li style="font-weight: bold;" seq="7"> DUTIES AND RESPONSIBILITES OF THE FIRST PARTY</li>
+		<i>The First Party shall:</i>
+		</div>
+		<div class="col-6 text-right" style="font-size:15px;"><li style="font-weight: bold;" seq="7" dir='rtl'>
+			 ‫    مسئوليات و واجبات الطرف الأول
+			
+		</li><i>    
+			 ‫    يلتزم الطرف الأول بما يلي:
+		</i>
+		</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="a">
+			Undertake to pay all costs and fees related to the Property, such as but not limited to, administrative costs, governmental charges and taxes, and costs and fees which arise as a result of agreements entered into between The Second Party and third parties that are necessary for the performance of the Services,
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="أ" dir='rtl'>
+						‫    التعهد بدفع جميع التكاليف والرسوم المتعلقة بالعقار، وذلك على سبيل المثال لا الحصر، التكاليف الإدارية و الرسوم الحكومية والضرائب، و التكاليف والرسوم التي تنشاْ نتيجة اتفاقيات تبرم بين الطرف الثاني وأطراف أخرى والتي تعتبر ضرورية من اجل تقديم الخدمات.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="b">
+			Commit to pay all the costs related to the Services, the Emergency Maintenance, and all other expenses, costs, and charges concerning the Property, or that arise as a result of this Contract.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ب" dir='rtl'>
+						‫     التعهد بدفع كامل التكاليف المتعلقة بالخدمات، والصيانة الطارئة، وجميع المصروفات والتكاليف المتعلقة بالعقار والتي تنشأ من هذا العقد.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="c">
+			Continue to be solely liable for the Property during the duration of this Contract; and after Expiry Date and after the termination of this Contract as per Clause (10); such responsibilities shall extend to any recurring or new obligations, fees, costs, and charges , or any penalties imposed on and in connection with the Property.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ج" dir='rtl'>
+						‫     الالتزام بمسؤوليات العقار خلال مدة العقد و بعد تاريخ انتهاء العقد و بعد انهاء العقد بموجب البند (10)، تمتد وتشمل هذه المسؤوليات أي التزامات، رسوم، تكاليف، متكررة أو جديدة، أو أي عقوبات تفرض على العقار وفيما يتعلق به.
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="d">
+			Commit to transfer electricity and water meter under his/her name. 
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="د" dir='rtl'>
+						‫    الالتزام بتحويل حساب الكهرباء و الماء باسمه.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="e">
+			With reference to the previous subclause , and in case that the First Party is unable to transfer electricity and water meter under his name , The Fist Party commit to pay a security deposit  determined by The Second Party, and The Second Party shall have the right to use any part or all of the security deposit  referred to above to pay the electricity and water bills related to the Property. The First Party is liable to compensate the amount that the second party used from the deposit
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ه" dir='rtl'>
+						‫     إشارة إلى الفقرة السابقة ،  وفي حال  عدم تمكن الطرف الأول من تحويل حساب الكهرباء و الماء باسمه ، يلتزم بدفع مبلغ  كوديعة ضمان يحدده الطرف الثاني ، و يحق للطرف الثاني إستخدام  كل أو جزء من مبلغ وديعة الضمان المشار اليه أعلاه لسداد فواتير الكهرباء و الماء المتعلقة بالعقار وذلك على أن يدفع الطرف الأول الى الطرف الثاني المبلغ  الذي إستخدمه الطرف الثاني من مبلغ وديعة الضمان لسداد فواتير الكهرباء والماء.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="f">
+			Undertake to register any lease contract, or any amendments thereof, in connection with the Property, as per the requirement stipulated in Bahrain Law. No.27 of 2014 “Issuing the Property Lese Law” at the lease agreements registration office in the relevant municipality. The fees for the registration of the lease thereof shall be borne by the First Party. If the First Party requires the Second Party to perform the lease contract registration on its behalf, the First Party shall inform the Second Party of its request in writing.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ف" dir='rtl'>
+						‫     التعهد بتسجيل أي عقد ايجار، او أي تعديلات تطرأ عليه، فيما يتعلق بالعقار، وفقاً للالتزام المنصوص عليه في قانون رقم 27 لسنة 2014 "بإصدار قانون ايجار العقارات" في مكتب تسجيل عقود الايجار في البلدية ذات الصلة. ويتحمل الطرف الأول رسوم تسجيل عقد الايجار. واذا رغب الطرف الأول بتوكيل الطرف الثاني لتسجيل عقد الايجار نيابة عنه، يجب على الطرف الأول بتبليغ الطرف الثاني كتابياً.
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="g">
+			In case a current tenant resides at the time of signing this contract, the first party undertakes and is commits to pay and deliver the security deposit to the second party upon signing this contract
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ز" dir='rtl'>
+						‫     في حال وجود مستأجر في وقت توقيع هذا العقد، يتعهد و يلتزم الطرف الأول بدفع و تسليم وديعة الضمان إلى الطرف الثاني عند توقيع هذا العقد.  
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="h">
+			Hereby authorize the Second Party to deduct any outstanding annual service charges attributed and payable to the Property from the monthly rental value of the Property until the outstanding amount thereof is settled completely.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ح" dir='rtl'>
+						‫     تفويض الطرف الثاني بموجب هذا العقد بخصم أي رسوم خدمة سنوية متعلقة و منسوبة للعقار و التي تكون مستحقة الدفع من قيمة الإيجارات الشهرية للعقار حتى تسوية المبلغ المستحق بالكامل.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="i">
+			Agree and understand that any consumables and perishables and its associated expenses, such as but without limitation to supplies, tools, equipment, restroom and toilet supplies, light bulbs, kitchen items, or services such as but not limited to changing or replacing beddings and furniture items, ironing and cleaning such items, are not the responsibility  of the Second Party but shall continue to remain to be the responsibility of the First Party.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="أنا" dir='rtl'>
+						‫     يوافق الطرف الأول على ان أي مواد استهلاكية او مواد سريعة التلف و أي نفقات مرتبطة بها، على سبيل المثال لا الحصر، الأغراض او الأدوات او المعدات او مستلزمات الحمامات و المراحيض او المصابيح الكهربائية او أدوات المطبخ او الخدمات مثل تغيير او استبدال الفراش و الأثاث، على سيل المثال لا الحصر، الكي و تنظيف هذه العناصر لن تكون من مسؤولية الطرف الثاني بل تظل من مسؤولية الطرف الأول.
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		</p>
+		<p style="page-break-before:always;">
+		
+		<ol>
+		<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:15px;"><li style="font-weight: bold;" seq="8"> DUTIES AND RESPONSIBILITES OF THE SECOND PARTY</li>
+		<i>In pursuance of the Services, The Second Party shall:</i>
+		</div>
+		<div class="col-6 text-right" style="font-size:15px;"><li style="font-weight: bold;" seq="8" dir='rtl'>
+			 ‫    مسؤوليات وواجبات الطرف الثاني
+			
+		</li><i>    
+			 ‫    يلتزم الطرف الثاني بما يلي:
+		</i>
+		</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="a">
+			Act as the exclusive manager of the Property and shall have the authority to sign any lease agreements concerning the Property on behalf of the First Party
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="أ" dir='rtl'>
+						‫    الالتزام حصريا بإدارة وتشغيل العقار  ويكون  للطرف الثاني الحق في توقيع أي عقود ايجار تتعلق بالعقار نيابة عن الطرف الأول.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="b">
+			Prepare, and complete all documentation(s) in concerning the lease agreement of the Property.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ب" dir='rtl'>
+						‫     الالتزام بتجهيز كافة المستندات والأوراق الخاصة بعقد ايجار العقار.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="c">
+			Ensure the timely payment of all bills associated with the Property.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ج" dir='rtl'>
+						‫     الالتزام بدفع الفواتير المتعلقة بالعقار في أوقات استحقاقها.
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="d">
+			Conduct the Services in an efficient manner and ensure that the Property remains fit for occupation.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="د" dir='rtl'>
+						‫    الالتزام بتقديم الخدمات بطريقة سليمة وفعالة والتأكد من  ان يكون العقار في حالة قابلة للانتفاع.
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		
+		
+		<ol>
+		<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:15px;"><li style="font-weight: bold;" seq="9"> LEASING OF THE PROPERTY &amp; COLLECTION OF MONTHLY RENT</li>
+		</div>
+		<div class="col-6 text-right" style="font-size:15px;"><li style="font-weight: bold;" seq="9" dir='rtl'>
+			 ‫    تأجير العقار و استلام الايجار الشهري
+			
+		</li>
+		</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="a">
+			The Second Party shall make reasonably practicable efforts to seek prospective tenants to lease the Property,
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="أ" dir='rtl'>
+						‫    يلتزم الطرف الثاني ببذل الجهد المعقول بالبحث عن مستأجرين مناسبين للعقار.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="b">
+			Any negotiations between The Second Party and the tenants with respect to the Property and the lease contract, prior to or after signing the lease contract, shall be subject to prior written approvals by The First Party. Such negotiations may include, but are not limited to; renewal of the lease contract, rent alterations, and addition or deduction of items, features, and amenities of the Property,
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ب" dir='rtl'>
+						‫     أي مناقشات تتعلق بالعقار وعقد الايجار والتي تجري بين الطرف الثاني والمستأجرين سواء قبل  او بعد توقيع عقد ايجار يجب ان تتم موافقة الطرف الأول المسبقة كتابياً. تتضمن تلك المناقشات على سبيل المثال لا الحصر تجديد عقد الايجار وتعديل مبلغ الايجار وزيادة او نقصان العناصر والمحتويات او المميزات الخاصة بالعقار.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="c">
+			If The First Party desires to alter the rent value of the Property, or to sell the Property, or intends to make any modifications to the Property, it shall inform The Second Party of its desires and intentions thereof,
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ج" dir='rtl'>
+						‫     على الطرف الأول إخطار الطرف الثاني إذا رغب الطرف الأول تغيير قيمة الايجار، او  بيع العقار، او القيام بتعديلات في العقار.			</li>
+			</div>
+		</div>
+		</ol>
+		
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="d">
+			When The Second Party manages to lease the Property, it shall use its best efforts to promptly collect the monthly rent payment(s) the <b>“Monthly Rent”</b>) when such amount(s) become due and transfer the Monthly Rent after receiving it from the tenant, and deducting the Monthly management fees(<b>“Monthly Management Fees”</b>)., to The First Party by bank transfer according the following information : 
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="د" dir='rtl'>
+						‫    في حال تمكن الطرف الثاني تأجير العقار، يلتزم الطرف الثاني ببذل جهده لاستلام الايجار الشهري (<b>"الايجار الشهري"</b>) في أوقات استحقاقها و تحويل الايجار الشهري بعد أستلامه من المستأجر ، و خصم رسوم الإدارة الشهرية (<b>"رسوم الإدارة الشهرية"</b>) ، عبر حوالة مصرفية إلى الطرف الأول حسب المعلومات التالية :
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ul>
+			<div class="row">
+				<div class="col-6" style="font-size:15px;text-align:justify;"><li>
+			         Account Name:<t t-if="owner_bank"><span t-esc="owner_bank.partner_id.name"/></t>
+			         </li>
+				 	<li>
+				         Bank Name :  <t t-if="owner_bank"><span t-esc="owner_bank.bank_id.name"/></t>
+				     </li>
+					 <li>
+			         IBAN: <t t-if="owner_bank"><span t-esc="owner_bank.iban_no"/></t>
+					 </li>
+				</div>
+				<div class="col-6" style="font-size:15px;text-align:right;">
+					<li>
+					 ‫        اسم الحساب:
+					 <t t-if="owner_bank"><span t-esc="owner_bank.partner_id.name_arabic"/></t>‫   
+				 	</li>    
+				 	<li>
+					 ‫        اسم البنك:
+					 <t t-if="owner_bank"><span t-esc="owner_bank.bank_id.bank_name_arabic"/></t>
+			 		</li>
+			 		<li>
+						<t t-if="owner_bank"><span t-esc="owner_bank.iban_no"/></t>
+						 : IBAN
+			 		</li>
+				</div>
+			</div>
+		</ul>
+		
+		<!-- <ul>
+		<div class="row">
+			<div class="col-1"/>
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li>
+	         Account Name:<span t-esc="owner_bank.partner_id.name"/>
+	         </li>
+			 </div>
+			<div class="col-6" style="font-size:15px;text-align:right;"><li>
+			 ‫        اسم الحساب:
+			 <span t-esc="owner_bank.partner_id.name_arabic"/>‫   
+			 </li>    
+			 </div>
+		</div>
+		</ul>
+		</p>
+		<p style="page-break-before:always;">
+		<ul>
+			<div class="row">
+			<div class="col-1"/>
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li>
+	         Bank Name :  <span t-esc="owner_bank.bank_id.name"/>
+	         </li>
+			 </div>
+			<div class="col-6" style="font-size:15px;text-align:right;"><li>
+			 ‫        اسم البنك:
+			 <span t-esc="owner_bank.bank_id.bank_name_arabic"/>
+			 </li>
+			 </div>
+			</div>
+			
+		</ul>
+		<ul>
+			<div class="row">
+			<div class="col-1"/>
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li>
+	         IBAN: <span t-esc="owner_bank.iban_no"/>
+			 </li>
+			 </div>
+			<div class="col-6" style="font-size:15px;text-align:right;"><li>
+			<span t-esc="owner_bank.iban_no"/>
+			 : IBAN
+			 </li>
+			 </div>
+			</div>
+		</ul> -->
+		</p>
+		<p style="page-break-before:always;">
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="e">
+			The Second Party shall not be responsible if the tenant defaults in paying the Monthly Rent. Nevertheless, The Second Party shall demand and attempt to use available methods as practically as possible to recover any outstanding Monthly Rent. However, this shall exclude any methods of rent claims via the courts of the Kingdom of Bahrain.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ه" dir='rtl'>
+						‫     لن يكون الطرف الثاني مسؤولاً في حال اخلال المستأجر بدفع الايجار الشهري. ومع ذلك يتعين على الطرف الثاني ان يطالب المستأجر بدفع الايجار الشهري بشكل عملي وبالسبل المتاحة.  و مع ذلك، فإن هذا لا يشمل المطالبات الإيجارية من خلال محاكم مملكة البحرين.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="f">
+			With reference to the previous subclause, if the tenant remains in default of the Monthly Rent, The Second Party shall, after receiving a written approval from The First Party, seek legal actions to collect the owed Monthly Rent. In all cases, all expenses and costs that arise as a result of the collection of the Monthly Rent thereof shall be incurred by The First Party.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ف" dir='rtl'>
+						‫     إشارة الى الفقرة المسبقة وفي حال  فشل المستأجر من دفع الايجار الشهري، يقوم الطرف الثاني وشريطة موافقة الطرف الأول كتابياً، باتخاذ الإجراءات القانونية اللازمة لاستحصال الإيجارات المستحقة. وفي جميع الأحوال يلتزم الطرف الأول بدفع كافة التكاليف والمصاريف الخاصة باستحصال الإيجارات المستحقة.
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		
+		<ol>
+		<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:15px;"><li class="subbulletss" style="font-weight: bold;" seq="10"> COMISSION, PAYMENTS, EXPENSES</li>
+		</div>
+		<div class="col-6 text-right" style="font-size:15px;"><li class="subbulletss" style="font-weight: bold;" seq="10" dir='rtl'>
+			 ‫    العمولات والمدفوعات والمصاريف
+			
+		</li>
+		</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="a">
+			The Second Party shall receive <span t-esc="mngmnt_percent"/>% of the monthly rental value of the Property per month as management fees for conducting the Services (<b>“Monthly Management Fees”</b>). The Monthly Management Fees shall be deducted on a monthly basis from the Monthly Rent before the Monthly Rent is transferred to The First Party. 
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="أ" dir='rtl'>
+						‫    يستحق الطرف الثاني رسوم الإدارة الشهرية قدرها <span t-esc="mngmnt_percent"/>% من مبلغ الايجار الشهري للعقار (<b>"رسوم الإدارة الشهرية"</b>) نظير تقديمه الخدمات. يتم خصم العمولة الشهرية من مبلغ الايجار الشهري قبل تسليمه الى الطرف الأول.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="b">
+			The Second Party shall receive a commission which equals to one (1) month (<b>“Commission”</b>), of the monthly rental value of the Property for leasing the Property. The Added Commission shall be charged prior to any payments made to the First Party.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ب" dir='rtl'>
+						‫     يستحق الطرف الثاني عمولة تساوي شهر واحد (1) (<b>"العمولة "</b>) من مبلغ الايجار الشهري للعقار، نظير تأجير العقار لمدة سنة (1) كاملة والتي يتم خصمها قبل دفع أي مدفوعات الى الطرف الأول.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="c">
+			In case The First Party decides to terminate the Contract before the Expiry Date, without any  reason, the Second Party shall be entitled to receive an amount equivalent to a Monthly Management Fees as a penalty for termination of the Contract before the Expiry Date.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ج" dir='rtl'>
+						‫     في حال رغبة الطرف الأول في إنهاء هذا العقد بدون سبب قبل تاريخ  إنتهاء العقد،  يستحق الطرف الثاني مبلغاً يعادل رسوم الأدارة الشهرية كغرامة عن إنهاء العقد قبل تاريخ إنتهاء العقد. 
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="d">
+			All owed payments to The Second Party, such as but not limited to, expenses incurred as a result of The Second Party’s performance of the Services, Monthly Management Fees, Commission, or any amounts that arise as a result of this Contract must be paid within one (1) week of the date such amounts become due.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="د" dir='rtl'>
+						‫    كافة المبالغ المستحقة للطرف الثاني على سبيل المثال لا الحصر، المصاريف التي تكبدها الطرف الثاني اثناء تقديمه الخدمات، و رسوم الإدارة الشهرية، والعمولة ، أو أي مبالغ  تستحق نتيجة لتنفيذ هذا العقد، يجب ان تدفع خلال أسبوع (1) من تاريخ استحقاقها.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="e">
+			The Second Party shall not be responsible for any costs or fees associated with and/or arising out of the Property, the Services, Emergency Maintenance, or any costs that arise as a result of this Contract. In all cases, The First Party shall reimburse The Second Party for any costs or expenses The Second Party sustains as a result of this Contract.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ه" dir='rtl'>
+						‫     لن يكون الطرف الثاني مسؤولا  عن أي تكاليف او مدفوعات متعلقة بالخدمات او المتعلقة بالعقار، او التي قد تنشا من هذا العقد. وفي جميع الأحوال، يلتزم الطرف الأول بدفع اي مبالغ او تكاليف يتكبدها الطرف الثاني.
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		
+		<ol>
+		<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:15px;"><li class="subbulletss" style="font-weight: bold;" seq="11"> RENEWAL, TERMINATION &amp; BREACH</li>
+		</div>
+		<div class="col-6 text-right" style="font-size:15px;"><li class="subbulletss" style="font-weight: bold;" seq="11" dir='rtl'>
+			 ‫    التجديد والإنهاء والإخلال
+			
+		</li>
+		</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="a">
+			The Contract shall remain in full force and effect for the duration of the Contract as indicated in Clause three (3) above. On the Expiry Date, the Contract shall be renewed automatically for the same duration and with the same terms and conditions unless stipulated otherwise in writing.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="أ" dir='rtl'>
+						‫    ييبقى هذا العقد نافذاً خلال مدة سريانه حسبما ورد في البند (3) أعلاه. ويتجدد هذا العقد تلقائياً لمدة مماثلة وبنفس الشروط والأحكام الا إذا اتفق خلافاً لذلك كتابياً.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="b">
+			Either Party may terminate the Contract by providing a one (1) month written notice to the other Party,
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ب" dir='rtl'>
+						‫     يجوز لأي طرف إنهاء هذا العقد بموجب إشعار كتابي مدة شهر (1) يرسل إلى الطرف الآخر.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="c">
+			The Contract shall be automatically terminated on the voluntary sale of the Property by The First Party. Any payments and commissions arising as part of this Contract that are due to either Party must be settled promptly within three (3) Working Days of such transaction.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ج" dir='rtl'>
+						‫     يفسخ هذا العقد تلقائياً في حال قيام الطرف الأول ببيع العقار. أي مدفوعات أو عمولات ناتجة عن هذا العقد يجب أن تدفع خلال ثلاثة (3) أيام عمل من تاريخ البيع.			
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="d">
+			The Contract shall be deemed as breached and automatically terminated in the following instances:
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="د" dir='rtl'>
+						‫    يعتبر هذا العقد في حالة إخلال ويفسخ تلقائياً في الأحوال التالية:
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;padding-left:10mm;"><li class="roman" style="font-weight: normal;" seq="i">
+			The First Party fails to pay any amount due to The Second Party arising as a result of this Contract
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;padding-right:10mm;"> <li class="roman"  style="font-weight: normal;" seq="i" dir='rtl'>
+						‫    إخلال الطرف الأول في سداد أي مبالغ مستحقة للطرف الثاني ناتجة عن هذا العقد.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;padding-left:10mm;"><li class="roman" style="font-weight: normal;" seq="ii">
+			If any Party fails to perform their duties and responsibilities under this Contract and such failure(s) is not remedied within two (2) weeks of a written notice by the affected Party.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;padding-right:10mm;"> <li class="roman"  style="font-weight: normal;" seq="ii" dir='rtl'>
+						‫    إخلال أي من الطرفين في أداء مسؤولياته وواجباته الواردة في هذا العقد ولم يتم معالجتها خلال إسبوعين (2) من تاريخ استلام إشعار الإخلال من قبل الطرف المتضرر.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="e">
+			The First Party shall be liable to all the expenses and costs that arise due to its default leading to the Contract’s termination or due to its decision to terminate the Contract; such liability shall include, but not limited to, any cancelation of existing third party agreements that the Second Party entered into for the benefit of the Property. Moreover, the First Party’s obligations, either as set out in this Contract or as per the law, shall continue to be in full force and effect after the aforementioned termination.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ه" dir='rtl'>
+						‫       يلتزم الطرف الأول عن جميع المصاريف والتكاليف نتيجة اي اخلال بالتزاماته التي تؤدي الى انهاء العقد او في حال انهاء العقد بقراره، على سبيل المثال لا الحصر، المصاريف والتكاليف الناتجة عن إلغاء أي اتفاقات ابرمها الطرف الثاني لصالح العقار مع أي طرف ثالث.  علاوة على ذلك، تظل التزامات الطرف الأول ، سواء على النحو المنصوص عليه في هذا العقد او حسب القانون، سارية المفعول والتأثير الكامل بعد الانهاء المذكور أعلاه.
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		
+			<ol>
+		<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:15px;"><li class="subbulletss" style="font-weight: bold;" seq="12"> GENERAL</li>
+		</div>
+		<div class="col-6 text-right" style="font-size:15px;"><li class="subbulletss" style="font-weight: bold;" seq="12" dir='rtl'>
+			 ‫    أحكام عامة
+			
+		</li>
+		</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="a">
+			No amendment or modification of this Contract shall be valid unless it is expressly agreed in a written instrument duly signed by the Parties. 
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="أ" dir='rtl'>
+						‫    لن يكون أي تعديل أو تنقيح على هذا العقد ساري المفعول ما لم يتم الاتفاق عليه بموجب مُحرر كتابي مُوقعاً مِنْ قِبَل الطرفين. 
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="b">
+			All prices mentioned in this Agreement are exclusive of any applicable taxes, including (but not limited to) VAT or other indirect taxes that may be imposed by any public or governmental authority in respect of this Agreement. Each Party will bear their respective tax liability, if any, applicable in their country of reporting.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ب" dir='rtl'>
+						‫     جميع الأسعار المبينة في هذه الاتفاقية لا تشمل أية ضريبة مطبقة، بما في ذلك (على سبيل المثال لا الحصر) ضريبة القيمة المضافة، والضرائب الغير مباشرة الأخرى، والتي قد تفرضها أية سلطة عامة أو جهة حكومية قد تتعلق بهذه الاتفاقية بشكل مباشر أو غير مباشر. ويتحمل كل طرف المسؤولية الضريبية الخاصة به ، إن وجدت ، السارية في بلد الإبلاغ.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="c">
+			The invalidity, illegality, or unenforceability of any provision of this Contract shall not affect the validity, legality, or enforceability of any other provision of this Contract.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ج" dir='rtl'>
+						‫     إن عدم سريان أو عدم قانونية أو عدم قابلية تنفيذ أي حُكم من أحكام هذا العقد لن يؤثر على سريان مفعول أو قانونية أو سريان مفعول أي حُكم آخر في هذا العقد.
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="d">
+			This Contract constitutes the entire agreement between the Parties with respect to the subject matter of this Contract and supersedes all previous verbal or written agreements, discussions, and negotiations between the Parties.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="د" dir='rtl'>
+						‫    يشكل هذا العقد كامل الاتفاق بين الطرفين فيما يتعلق بموضوع هذا العقد. ويجب هذا العقد كل الاتفاقيات والمناقشات والمفاوضات الشفهية او الكتابية السابقة بين الطرفين.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="e">
+			This Contract may be executed in multiple counterparts, each of which shall be deemed an original agreement and both of which shall constitute one and the same agreement. The Contract may be executed by the First Party and the Second Party’s scanned signature and such scanned signature shall be deemed to have the same legal effect as an ordinary signature; and delivery of this Contract may be delivered electronically provided that such delivery is performed directly from the email address or WhatsApp number of the First Party and the Second Party as contained in this Contract to be followed by a confirmation from the First Party and the Second Party confirming the authenticity of the signature via such email or WhatsApp number.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ه" dir='rtl'>
+						‫     يجوز تحرير هذا العقد من نسخ متطابقة تعتبر كنسخة طبق الأصل. و يجوز التوقيع على هذا العقد من قبل الطرف الأول و الطرف الثاني بالتوقيع الممسوح ضوئياً و يعتبر هذا التوقيع له نفس التأثير القانوني للتوقيع العادي، و ويجوز تسليم هذا العقد إلكترونياً بشرط ان يتم ارساله مباشرة من عنوان البريد الالكتروني او رقم الواتساب للطرف الأول و الطرف الثاني كما هو وارد في العقد و يليه تأكيد من الطرف الأول و الطرف الثاني بصحة التوقيع عبر ذات البريد الالكتروني او رقم الواتساب.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="f">
+			All notices and other communications required or permitted under this Contract shall be given in writing and shall be personally delivered or sent by courier, registered post or by fax or by email. Any notice personally delivered shall be deemed as received at the time of delivery.  Any notice sent by courier or registered post shall be deemed as received on the date of delivery, as evidenced by the records of the courier or the post.  Any notice sent by fax shall be deemed as received at the date of transmission, as evidenced by the sender’s transmission report.  The contact details of each party for service of notices are as set forth on the first page of this Contract.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ف" dir='rtl'>
+						‫     يجب تقديم جميع الإخطارات والمراسلات الأخرى المطلوبة أو المُصرح بها بموجب هذا العقد كتابياً ويجب تسليمها شخصياً أو ترسل عن طريق خدمة ناقلي الطرود أو البريد المسجل أو بواسطة الفاكس أو البريد الألكتروني. ويعتبر أي إخطار تَمّ تسليمه شخصياً على أنه مستلم في وقت التسليم. وأي إخطار يُرسل عن طريق خدمة ناقلي الطرود أو البريد المسجل سيعتبر أنه مستلم في تاريخ التسليم كما هو مُثبت بموجب سجلات ناقل الطرود أو البريد. ويعتبر أي إخطار تَمّ إرساله عن طريق الفاكس على أنه مستلم في تاريخ الإرسال كما هو مُثْبت بموجب تقرير الإرسال الخاص بالمُرسل. وتكون تفاصيل الاتصال الخاصة بكل طرف لغرض التبليغ بالإخطارات كما هو مُبَيّن في الصفحة الأولى من هذا العقد.
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="g">
+			This Contract shall be governed by and construed in accordance with the laws of the Kingdom of Bahrain.  The courts of the Kingdom of Bahrain shall have jurisdiction to resolve any disputes or claims arising in connection with this Contract.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ز" dir='rtl'>
+						‫     يحكم وتفسر هذا العقد وفقاً لقوانين مملكة البحرين. ويوافق الأطراف على الخضوع للاختصاص القضائي لمحاكم مملكة البحرين لحل أي نزاعات أو مطالبات تنشأ بشأن هذا العقد.  
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:15px;text-align:justify;"><li style="font-weight: normal;" seq="h">
+			This Contract has been executed in both Arabic and English, both being authentic. In the event of any difference between the two texts, the Arabic text shall prevail. 
+			</li>
+			</div>
+			<div class="col-6" style="font-size:15px;text-align:right;"> <li  style="font-weight: normal;" seq="ح" dir='rtl'>
+						‫     حرر هذا العقد باللغتين العربية والانجليزية ويعتبر كل من النصين ذا حجية متساوية وفي حال وجود أي اختلاف بين النصين فإنه يرجح النص العربي.
+			</li>
+			</div>
+		</div>
+		</ol>
+		
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:15px;"> IN WITNESS, WHEREOF, </div>
+			<div class="col-6 text-right" style="font-size:15px;">
+‫     وإثباتاً لذلك، 			 
+			 </div>
+			</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:15px;text-align:justify"> The First Party and The Second Party have entered into this Contract on the date first indicated above. </div>
+			<div class="col-6" style="font-size:15px;text-align:right">
+‫    قام الطرف الأول والطرف الثاني بإبرام هذا العقد في التاريخ المبين أعلاه.			 
+			 </div>
+			</div>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-5 text-left" style="font-size:15px;border-top:1px solid black;"><b> THE FIRST PARTY </b><br></br><t t-if="o.owner_id.name"><b><span t-esc="o.owner_id.name"/></b></t><t t-else="">.........................</t></div>
+			<div class="col-2"/>
+			<div class="col-5 text-right" style="font-size:15px;border-top:1px solid black;"><b> الطرف الأول </b><br></br><t t-if="o.owner_id.name_arabic"><b><span t-esc="o.owner_id.name_arabic"/></b></t><t t-else="">.........................</t></div>
+			</div>
+			<br/>
+			<br/>
+			<br></br>
+			<br></br>
+			<br></br>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-5 text-left" style="font-size:15px;border-top:1px solid black;"><b> THE SECOND PARTY </b><br></br><b>M/S REAL SEARCH W.L. L</b></div>
+			<div class="col-2"/>
+			<div class="col-5 text-right" style="font-size:15px;border-top:1px solid black;"><b> الطرف الثاني </b><br></br><b>السادة / شركة البحث الحقيقي ذ.م.م</b></div>
+			</div>
+	</p>
+	</div>
+	</t>
+	</t>
+	</t> 
+	
+				
+				
+	
+	</template>
+	<template id="management_contract_external_layout">
+	   	<div class="page_border" style="height:280mm;"/>
+		<div class="article o_report_layout_standard">
+		<t t-raw="0"/>
+		</div>
+		<div class="footer">
+			<div class="text-center" style="font-size:10px;padding-top:1cm;">
+			Page
+			<b><span class="page"/></b>
+			of
+			<b><span class="topage"/></b>
+			</div>
+			<div class="col-2 text-left not-last-page" style="font-size:10px;">
+			First Party Initial:
+			</div>
+			<br></br>
+			<div class="col-2 text-left not-last-page" style="font-size:10px;border-top:1px solid black;padding-top:1cm;">
+			</div>
+		</div>
+</template>
+	</data>
+	</odoo>
+		

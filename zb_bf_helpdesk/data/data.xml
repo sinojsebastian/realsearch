@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record model="helpdesk.ticket.type" id="ticket_type_ac">
+            <field name='name'>AC</field>
+        </record>
+        <record model="helpdesk.ticket.type" id="ticket_type_plumbing">
+            <field name='name'>Plumbing</field>
+        </record>
+        <record model="helpdesk.ticket.type" id="ticket_type_electrical">
+            <field name='name'>Electrical</field>
+        </record>
+        <record model="helpdesk.ticket.type" id="ticket_type_paint">
+            <field name='name'>Paint</field>
+        </record>
+        <record model="helpdesk.ticket.type" id="ticket_type_masionary">
+            <field name='name'>Masionary</field>
+        </record>
+        <record model="helpdesk.ticket.type" id="ticket_type_carpentry">
+            <field name='name'>Carpentry</field>
+        </record>
+        <record model="helpdesk.ticket.type" id="ticket_type_tv">
+            <field name='name'>TV</field>
+        </record>
+    </data>
+</odoo>

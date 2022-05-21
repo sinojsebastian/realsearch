@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    <record id="account_analytic_account_form_form" model="ir.ui.view">
+	    <field name="name">account.analytic.account.invoice.form.inherit</field>
+	    <field name="model">account.analytic.account</field>
+	    <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+		    <field name="arch" type="xml">
+			    <field name="currency_id" position="after">
+			   		 <field name="building_id" />
+			    </field>
+	    </field>
+    </record>
+    
+    
+    <record id="account_analytic_account_line_form" model="ir.ui.view">
+	    <field name="name">account.analytic.account.line.form.inherit</field>
+	    <field name="model">account.analytic.line</field>
+	    <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+	    <field name="arch" type="xml">
+		    <field name="account_id" position="after">
+		   		 <field name="building_id" />
+		    </field>
+    	</field>
+    </record>
+    
+    <record id="account_analytic_account_line_tree" model="ir.ui.view">
+	    <field name="name">account.analytic.account.line.tree.inherit</field>
+	    <field name="model">account.analytic.line</field>
+	    <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+		<field name="arch" type="xml">
+			    <field name="account_id" position="after">
+			   		 <field name="building_id" />
+			    </field>
+	    </field>
+    </record>
+    
+        
+    </data>
+    </openerp>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="report_tax_savon" inherit_id="accounting_pdf_reports.report_tax">
+		<xpath expr="//div[@class='page']" position="replace">
+                <div class="page">
+                <br></br>
+                <br></br>
+                    <h3>VAT Report</h3>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <t t-if="data['date_from']"><strong>From </strong> 
+                            	<span t-esc="datetime.datetime.strptime(str(data['date_from']), server_date).strftime(date_format)"/>
+                            <!-- <span t-esc="data['date_from']"/> --><br/></t>
+                            <t t-if="data['date_to']"><strong>To </strong>
+                            	<span t-esc="datetime.datetime.strptime(str(data['date_to']), server_date).strftime(date_format)"/>
+                            <!-- <span t-esc="data['date_to']"/> --></t>
+                        </div>
+                    </div>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr align="center">
+                                <th><b>Sale</b></th>
+                                <th><b>Net</b></th>
+                                <th><b>VAT</b></th>
+                            </tr>
+                        </thead>
+                        <tr t-foreach="lines['sale']" t-as="line" align="center">
+                            <td><span t-esc="line.get('name')"/></td>
+                            <td><span t-att-style="style" t-esc="line.get('net')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                            <td><span t-att-style="style" t-esc="line.get('tax')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                        </tr>
+                        
+                        <tr align="center">
+                                <th><b>Purchase</b></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        <tr t-foreach="lines['purchase']" t-as="line" align="center">
+                            <td><span t-esc="line.get('name')"/></td>
+                            <td><span t-att-style="style" t-esc="line.get('net')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                            <td><span t-att-style="style" t-esc="line.get('tax')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                        </tr>
+                    </table>
+                </div>
+          </xpath>
+    </template>
+</odoo>
+   

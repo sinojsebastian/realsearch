@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    	
+    	
+    	<!-- account.move form inherited -->
+        <record id="view_move_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field eval="4" name="priority"/>
+            <field name="arch" type="xml">
+	            <data>
+	                <field name="tax_ids" position="attributes">
+				  		<attribute name='string'>VAT</attribute>
+					</field> 	
+					<field name="amount_untaxed" position="attributes">
+				  		<attribute name='string'>VAT Excl. Amount</attribute>
+					</field> 
+					 
+					
+					<xpath expr="//notebook/page[1]/field[@name='invoice_line_ids']/form/sheet/group[2]/field[@name='tax_ids']" position="attributes">
+				  		<attribute name='string'>VAT</attribute>
+					</xpath>
+					<!-- <xpath expr="//notebook/page[1]/group/field[@name='amount_by_group']" position="replace">
+				  		<field name="amount_by_group"/>
+					</xpath> -->
+					
+					<xpath expr="//notebook/page[2]/field[@name='line_ids']/tree/field[@name='tag_ids']" position="attributes">
+				  		<attribute name='string'>VAT Grids</attribute>
+					</xpath>
+					<xpath expr="//notebook/page[2]/field[@name='line_ids']/tree/field[@name='tax_ids']" position="attributes">
+				  		<attribute name='string'>VAT</attribute>
+					</xpath>
+					<xpath expr="//notebook/page[2]/field[@name='line_ids']/form/group/field[@name='tax_ids']" position="attributes">
+				  		<attribute name='string'>VAT Applied</attribute>					
+					</xpath>
+					
+					<xpath expr="//field[@name='journal_id']" position="after">
+	            		<field name="journal_type" invisible="1"/>
+	            		<field name="cheque_no" attrs="{'invisible':[('journal_type','not in', ('bank'),('type','not in','entry'))],'readonly':[('state','in', ('posted'))]}"/> 
+	            		<field name="cheque_date" attrs="{'invisible':[('journal_type','not in', ('bank'),('type','not in','entry'))],'readonly':[('state','in', ('posted'))]}"/> 
+	            		<field name="cheque_bank_id" attrs="{'invisible':[('journal_type','not in', ('bank'),('type','not in','entry'))],'readonly':[('state','in', ('posted'))]}"/> 
+	            	</xpath>
+							
+	            </data>
+            </field>
+	    </record>		
+		
+		
+				
+		<!-- account.move tree inherited -->		
+    	<record id="view_invoice_tree_inherit" model="ir.ui.view">
+            <field name="name">account.move.tree</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+	            <data>	                
+					<field name="amount_untaxed_signed" position="attributes">
+				  		<attribute name='string'>VAT Excluded</attribute>
+					</field> 
+		        </data>
+            </field>
+       </record>
+       
+      
+       
+       <!-- account.move.line tree for sales/purchase inherited -->
+       <record id="view_move_line_tree_grouped_sales_purchases_inherit" model="ir.ui.view">
+            <field name="name">account.move.line.tree.grouped.sales.purchase.view</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_tree_grouped_sales_purchases"/>
+            <field eval="22" name="priority"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <data>	                
+					<field name="tax_ids" position="attributes">
+				  		<attribute name='string'>VAT</attribute>
+					</field> 
+					<field name="tag_ids" position="attributes">
+				  		<attribute name='string'>VAT Grids</attribute>
+					</field> 
+		        </data>
+            </field>
+       </record>
+       
+       
+       <!-- account.move.line tree for bank/cash inherited -->
+        <record id="view_move_line_tree_grouped_inherit" model="ir.ui.view">
+            <field name="name">account.move.line.tree.grouped</field>
+            <field name="model">account.move.line</field>
+            <field eval="1" name="priority"/>
+            <field name="inherit_id" ref="account.view_move_line_tree_grouped"/>
+            <field name="arch" type="xml">
+             <data>	                
+					<field name="tax_ids" position="attributes">
+				  		<attribute name='string'>VAT</attribute>
+					</field> 
+					<field name="tag_ids" position="attributes">
+				  		<attribute name='string'>VAT Grids</attribute>
+					</field> 
+		        </data>
+            </field>
+       </record>
+       
+        <!-- journal items tree view inherited -->
+      <record id="view_move_line_tree_inherit" model="ir.ui.view">
+            <field name="name">account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field eval="100" name="priority"/>
+            <field name="inherit_id" ref="account.view_move_line_tree"/>
+            <field name="arch" type="xml">
+            <data>	                
+					<field name="tax_ids" position="attributes">
+				  		<attribute name='string'>VAT</attribute>
+					</field> 
+					<field name="tag_ids" position="attributes">
+				  		<attribute name='string'>VAT Grids</attribute>
+					</field> 
+		        </data>
+            </field>
+       </record>
+       
+       
+       <!-- journal items form view inherited -->
+       <record id="view_move_line_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.line.form</field>
+            <field name="model">account.move.line</field>
+            <field eval="22" name="priority"/>
+            <field name="inherit_id" ref="account.view_move_line_form"/>
+            <field name="arch" type="xml">
+            	<data>	                
+					<xpath expr="//notebook/page[1]/group/group[4]" position="attributes">
+				  		<attribute name='string'>VAT</attribute>					
+					</xpath>
+					<xpath expr="//notebook/page[1]/group/group[4]/field[@name='tax_ids']" position="attributes">
+				  		<attribute name='string'>VAT</attribute>					
+					</xpath>
+					<xpath expr="//notebook/page[1]/group/group[4]/field[@name='tax_audit']" position="attributes">
+				  		<attribute name='string'>VAT Audit String</attribute>					
+					</xpath>
+					
+					<xpath expr="//field[@name='date_maturity']" position="after">
+	            		<field name="journal_type" invisible="1"/>
+	            		<field name="cheque_no" readonly="1"/> 
+	            		<field name="cheque_date" attrs="{'invisible':[('journal_type','not in', ('bank'))]}" readonly="1"/> 
+	            		<field name="cheque_bank_id" attrs="{'invisible':[('journal_type','not in', ('bank'))]}" readonly="1"/> 
+	            	</xpath>
+	            	
+		        </data>
+            </field>
+       </record> 
+       
+       
+       
+        <!-- Payment Form View -->
+		<record id="view_account_payment_from_inherited" model="ir.ui.view">
+            <field name="name">account.payment.form.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='journal_id']" position="after">
+            		<field name="journal_type" invisible="1"/>
+            		<field name="cheque_no"
+            			attrs="{'invisible':[('journal_type','not in', ['bank'])],'readonly': [('state', '!=', 'draft')]}"/>
+		  			<field name="cheque_date"
+		  				attrs="{'invisible':[('journal_type','not in', ['bank'])],'readonly': [('state', '!=', 'draft')]}"/>
+		  			<field name="cheque_bank_id"
+		  				attrs="{'invisible':[('journal_type','not in', ['bank'])],'readonly': [('state', '!=', 'draft')]}"/>
+		  		</xpath>
+		  		
+		  		<!-- <field name="payment_transaction_id" position="attributes">
+					 <attribute name="invisible">1</attribute>
+				</field> -->
+            </field>
+    	</record>
+       
+       
+       	 <record id="view_account_supplier_payment_tree_inherited" model="ir.ui.view">
+            <field name="name">account.supplier.payment.tree</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_supplier_payment_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='payment_method_id']" position="after">
+            		<field name="cheque_no"/>
+            	</xpath>
+            </field>
+        </record>
+        
+        
+         <record id="view_account_customer_payment_tree_inherited" model="ir.ui.view">
+            <field name="name">account.supplier.payment.tree</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='payment_method_id']" position="after">
+            		<field name="cheque_no"/>
+            	</xpath>
+            </field>
+        </record>
+       
+       
+       <!--account.tax tree view inherited -->
+       <record id="view_tax_tree_inherit" model="ir.ui.view">
+            <field name="name">account.tax.tree</field>
+            <field name="model">account.tax</field>
+            <field eval="16" name="priority"/>
+            <field name="inherit_id" ref="account.view_tax_tree"/>
+            <field name="arch" type="xml">
+            	<data>	                
+					<field name="name" position="attributes">
+				  		<attribute name='string'>VAT Name</attribute>
+					</field> 
+					<field name="type_tax_use" position="attributes">
+				  		<attribute name='string'>VAT Scope</attribute>
+					</field> 
+		        </data>
+            </field>
+       </record> 
+          
+            
+      <!--account.tax form view inherited -->      
+      <record id="view_tax_form_inherit" model="ir.ui.view">
+            <field name="name">account.tax.form</field>
+            <field name="model">account.tax</field>
+            <field eval="16" name="priority"/>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+            	<data>	                
+					<xpath expr="//group/group/field[@name='name']" position="attributes">
+				  		<attribute name='string'>VAT Name</attribute>					
+					</xpath>
+					<xpath expr="//group/group/field[@name='amount_type']" position="attributes">
+				  		<attribute name='string'>VAT Computation</attribute>					
+					</xpath>
+					<xpath expr="//group/group/field[@name='type_tax_use']" position="attributes">
+				  		<attribute name='string'>VAT Scope</attribute>					
+					</xpath>
+					<xpath expr="//notebook/page[2]/group/group/field[@name='tax_group_id']" position="attributes">
+				  		<attribute name='string'>VAT Group</attribute>					
+					</xpath>
+					<xpath expr="//notebook/page[2]/group/group/field[@name='tax_group_id']" position="attributes">
+				  		<attribute name='string'>VAT Group</attribute>					
+					</xpath>
+					<xpath expr="//notebook/page[2]/group/group[2]/field[@name='include_base_amount']" position="attributes">
+				  		<attribute name='string'>Affect Base of Subsequent VAT</attribute>					
+					</xpath>
+		        </data>
+            </field>
+       </record> 
+       
+       
+       <!-- account.tax.repartition.line.tree view inherited -->
+       <record id="tax_repartition_line_tree_inherit" model="ir.ui.view">
+            <field name="name">account.tax.repartition.line.tree</field>
+            <field name="model">account.tax.repartition.line</field>
+             <field name="inherit_id" ref="account.tax_repartition_line_tree"/>
+            <field name="arch" type="xml"> 
+	            <data>
+	            	<field name="tag_ids" position="attributes">
+					  	<attribute name='string'>VAT Grids</attribute>
+					</field> 
+	            </data>
+            </field>
+       </record>
+       
+       <!-- Renamed TAX to VAT -->
+       <record id="account.action_configure_tax_report" model="ir.actions.act_window">
+            <field name="name">Configure VAT Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.tax.report.line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="account.account_tax_report_line_tree"/>
+            <field name="context">{'search_default_groupby_country': True}</field>
+        </record>
+        
+        <record id="account.tax_adjustments_form" model="ir.actions.act_window">
+            <field name="name">VAT Adjustments</field>
+            <field name="res_model">tax.adjustments.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <record id="account.action_tax_form" model="ir.actions.act_window">
+            <field name="name">VATs</field>
+            <field name="res_model">account.tax</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="domain" eval="False"/> <!-- Force empty -->
+            <field name="context">{'search_default_sale': True, 'search_default_purchase': True, 'search_default_active': True,'active_test': False}</field>
+            <field name="view_id" ref="account.view_tax_tree"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new tax
+              </p>
+            </field>
+        </record>
+        
+      <menuitem action="account.action_tax_form" id="account.menu_action_tax_form" parent="account.account_invoicing_menu" sequence="2"/>
+      
+      <menuitem action="account.tax_adjustments_form" id="account.menu_action_tax_adjustment" parent="account.menu_finance_entries_actions" sequence="45" groups="base.group_no_one" />
+        
+      <menuitem id="account.menu_configure_tax_report" name="VAT Report" parent="account.account_management_menu" action="account.action_configure_tax_report" groups="base.group_no_one"/>
+       
+              
+    </data>
+</odoo>

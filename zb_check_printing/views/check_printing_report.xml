@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <report
+            id="action_report_check" 
+            model="account.payment" 
+            string="Cheque"
+            report_type="qweb-pdf"
+            name="zb_check_printing.report_check" 
+            file="zb_check_printing.report_check" 
+        />
+        <record id="action_report_check" model="ir.actions.report">
+            <field name="paperformat_id" ref="zb_check_printing.paperformat_check"/>
+        </record>
+ 
+    </data>
+</odoo>

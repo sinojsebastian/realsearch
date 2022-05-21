@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_journal_form_inherit" model="ir.ui.view">
+            <field name="name">account.journal.form.inherit</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page/group/group/field[@name='default_debit_account_id']" position="replace">
+                    <field attrs="{'required':[('type','in', ('cash', 'bank', 'post_dated_chq'))]}" name="default_debit_account_id"/>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page/group/group/field[@name='default_credit_account_id']" position="replace">
+                    <field attrs="{'required':[('type','in',('cash', 'bank', 'post_dated_chq'))]}" name="default_credit_account_id"/>
+                </xpath>
+            </field>
+        </record>
+        <!--Payments -->
+        <record id="view_account_payment_form_geg" model="ir.ui.view">
+            <field name="name">account.payment.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group/group/field[@name='journal_id']" position="attributes">
+                    <attribute name="domain">[('type','in',['bank', 'cash', 'post_dated_chq'])]</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/group/group/field[@name='journal_id']" position="after">
+                    <field invisible="1" name="journal_type"/>
+                    <field invisible="1" name="inv_id"/>
+                </xpath>
+                
+    <!--PV             <xpath expr="/form/sheet/group/group/field[@name='cheque_no']" position="replace">
+                	 <field attrs="{'invisible':[('journal_type','not in', ('bank','post_dated_chq'))], 'required':[('journal_type','in', ('post_dated_chq'))]}" name="cheque_no"/>
+                    <field attrs="{'invisible':[('journal_type','not in', ('bank','post_dated_chq'))], 'required':[('journal_type','in', ('post_dated_chq'))]}" name="cheque_date"/>
+                    <field attrs="{'invisible':[('journal_type','not in', ('bank','post_dated_chq'))], 'required':[('journal_type','in', ('post_dated_chq'))]}" name="cheque_bank_id"/>
+                    <field attrs="{'invisible':[('journal_type','!=', 'post_dated_chq')],'required':[('journal_type','=', 'post_dated_chq')]}" domain="[('type','in',['bank', 'cash'])]" name="partner_journal_id"/>
+                
+                </xpath> -->
+                
+                
+            </field>
+        </record>
+        
+        <!--BH_account Payments -->
+        <record id="view_account_payment_form_rs" model="ir.ui.view">
+            <field name="name">account.payment.form.inherited.rs</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="bh_account_vat.view_account_payment_from_inherited"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group/group/field[@name='cheque_no']" position="replace">
+                	 <field attrs="{'readonly': [('state', '!=', 'draft')],'required':[('journal_type','in', ('post_dated_chq'))]}" name="cheque_no"/>
+                </xpath>
+                <xpath expr="/form/sheet/group/group/field[@name='cheque_date']" position="replace">
+                    <field attrs="{'readonly': [('state', '!=', 'draft')],'required':[('journal_type','in', ('post_dated_chq'))]}" name="cheque_date"/>
+                </xpath>
+                <xpath expr="/form/sheet/group/group/field[@name='cheque_bank_id']" position="replace">
+                    <field attrs="{'readonly': [('state', '!=', 'draft')],'required':[('journal_type','in', ('post_dated_chq'))]}" name="cheque_bank_id"/>
+                </xpath>
+            </field>
+           </record>
+        
+        
+        <!-- <record id="view_account_move_add_journal_details" model="ir.ui.view">
+            <field name="name">account.move.add.journal.details</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field invisible="1" name="journal_type"/>
+                    <field attrs="{'invisible':[('journal_type','not in', ('bank'))]}" name="cheque_no"/>
+                    <field attrs="{'invisible':[('journal_type','not in', ('bank'))]}" name="cheque_date"/>
+                    <field attrs="{'invisible':[('journal_type','not in', ('bank'))]}" name="cheque_bank_id"/>
+                </xpath>
+            </field>
+        </record> -->
+        <record id="view_account_move_line_add_journal_details" model="ir.ui.view">
+            <field name="name">account.move.line.add.journal.details</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_maturity']" position="after">
+                    <field invisible="1" name="journal_type"/>
+                    <field name="cheque_no" readonly="1"/>
+                    <field attrs="{'invisible':[('journal_type','not in', ('bank'))]}" name="cheque_date" readonly="1"/>
+                    <field attrs="{'invisible':[('journal_type','not in', ('bank'))]}" name="cheque_bank_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

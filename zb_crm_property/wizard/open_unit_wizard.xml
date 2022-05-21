@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	  <data>
+		
+	   <record id="view_open-unit_wizard" model="ir.ui.view">
+            <field name="name">unit.unit.wizard</field>
+            <field name="model">unit.unit.wizard</field>
+            <field name="arch" type="xml">
+            <form string="Payment Configuration">
+             <footer>
+             <button name="return_unit" string="Configure Payment Schedule" 
+                    		type="object"  class="oe_highlight"/>
+                    		
+                    <button string="Cancel" class="oe_link"
+                        special="cancel" />
+                </footer> 
+                </form>     		
+             </field>
+        </record>
+		
+	  </data>
+</openerp>

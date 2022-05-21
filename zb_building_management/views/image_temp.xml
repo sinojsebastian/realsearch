@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <data>
+    <template id="assets_backefbg" name="test" inherit_id="web.assets_backend">
+    	<xpath expr=".">
+     	<link rel="stylesheet" href="/zb_building_management/static/src/css/building.css" />
+     	<!-- <link rel="stylesheet" href="/zb_building_management/static/src/css/test.css" /> -->
+     	</xpath>
+   </template>
+    <template id="kanban_drag_drop_desc" name="kanban_drag_drop_desc" inherit_id="web.assets_backend">
+             <xpath expr="script[last()]" position="after">
+                <!--  <script type="text/javascript" src="/zb_building_management/static/src/js/no_drag.js"></script> -->
+                 <script type="text/javascript" src="/zb_building_management/static/src/js/kanban_renderer.js"/>
+                 <script type="text/javascript" src="/zb_building_management/static/src/js/kanban_column.js"/>
+             </xpath>
+   </template>
+   <template id="zb_building_management.report_assets_common" name="my_module report assets common" inherit_id="web.report_assets_common">
+   <xpath expr="." position="inside">
+    <link href="https://fonts.googleapis.com/css?family=Century%20Gothic" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Calibri" rel="stylesheet"/>
+ </xpath>
+   </template>
+ </data>
+</odoo>

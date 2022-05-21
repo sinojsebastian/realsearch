@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="view_account_payment_check_form_inherit" model="ir.ui.view">
+         <field name="name">account.payment.check.form.inherit</field>
+         <field name="model">account.payment</field>
+         <field name="inherit_id" ref="bh_account_vat.view_account_payment_from_inherited"/>
+         <field name="arch" type="xml">
+         	<xpath expr="//field[@name='cheque_no']" position="before">
+         		<field name="ac_payee"/>
+         	</xpath>
+         </field>
+    </record>
+</odoo>

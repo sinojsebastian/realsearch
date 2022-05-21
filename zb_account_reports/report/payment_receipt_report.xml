@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payment_receipt">
+     <t t-call="web.external_layout"> 
+    <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                 <div class="oe_structure" /> 
+					<span t-if="o.partner_type == 'customer'">
+                    	<div class="text-center" style="font-size:24px;border-bottom:2px " >
+                    		<u style="text-decoration:underline;">CUSTOMER PAYMENT RECEIPT</u> 
+                    	</div>
+					</span>
+					<span t-if="o.partner_type == 'supplier'">
+                    	<div class="text-center" style="font-size:24px;border-bottom:2px " >
+                    		<u style="text-decoration:underline;">SUPPLIER PAYMENT VOUCHER</u>
+                    	</div>
+					</span>
+				<div class="text-center" style="font-size:18px;border-bottom:2px" >Reference Number: <span style="font-size:18px;" t-field="o.name"/></div><br></br>
+					
+			  <div class="row">
+					 <div class="col-9" t-if="o.payment_type">
+					 	<t t-if="o.payment_type == 'inbound'" style="color:DarkGray;font-size:16px;"><b>Received From</b><br></br></t>
+					    <t t-if="o.payment_type == 'outbound'" style="color:DarkGray;font-size:16px;"><b>Paid To</b><br></br></t>
+	                    <span style="padding-top:0cm;font-size:18px"><span t-field="o.partner_id"/></span><br></br>
+	                    <span style="padding-top:0cm;font-size:18px"><span t-field="o.partner_id.city"/>,<span t-field="o.partner_id.state_id"/>,<span t-field="o.partner_id.zip"/></span><br></br>
+	                    <span style="padding-top:0cm;font-size:18px"><span t-field="o.partner_id.country_id"/></span><br></br>
+					 </div>
+					<t t-if="o.payment_type in ['inbound','outbound']">
+						<span t-if="o.payment_type == 'inbound'">
+						<div class="col-xs-3 text-center" style="padding-top:.5cm;background-color:SteelBlue;color:white;height:4cm;width:4cm">
+			            		<p style="font-size:18px;padding-top:1cm">Amount Received</p>
+			            		<p style="font-size:18px;" t-field="o.amount"></p>
+			                </div> 
+		                </span>
+		                <span t-if="o.payment_type == 'outbound'">
+		                <div class="col-xs-3 text-center" style="padding-top:.5cm;background-color:SteelBlue;color:white;height:4cm;width:4cm">
+		            		<p style="font-size:18px;padding-top:1cm">Amount Paid</p>
+		            		<p style="font-size:18px;" t-field="o.amount"></p>
+		                </div>
+			            </span>
+			           </t>
+			           <t t-else="">
+			           		<div class="col-xs-3 text-center" style="padding-top:.5cm;background-color:SteelBlue;color:white;height:4cm;width:4cm">
+			            		<p style="font-size:18px;padding-top:1cm">Transferred</p>
+			            		<p style="font-size:18px;" t-field="o.amount"></p>
+		                	</div>
+			           </t>
+			    </div>       
+			        
+					<div class="row" style="padding-top:1cm">
+ 							<div class="col-3">
+			            		<b><div t-if="o.payment_date" style="padding-left:0cm;font-size:18px;padding-top:0cm;color:DimGray;">Payment Date</div></b>
+			            			<br></br><br></br>
+			            		<b><div t-if="o.communication" style="padding-left:0cm;font-size:18px;padding-top:0cm;color:DimGray;">Reference Number</div></b>
+			                		<br></br><br></br>
+			                	<b><div t-if="o.journal_id" style="padding-left:0cm;font-size:18px;padding-top:0cm;color:DimGray;">Payment Mode</div></b>
+			                </div>
+			                <div class="col-3">
+ 			                	<div t-if="o.payment_date" style="padding-top:0cm;color:Black;border-bottom:1px solid #D3D3D3;"><b><span t-if="o.payment_date" style="font-size:18px;" t-field="o.payment_date"/></b></div>
+			                	<br></br>
+			               		<div t-if="o.communication" style="padding-top:0.5cm;color:Black;border-bottom:1px solid #D3D3D3;"><b><span t-if="o.communication" style="font-size:18px;" t-field="o.communication"/></b></div>
+			               		<br></br>
+			               		<div t-if="o.journal_id" style="padding-top:0.5cm;color:Black;border-bottom:1px solid #D3D3D3;"><b><span t-if="o.journal_id" style="font-size:18px;" t-field="o.journal_id"/></b></div>
+			               </div>
+			             
+			             <span t-if="o.journal_type == 'bank'">
+			              <div class="col-xs-3">
+ 			                	<b><div t-if="o.cheque_date" style="padding-left:1cm;font-size:18px;padding-top:0cm;color:DimGray;">Cheque Date </div></b>
+			                		<br></br><br></br>
+			                	<b><div t-if="o.cheque_no" style="padding-left:1cm;font-size:18px;padding-top:0cm;color:DimGray;">Cheque Number</div></b>
+			                		<br></br>
+			                	<b><div t-if="o.cheque_bank_id" style="padding-left:1cm;font-size:18px;padding-top:0cm;color:DimGray;">Cheque Bank</div></b>
+ 			              </div>
+ 			              <span>
+			               <div class="col-xs-3">
+ 			               			<div t-if="o.cheque_date" style="padding-top:0cm;color:Black;border-bottom:1px solid #D3D3D3;"><b><span t-if="o.cheque_date" style="font-size:18px;" t-field="o.cheque_date"/></b></div>
+			               			<br></br>
+			               			<div t-if="o.cheque_no" style="padding-top:0.5cm;color:Black;border-bottom:1px solid #D3D3D3;"><b><span t-if="o.cheque_no" style="font-size:18px;" t-field="o.cheque_no"/></b></div>
+			               			<br></br>
+			               			<div t-if="o.cheque_bank_id" style="padding-top:0.5cm;color:Black;border-bottom:1px solid #D3D3D3;"><b><span t-if="o.cheque_bank_id" style="font-size:18px;" t-field="o.cheque_bank_id"/></b></div>
+ 			               </div></span>
+ 						  </span>
+			                 <span t-if="o.partner_type == 'customer'">
+				                <div class="col-xs-1">
+				                </div>
+			                </span>
+			                 <span t-if="o.partner_type == 'supplier'">
+				                <div class="col-xs-2">
+				                </div>
+			                </span> 
+				 </div>	
+			        
+                    	<p style="padding-left:0cm;font-size:18px;padding-top:1cm;color:Black;"><b>Payment for</b></p>
+                    	<br></br>
+                       <div style="padding-left:0cm;"> 
+	               		<table class="table table-sm">
+	                 		<thead>
+	                     		<tr style="background-color:#F0F0F0;">
+	                         		<th style="padding-left:0.5cm;font-size :18px;">Invoice Number</th>
+	                         		<th style="font-size :18px;">Invoice Date</th>
+	                         		<th style="font-size :18px;" class="text-right">Invoice Amount</th>
+	                         		<th style="font-size :18px;" class="text-right">Payment Amount</th>
+	                     		</tr>
+	               			</thead>
+	               		 	<tbody>
+		                     	<t t-set="total" t-value="0"/>
+		                         <tr t-foreach="o.reconciled_invoice_ids" t-as="inv">
+		                         	<td style="padding-left:0.5cm;font-size :18px;background:white;"><span t-if="inv.name" t-field="inv.name"/></td>
+		                         	<td style="font-size :18px;"><span t-if="inv.invoice_date" t-field="inv.invoice_date"/></td>
+		                            <td style="font-size :18px;background:white;" class="text-right"><span t-if="inv.amount_total" t-field="inv.amount_total"/><t t-set="total" t-value="total+inv.amount_total"/></td>
+		                            <td style="font-size :18px;background:white;" class="text-right"><span t-if="o.amount" t-field="o.amount"/></td>
+		                         </tr>
+		                     </tbody>
+	               		</table>
+	               	 </div> 
+           		</div>
+         	</t> 
+    	</t> 
+    	</t>
+	</template>
+	
+	<!-- <template id="external_layout_receipt">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            Multicompany
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <t t-if="company.external_report_layout_id" t-call="{{company.external_report_layout_id.key}}"><t t-raw="0"/></t>
+        <t t-else="else" t-call="zb_account_reports.external_layout_receipt_standard"><t t-raw="0"/></t>
+
+    </template>
+    
+    <template id="external_layout_receipt_standard">
+    	<div t-attf-class="header o_company_#{company.id}_layout">
+             <div class="row">
+                   <div class="col-10">
+                    <img t-if="company.header_image" t-att-src="image_data_uri(company.header_image)" style="max-height:140px;max-width:100000px" alt="Header"/>
+            	   </div> 
+             </div>
+        </div>     
+
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="web.address_layout"/>
+            <t t-raw="0"/>
+        </div>
+		
+		<div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout"> 
+        	<div class="row">
+	        	<div class="col-10">
+	        	     <img t-if="company.footer_image"  t-att-src="image_data_uri(company.footer_image)" style="max-height:140px;max-width:100000px"/>
+	            </div>
+            </div>
+        </div>
+    </template> -->
+	
+</odoo>

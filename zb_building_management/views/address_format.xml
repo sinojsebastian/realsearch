@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data>
+		<!-- Customer form -->
+		<record model="ir.ui.view" id="view_partner_form_address_format_inh">
+			<field name="name">res.partner.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='country_id']" position="after">
+					<field name="fax" placeholder="Fax" />
+				</xpath>
+				<xpath expr="//field[@name='website']" position ="attributes">
+	                 <attribute name="invisible">True</attribute>
+				</xpath>
+				<xpath expr="//field[@name='place_id']" position ="attributes">
+	                 <attribute name="invisible">True</attribute>
+				</xpath>
+		
+			</field>
+		 </record>
+		 
+		
+		<!-- Company Form modified address -->
+		<record model="ir.ui.view" id="inherits_view_company_form_inh">
+			<field name="name">res.company.form</field>
+			<field name="model">res.company</field>
+			<field name="inherit_id" ref="base.view_company_form" />
+			<field name="arch" type="xml"> 
+			   <xpath expr="//field[@name='country_id']" position="after">
+					<field name="fax" placeholder="Fax" />
+				</xpath>
+				<field name="favicon" position ="after">
+				  <field name="period_lock_date" invisible ="1"/>
+				  <field name="fiscalyear_lock_date" invisible= "1"/>
+				  <field name="arab_address"/>
+				</field>
+			</field>
+	  </record> 	
+		 
+		 
+		 
+	</data>
+</odoo>		 
+		 		

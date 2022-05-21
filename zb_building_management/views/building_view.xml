@@ -1,0 +1,1215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--
+==============================================
+# Inforise IT & ZestyBeanz Technologies Pvt. Ltd
+# By Sinoj Sebastian (sinoj@zbeanztech.com, sinoj@inforiseit.com)
+# First Version 2020-08-13
+# Website1 : http://www.zbeanztech.com
+# Website2 : http://www.inforiseit.com
+==============================================
+-->
+        <menuitem id="menu_zbbm_root" name="Property Management" sequence="7" />
+        <menuitem id="menu_zbbm_buildings" name="Home" sequence="1" parent="menu_zbbm_root" />
+        <menuitem id="menu_zbbm_buildings_products" name="Products" sequence="2" parent="menu_zbbm_root" />
+        <menuitem id="menu_product_variant_config_stock_inh" name="Products" action="stock.product_template_action_product" parent="menu_zbbm_buildings_products" sequence="1" />
+        <menuitem action="stock.stock_picking_type_action" id="stock_picking_type_menu_here" parent="menu_zbbm_buildings_products" sequence="2" name="Delivery/Receipts" />
+        <!--  Service Menu Item -->
+        <menuitem id="menu_action_sevice" name="Service" sequence="2" parent="menu_zbbm_root" />
+        <!-- Expense Menu Item -->
+        <menuitem id="menu_action_expense" name="Expense" sequence="3" parent="menu_zbbm_root" />
+        <!--  Configuration Menu Item -->
+        <menuitem id="menu_action_config" name="Configuration" sequence="6" parent="menu_zbbm_root" groups="zb_building_management.group_tijaria_admin" />
+        <menuitem id="menu_action_reporting" name="Reporting" sequence="4" parent="menu_zbbm_root" />
+        <menuitem id="menu_action_reporting_menu" name="Reporting" sequence="1" parent="menu_action_reporting" />
+<!--PV         <menuitem action="project.action_view_task" name="Complaints" id="project.menu_action_view_task" parent="menu_action_sevice" sequence="1" />
+ -->        <!--  Building Tree view -->
+        <record id="view_building_tree" model="ir.ui.view">
+            <field name="name">zbbm.building.tree</field>
+            <field name="model">zbbm.building</field>
+            <field name="priority">6</field>
+            <field name="arch" type="xml">
+                <tree string="Properties">
+                    <field name="name" />
+                    <field name="invoice_total" groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+                    <field name="payment_total" />
+                    <field name="balance_total" />
+                    <field name="expense_total" groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+                    <field name="rent_total" groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+                    <field name="current_invoice_total" invisible="1" />
+                    <field name="current_balance_total" invisible="1" />
+                    <field name="current_expense_total" invisible="1" />
+                    <field name="current_expense_balance_total" invisible="1" />
+                    <field name="state" invisible="1" />
+                </tree>
+            </field>
+        </record>
+        <!-- Building Form view -->
+        <record id="view_building_form" model="ir.ui.view">
+            <field name="name">zbbm.building.form</field>
+            <field name="model">zbbm.building</field>
+            <field name="arch" type="xml">
+                <form string="Properties">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="new,available,blocked,delisted" />
+                        <button name="make_available" string="Make Available" type="object" states="new,delisted,blocked" class="oe_highlight" />
+                        <button name="action_delist" string="Delist" type="object" states="new,available,blocked" class="oe_highlight" />
+                        <button name="action_unavailable" string="Make Unavailable" type="object" states="new,available" class="oe_highlight" />
+                    </header>
+                    <sheet>
+                        <field name="image" widget="image"  class="oe_avatar"/>
+                        <div class="oe_button_box" position="inside" align="right">
+                            <button name="view_attach_from_building" class="oe_stat_button" icon="fa-book" type="object">
+                                <field name="attachment_count" widget="statinfo" string="Attachments" />
+                            </button>
+                        </div>
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="building_address" domain="[('customer','=',False), ('supplier','=',False)]" context="{'search_default_customer':0, 'show_address': 1}" options='{"always_reload": True}' />
+                              <!--PV   <label for="street" string="Address" />
+                                <div class="o_address_format">
+                                    <field name="street" placeholder="Street1" class="o_address_street" />
+                                    <field name="street2" placeholder="Street2" class="o_address_street" />
+                                    <field name="city" placeholder="City" class="o_address_city" />
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip" />
+                                </div> -->
+                                <field name="building_type" />
+                                <field name="res_com" attrs="{'invisible': [('building_type','=', 'sell')]}" />
+                                <field name="commission_percent" attrs="{'invisible': [('building_type','=', 'sell')]}" />
+                            </group>
+                            <group>
+                                <field name="rent_total" groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+                                <field name="invoice_total" groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+                                <field name="expense_total" groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+                                <field name="cr" />
+                                <field name="elec" invisible="1"/>
+                                <field name="code" />
+                                <field name="available_flats" invisible="1" />
+                                <field name="occupied_flats" invisible="1" />
+                                <field name="available_type" invisible="1" />
+                                <field name="occupied_type" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Sellable Units" attrs="{'invisible': [('building_type','=', 'rent')]}" groups="zb_building_management.group_tijaria_admin">
+                                <field name="unit_ids" />
+                                <field name="unit_ids">
+                                    <tree editable="bottom">
+                                        <field name="building_id" domain="[('id','=', building_id)]" />
+                                        <field name="name" />
+                                        <field name="buyer_id" />
+                                        <field name="types" />
+                                        <field name="bedroom" />
+                                        <field name="floor" />
+                                        <field name="agent_id" />
+                                        <field name="price" />
+                                        <field name="state" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Leasable" attrs="{'invisible': [('building_type','=', 'sell')]}">
+                                <field name="module_ids">
+                                    <tree editable="bottom">
+                                        <field name="name" string="Flat/Office" />
+                                        <field name="tenant_id" />
+                                        <field name="level" />
+                                        <field name="monthly_rate" />
+                                        <field name="state" />
+                                        <field name="status" invisible="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Accounting Sellable Configuration" attrs="{'invisible': [('building_type','=', 'rent')]}" groups="zb_building_management.group_tijaria_admin">
+                                <group>
+                                    <group colspan="6">
+                                        <label for="inv_gener_gap" />
+                                        <div class="o_row" name="inv_gener_gap">
+                                            <field name="inv_gener_gap" />
+                                            <span>days</span>
+                                        </div>
+                                        <br></br>
+                                        <field name="cont_preparation_fee" />
+                                    </group>
+                                    <group colspan="6">
+                                        <field name="downpayment_perc" attrs="{'invisible': [('building_type','=', 'rent')]}" />
+                                        <br></br>
+                                        <field name="non_refund" attrs="{'invisible': [('building_type','=', 'rent')]}" />
+                                        <br></br>
+                                        <field name="account_id" attrs="{'invisible': [('building_type','=', 'rent')]}" />
+                                        <br></br>
+                                        <field name="expense_account_id" attrs="{'invisible': [('building_type','=', 'rent')]}" />
+                                        <br></br>
+                                        <field name="bank_id" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Accounting Leasable Configuration" attrs="{'invisible': [('building_type','=', 'sell')]}" groups="zb_building_management.group_tijaria_admin">
+                                <group>
+                                    <field name="account_id" invisible="1" />
+                                    <field name="expense_account_id"  invisible="1" />
+                                    <field name="bank_id" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Building Kanban view  -->
+        <record id="Building_type_kanban" model="ir.ui.view">
+            <field name="name">zbbm.building.kanban</field>
+            <field name="model">zbbm.building</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey">
+                    <field name="id" />
+                    <field name="name" />
+                    <field name="image" />
+                    <field name='color' />
+                    <field name="building_type" invisible="1" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_global_click">
+                                    <div class="o_kanban_image">
+                                        <div class="oe_kanban_image">
+                                            <img t-att-alt="record.id" t-att-src="kanban_image('zbbm.building', 'image', record.id.raw_value)" />
+                                        </div>
+                                    </div>
+                                    <div class="oe_kanban_content">
+                                        <h4 class="text-right"><strong>
+                                                <field name="name" /></strong></h4>
+                                        <div class="oe_picking_type_gauge" style="position: inherit; left: inherit;" align="right">
+                                            <field name="available_flats" widget="gauge" style="margin-right: 5px; width:120px; height: 90px;"> Available Sub Building</field>
+                                        </div>
+                                        <a type="button" class="oe_right_oe_button_box">
+                                            <div class="button_av" align="right">
+                                                <div>
+                                                    <div>
+                                                        <h5>
+                                                            <font color="#7600d1">
+                                                                <field name="total_flats" /> Total Flats</font>
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                                <div attrs="{'invisible': [('building_type','=', 'sell')]}">
+                                                    <h5>
+                                                        <a type="open">
+                                                            <p>
+                                                                <font color="#7600d1">Lease Unit</font>
+                                                            </p>
+                                                        </a>
+                                                    </h5>
+                                                    <button name="action_available_subprpty" type="object" class="oe_highlight" attrs="{'invisible': [('building_type','=', 'sell')]}">
+                                                        <div>
+                                                            <field name="available_type" /> Available</div>
+                                                    </button>
+                                                    <button name="action_occupied_subbuid" type="object" class="oe_highlight" align="right" attrs="{'invisible': [('building_type','=', 'sell')]}">
+                                                        <div>
+                                                            <field name="occupied_type" /> Occupied </div>
+                                                    </button>
+                                                    <button name="action_blocked_subproperty" type="object" class="oe_highlight" attrs="{'invisible': [('building_type','=', 'sell')]}">
+                                                        <div>
+                                                            <field name="blocked_subproperty" /> New/Blocked</div>
+                                                    </button>
+                                                    <button name="action_lease_legal" type="object" class="oe_highlight" align="right" attrs="{'invisible': [('building_type','=', 'sell')]}" groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice">
+                                                        <div>
+                                                            <field name="legal_case" /> Legal cases </div>
+                                                    </button>
+                                                   <!--PV  <button name="actihhon_pending_compliants" type="object" class="oe_highlight" attrs="{'invisible': [('building_type','=', 'sell')]}">
+                                                        <div>
+                                                            <field name="pending_type" /> Pending Complaints</div>
+                                                    </button> -->
+                                                </div>
+                                                <div attrs="{'invisible': [('building_type','=', 'rent')]}" groups="zb_building_management.group_tijaria_admin">
+                                                    <h5>
+                                                        <a type="open">
+                                                            <p>
+                                                                <font color="#7600d1">Sales Unit</font>
+                                                            </p>
+                                                        </a>
+                                                    </h5>
+                                                    <button name="action_available_subunit" type="object" class="oe_highlight" align="right" attrs="{'invisible': [('building_type','=', 'rent')]}">
+                                                        <div>
+                                                            <field name="available_units" /> Available</div>
+                                                    </button>
+                                                    <button name="action_book_sell" type="object" class="oe_highlight" align="right" attrs="{'invisible': [('building_type','=', 'rent')]}">
+                                                        <div>
+                                                            <field name="booked_unit" /> Booked</div>
+                                                    </button>
+                                                    <button name="action_contract_sell" type="object" class="oe_highlight" align="right" attrs="{'invisible': [('building_type','=', 'rent')]}">
+                                                        <div>
+                                                            <field name="contract_case" /> Contract Signed </div>
+                                                    </button>
+                                                    <button name="action_occupied_sell" type="object" class="oe_highlight" attrs="{'invisible': [('building_type','=', 'rent')]}">
+                                                        <div>
+                                                            <field name="sold_units" /> Sold</div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="view_zbbm_building_filtersz" model="ir.ui.view">
+            <field name="name">zbbm.building.filter</field>
+            <field name="model">zbbm.building</field>
+            <field name="arch" type="xml">
+                <search string="Search Buildings">
+                    <field name="name" />
+                    <filter string="New Building" name="state_new" icon="terp-personal" domain="[('state','=', 'new')]" />
+                    <filter string="Available" name="state_available" icon="terp-personal" domain="[('state','=', 'available')]" />
+                    <filter string="Blocked / Unavailable" name="state_blocked" icon="terp-personal" domain="[('state','=', 'blocked')]" />
+                    <filter string="Delisted" name="state_delisted" icon="terp-personal" domain="[('state','=', 'delisted')]" />
+                </search>
+            </field>
+        </record>
+        <!-- Building Action -->
+        <record model="ir.actions.act_window" id="action_zbbm_building_view">
+            <field name="name">Properties</field>
+            <field name="res_model">zbbm.building</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+        <menuitem id="menu_buildings" name="Properties" sequence="1" parent="menu_zbbm_buildings" action="action_zbbm_building_view" />
+        <!-- Module view Tree -->
+        <record id="view_module_tree" model="ir.ui.view">
+            <field name="name">zbbm.module.tree</field>
+            <field name="model">zbbm.module</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree string="Flat/Office">
+                    <field name="name" string="Flat/Office" />
+                    <field name="owner_id"/>
+                    <field name="tenant_id" />
+                    <field name="level" invisible="1" />
+                    <field name="monthly_rate" />
+                    <field name="managed" />
+                    <field name="state" />
+                    <field name="status" invisible="1" />
+                </tree>
+            </field>
+        </record>
+        <!-- Module Form View -->
+        <record id="view_module_form" model="ir.ui.view">
+            <field name="name">zbbm.module.form</field>
+            <field name="model">zbbm.module</field>
+            <field name="arch" type="xml">
+                <form string="Sub Properties">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="new,available,occupied,blocked,delisted" />
+                        <button name="action_flatdetails_send" string="Send by Email" type="object" class="btn-primary" />
+                        <button name="make_available" string="Make Available" type="object" states="new,delisted,blocked" class="oe_highlight" />
+                        <button name="action_occupied" string="Make Occupied" type="object" class="oe_highlight" groups="base.group_no_one" invisible="True" />
+                        <button name="action_delist" string="Delist" type="object" states="occupied" class="oe_highlight" />
+                        <button name="action_unavailable" string="Make Unavailable" type="object" states="available" class="oe_highlight" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" position="inside" align="right">
+                            <button name="view_attach_from_flat" class="oe_stat_button" icon="fa-book" type="object">
+                                <field name="attachment_count" widget="statinfo" string="Attachments" />
+                            </button>
+                        </div>
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="building_id" />
+                                <field name="dummy" invisible="1" />
+                                <field name="user_id" invisible="1" />
+                                <field name="tenant_id" context="{'show_address': 1, 'module_tenant':True}" domain="[('is_tenant','=',True)]" options='{"always_reload": True}' attrs="{'invisible': [('state', 'not in', ('available','occupied'))],'readonly':[('state','in',('occupied'))]}" />
+                                <field name="tenant_dummy" invisible="1" />
+                                <field name="contract_date" attrs="{'readonly':[('state','in',('occupied'))]}" invisible="1" />
+                                <field name="rental_start_date" string="Lease Start Date" invisible="1" />
+                                <field name="rental_end_date" invisible="1" />
+                                <field name="contract_number" string='No.of units' invisible="1" />
+                            </group>
+                            <group>
+                                <field name="level" string="Floor number" invisible="1" />
+                                <field name="potential_rent" />
+                                <field name="monthly_rate" attrs="{'readonly':[('state','in',('occupied'))]}" />
+                                <field name="type" options="{'no_create_edit':True}" />
+                                <field name="feature" />
+                                <field name="status" invisible="1" />
+                                <field name="account_analytic_id" groups="analytic.group_analytic_accounting" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="General Informations">
+                                <group>
+                                    <group>
+                                        <field name="res_com" string="Building Type" />
+                                        <label for="bed_room" />
+                                        <div class="o_row" name="bed_room">
+                                            <field name="bed_room" />
+                                            <span> m²</span>
+                                        </div>
+                                        <label for="bath_room" />
+                                        <div class="o_row" name="bath_room">
+                                            <field name="bath_room" />
+                                            <span>m²</span>
+                                        </div>
+                                        <label for="floor_area" />
+                                        <div class="o_row" name="floor_area">
+                                            <field name="floor_area" />
+                                            <span>m²</span>
+                                        </div>
+                                        <field name="feature_description" colspan="2" placeholder="Feature Description" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Documents">
+                                <group>
+                                    <group>
+                                        <field name="floor_plan" widget='many2many_binary' />
+                                        <field name="attachment_ids3" widget='many2many_binary' />
+                                        <field name="attachment_ids2" widget='many2many_binary' />
+                                        <field name="attachment_ids1" widget='many2many_binary' />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Financials">
+                                <group>
+                                    <group colspan="4">
+                                        <group>
+                                            <separator string="Invoices" colspan="2" />
+                                            <field name="invoice_total" />
+                                            <field name="payment_total" groups="account.group_account_user" />
+                                            <field name="balance_total" />
+                                        </group>
+                                        <group>
+                                            <separator string="Expense" colspan="2" />
+                                            <field name="supplier_invoice_total" />
+                                            <field name="expense_new" invisible="1" />
+                                            <field name="supplier_payment_total" groups="account.group_account_user" />
+                                            <field name="supplier_balance_total" />
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <field name="advance" invisible="1" />
+                                        <field name="advance_paid" invisible="1" />
+                                        <field name="last_invoice_date" />
+                                        <field name="last_payment_date" />
+                                    </group>
+                                </group>
+                                <notebook>
+                                    <page string="Invoices">
+                                        <separator string="Invoices" />
+                                        <field name="customer_invoice_ids" context="{'form_view_ref':'account.invoice_form','tree_view_ref':'account.invoice_tree','type':'out_invoice'}" readonly="1" />
+                                        <separator string="Refunds" />
+                                        <field name="customer_refund_ids" context="{'form_view_ref':'account.invoice_form','tree_view_ref':'account.invoice_tree'}" readonly="1" />
+                                    </page>
+                                    <page string="Payment" groups="account.group_account_user">
+                                        <separator string="Payment" />
+                                        <field name="payments_ids" readonly="1" groups="account.group_account_user" />
+                                    </page>
+                                    <page string="Expense">
+                                        <separator string="Expense" />
+                                        <field name="supplier_invoice_ids" readonly="1" context="{'form_view_ref':'account.invoice_supplier_form','tree_view_ref':'account.invoice_supplier_tree'}" />
+                                        <separator string="Expense Refunds" />
+                                        <field name="supplier_refund_ids" readonly="1" />
+                                    </page>
+                                </notebook>
+                            </page>
+                            <page string="Agreements">
+                                <field name="agreement_ids">
+                                    <tree string="Details" editable="bottom">
+                                        <field name="reference_no" />
+                                        <field name="tenant_id" domain="[('is_tenant','=',True)]" context="{'default_is_tenant':True}"/>
+                                        <field name="agent" domain="[('supplier','=',True)]" context="{'default_supplier':True}"/>
+                                        <field name="agreement_start_date" />
+                                        <field name="agreement_end_date" />
+                                        <field name="invoice_date" />
+                                        <field name="monthly_rent" />
+                                        <field name='ewa_limit' />
+                                        <field name="state" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <!-- Module Search view -->
+        <record id="view_module_filter" model="ir.ui.view">
+            <field name="name">zbbm.module.list.select</field>
+            <field name="model">zbbm.module</field>
+            <field name="arch" type="xml">
+                <search string="Search Module/Flat">
+                    <field name="building_id" string="Building" operator="child_of" />
+                    <field name="type" string="Type" />
+                    <field name="feature" string="Feature" />
+                    <field name="tenant_id" string="Tenant" />
+                    <field name="name" string="Module No" />
+                    <separator />
+                    <group expand="0" string="Group By">
+                        <filter string="Building" domain="[]" name="building" context="{'group_by':'building_id'}" />
+                        <filter string="Status" name="status" domain="[]" context="{'group_by':'state'}" />
+                        <filter string="Type" name="type" domain="[]" context="{'group_by':'type'}" />
+                        <filter string="Feature" name="feature" domain="[]" context="{'group_by':'feature'}" />
+                        <filter string="Tenant" name="tenant" domain="[]" context="{'group_by':'tenant_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_zbbm_module_view">
+            <field name="name">Subproperties</field>
+            <field name="res_model">zbbm.module</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_module_filter" />
+            <field name="context">{'search_default_building': 1}</field>
+            <field name="view_id" ref="view_module_tree" />
+        </record>
+        <menuitem id="menu_modules" name="Subproperties" sequence="2" parent="menu_zbbm_buildings" action="action_zbbm_module_view" />
+        <!-- Module Lease/Rent view Tree -->
+        <record id="view_lease_rent_agreement_tree" model="ir.ui.view">
+            <field name="name">zbbm.module.lease.rent.agreement.tree</field>
+            <field name="model">zbbm.module.lease.rent.agreement</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="tenant_id" domain="[('is_tenant','=',True)]" />
+                    <field name="agent" domain="[('supplier','=',True)]" />
+                    <field name="building_id" />
+                    <field name="subproperty" />
+                    <field name="agreement_start_date" />
+                    <field name="agreement_end_date" />
+                    <field name="contract_status" />
+                </tree>
+            </field>
+        </record>
+        <!-- Module Lease/Rent Form View -->
+        <record id="view_lease_rent_agreement_form" model="ir.ui.view">
+            <field name="name">zbbm.module.lease.rent.agreement</field>
+            <field name="model">zbbm.module.lease.rent.agreement</field>
+            <field name="arch" type="xml">
+                <form string="Lease/Rent Agreement">
+                    <header>
+                        <field name="state" widget="statusbar" />
+                        <button name='set_to_active' type='object' string='Set To Active' class="btn-primary" attrs="{'invisible': [('state','in', ['active','terminate'])]}" />
+                        <button name='set_to_draft' type='object' string='Set To Draft' class="btn-primary" attrs="{'invisible': [('state','in', ['draft','expired'])]}" groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+                        <button name='set_to_expired' type='object' string='Set To Expired' class="btn-primary" attrs="{'invisible': [('state','!=','active')]}" groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+                        <button name='set_to_terminate' type='object' string='Set To Terminate' class="btn-primary" attrs="{'invisible': [('state','in', ['draft','terminate'])]}" />
+                        <button name='action_set_renew' type='object' string='Renew Agreement' class="btn-primary" attrs="{'invisible': [('state','in', ['draft','active','terminate'])]}" groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <div class="oe_button_box" name="button_box">
+                                <button type="object" name="action_view_invoice" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible':[('state', 'in', ('draft','sent','to approve')),('invoice_ids','=',[])]}">
+                                    <field name="invoices_count" widget="statinfo" string="Invoices" />
+                                    <field name='invoice_ids' invisible="1" />
+                                </button>
+                                <button type="object" name="action_view_expense" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible':[('state', 'in', ('draft','sent','to approve')),('invoice_ids','=',[])]}">
+                                    <field name="expenses_count" widget="statinfo" string="Expenses" />
+                                    <field name='vendor_ids' invisible="1" />
+                                </button>
+                            </div>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="reference_no" />
+                                <field name="tenant_id" context="{'show_address': 1,'default_customer': 1, 'default_supplier': 0,'default_is_tenant':1}" options='{"always_reload": True}' domain="[('is_tenant','=',True)]" />
+                                <field name="building_id" domain="[('building_type','in',('rent','both'))]" options="{'no_create': True}" />
+                                <field name="subproperty" domain="[('building_id', '=', building_id),('state', '=', 'available')]" options="{'no_create': True}" />
+                                <field name="monthly_rent" widget='monetary' options="{'currency_field': 'currency_id', 'field_digits': True}" />
+                                <field name="ewa_limit" widget='monetary' options="{'currency_field': 'currency_id', 'field_digits': True}" />
+                                <field name="security_deposit" widget='monetary' options="{'currency_field': 'currency_id', 'field_digits': True}" />
+                                <field name="contract_status" />
+                            </group>
+                            <group>
+                                <field name="agent" context="{'default_customer': 0,'default_supplier': 1,'default_is_an_agent':1}" domain="[('supplier','=',True)]" />
+                                <field name="agreement_start_date" attrs="{'readonly':[('state','=','active')],'required':[('state','=', 'draft')]}" />
+                                <field name="agreement_end_date" attrs="{'readonly':[('state','=','active')],'required':[('state','=', 'draft')]}" />
+                                <field name="invoice_date" attrs="{'readonly':[('state','=','active')]}" />
+                                <field name="commission_percent" />
+                                <field name="vendor_id" invisible="1" />
+                                <field name="vendor_refund_id" invisible="1" />
+                                <field name="termination_date" attrs="{'invisible':[('state', 'in', ('draft','active','expired'))]}" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Documents">
+                                <group>
+                                    <group>
+                                        <field name="floor_plan" widget='many2many_binary' />
+                                        <field name="attachment_ids3" widget='many2many_binary' />
+                                        <field name="attachment_ids2" widget='many2many_binary' />
+                                        <field name="attachment_ids1" widget='many2many_binary' />
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <!-- Lease Search view -->
+        <record id="view_zbbm_building_lease_filter" model="ir.ui.view">
+            <field name="name">zbbm.module.lease.rent.agreement.filter</field>
+            <field name="model">zbbm.module.lease.rent.agreement</field>
+            <field name="arch" type="xml">
+                <search string="Search Lease/Rent Agreement">
+                    <field name="building_id" string="Building"/>
+                    <field name="tenant_id" string="Tenant" />
+                    <separator />
+                    <group expand="0" string="Group By">
+                        <filter string="Active" name="state" domain="[('state','=','active')]" />
+                        <filter string="Building" domain="[]" name="building" context="{'group_by':'building_id'}" />
+                        <filter string="Tenant" name="tenant" domain="[]" context="{'group_by':'tenant_id'}" />
+                        <filter name="filter_by_year" string="Expire in 1 Month" domain="[('agreement_end_date','&gt;=', (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')),('agreement_end_date','&lt;=', (context_today() + datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]" />
+                        <filter name="filter_draft" string="New" domain="[('state','=', 'draft')]" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_zbbm_module_lease_rent_view">
+            <field name="name">Lease/Rent Agreement</field>
+            <field name="res_model">zbbm.module.lease.rent.agreement</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_zbbm_building_lease_filter" />
+            <field name="context">{'search_default_building': 1,'search_default_state':1}</field>
+            <field name="view_id" ref="view_lease_rent_agreement_tree" />
+        </record>
+        <menuitem id="menu_lease_rent" name="Lease/Rent Agreement" sequence="3" parent="menu_zbbm_buildings" action="action_zbbm_module_lease_rent_view" />
+        <record id="view_unit_tree" model="ir.ui.view">
+            <field name="name">zbbm.unit tree</field>
+            <field name="model">zbbm.unit</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <tree string="Units">
+                    <field name="building_id" />
+                    <field name="name" />
+                    <field name="buyer_id" />
+                    <field name="types" />
+                    <field name="bedroom" />
+                    <field name="floor" />
+                    <field name="agent_id" />
+                    <field name="price" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <!-- Unit Form View -->
+        <record id="view_unit_form" model="ir.ui.view">
+            <field name="name">zbbm.unit.form</field>
+            <field name="model">zbbm.unit</field>
+            <field name="arch" type="xml">
+                <form string="Units">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="new,reserved,book,contract,sold,cancel" colors='{"book": "green", "new": "blue", "cancel": "red","reserved":"yellow","sold":"green"}' />
+                        <!-- <button name="make_booked" string="Book Unit" type="object" states="new" class="oe_highlight" />
+                        <button name="make_buy" string="Buy Unit" type="object" states="book" class="oe_highlight" /> -->
+                        <button name="make_cancel" string="Cancel" type="object" states="book" class="oe_highlight" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="action_view_invoice" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible':[('state', 'in', ('draft','sent','to approve')),('invoice_ids1','=',[])]}" groups="sales_team.group_sale_salesman_all_leads">
+                                <field name="invoice_count" widget="statinfo" string="Invoices" />
+                                <field name='invoice_ids1' invisible="1" />
+                            </button>
+                            <button type="object" name="action_view_expense" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible':[('state', 'in', ('draft','sent','to approve')),('invoice_ids1','=',[])]}" groups="sales_team.group_sale_salesman_all_leads">
+                                <field name="expenses_count" widget="statinfo" string="Expenses" />
+                                <field name='vendor_ids' invisible="1" />
+                            </button>
+                        </div>
+                        <div class="label label-danger pull-right" attrs="{'invisible': [('state', '!=', 'cancel')]}">Cancelled</div>
+                        <div class="label label-success pull-right" attrs="{'invisible': [('state', '!=', 'book')]}">Booked</div>
+                        <div class="label label-success pull-right" attrs="{'invisible': [('state', '!=', 'sold')]}">Sold</div>
+                        <div class="label label-warning pull-right" attrs="{'invisible': [('state', '!=', 'reserved')]}">Reserved</div>
+                        <div class="label label-warning pull-right" attrs="{'invisible': [('state', '!=', 'contract')]}">Contract Signed</div>
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="building_id" attrs="{'readonly':[('state','!=','new')]}" />
+                                <field name="buyer_id" context="{'show_address': 1}" options='{"always_reload": True}' />
+                                <field name="agent_id" />
+                                <field name="contract_date" attrs="{'readonly':[('state','in',('occupied'))]}" />
+                                <field name="unit" invisible="1" />
+                                <field name="bedroom" />
+                                <field name="contract_paid" invisible="1" />
+                                <field name="cc_email" invisible="1" />
+                                <field name="cc_email2" invisible="1" />
+                            </group>
+                            <group>
+                                <field name="price" attrs="{'readonly':['|',('no_button','=',True),('state','not in',['new','reserved'])]}" />
+                                <field name="no_button" invisible="1" />
+                                <field name="currency_id" invisible="1" />
+                                <field name="types" />
+                                <field name="floor" />
+                                <field name="parking" />
+                                <field name="parking_ids" widget="many2many_tags" attrs="{'invisible': [('parking','&lt;', 1)]}" />
+                                <field name="lead_id" />
+                                <field name="account_analytic_id" groups="analytic.group_analytic_accounting" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="General Informations">
+                                <group>
+                                    <group>
+                                       <!--  <field name="unit_area" /> -->
+                                        <label for="unit_area" />
+                                        <div class="o_row" name="unit_area">
+                                            <field name="unit_area" />
+                                            <span> m²</span>
+                                        </div>
+                                        <label for="balcony_area" />
+                                        <div class="o_row" name="balcony_area">
+                                            <field name="balcony_area" />
+                                            <span>m²</span>
+                                        </div>
+                                        <label for="total_area" />
+                                        <div class="o_row" name="total_area">
+                                            <field name="total_area" />
+                                            <span>m²</span>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <label for="floor_plan" /><br></br>
+                                        <field name="floor_plan" widget='many2many_binary' nolabel="1" colspan="2" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Documents">
+                                <group>
+                                    <field name="attachment_ids" widget="many2many_binary" string="Passport and ID copies " />
+                                    <br></br>
+                                    <field name="attachment_ids1" widget="many2many_binary" />
+                                    <br></br>
+                                    <field name="attachment_ids2" widget="many2many_binary" />
+                                    <br></br>
+                                    <field name="attachment_ids3" widget="many2many_binary" />
+                                    <br></br>
+                                    <field name="attachment_ids4" widget="many2many_binary" />
+                                    <br></br>
+                                    <field name="attachment_ids5" widget="many2many_binary" />
+                                </group>
+                            </page>
+                            <page string="Invoice Details" groups="sales_team.group_sale_salesman_all_leads">
+                                <group>
+                                    <field name="invoice_total" />
+                                    <field name="payment_total" />
+                                    <field name="balance_total" />
+                                    <field name="balance_invoice" />
+                                </group>
+                                <group>
+                                    <div class="oe_inline">
+                                        <label for="intr" string="Invoice Time period" class="oe_inline" />
+                                        <field name="intr" nolabel="1" class="oe_inline" />-
+                                        <field name="time_period" nolabel="1" class="oe_inline" />
+                                    </div>
+                                </group>
+                            </page>
+                            <page string="Payment Schedules">
+                                <group>
+                                    <field name="no_button" invisible="1" />
+                                    <field name="method2" />
+                                    <field name="booking_amount" attrs="{'invisible': [('method2','=', False)],'readonly':[('state','!=','new')]}" />
+                                    <field name="booking_per" attrs="{'readonly':[('method2','=',True)]}" />
+                                    <field name="booking_percent" invisible="1" />
+                                    <field name="downpayment_perc" attrs="{'readonly':[('state','!=','new')]}" />
+                                    <field name="downpayment" readonly="1" />
+                                    <field name="cont_prepa_fee" />
+                                    <field name="number_ins" />
+                                    <field name="las_date" />
+                                    <button name="installment_total" string="Create installment lines" type="object" attrs="{'invisible':['|',('state','in',['contract','sold','cancel'])]}" />
+                                </group>
+                                <group>
+                                    <field name='installment_ids' attrs="{'readonly':[('state','=','sold')]}">
+                                        <tree string="Installments" editable="bottom">
+                                            <field name="name" attrs="{'readonly':['|',('state','in',['Posted','Paid','Cancelled']),('invoice_id','!=',False)]}" />
+                                            <field name="fee_for" attrs="{'readonly':['|',('state','in',['Posted','Paid','Cancelled']),('invoice_id','!=',False)]}" />
+                                            <field name="percentage" attrs="{'readonly':['|',('state','in',['Posted','Paid','Cancelled']),('invoice_id','!=',False)]}" />
+                                            <field name="amount" attrs="{'readonly':['|',('state','in',['Posted','Paid','Cancelled']),('invoice_id','!=',False)]}" />
+                                            <field name="due_date" invisible="1" attrs="{'readonly':['|',('state','in',['Posted','Paid','Cancelled']),('invoice_id','!=',False)]}" />
+                                            <field name="invoice_date" attrs="{'readonly':['|',('state','in',['Posted','Paid','Cancelled']),('invoice_id','!=',False)]}" />
+                                            <button name="invoice_create" string="Create Invoice" type="object" attrs="{'invisible':[('invoice_id','!=',False)]}" groups="account.group_account_invoice"/>
+                                            <field name="invoice_id" attrs="{'readonly':True}" groups="account.group_account_invoice"/>
+                                            <field name="state" groups="account.group_account_invoice"/>
+                                        </tree>
+                                    </field>
+                                    <field name="instlm_total" />
+                                    <field name="remaining_total" />
+                                </group>
+                            </page>
+                            <page string="Reservation Period">
+                                <group>
+                                    <label for="reservation_date" />
+                                    <div class="o_row" name="reservation_date">
+                                        <field name="reservation_date" />
+                                    </div>
+                                    <label for="reservation_time" />
+                                    <div class="o_row" name="reservation_time">
+                                        <field name="reservation_time" />
+                                        <span>days</span>
+                                    </div>
+                                    <label for="las_reser" />
+                                    <div class="o_row" name="las_reser">
+                                        <field name="las_reser" />
+                                    </div>
+                                </group>
+                            </page>
+                            <page string="Payment" groups="account.group_account_user">
+                                <separator string="Payment" />
+                                <field name="payments_ids" readonly="1" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <!--  Sellable unit search view -->
+        <record id="view_unit_filter" model="ir.ui.view">
+            <field name="name">zbbm.unit.list.select</field>
+            <field name="model">zbbm.unit</field>
+            <field name="arch" type="xml">
+                <search string="Search Unit">
+                    <field name="building_id" string="Building" operator="child_of" />
+                    <field name="name" string="Unit No" />
+                    <field name="types" string="Type" />
+                    <field name="buyer_id" string="Client" />
+                    <field name="agent_id" string="Salesperson" />
+                    <field name="lead_id" string="Lead" />
+                    <separator />
+                    <group expand="0" string="Group By">
+                        <filter string="Building" name="building" domain="[]" context="{'group_by':'building_id'}" />
+                        <filter string="Status" name="status" domain="[]" context="{'group_by':'state'}" />
+                        <filter string="Type" name="type" domain="[]" context="{'group_by':'types'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_unit_model" model="ir.actions.act_window">
+            <field name="name">Units</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">zbbm.unit</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_unit_filter" />
+            <field name="context">{'search_default_building': 1}</field>
+            <field name="view_id" ref="view_unit_tree" />
+        </record>
+        <menuitem id="menu_zbbm_units" name="Sellable Units" action="action_unit_model" sequence="4" parent="menu_zbbm_buildings"/>
+        <!-- Car Parking -->
+        <record id="view_park_tree" model="ir.ui.view">
+            <field name="name">zbbm.park.tree</field>
+            <field name="model">zbbm.car.park</field>
+            <field name="priority">6</field>
+            <field name="arch" type="xml">
+                <tree string="Car Park">
+                    <field name="name" />
+                    <field name="building_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_parking_form" model="ir.ui.view">
+            <field name="name">zbbm.parking.form</field>
+            <field name="model">zbbm.car.park</field>
+            <field name="arch" type="xml">
+                <form string="Car Parking">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="building_id" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_park_model" model="ir.actions.act_window">
+            <field name="name">Car park</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">zbbm.car.park</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_park_tree" />
+        </record>
+        <menuitem id="menu_zbbm_parking" name="Car park" action="action_park_model" sequence="5" parent="menu_zbbm_buildings" groups="zb_building_management.group_tijaria_admin" />
+        <!-- Tenant tree view -->
+        <record id="view_tenants_tree" model="ir.ui.view">
+            <field name="name">tenant.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Tenants">
+                    <field name="display_name" string="Name" />
+                    <field name="phone" />
+                    <field name="email" />
+                    <field name="building_id" />
+                    <field name="module_id" />
+                    <field name="lease_start_date" />
+                    <field name="lease_end_date" />
+                    <field name="monthly_rent" />
+                    <field name="amount_due" />
+                </tree>
+            </field>
+        </record>
+        <!-- Tenant Action -->
+        <record id="view_partner_tenant_line_filter" model="ir.ui.view">
+            <field name="name">res.partner.list.tenant</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search Tenant Customers">
+                    <filter string="Tenant Customer" name="tenant" icon="terp-personal" domain="[('is_tenant','=',1)]" />
+                    <field name="name" filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]" />
+                    <filter help="My Partners" name="my_partners" domain="[('user_id','=',uid)]" />
+                    <separator />
+                    <filter string="Persons" name="type_person" domain="[('is_company','=',0)]" />
+                    <filter string="Companies" name="type_company" domain="[('is_company','=',1)]" />
+                    <separator />
+                    <filter string="Customers" name="customer" domain="[('customer','=',1), ('parent_id', '=', False)]" />
+                    <filter string="Vendors" name="supplier" domain="[('supplier','=',1), ('parent_id', '=', False)]" />
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]" />
+                    <separator />
+                    <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]" />
+                    <field name="user_id" />
+                    <field name="parent_id" domain="[('is_company','=',1)]" operator="child_of" />
+                    <group expand="0" name="group_by" string="Group By">
+                        <filter name="salesperson" string="Salesperson" domain="[]" context="{'group_by' : 'user_id'}" />
+                        <filter string="Company" name="company" context="{'group_by': 'parent_id'}" />
+                        <filter string="Country" name="country" context="{'group_by': 'country_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_zbbm_partner_view">
+            <field name="name">Tenant</field>
+            <field name="res_model">res.partner</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_partner_tenant_line_filter" />
+            <field name="context">{'search_default_tenant': 1, 'tenant': True}</field>
+            <field name="view_id" ref="view_tenants_tree" />
+            <field name="filter" eval="True" />
+        </record>
+        <!-- Tenant Menu Item -->
+        <menuitem id="menu_tenant" name="Tenant" parent="menu_zbbm_buildings" sequence="7" action="action_zbbm_partner_view" />
+        <menuitem id="menu_zbbm_invoice" name="Income" sequence="1" parent="menu_zbbm_root" />
+        <record id="view_account_invoice_filter_inheur" model="ir.ui.view">
+            <field name="name">account.move.selects</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter" />
+            <field name="arch" type="xml">
+                <field name="journal_id" position="after">
+                    <field name='building_id' />
+                    <field name='unit_id' />
+                    <field name='module_id' />
+                </field>
+            </field>
+        </record>
+        <!-- Invoice Replace  -->
+        <record id="building_action_invoice_tree1" model="ir.actions.act_window">
+            <field name="name">Customer Invoices for Rent</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+            <field eval="False" name="view_id" />
+            <field name="domain">[('type','=','out_invoice'),('building_id.building_type','in',['rent','both']),('module_id','!=',False)]</field>
+            <field name="context">{'type':'out_invoice', 'journal_type': 'sale','rent':'yes'}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter" />
+            <field name="view_id" ref="zb_building_management.view_account_invoice_inherit_zb_ioioi" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a customer invoice.
+                </p>
+                <p>
+                    Odoo's electronic invoicing allows to ease and fasten the
+                    collection of customer payments. Your customer receives the
+                    invoice by email and he can pay online and/or import it
+                    in his own system.
+                </p>
+                <p>
+                    The discussions with your customer are automatically displayed at
+                    the bottom of each invoice.
+                </p>
+            </field>
+        </record>
+        <!-- Customer Invoice Menu Item -->
+        <menuitem id="menu_action_invoice_tree1_building" name="Customer Invoices Rent" parent="menu_zbbm_invoice" action="building_action_invoice_tree1" sequence="10" />
+        <menuitem id="menu_action_invoice_tree1_building0" name="All Rent" parent="menu_zbbm_invoice" action="building_action_invoice_tree1" sequence="11" />
+        <record id="building_action_invoice_tree2" model="ir.actions.act_window">
+            <field name="name">Customer Invoices for Sell</field>
+            <field name="res_model">account.move</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+            <field eval="False" name="view_id" />
+            <field name="domain">[('type','=','out_invoice'),('building_id.building_type','in',['sell','both']),('unit_id','!=',False)]</field>
+            <field name="context">{'type':'out_invoice', 'journal_type': 'sale','rent':'no'}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter" />
+            <field name="view_id" ref="zb_building_management.view_account_invoice_inherit_zb_ioioi" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a customer invoice.
+                </p>
+                <p>
+                    Odoo's electronic invoicing allows to ease and fasten the
+                    collection of customer payments. Your customer receives the
+                    invoice by email and he can pay online and/or import it
+                    in his own system.
+                </p>
+                <p>
+                    The discussions with your customer are automatically displayed at
+                    the bottom of each invoice.
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_action_invoice_tree1_building1" name="Customer Invoices Sell" parent="menu_zbbm_invoice" action="building_action_invoice_tree2" groups="zb_building_management.group_tijaria_admin" sequence="12" />
+        <record id="building_action_invoice_pivot" model="ir.actions.act_window">
+            <field name="name">Rent Analysis</field>
+            <field name="res_model">account.move</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">pivot</field>
+            <field eval="False" name="view_id" />
+            <field name="domain">[('type','=','out_invoice'),('building_id.building_type','=','rent')]</field>
+            <field name="context">{'type':'out_invoice', 'journal_type': 'sale','rent':'yes'}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter" />
+            <field name="view_id" ref="zb_building_management.view_invoice_pivot" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a customer invoice.
+                </p>
+                <p>
+                    Odoo's electronic invoicing allows to ease and fasten the
+                    collection of customer payments. Your customer receives the
+                    invoice by email and he can pay online and/or import it
+                    in his own system.
+                </p>
+                <p>
+                    The discussions with your customer are automatically displayed at
+                    the bottom of each invoice.
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_action_invoice_tree1_building12" name="Rent Analysis" parent="menu_zbbm_invoice" action="building_action_invoice_pivot" sequence="13" />
+        <record id="action_invoice_out_refund_inhrt" model="ir.actions.act_window">
+            <field name="name">Customer Credit Notes</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+            <field eval="False" name="view_id" />
+            <field name="domain">[('type','=','out_refund'),('building_id.building_type','=','rent')]</field>
+            <field name="context">{'default_type': 'out_refund', 'type': 'out_refund', 'journal_type': 'sale'}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter" />
+            <field name="view_id" ref="account.view_invoice_tree" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a credit note.
+                </p>
+                <p>
+                    Note that the easiest way to create a credit note is to do it directly form
+                    the customer invoice, to refund it totally or partially.
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_action_invoice_out_building" name="Customer Refund" parent="menu_zbbm_invoice" action="action_invoice_out_refund_inhrt" sequence="14" />
+        <menuitem id="menu_action_vendor_receipt_building" name="Customer Payments" parent="menu_zbbm_invoice" action="account.action_account_payments" sequence="14" groups="account.group_account_user" />
+        <!--  Vendor Bill Menu Item -->
+        <menuitem action="account.action_move_in_invoice_type" id="menu_action_invoice_tree2_inherit" sequence="1" parent="menu_action_expense" />
+        <!-- Vendor Payments Menu Item -->
+        <menuitem action="account.action_account_payments_payable" id="menu_action_account_payments_payable1" parent="menu_action_expense" groups="account.group_account_user" />
+        <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+            <field name="name">Vendors</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{'res_partner_search_mode': 'supplier', 'default_is_company': True}</field>
+            <field name="filter" eval="True" />
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new vendor in your address book
+                </p>
+                <p>
+                    Odoo helps you easily track all activities related to a vendor.
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_account_supplier_new" name="Vendors" parent="menu_action_expense" action="base.action_partner_supplier_form" sequence="3" />
+        <record id="view_zbbm_type_tree" model="ir.ui.view">
+            <field name="name">zbbm.type.tree</field>
+            <field name="model">zbbm.type</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_zbbm_type_form" model="ir.ui.view">
+            <field name="name">zbbm.type.form</field>
+            <field name="model">zbbm.type</field>
+            <field name="arch" type="xml">
+                <form string="Subproperty Type">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_zbbm_type_view">
+            <field name="name">Subproperty Type</field>
+            <field name="res_model">zbbm.type</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_zbbm_type_tree" />
+        </record>
+        <menuitem id="menu_zbbm_type" name="Subproperty Type" sequence="1" parent="menu_action_config" action="action_zbbm_type_view" />
+        <!-- Inherit ir.attachment -->
+        <record model="ir.ui.view" id="view_attachment_inherit_form_opportunity">
+            <field name="name">Attachments</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[2]" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//group[3]" position="attributes">
+                    <attribute name="string"></attribute>
+                </xpath>
+                <xpath expr="//field[@name='mimetype']" position="after">
+                    <field name="building_id" />
+                    <field name="module_id" />
+                </xpath>
+                <xpath expr="//group[5]" position="attributes">
+                    <attribute name="groups"></attribute>
+                </xpath>
+                <xpath expr="//field[@name='index_content']" position="replace">
+                    <field name="index_content" nolabel="1" attrs="{'invisible': [('mimetype','=', 'image/jpeg')]}" />
+                </xpath>
+                <xpath expr="//field[@name='index_content']" position="after">
+                    <field name="index_image" widget="image" nolabel="1" attrs="{'invisible': [('mimetype','!=', 'image/jpeg')]}" />
+                </xpath>
+            </field>
+        </record>
+        <!-- Partner form Inheritance -->
+        <record id="view_res_partner_form_inherits" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="is_an_agent" />
+                    <field name="is_tenant" nolabel="0" />
+                    <field name="is_a_prospect" />
+                </xpath>
+                <field name="cpr" position="after">
+                    <field name="is_tenant" invisible="1" />
+                    <field name="building_id" attrs="{'invisible':[('is_tenant','!=', True)]}" />
+                    <field name="module_id" attrs="{'invisible':[('is_tenant','!=', True)]}" />
+                    <field name="lease_start_date" attrs="{'invisible':[('is_tenant','!=', True)]}" />
+                    <field name="lease_end_date" attrs="{'invisible':[('is_tenant','!=', True)]}" />
+                    <field name="monthly_rent" attrs="{'invisible':[('is_tenant','!=', True)]}" />
+                    <field name="amount_due" attrs="{'invisible':[('is_tenant','!=', True)]}" />
+                </field>
+                <field name="type" position="after">
+                    <field name="nationality" attrs="{'invisible': [('company_type','=', 'company')]}" />
+                    <field name="passport" attrs="{'invisible': [('company_type','=', 'company')]}" />
+                </field>
+                <field name="vat" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+                <field name="category_id" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <field name="lang" position="after">
+                    <separator string="Ownership Details" attrs="{'invisible': [('company_type','=', 'person')]}" />
+                    <field name="partnerz_id" attrs="{'invisible': [('company_type','=', 'person')]}" />
+                    <field name="deed" attrs="{'invisible': [('company_type','=', 'person')]}" />
+                    <field name="proper" attrs="{'invisible': [('company_type','=', 'person')]}" />
+                </field>
+                <xpath expr="//page[@name='sales_purchases']" position="after">
+                    <page name="attachment" string="Documents" attrs="{'invisible': [('company_type','=', 'person')]}">
+                        <group>
+                            <field name="attachment_id4_cr" widget="many2many_tags" />
+                            <field name="attachment_id4_cr1" widget="many2many_tags" />
+                            <field name="attachment_id4_cr2" widget="many2many_tags" />
+                            <field name="attachment_id4_cr3" widget="many2many_tags" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <!-- Invoice Generator Action -->
+        <record id="ir_cron_act_zbbm" model="ir.actions.act_window">
+            <field name="name">Invoice Generator</field>
+            <field name="res_model">ir.cron</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="context">{'active_test': False}</field>
+            <field name="domain">[('model_id','=','zbbm.module')]</field>
+            <field name="view_id" ref="base.ir_cron_view_tree" />
+        </record>
+        <!-- Invoice Generator Menu Item -->
+        <!--DB <menuitem id="menu_invoice_generator" 
+        name="Invoice Generator" 
+        parent="menu_zbbm_buildings" 
+        action="ir_cron_act_zbbm"/> -->
+        <!--DB
+  
+       <record id="action_invoiceout_tree_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="zb_building_management.view_account_invoice_inherit_zb_ioioi"/>
+            <field name="act_window_id" ref="zb_building_management.building_action_invoice_tree1"/>
+        </record>
+        
+        <record id="action_invoiceout_treeform" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="zb_building_management.view_account_invoice_inherit_zb"/>
+            <field name="act_window_id" ref="zb_building_management.building_action_invoice_tree1"/>
+        </record>
+        
+         <record id="action_invoiceout_tree_tree_sell" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="zb_building_management.view_account_invoice_inherit_zb_ioioi"/>
+            <field name="act_window_id" ref="zb_building_management.building_action_invoice_tree2"/>
+        </record>
+        
+        <record id="action_invoiceout_treeform_sell" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="zb_building_management.view_account_invoice_inherit_zb"/>
+            <field name="act_window_id" ref="zb_building_management.building_action_invoice_tree2"/>
+        </record>
+        
+   -->
+       <!--PV  <record id="action_view_task_approve" model="ir.actions.act_window">
+            <field name="name">Complaints To Approve</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','Waiting')]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="project.view_task_search_form" />
+            <field name="view_id" ref="project.action_view_task" />
+        </record>
+        <menuitem name="To Approve" parent="menu_action_sevice" action="action_view_task_approve" id="menu_cp_approve" sequence="2" groups="project.group_project_manager" /> -->
+    </data>
+</openerp>

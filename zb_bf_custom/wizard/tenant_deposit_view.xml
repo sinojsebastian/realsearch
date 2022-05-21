@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- tenant deposit view -->
+    <record model="ir.ui.view" id="tenant_deposit_wiz_view_form">
+        <field name="name">tenant.deposit.wiz.form.view</field>
+        <field name="model">wiz.tenant.deposit.report</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Tenant Deposit Details" version="7.0">
+                <group>
+                    <group>
+                        <field name="from_date" required="1"/>
+                        <field name="to_date" required="1"/>
+                    </group>
+                    <group>
+                        <field name="building_id" required="0"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Print" type="object" class="oe_highlight" />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <!-- Tenant Deposit Report -->
+    <record id="tenant_depost_wiz_action_window" model="ir.actions.act_window">
+        <field name="name">Tenant Deposit Details</field>
+        <field name="res_model">wiz.tenant.deposit.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <!--Tenant Deposit View -->
+    <menuitem id="menu_tenant_deposit_wiz_parent_view" name="Properties" sequence="1" parent="account.menu_finance_reports" />
+    <menuitem id="menu_tenant_deposit_wiz_view" name="Tenant Deposit Report" sequence="1" parent="menu_tenant_deposit_wiz_parent_view" action="tenant_depost_wiz_action_window" />
+</odoo>

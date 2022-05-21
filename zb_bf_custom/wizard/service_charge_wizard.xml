@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="service_charge_inv_wiz_form_view">
+		<field name="name">service.charge.wizard.form.view</field>
+		<field name="model">service.invoice.wizard</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+		<form string="Service Charge Invoice Generation">
+			<group>
+				<group>
+					<field name="date"/>
+					<field name="duration"/>
+					<field name="to_date"/>
+					<field name="journal_id"/>
+				</group>
+				<group>
+				<field name="admin_fee_check"/>
+				<field name="admin_fee" attrs="{'invisible': [('admin_fee_check','=',False)]}"/>
+				<field name="invoice_date"/>
+				</group>
+			</group>
+			<footer>
+			<button name="service_charge_inv_creation" string="Generate Service Bill" type="object" class="oe_highlight"/>
+			or
+			<button string="Cancel" class="oe_link" special="cancel"/>
+			</footer>
+		</form>
+		</field>
+	</record>
+
+	<record id="action_service_wizard" model="ir.actions.act_window">
+            <field name="name">Generate Service Bill</field>
+            <field name="res_model">service.invoice.wizard</field>
+            <field name="view_mode">form</field>
+           	<field name="view_id" ref="service_charge_inv_wiz_form_view"/>
+           	<field name="target">new</field>
+
+	</record>
+</odoo>
+
+

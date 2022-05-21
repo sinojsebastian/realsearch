@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--   <template id="account_report_payment_receipt_inherit_pdc" inherit_id="account.report_payment_receipt">
+    <xpath expr="//div/div[3]" position="inside">
+      <div class="col-xs-6" t-if="o.cheque_no">
+        <strong>Cheque NO: </strong>
+        <span t-field="o.cheque_no"/>
+      </div>
+      <div class="col-xs-6" t-if="o.cheque_date">
+        <strong>Cheque Date: </strong>
+        <span t-field="o.cheque_date"/>
+      </div>
+      <div class="col-xs-6" t-if="o.cheque_bank_id">
+        <strong>Cheque Bank: </strong>
+        <span t-field="o.cheque_bank_id"/>
+      </div>
+    </xpath>
+    <xpath expr="//div/div[@class='row']/div[2]/span" position="replace">
+      <span t-field="o.journal_id.name"/>
+    </xpath>
+  </template> -->
+</odoo>

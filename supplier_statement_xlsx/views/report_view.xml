@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+	
+		
+         <report
+            id="report_supplier_statement_xlsx"
+            string="Supplier Statement Xlsx"
+            model="supplier.statement.report.xlsx"
+            report_type="xlsx"
+            name="supplier_statement_xlsx.report_supplierstatement.xlsx"
+            file="SupplierStatementReport"/>
+	     
+		
+	   </data> 
+</odoo>

@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+    
+        
+          <record model="ir.cron" id="invoice_remainder_id">
+            <field name='name'>Invoice remainder</field>
+            <field name="model_id" ref="model_zbbm_unit"/>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/><!-- Active = true changed to fals e as per client request issue date 03-07-2018 -->
+            <field name="doall" eval="True" />
+            <field name="state">code</field>
+            <field name="code">model.action_set_invoice_notice()</field>
+          
+        </record>
+        
+        
+         
+        <record model="ir.cron" id="invrema_on exp">
+            <field name='name'>Invoice Remainder inv</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>months</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/><!-- Active = true changed to fals e as per client request issue date 03-07-2018 -->
+            <field name="doall" eval="True" />
+            <field name="state">code</field>
+            <field name="code">model.action_set_new_invoice()</field>
+          
+        </record>
+        
+        <record model="ir.cron" id="invrema_on exp_sales">
+            <field name='name'>Invoice Remainder inv-salesperson</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>months</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/><!-- Active = true changed to fals e as per client request issue date 03-07-2018 -->
+            <field name="doall" eval="True" />
+            <field name="state">code</field>
+            <field name="code">model.action_set_new_invoice_saleperson()</field>
+          
+        </record>
+        
+     </data>
+</odoo>

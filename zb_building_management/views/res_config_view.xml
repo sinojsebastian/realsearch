@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_config_inherit" model="ir.ui.view">
+        <field name="name">res settings Inherits</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='purchase_tax_id']" position="after">
+                <div class="col-xs-2 col-md-12 o_setting_box">
+                    <span class="o_form_label">Property Taxes</span>
+                    <!--  <label string='Property Taxes'/> -->
+                    <div class="text-muted">
+                        Default sales taxes applied to Property transactions
+                    </div>
+                    <br />
+                    <div class="content-group">
+                        <div class="row">
+                            <label string="Rental Tax" for="rental_tax_ids_default" class="col-md-3 o_light_label" />
+                            <field name="rental_tax_ids_default" widget="many2many_tags" domain="[('type_tax_use', 'in', ('sale', 'all'))]" />
+                        </div>
+                        <div class="row">
+                            <label string="Sellable Tax" for="sellable_tax_ids_default" class="col-md-3 o_light_label" />
+                            <field name="sellable_tax_ids_default" widget="many2many_tags" domain="[('type_tax_use', 'in', ('sale', 'all'))]" />
+                        </div>
+                        <div class="row">
+                            <label string="Property Expense Tax" for="expense_tax_ids_default" class="col-md-3 o_light_label" />
+                            <field name="expense_tax_ids_default" widget="many2many_tags" domain="[('type_tax_use', 'in', ('purchase', 'all'))]" />
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//div[@id='accounting_reports']" position="after">
+                <!-- <separator string="Fiscal Lock Period" />
+                <group>
+                    <label for="period_lock_date" string="Lock Date for Non-Advisers" />
+                    <div>
+                        <field name="period_lock_date" />
+                    </div>
+                    <label for="fiscalyear_lock_date" string="Lock Date" />
+                    <div>
+                        <field name="fiscalyear_lock_date" />
+                    </div>
+                </group> -->
+                <separator string="Vendor Bill Terms" />
+                <group>
+                    <div>
+                        <field name="agent_commission_comment" />
+                    </div>
+                    <div></div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.building</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="5"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Building" string="Building" data-key="zb_building_management" groups="sales_team.group_sale_manager">
+                    <h2>Building</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-6 col-lg-6 o_setting_box" id="building">
+                            <div class="o_setting_left_pane">
+                                <field name="reservation_time"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="reservation_time" />
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-6 o_setting_box" id="reservation_sale">
+                            <div class="o_setting_left_pane">
+                                <field name="max_reservation_time"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="max_reservation_time" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="building_config_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'zb_building_management'}</field>
+    </record>
+</odoo>
+

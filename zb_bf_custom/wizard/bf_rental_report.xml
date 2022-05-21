@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- bf_rental_report_form_views -->
+    <record model="ir.ui.view" id="bf_rental_report_wiz_form_view">
+        <field name="name">bf.rental.report.form.view</field>
+        <field name="model">wiz.bf.rental.report</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="BF Rental Report Details">
+                    <group>
+                        <group>
+                            <field name="from_date" invisible="1"/>
+                            <field name="month"/>
+                            <field name="year"/>
+                        </group>
+                        <group>
+                            <field name="to_date" invisible="1"/>
+                        </group>
+                    </group>
+                <footer>
+                    <button name="print_rental_report" string="Print" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- bf_rental_report_action -->
+    <record id="bf_rental_report_action" model="ir.actions.act_window">
+        <field name="name">BF Rental Report</field>
+        <field name="res_model">wiz.bf.rental.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!--bf_rental_report_menu -->
+
+    <menuitem id="menu_bf_rental_report"
+              name="BF Rental Report"
+              sequence="36"
+              parent="zb_building_management.menu_action_reporting"
+              action="bf_rental_report_action"/>
+
+</odoo>

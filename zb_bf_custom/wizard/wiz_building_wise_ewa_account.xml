@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- building_wise_ewa_account_form_views -->
+	
+	<record model="ir.ui.view" id="building_wise_ewa_account_form_view">
+    	<field name="name">building.ewa.account.wiz.form.view</field>
+   	 	<field name="model">building.wise.ewa.account.wiz</field>
+    	<field name="type">form</field>
+    	<field name="arch" type="xml">
+      		<form string="Building Wise Ewa Account" version="7.0">
+      		<group>
+          		<group>
+          			<field name="building_id"/>             
+          		</group>
+          	</group>
+          	<footer>
+            	<button name="print_building_ewa_account_report" string="Print" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+   </record>
+   
+<!-- building_ewa_account_wizard_action --> 
+	
+	<record id="building_ewa_account_wizard_action" model="ir.actions.act_window">
+        <field name="name">Building Wise EWA Account Wizard</field>
+        <field name="res_model">building.wise.ewa.account.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    
+ <!--ewa_account_building_wise_menu -->
+
+	<menuitem id="menu_ewa_account_building" 
+	    name ="Building Wise EWA Account" 
+	    sequence="1"
+	    parent="zb_building_management.menu_action_reporting"
+	     action="building_ewa_account_wizard_action"/>
+	    
+
+</odoo>
+    

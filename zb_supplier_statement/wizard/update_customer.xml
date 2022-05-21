@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    	<record model="ir.ui.view" id="wizard_import_customer">
+            <field name="name">wizard.import.custmr.form</field>
+            <field name="model">wizard.customer.data</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Customer Data">
+                	<sheet>
+                	<group>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Import" name="upload_customer_data" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+       <record id="action_customer_data" model="ir.actions.act_window">
+	            <field name="name">Import Customer Data</field>
+	            <field name="res_model">wizard.customer.data</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="wizard_import_customer"/>
+	            <field name="target">new</field>
+      </record>
+      
+      <menuitem id="menu_customer_data" name="Import Customer Data" parent="sale.sale_menu_root"
+              action="action_customer_data" sequence="3"/>
+      
+      
+ </odoo>      
+ 

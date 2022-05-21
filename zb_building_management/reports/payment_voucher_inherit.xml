@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="report_invoice_document_inherit" inherit_id="account.report_payment_receipt">
+	
+	 <xpath expr="//table[1][@class='table table-condensed']" position="before">
+		 <div>
+		 	
+		 	<strong>Building: </strong><span t-field="o.building_id"></span><br/>
+		 	<t t-if="o.building_id.building_type=='rent'"><strong>Flat/Office: </strong><span t-field="o.module_id.name"></span></t>
+		 	<t t-if="o.building_id.building_type=='sell'"><strong>Unit No: </strong><span t-field="o.unit_id.name"></span></t><br/>
+		 </div>
+		 <div  t-if="o.notes">
+		 	<strong>Description:</strong> <span t-field="o.notes"/>
+		 	<br></br>
+		 	<br></br>
+		 	<br></br>
+		 </div>
+	
+	</xpath>
+		
+	<xpath expr="//div/div[3]/div[2]" position="after">
+		 <div class="col-xs-6" t-if="o.amount">
+		<strong> Amount In Words : </strong><span t-field="o.amount_total_words"/>
+		</div>
+	</xpath>
+
+	</template>
+</odoo>

@@ -1,0 +1,125 @@
+28/04/2022 v.0.40 shilpa mariya
+	[ZB-8169] Advance Expenses Adjustment
+
+14/04/2022 v.0.39 Neha
+	[ZB-8169] Advance Expenses Adjustment
+
+03/03/2022 v.0.38 Neha
+	Register payment error
+
+01/03/2022 v.0.37 Neha
+	[ZB-8029] Payment Voucher Report Issue
+
+18/02/2022 v.0.36 Neha
+	Payment lines loading for opening balance
+
+30/12/2021 v.0.35 Neha
+	[ZB-7764] Allocation amount error
+
+29/12/2021 v.0.34 Neha
+	[ZB-7764] Allocation amount error
+
+28/12/2021 v.0.33 Neha
+	[ZB-7753] Payment Advise Sorting
+
+27/12/2021 v.0.32 Neha
+	[ZB-7603] Payment Advise Functionality Upgrade
+
+17/12/2021 v.0.31 Neha
+	[ZB-7598] Tenant Advance Payment Transfer
+
+16/12/2021 v.0.30 Neha
+	Customer Receipt Sequence Issue
+
+Version 0.29 - 20/09/2021 by Neha
+	[ZB-7013] Bldg / Unit in Customer Invoices
+
+Version 0.28 - 27/08/2021 by Neha
+	Payment adjustment journal entry sequence issue
+
+Version 0.27 - 16/08/2021 by Neha
+	Payment adjustment sequence issue
+
+Version 0.26 - 10/08/2021 by Neha
+	[ZB-6729] customer payment : field reset issue
+
+Version 0.25 - 09/08/2021 by Neha
+	payment advise correction
+
+Version 0.24 - 16/07/2021 by PV
+	Advance Expense Entries and Calculation in Payment Voucher.
+	
+Version 0.23 - 05/05/2021 by Neha
+	6003 - Feedback
+
+Version 0.22 - 04/05/2021 by Neha
+	Removed Full reconcile id in PA
+
+Version 0.21 - 03/05/2021 by Neha
+	Full reconcile id in PA
+
+Version 0.20 - 01/05/2021 by PV
+	PA Partial reconciliation Changes
+	
+Version 0.19 - 30/04/2020 by Neha
+	PA-payment lines correction
+
+Version 0.18 - 24/12/2020 by Dayana
+	Payment line ids  -lines visible depends on  flats in payment
+
+Version 0.17 - 21/12/2020 by Dayana
+	amount in account.payment calculation
+
+Version 0.16 - 15/12/2020 by Dayana
+	error solved in confirming payments
+
+Version 0.15 - 15/12/2020 by Dayana
+	* remove the total from allocation and addded total for debit and credit in pyament lines ids of account.payment
+	
+Version 0.14 - 11/12/2020 by Dayana
+	* payment lines changes
+
+Version 0.13 - 25/11/2020 by Dayana
+	* payment allocation changes
+
+Version 0.12 - 25/11/2020 by Dayana
+	* payment allocation changes
+
+Version 0.11 - 24/11/2020 by Dayana
+	* Code changes
+
+Version 0.10 - 13/11/2020 by PV
+	* Fetching JV for Vouchers
+
+Version 0.9 - 29/10/2020 by Neha
+	* _onchange_partner_id() functionality correction
+
+Version 0.8 - 13/10/2020 by Dayana
+	* Payment allocation issue -  lines and warning issue solved
+
+Version 0.6 - 13/10/2020 by PV
+	* Payment allocation issue --> Solved
+	
+Version 0.5 - 12/10/2020 by Dayana
+	* ZB-4866-Full Accounting not installed
+
+Version 0.4 - 17/08/2020 by Dayana
+	* [ZB-4339] Configuration & CR - 1.for payment allocation using adjustment method , i see some issues
+ invoice id 45,The balance amount doesn't matches after payment please refer the screenshots and check- solved
+
+Version 0.3 - 17/08/2020 by Dayana
+	* [ZB-4339] Configuration & CR - 1.for payment allocation using adjustment method , i see some issues
+ invoice id 45,The balance amount doesn't matches after payment please refer the screenshots and check- solved
+
+Version 0.2 - 07/08/2020 by Dayana
+	* Add payment allocation for multiple invoices.
+
+Version 0.1 - 13/07/2020 by Rilu
+	* Migration from odoo11 to odoo13
+	
+
+
+
+	 
+
+	

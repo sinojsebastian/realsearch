@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Building Wise Income Statement_Report_form_views -->
+    <record model="ir.ui.view" id="rent_outstanding_wizard_form_view">
+        <field name="name">rent.outstanding.wizard.form.view</field>
+        <field name="model">rent.outstanding.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Building Wise Income Statement Report">
+                <group>
+                    <group>
+                        <field name="date" />
+                        <field name="building_id"/>
+                    </group>
+                    <group>
+                        <field name="area_manager_id"  />
+                        <field name="adviser_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_rent_outstanding_report" string="Print" type="object" class="oe_highlight" />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_rent_outstanding_report" model="ir.actions.act_window">
+        <field name="name">Rent Outstanding Report</field>
+        <field name="res_model">rent.outstanding.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="rent_outstanding_wizard_form_view" />
+        <field name="target">new</field>
+    </record>
+    <menuitem id="menu_rent_outstanding_report" name="Rent Outstanding Report"  parent="account.menu_finance_reports" action="action_rent_outstanding_report" sequence="1"/>
+</odoo>

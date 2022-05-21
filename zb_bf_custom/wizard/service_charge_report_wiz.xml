@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- service_charge_collection_form_views -->
+	
+	<record model="ir.ui.view" id="service_charge_collection_wiz_view">
+    	<field name="name">service.charge.collection.wiz.view</field>
+   	 	<field name="model">wiz.service.charge.collection</field>
+    	<field name="type">form</field>
+    	<field name="arch" type="xml">
+      		<form string="Service Charge Collection" version="7.0">
+      		<group>
+          		<group>
+          			   
+          			<field name="from_date" required="1"/> 
+          			<field name="to_date" required="1"/>   
+          			<field name="building_id" required="1"/>  
+          			<field name="product_id" required="1"/>           
+          		</group>
+          	</group>
+          	<footer>
+            	<button name="print_service_charge_report" string="Print" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+   </record>
+   
+<!-- service_charge_report_action --> 
+	
+	<record id="action_service_charge_collection_report" model="ir.actions.act_window">
+          <field name="name">Service Charge Collection Report</field>
+          <field name="res_model">wiz.service.charge.collection</field>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="service_charge_collection_wiz_view"/>
+          <field name="target">new</field>
+    </record>
+        
+    
+    <menuitem 
+    	id="menu_service_Charge_collection_report" 
+	    name ="Service Charge Report" 
+	    parent="zb_building_management.menu_action_reporting"
+	    action="action_service_charge_collection_report"/>
+            
+</odoo>
+    

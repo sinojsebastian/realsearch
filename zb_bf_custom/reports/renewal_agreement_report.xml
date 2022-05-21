@@ -1,0 +1,630 @@
+<odoo>
+<data>
+	
+
+	<template id="renewal_agreement">
+	<t t-call="web.html_container">
+	<t t-foreach="docs" t-as="o">
+	<t t-call="zb_bf_custom.renewal_agreement_external_layout">
+		<style>.page_border{
+		    border-top: white;
+		    border-bottom: white;
+		    position: fixed;
+		    z-index: 9999;
+		    left: 0px;
+		    top:287mm;
+		    width:100%;
+		}</style>
+	<!--   First page  -->
+		<div class="page">
+		<div class="page_border" style="height:288mm">
+		 </div>
+		<!-- <style> .border-black,td,table,tr{ border:1px ridge black;padding: 5px; } 
+				.border-black,#p1{border-left: 1px ridge #161A1D; border-right: 1px solid #161A1D; border-top: 1px ridge #161A1D; border-bottom: 1px solid #161A1D;}
+				.border-black,.page1{border-left: 1px ridge #161A1D; border-right: 1px solid #161A1D; border-top: 1px ridge #161A1D; border-bottom: 1px solid #161A1D;} </style>
+			<div class="page1" style="height:290mm;"> -->
+		<!--    Second Page  -->
+		
+		<style>
+		ol {
+			  margin-left: 0;
+			  padding-left: 0;
+			}
+			ul {
+			  margin-left: 0;
+			  padding-left: 0;
+			}
+			ol li {
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			ol li::before {
+			  display: inline-block;
+			  content: attr(seq) ". ";
+			  width: 2em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			}
+			
+			ol li.first {
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			ol li.first::before {
+			  display: inline-block;
+			  content: attr(seq) ". ";
+			  width: 2em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			}
+			
+			ul li{
+			  list-style-type: none;
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			ul li::before {
+			  list-style-type: none;
+			  display: inline-block;
+			  width: 2em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			}
+			
+			ol li.subbullets {
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 2em;
+			  margin-right: 2em;
+			}
+			
+			ol li.subbullets::before {
+			display: inline-block;
+			  content: attr(seq) ". ";
+			  width: 4em;
+			  margin-left: -2em;
+			  margin-right: -2em;
+			  
+			}
+			
+			ol li.subbulletss {
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			
+			ol li.subbulletss::before {
+			display: inline-block;
+			  content: attr(seq) ". ";
+			  width: 2em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			}
+			
+		</style>
+		<div class="row" style="padding-top:9cm;">
+			<div class="col-6 text-center" style="font-size:19px;border:white;">
+			<b>Lease Contract Renewal</b>
+			</div>
+			<div class="col-6 text-center" style="font-size:19px;border:white">
+			<b>تجديد عقد أيجار</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;border:white"> This Lease Contract Renewal (the <b>“Lease Renewal”</b>) is made on <span t-field="o.agreement_start_date"/> between: </div>
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:right;border:white">
+			 ‫     حرر هذا العقد (<b>"عقد التجديد"</b>) في اليوم  
+			 <span t-esc="o.start_date_arabic"/>
+‫     بين:	 			
+			 </div>
+		</div>
+		
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;border:white">
+			<ol><li class ='first' seq="1">
+			  <b><t t-if="o.owner_id.company_type == 'person'">
+				<span t-esc="o.owner_id.title.shortcut"/>
+			  </t>
+			<t t-else="">
+			M/S
+			</t>&#160;
+			 <t t-if="o.owner_id.name">
+			   <span t-esc="o.owner_id.name"/>,</t>
+			  	<t t-if="not o.owner_id.name">..................... ,</t> </b> whose managed by M/S Real Search Company W.L.L. Holding CR No.111554-1, the Company is represented by; Mr. Abdulla Abdulsamad Mohamed Rasheed Awadhi, Bahraini Nationality, Holding ID Card No. 781104637, as per authorization dated on 08th September 2019 (hereinafter referred to as the <b>“The Lessor”</b>);
+			</li></ol>
+			</div>
+			<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class ='first' seq="1" dir='rtl'>
+ 			
+ 						 ‫      <b>
+ 			<t t-if="o.owner_id.company_type == 'person'">
+ 			<t t-if="o.owner_id.title.abbr_arabic">
+			<span t-esc="o.owner_id.title.abbr_arabic"/>
+			</t>
+			</t>
+			<t t-else="">
+			 السادة/ شركة بن
+			</t>&#160;
+ 			<t t-if="o.owner_id.name_arabic">
+ 			<span t-esc="o.owner_id.name_arabic"/>،</t>
+ 			<t t-if="not o.owner_id.name_arabic">..................... ،</t>
+ 						 </b>
+ 						  وتمثلها في التوقيع  شركة البحث الحقيقي ذ.م.م. تحمل سجل تجاري رقم 111554-1، والمخول بالتوقيع السيد/ عبدالله عبدالصمد محمد رشيد عوضي، بحريني الجنسية، و الحامل لبطاقة هوية رقم 781104637، بموجب التفويض المؤرخ 8 سبتمبر 2019 (ويشار إليها بـ"<b>المؤجر</b>")
+ 		</li></ol>
+ 		</div>
+		</div>
+		
+		<br></br>
+		<div class="col-13 row" style="border:white;">
+			<div class="col-2 text-left" style="font-size:11px;">
+			Email Address :
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+				<span t-field="o.owner_id.email"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<span t-esc="o.owner_id.email"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;">
+			     ‫ البريد الالكتروني  :
+			</div>
+		</div>
+		<div class="col-13 row" style="border:white;">
+			<div class="col-2 text-left" style="font-size:11px;border-right:white;">
+			Watsapp Number  :
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;border-right:white;">
+				<t t-if="o.owner_id.mobile">
+				<span t-esc="o.owner_id.mobile"/>
+				</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;border-right:white;">
+			<t t-if="o.owner_id.mobile">
+			<span t-esc="o.owner_id.mobile"/>
+			</t>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;">
+			     ‫  رقم الواتساب  :
+			</div>
+		</div>
+		<br></br>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;border:white;">
+			<b>And</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;border:white;">
+			<b>و</b>
+			</div>
+			<!-- <div class="col-1"/> -->
+		</div>
+		
+		
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;border:white;">
+			<ol><li class ='first' seq="2"><b>
+			<t t-if="o.tenant_id.company_type == 'person'">
+			<span t-esc="o.tenant_id.title.shortcut"/>
+			</t>
+			<t t-else="">
+			M/S
+			</t>&#160;
+			 <t t-if="o.tenant_id.name">
+			   <span t-esc="o.tenant_id.name"/>,</t>
+			  	<t t-if="not o.tenant_id.name">..................... ,</t></b>
+			 <t t-if="o.tenant_id.nationality_id.name">
+			   <span t-esc="o.tenant_id.nationality_id.name"/> Nationality,</t>
+			  	<t t-if="not o.tenant_id.nationality_id.name">..................... Nationality,</t>
+			holding Passport No.
+			<t t-if="o.tenant_id.passport">
+				<span t-esc="o.tenant_id.passport"/>
+			  </t>
+				<t t-if="not o.tenant_id.passport">
+				..................... 
+				</t>
+			(hereinafter referred to as the “<b>Lessee</b>”);
+			</li></ol>
+			</div>
+			<div class="col-6" style="align:right;text-align:justify;font-size:11px;border:white;">
+			<ol><li class ='first' seq="2" dir='rtl'>
+ 			<b>
+ 			<t t-if="o.tenant_id.company_type == 'person'">
+			<span t-esc="o.tenant_id.title.abbr_arabic"/>
+			</t>
+			<t t-else="">
+			السادة/ شركة بن
+			</t>&#160;
+ 			<t t-if="o.tenant_id.name_arabic">
+ 			<span t-esc="o.tenant_id.name_arabic"/>،</t>
+ 			<t t-if="not o.tenant_id.name_arabic">..................... ،</t></b>
+			 <t t-if="o.tenant_id.nationality_id.nationality_arabic">
+			   <span t-esc="o.tenant_id.nationality_id.nationality_arabic"/>, الجنسية</t>
+			 <t t-if="not o.tenant_id.nationality_id.name">....................., الجنسية</t>
+ يحمل  جواز سفر رقم				 
+ 			<t t-if="o.tenant_id.passport_arabic">
+				<span t-esc="o.tenant_id.passport_arabic"/>
+			،</t>
+			<t t-if="not o.tenant_id.passport_arabic">
+				..................... ،
+			</t>
+						     ‫   (يشار اليهما فيما بعد بــ <b>"المستأجر"</b>)
+ 			
+ 			</li></ol>
+ 			</div>
+			</div>
+		<br></br>
+		<div class="col-13 row" style="border:white">
+			<div class="col-2" style="font-size:11px;">
+			Email Address :
+			</div>
+			<div class="col-4" style="font-size:11px;">
+				<span t-field="o.tenant_id.email"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<span t-esc="o.tenant_id.email"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;">
+			     ‫ البريد الالكتروني  :
+			</div>
+		</div>
+		<div class="col-13 row" style="border:white">
+			<div class="col-2" style="font-size:11px;">
+			Watsapp Number  :
+			</div>
+			<div class="col-4" style="font-size:11px;">
+				<t t-if="o.tenant_id.mobile">
+				<span t-esc="o.tenant_id.mobile"/>
+				</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<t t-if="o.tenant_id.mobile">
+			<span t-esc="o.tenant_id.mobile"/>
+			</t>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;">
+			     ‫  رقم الواتساب  :
+			</div>
+		</div>
+		<br></br>
+		<div class="row">
+			<div class="col-6 text-left" style="font-size:11px;border:white">
+			<b>PREAMBLE</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;border:white">
+			<b>التمهيد</b>
+			</div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;border:white;"> Whereas, the parties have entered into an Lease Contract to the lease contract, dated <span t-field="o.agreement_start_date"/> (the “<b>Lease Contract</b>”). for  Flat <t t-esc="o.subproperty.name"></t>, Building <t t-esc="o.building_id.name"></t>,Road <t t-esc="o.building_id.building_address.street2"></t>,<t t-esc="o.building_id.building_address.city"></t>,<t t-esc="o.building_id.building_address.country_id.name"></t> (the “<b>Leased Premises</b>”).
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;border:white;">
+‫     حيث ان الطرفين ابرما عقد إيجار مؤرخ 
+<span t-esc="o.start_date_arabic"/> 
+						 ‫       ("عقد الايجار").، لشقة رقم  
+			<t t-if="o.subproperty.unit_arabic">
+			<t t-esc="o.subproperty.unit_arabic"/>,</t>
+			<t t-else="">
+			<t t-esc="o.subproperty.name"/>,</t>
+			<t t-esc="o.building_id.address_arabic"/>
+						‫      ("<b>العين المؤجرة</b>").
+			  
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;border:white;"> 
+			Whereas, the Lease Contract shall expire on the <span t-field="o.agreement_end_date"/>
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;border:white;">
+‫     وحيث أن عقد الايجار سينتهي في تاريخ 			
+			<span t-esc="o.end_date_arabic"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;border:white;"> 
+				Whereas, the parties intend to renew the Lease Contract subject to the terms and conditions stipulated in the Lease Renewal. 
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;border:white;">
+‫     وحيث أن الطرفين قد أبديا رغبتهما في تجديد عقد الإيجار وذلك وفقاً للأحكام والشروط المذكورة في عقد التجديد.			
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;border:white;"> 
+			Therefore, the parties, hereby, agree to renew the Lease Contract as per the following:
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;border:white;">
+‫    	وبناءً على ذلك، تم الاتفاق والتراضي بين الطرفين على تجديد عقد  الإيجار كما يلي:
+			</div>
+		</div>
+		
+		<div class="row">
+		<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="1"> The Preamble shall be construed to be an integral part of this Lease Renewal. All definitions in the Lease Agreement shall apply in this Lease Renewal unless as stated otherwise</li> </ol> </div>
+		<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="1" dir='rtl'>
+			 ‫   يعتبر التمهيد جزء لا يتجزأ من عقد التجديد و تنطبق جميع التعريفات الواردة في عقد الايجار في عقد التجديد ما لم ينص على خلاف ذلك. 
+			
+		</li>  </ol>   </div>
+		</div>
+		
+		<div class="row">
+		<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="2"> The duration of the Lease Renewal shall be valid for a duration of <t t-esc="duration"/> commencing on <span t-field="o.agreement_start_date"/> and terminating on <span t-field="o.agreement_end_date"/>.</li> </ol> </div>
+		<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="2" dir='rtl'>
+			 ‫   مدة عقد التجديد <t t-esc="o.duration_arabic"/>  
+			   تبدأ في
+			<span t-esc="o.start_date_arabic"/>
+			و تنتهي في
+			<span t-esc="o.end_date_arabic"/>.
+		</li>  </ol>   </div>
+		</div>
+		
+		<div class="row">
+		<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="3"> The rent amount shall be for 
+			BD <t t-esc="rent_amt"/>/- (<t t-esc="rent"/>) payable monthly in advance.</li> </ol> </div>
+		<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="3" dir='rtl'>
+			 ‫   مبلغ الإيجار د.ب <t t-esc="rent_amt"/>/-   
+						 ‫       (<t t-esc="o.leasedpremise_rent_arabic"/>) تدفع مقدماً  شهرياً
+			
+		
+		</li>  </ol>   </div>
+		</div>
+		<div class="row">
+		<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="4"> The Deposit BD <t t-esc="security"/>/- (<t t-esc="deposit"/>)  shall be returned to the Lessee, within two (2) weeks maximum, subject to the satisfactory final inspection of the Leased Premises (the “<b>Final Inspection</b>”) and other conditions stipulated in the Lease Contract.
+		</li> </ol> </div>
+		<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="4" dir='rtl'>
+			 ‫   مبلغ التأمين د.ب <t t-esc="security"/>/-  
+									 ‫       (<t t-esc="o.security_deposit_arabic"/>) ويسترجع إلى المستأجر في غضون أسبوعين (2) كحد أقصى رهنًا للمعاينة النهائية المرضية للعين المؤجرة ("<b>المعاينة النهائية</b>") وللشروط الأخرى المحددة في عقد الإيجار.
+			
+		
+		</li>  </ol>   </div>
+		</div>
+		<div class="row">
+		<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="5"> The Lessee has the right to terminate the Lease Contract by serving the Lessor a one (1) month written notice.
+		</li> </ol> </div>
+		<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="5" dir='rtl'>
+			 ‫   يحق للمستأجر فسخ عقد الإيجار بعد أرسال أشعار كتابي بشهر واحد (1) إلى المؤجر. 
+			
+		</li>   </ol>  </div>
+		</div>
+		<div class="row">
+		<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="6"> The Lessor is obligated to pay the monthly electricity, water charges up to a limit of BD <t t-esc="ewa_amt"/>/- monthly only. Any charges that exceed BD <t t-esc="ewa_amt"/>/- per month shall be borne by the Lessee thereafter.
+		</li> </ol> </div>
+		<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="6" dir='rtl'>
+			 ‫   يلتزم المؤجر بسداد الرسوم الشهرية للكهرباء والماء حتى د.ب.<t t-esc="ewa_amt"/>/-  فقط، و اية رسوم تتعدى د.ب <t t-esc="ewa_amt"/>/-  يتحملها المستأجر لاحقاً. 
+			
+		</li> </ol>    </div>
+		</div>
+		<p style="page-break-before:always;">
+		<t t-if="int_amt">
+		<div class="row">
+		<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="7"> The Lessor shall pay internet charges.
+		</li> </ol> </div>
+		<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="7" dir='rtl'>
+			 ‫   يلتزم المؤجر سداد قيمة الانترنت. 
+			
+		</li> </ol>    </div>
+		</div>
+		<t t-if="o.tax_municipality in ['lessor','lessee']">
+		<div class="row">
+			<t t-if="o.tax_municipality == 'lessor'">
+				<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="8"> The monthly Municipality Tax as imposed by the relevant authority and as evidenced in the Leased Premises’ Electricity and Water bill of the Leased Premises shall be paid by the Lessor.
+				</li> </ol> </div>
+				<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="8" dir='rtl'>
+					 ‫   على المؤجر سداد رسوم البلدية الشهرية التي تفرضها الجهة المختصة كما هو مبين في فاتورة الكهرباء والماء للعين المؤجرة. 
+					
+				</li> </ol>    </div>
+			</t>
+			<t t-if="o.tax_municipality == 'lessee'">
+               <div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="8">
+                   The monthly Municipality Tax as imposed by the relevant authority and as evidenced in the Leased Premises’ Electricity and Water bill of the Leased Premises shall be paid by the Lessee.
+               </li></ol>
+               </div>
+               <div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="8" dir='rtl'>
+                   ‫ على المستأجر سداد رسوم البلدية الشهرية التي تفرضها الجهة المختصة كما هو مبين في فاتورة الكهرباء والماء للعين المؤجرة.
+               </li></ol>
+               </div>
+           </t>
+		</div>
+		<div class="row">
+		<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="9"> This Lease Renewal may be executed in multiple counterparts, each of which shall be deemed an original agreement and both of which shall constitute one and the same agreement. The Lease Renewal may be executed by the Lessor and Lessee’s scanned signature and such scanned signature shall be deemed to have the same legal effect as an ordinary signature; and delivery of the Lease Renewal may be delivered electronically provided that such delivery is performed directly from the email address or WhatsApp number of the Lessor and the Lessee as contained in the Lease Renewal to be followed by a confirmation from the Lessor and the Lessee confirming the authenticity of the signature via such email or WhatsApp number.
+		
+		</li></ol>  </div>
+		<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="9" dir='rtl'>
+			 ‫   يجوز تحرير هذا العقد من نسخ متطابقة تعتبر كنسخة طبق الأصل. و يجوز التوقيع على هذا العقد من قبل المؤجر و المستأجر بالتوقيع الممسوح ضوئياً و يعتبر هذا التوقيع له نفس التأثير القانوني للتوقيع العادي، و ويجوز تسليم هذا العقد إلكترونياً بشرط ان يتم ارساله مباشرة من عنوان البريد الالكتروني او رقم الواتساب للمؤجر و المستأجر كما هو وارد في عقد التجديد و يليه تأكيد من المؤجر و المستأجر بصحة التوقيع عبر ذات البريد الالكتروني او رقم الواتساب. 
+			
+		</li> </ol>    </div>
+		</div>
+		
+		<div class="row">
+		<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbullets" style="padding-left:5mm;" seq="10"> All other terms and conditions as stipulated in the Lease Contract shall remain valid and in full force.
+		</li></ol>  </div>
+		<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbullets" style="padding-right:5mm;" seq="10" dir='rtl'>
+			 ‫   تظل جميع الاحكام والشروط الأخرى المنصوص عليها في عقد الإيجار سارية المفعول. 
+			
+		</li> </ol>    </div>
+		</div>
+		</t>
+		<t t-else="">
+			<div class="row">
+			<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="8"> This Lease Renewal may be executed in multiple counterparts, each of which shall be deemed an original agreement and both of which shall constitute one and the same agreement. The Lease Renewal may be executed by the Lessor and Lessee’s scanned signature and such scanned signature shall be deemed to have the same legal effect as an ordinary signature; and delivery of the Lease Renewal may be delivered electronically provided that such delivery is performed directly from the email address or WhatsApp number of the Lessor and the Lessee as contained in the Lease Renewal to be followed by a confirmation from the Lessor and the Lessee confirming the authenticity of the signature via such email or WhatsApp number.
+			
+			</li></ol>  </div>
+			<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="8" dir='rtl'>
+				 ‫   يجوز تحرير هذا العقد من نسخ متطابقة تعتبر كنسخة طبق الأصل. و يجوز التوقيع على هذا العقد من قبل المؤجر و المستأجر بالتوقيع الممسوح ضوئياً و يعتبر هذا التوقيع له نفس التأثير القانوني للتوقيع العادي، و ويجوز تسليم هذا العقد إلكترونياً بشرط ان يتم ارساله مباشرة من عنوان البريد الالكتروني او رقم الواتساب للمؤجر و المستأجر كما هو وارد في عقد التجديد و يليه تأكيد من المؤجر و المستأجر بصحة التوقيع عبر ذات البريد الالكتروني او رقم الواتساب. 
+				
+			</li> </ol>    </div>
+			</div>
+			<div class="row">
+			<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="9"> All other terms and conditions as stipulated in the Lease Contract shall remain valid and in full force.
+			</li></ol>  </div>
+			<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="9" dir='rtl'>
+				 ‫   تظل جميع الاحكام والشروط الأخرى المنصوص عليها في عقد الإيجار سارية المفعول. 
+				
+			</li> </ol>    </div>
+		</div>
+		</t>
+		
+		</t>
+		<t t-else="">
+		<t t-if="o.tax_municipality in ['lessor','lessee']">
+		<div class="row">
+			<t t-if="o.tax_municipality == 'lessor'">
+				<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="7"> The monthly Municipality Tax as imposed by the relevant authority and as evidenced in the Leased Premises’ Electricity and Water bill of the Leased Premises shall be paid by the Lessor.
+				</li> </ol> </div>
+				<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="7" dir='rtl'>
+					 ‫   على المؤجر سداد رسوم البلدية الشهرية التي تفرضها الجهة المختصة كما هو مبين في فاتورة الكهرباء والماء للعين المؤجرة. 
+					
+				</li> </ol>    </div>
+			</t>
+			<t t-if="o.tax_municipality == 'lessee'">
+               <div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="7">
+                   The monthly Municipality Tax as imposed by the relevant authority and as evidenced in the Leased Premises’ Electricity and Water bill of the Leased Premises shall be paid by the Lessee.
+               </li></ol>
+               </div>
+               <div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="7" dir='rtl'>
+                   ‫ على المستأجر سداد رسوم البلدية الشهرية التي تفرضها الجهة المختصة كما هو مبين في فاتورة الكهرباء والماء للعين المؤجرة.
+               </li></ol>
+               </div>
+           </t>
+		</div>
+		<div class="row">
+		<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="8"> This Lease Renewal may be executed in multiple counterparts, each of which shall be deemed an original agreement and both of which shall constitute one and the same agreement. The Lease Renewal may be executed by the Lessor and Lessee’s scanned signature and such scanned signature shall be deemed to have the same legal effect as an ordinary signature; and delivery of the Lease Renewal may be delivered electronically provided that such delivery is performed directly from the email address or WhatsApp number of the Lessor and the Lessee as contained in the Lease Renewal to be followed by a confirmation from the Lessor and the Lessee confirming the authenticity of the signature via such email or WhatsApp number.
+		
+		</li></ol>  </div>
+		<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="8" dir='rtl'>
+			 ‫   يجوز تحرير هذا العقد من نسخ متطابقة تعتبر كنسخة طبق الأصل. و يجوز التوقيع على هذا العقد من قبل المؤجر و المستأجر بالتوقيع الممسوح ضوئياً و يعتبر هذا التوقيع له نفس التأثير القانوني للتوقيع العادي، و ويجوز تسليم هذا العقد إلكترونياً بشرط ان يتم ارساله مباشرة من عنوان البريد الالكتروني او رقم الواتساب للمؤجر و المستأجر كما هو وارد في عقد التجديد و يليه تأكيد من المؤجر و المستأجر بصحة التوقيع عبر ذات البريد الالكتروني او رقم الواتساب. 
+			
+		</li> </ol>    </div>
+		</div>
+		
+		<div class="row">
+		<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="9"> All other terms and conditions as stipulated in the Lease Contract shall remain valid and in full force.
+		</li></ol>  </div>
+		<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="9" dir='rtl'>
+			 ‫   تظل جميع الاحكام والشروط الأخرى المنصوص عليها في عقد الإيجار سارية المفعول. 
+			
+		</li> </ol>    </div>
+		</div>
+		</t>
+		<t t-else="">
+			<div class="row">
+			<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="7"> This Lease Renewal may be executed in multiple counterparts, each of which shall be deemed an original agreement and both of which shall constitute one and the same agreement. The Lease Renewal may be executed by the Lessor and Lessee’s scanned signature and such scanned signature shall be deemed to have the same legal effect as an ordinary signature; and delivery of the Lease Renewal may be delivered electronically provided that such delivery is performed directly from the email address or WhatsApp number of the Lessor and the Lessee as contained in the Lease Renewal to be followed by a confirmation from the Lessor and the Lessee confirming the authenticity of the signature via such email or WhatsApp number.
+			
+			</li></ol>  </div>
+			<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="7" dir='rtl'>
+				 ‫   يجوز تحرير هذا العقد من نسخ متطابقة تعتبر كنسخة طبق الأصل. و يجوز التوقيع على هذا العقد من قبل المؤجر و المستأجر بالتوقيع الممسوح ضوئياً و يعتبر هذا التوقيع له نفس التأثير القانوني للتوقيع العادي، و ويجوز تسليم هذا العقد إلكترونياً بشرط ان يتم ارساله مباشرة من عنوان البريد الالكتروني او رقم الواتساب للمؤجر و المستأجر كما هو وارد في عقد التجديد و يليه تأكيد من المؤجر و المستأجر بصحة التوقيع عبر ذات البريد الالكتروني او رقم الواتساب. 
+				
+			</li> </ol>    </div>
+			</div>
+			<div class="row">
+			<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="8"> All other terms and conditions as stipulated in the Lease Contract shall remain valid and in full force.
+			</li></ol>  </div>
+			<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="8" dir='rtl'>
+				 ‫   تظل جميع الاحكام والشروط الأخرى المنصوص عليها في عقد الإيجار سارية المفعول. 
+				
+			</li> </ol>    </div>
+		</div>
+		</t>
+		
+		<!-- <div class="row">
+		<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-left:5mm;" seq="8"> This Lease Renewal may be executed in multiple counterparts, each of which shall be deemed an original agreement and both of which shall constitute one and the same agreement. The Lease Renewal may be executed by the Lessor and Lessee’s scanned signature and such scanned signature shall be deemed to have the same legal effect as an ordinary signature; and delivery of the Lease Renewal may be delivered electronically provided that such delivery is performed directly from the email address or WhatsApp number of the Lessor and the Lessee as contained in the Lease Renewal to be followed by a confirmation from the Lessor and the Lessee confirming the authenticity of the signature via such email or WhatsApp number.
+		
+		</li></ol>  </div>
+		<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbulletss" style="padding-right:5mm;" seq="8" dir='rtl'>
+			 ‫   يجوز تحرير هذا العقد من نسخ متطابقة تعتبر كنسخة طبق الأصل. و يجوز التوقيع على هذا العقد من قبل المؤجر و المستأجر بالتوقيع الممسوح ضوئياً و يعتبر هذا التوقيع له نفس التأثير القانوني للتوقيع العادي، و ويجوز تسليم هذا العقد إلكترونياً بشرط ان يتم ارساله مباشرة من عنوان البريد الالكتروني او رقم الواتساب للمؤجر و المستأجر كما هو وارد في عقد التجديد و يليه تأكيد من المؤجر و المستأجر بصحة التوقيع عبر ذات البريد الالكتروني او رقم الواتساب. 
+			
+		</li> </ol>    </div>
+		</div>
+		
+		<div class="row">
+		<div class="col-6" style="align:left;font-size:11px;border:white;text-align:justify"><ol><li class="subbullets" style="padding-left:5mm;" seq="9"> All other terms and conditions as stipulated in the Lease Contract shall remain valid and in full force.
+		</li></ol>  </div>
+		<div class="col-6" style="align:right;font-size:11px;border:white;text-align:justify"><ol><li class="subbullets" style="padding-right:5mm;" seq="9" dir='rtl'>
+			 ‫   تظل جميع الاحكام والشروط الأخرى المنصوص عليها في عقد الإيجار سارية المفعول. 
+			
+		</li> </ol>    </div>
+		</div> -->
+		
+		
+		
+		</t>
+		<br></br>
+		<br></br>
+		<br></br>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="height:25mm;font-size:11px;border:white;"> IN WITNESS, WHEREOF, the parties have executed this Lease Renewal as of the date first stated above.</div>
+			<div class="col-6 text-right" style="height:25mm;font-size:11px;border:white;">
+‫     وإثباتاً لذلك، قام الطرفان بتوقيع عقد التجديد هذا في التاريخ المبين أعلاه. 			 
+			 </div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="height:25mm;padding-top:10mm;font-size:11px;border:white;"> _________________________________<br></br>The Lessor </div>
+			<div class="col-6 text-right" style="height:25mm;padding-top:10mm;font-size:11px;border:white;">_________________________________<br></br> المؤجر </div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="height:25mm;padding-top:10mm;font-size:11px;border:white;">__________________________________<br></br>The Lessee </div>
+			<div class="col-6 text-right" style="height:25mm;padding-top:10mm;font-size:11px;border:white;">_________________________________<br></br> المستأجر </div>
+		</div>
+		</p>
+ 		</div>
+		</t>
+		</t>
+		</t>
+		</template>
+		
+		<template id="renewal_agreement_external_layout">
+	   			
+	 <!--    <div class="page_border" style="height:280mm;"/> -->
+		    <!-- Magic happens here -->
+		    <!-- Part of code that makes full page border. If you are overriding the entire header, include this below line in that -->
+
+		<div class="article o_report_layout_standard">
+		<t t-raw="0"/>
+		</div>
+		<div class="header">
+		<div class="row col-13 not-first-page" style="border-bottom:white">
+		</div>
+		</div>
+		<div class="footer" style="padding-top:5mm;">
+		<div class="text-center" style="font-size:11px;">
+		Page
+		<span class="page"/>
+		of
+		<span class="topage"/>
+		</div>
+			<!-- <div class="row" style="font-size:12px;border-bottom:1px solid #A9A9A9;border-top:1px solid #A9A9A9;border-left:1px solid #A9A9A9;border-right:1px solid #A9A9A9;">
+			<span>Initial:</span><br/>
+			______________________
+			
+			</div> -->
+			<div class="row not-last-page">
+
+			<div class="col-3 text-left" style="font-size:12px;border-bottom:white;border-top:white;border-left:white">
+				<span>Initial:</span><br/>
+						______________________
+			</div>
+			
+			<!-- <div class="col-9 text-left" style="font-size:12px;border-bottom:white;border-left:white;border-right:white;border-top:white;">
+			<span>Initial:</span><br/>
+						______________________
+			</div> -->
+		
+		</div>
+		
+		</div>
+		
+	
+</template>
+		</data>
+		</odoo>

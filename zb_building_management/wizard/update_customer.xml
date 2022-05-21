@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    	
+    	
+    	
+    	 <record model="ir.ui.view" id="wizard_assest_analytic">
+            <field name="name">wizard.import.asst.form</field>
+            <field name="model">wizard.customer.data</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Assest Data">
+                	<sheet>
+                	<group>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Import" name="asset_update" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+    	
+    	
+    	<record id="action_assest_data" model="ir.actions.act_window">
+	            <field name="name">Import Assest Data</field>
+	            <field name="res_model">wizard.customer.data</field>
+	            <!-- <field name="view_type">form</field> -->
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="wizard_assest_analytic"/>
+	            <field name="target">new</field>
+      	</record>
+    	
+    	<menuitem id="menu_assest_data" 
+	    	name="Import Assest Data" 
+	    	parent="menu_action_config"
+	        action="action_assest_data" 
+	        sequence="1" 
+	        groups ="base.group_no_one"/>
+	    
+	    
+	    
+	    <record model="ir.ui.view" id="wizard_import_customer">
+            <field name="name">wizard.import.custmr.form</field>
+            <field name="model">wizard.customer.data</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Customer Data">
+                	<sheet>
+                	<group>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Import" name="upload_customer_data" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+	    
+
+	    <record id="action_customer_data" model="ir.actions.act_window">
+	            <field name="name">Import Customer Data</field>
+	            <field name="res_model">wizard.customer.data</field>
+	            <!-- <field name="view_type">form</field> -->
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="wizard_import_customer"/>
+	            <field name="target">new</field>
+      	</record>
+	    
+	    
+	    <menuitem id="menu_customer_data" 
+		    name="Import SubUnit Data" 
+		    parent="menu_action_config"
+	        action="action_customer_data" 
+	        sequence="2" 
+	        groups ="base.group_no_one"/>
+	        
+	    
+	    
+	    
+	    <record model="ir.ui.view" id="wizard_customer_analytic">
+            <field name="name">wizard.import.asnaly.form</field>
+            <field name="model">wizard.customer.data</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="ImportCustomer Data">
+                	<sheet>
+                	<group>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Import" name="upload_customer_account" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+       
+	    
+	    
+	    
+	    <record id="action_cus_data" model="ir.actions.act_window">
+	            <field name="name">Import Vendor Data</field>
+	            <field name="res_model">wizard.customer.data</field>
+	            <!-- <field name="view_type">form</field> -->
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="wizard_customer_analytic"/>
+	            <field name="target">new</field>
+       	</record>
+	        
+	    
+	    <menuitem id="menu_cus_data" 
+		    name="Import Vendor  Data" 
+		    parent="menu_action_config"
+	        action="action_cus_data" 
+	        sequence="3" 
+	        groups ="base.group_no_one"/>
+	        
+	    
+	    <record model="ir.ui.view" id="wizard_import_analytic">
+            <field name="name">wizard.import.analy.form</field>
+            <field name="model">wizard.customer.data</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Analytic Account Data">
+                	<sheet>
+                	<group>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Import" name="upload_analytic_account" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+	    
+	      
+	    <record id="action_analytic_data" model="ir.actions.act_window">
+	            <field name="name">Import Analytic Data</field>
+	            <field name="res_model">wizard.customer.data</field>
+	            <!-- <field name="view_type">form</field> -->
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="wizard_import_analytic"/>
+	            <field name="target">new</field>
+       </record>
+	    
+	    
+	    <menuitem id="menu_analyr_data" 
+		    name="Import Analytic Data" 
+		    parent="menu_action_config"
+	        action="action_analytic_data" 
+	        sequence="4" 
+	        groups ="base.group_no_one"/>
+	        
+	    
+	    
+	     <record model="ir.ui.view" id="wizard_unit_scud">
+            <field name="name">wizard.import.cius.form</field>
+            <field name="model">wizard.customer.data</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Journal Details">
+                	<sheet>
+                	<group>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Import" name="import_tijaria_account_data" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+	    
+	    
+	    <record id="action_cud_data" model="ir.actions.act_window">
+	            <field name="name">Import Journal Details</field>
+	            <field name="res_model">wizard.customer.data</field>
+	            <!-- <field name="view_type">form</field> -->
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="wizard_unit_scud"/>
+	            <field name="target">new</field>
+      	</record>
+	        
+	    
+	    <menuitem id="menu_cud_data" 
+		    name="Import Journal Details" 
+		    parent="menu_action_config"
+	        action="action_cud_data" 
+	        sequence="5" 
+	        groups ="base.group_no_one"/>   
+    	
+    	
+    	
+    	<record model="ir.ui.view" id="wizard_cus_scud">
+            <field name="name">wizard.import.cius.form</field>
+            <field name="model">wizard.customer.data</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Customer Details">
+                	<sheet>
+                	<group>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Import" name="upload_customer_details" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+    	
+    	<record id="action_cud_cus" model="ir.actions.act_window">
+	            <field name="name">Import Customer Details</field>
+	            <field name="res_model">wizard.customer.data</field>
+	            <!-- <field name="view_type">form</field> -->
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="wizard_cus_scud"/>
+	            <field name="target">new</field>
+      	</record>
+    	
+       <menuitem id="menu_cudss_data" 
+	       name="Import Customer Details" 
+	       parent="menu_action_config"
+	       action="action_cud_cus" 
+	       sequence="6" 
+	       groups ="base.group_no_one"/>  
+	    
+	    
+	    
+	    <record model="ir.ui.view" id="wizard_daybook_scud">
+            <field name="name">wizard.imporst.cius.form</field>
+            <field name="model">wizard.customer.data</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Day Book Details">
+                	<sheet>
+                	<group>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Import" name="import_daybok_account_data" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+	    <record id="action_cud_daybook" model="ir.actions.act_window">
+	            <field name="name">Import Day Book</field>
+	            <field name="res_model">wizard.customer.data</field>
+	            <!-- <field name="view_type">form</field> -->
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="wizard_daybook_scud"/>
+	            <field name="target">new</field>
+      	</record>
+	       
+	    
+	   <menuitem id="menu_cud_daybook" 
+		   name="Import Day Book" 
+		   parent="menu_action_config"
+	       action="action_cud_daybook" 
+	       sequence="7" 
+	       groups ="base.group_no_one"/>       
+	       
+	   
+	   
+	   
+	   <record model="ir.ui.view" id="upload_complaint_data">
+            <field name="name">upload_complaint_data</field>
+            <field name="model">wizard.customer.data</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Complaints">
+                	<sheet>
+                	<group>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Complaints" name="upload_complaint_data" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+	   
+	    <record id="action_cud_complaint" model="ir.actions.act_window">
+	            <field name="name">Complaints</field>
+	            <field name="res_model">wizard.customer.data</field>
+	            <!-- <field name="view_type">form</field> -->
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="upload_complaint_data"/>
+	            <field name="target">new</field>
+        </record>
+	   
+	   <menuitem id="menu_complaints_data" 
+		   name="Import Complaints" 
+		   parent="menu_action_config"
+	       action="action_cud_complaint" 
+	       sequence="8" 
+	       groups ="base.group_no_one"/>
+	       
+	   
+	   
+	   
+	   <record model="ir.ui.view" id="upload_payable_data">
+            <field name="name">upload_payanble_data</field>
+            <field name="model">wizard.customer.data</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Payable">
+                	<sheet>
+                	<group>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Payable" name="import_payable_account_data" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+	   
+	   <record id="action_payable_import" model="ir.actions.act_window">
+	            <field name="name">Payable</field>
+	            <field name="res_model">wizard.customer.data</field>
+	            <!-- <field name="view_type">form</field> -->
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="upload_payable_data"/>
+	            <field name="target"></field>
+      	</record>  
+	    
+	   
+	   <menuitem id="menu_cpaya ble_data" 
+		   name="Import Payable" 
+		   parent="menu_action_config"
+	       action="action_payable_import" 
+	       sequence="9" 
+	       groups ="base.group_no_one"/>  
+	       
+	    
+	    
+	    <record model="ir.ui.view" id="upload_inv_data">
+            <field name="name">upload_inv_data</field>
+            <field name="model">wizard.customer.data</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Payable">
+                	<sheet>
+                	<group>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Invoice" name="import_invoice" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record> 
+	    
+	   
+	    <record id="action_inv_import" model="ir.actions.act_window">
+	            <field name="name">Invoice</field>
+	            <field name="res_model">wizard.customer.data</field>
+	            <!-- <field name="view_type">form</field> -->
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="upload_inv_data"/>
+	            <field name="target"></field>
+      	</record>
+	   
+	   
+	   <menuitem id="menu_invoice_data" 
+		   name="Import Invoice" 
+		   parent="menu_action_config"
+	       action="action_inv_import" 
+	       sequence="10" 
+	       groups ="base.group_no_one"/>
+	       
+	     
+	     
+	   <record model="ir.ui.view" id="upload_any_data">
+            <field name="name">upload_anly_data</field>
+            <field name="model">wizard.customer.data</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Anlaytc Test">
+                	<sheet>
+                	<group>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Anlytic" name="upload_analytic_data" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+	    
+	    <record id="action_abt_import" model="ir.actions.act_window">
+	            <field name="name">Analytic</field>
+	            <field name="res_model">wizard.customer.data</field>
+	            <!-- <field name="view_type">form</field> -->
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="upload_any_data"/>
+	            <field name="target"></field>
+      	</record>
+	   
+	   
+	   <menuitem id="menu_invoice_datas" 
+		   name="Import Analytic" 
+		   parent="menu_action_config"
+	       action="action_abt_import" 
+	       sequence="11" 
+	       groups ="base.group_no_one"/>
+       
+    	
+      
+  </odoo>      

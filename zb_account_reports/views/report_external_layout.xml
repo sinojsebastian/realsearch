@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_layout_standard_inherit" inherit_id="web.external_layout_standard">
+    
+      <xpath expr="//div[contains(@t-attf-class, 'header o_company_#{company.id}_layout')]" position="replace">
+
+       <div t-attf-class="header o_company_#{company.id}_layout">
+             <div class="row">
+            		 <div class="col-xs-9">
+            	        <img t-if="company.header_image" t-att-src="image_data_uri(company.header_image)" style="max-height:140px;max-width:100000px" alt="Header"/>
+            	   </div> 
+             </div>
+           </div>
+
+
+    </xpath>
+      
+      
+      <xpath expr="//div[contains(@t-attf-class, 'footer o_standard_footer o_company_#{company.id}_layout')]" position="replace">
+
+       <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout"> 
+        	<div class="row">
+        	     <img t-if="company.footer_image"  t-att-src="image_data_uri(company.footer_image)" style="max-height:140px;max-width:1000px"/>
+            </div>
+        </div>
+
+    </xpath>
+    
+    
+    
+ </template>
+ </odoo>
+ 

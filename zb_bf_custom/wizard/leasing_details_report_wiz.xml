@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- leasing_details_report_form_views -->
+	<record model="ir.ui.view" id="leasing_details_wiz_form_view">
+    	<field name="name">leasing.details.wiz.form.view</field>
+   	 	<field name="model">wiz.leasing.details.report</field>
+    	<field name="type">form</field>
+    	<field name="arch" type="xml">
+      		<form string="Leasing Details" version="7.0">
+      		<group>
+          		<group>
+          			   
+          			<field name="from_date"/>   
+          			<field name="to_date"/>             
+          		</group>
+          	</group>
+          	<footer>
+            	<button name="print_leasing_details_report" string="Print" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+   </record>
+   
+<!-- leasing_details_report_action --> 
+	<record id="leasing_details_report_action" model="ir.actions.act_window">
+        <field name="name">Leasing Details Report</field>
+        <field name="res_model">wiz.leasing.details.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    
+ <!--leasing_details_menu -->
+
+	<menuitem id="menu_leasing_details" 
+	    name ="Leasing Details Report" 
+	     sequence="1"
+	    parent="zb_building_management.menu_action_reporting"
+	    action="leasing_details_report_action"/>
+
+</odoo>
+    

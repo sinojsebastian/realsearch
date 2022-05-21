@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <report
+            id="accounting_pdf_reports.action_report_account_tax"
+            model="account.tax.report"
+            string="VAT Report"
+            report_type="qweb-pdf"
+            name="accounting_pdf_reports.report_tax"
+            file="accounting_pdf_reports.report_tax"
+            />
+        
+       
+        
+    </data>
+</odoo>

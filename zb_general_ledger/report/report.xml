@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+		    id="general_ledger_xlsx"
+		    model="account.report.general.ledger"
+		    string="General Ledger XLSX"
+		    report_type="xlsx"
+		    name="zb_general_ledger.general.ledger.xlsx"
+		    file="general_ledger"
+		    attachment_use="False"
+		/>
+    </data>
+   
+</odoo>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    	
+    	
+    	
+    	 <record model="ir.ui.view" id="wizard_import_jv_create">
+            <field name="name">create.jv.import.wizard.form</field>
+            <field name="model">create.jv.import.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                	<sheet>
+                	<group>
+                		<field name="building_id"/>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Import" name="upload_data" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+    	
+    	
+    	<record id="action_wizard_import_jv_create" model="ir.actions.act_window">
+	            <field name="name">Import JV</field>
+	            <field name="res_model">create.jv.import.wizard</field>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="wizard_import_jv_create"/>
+	            <field name="target">new</field>
+      	</record>
+    	
+    	<menuitem id="menu_jv_creation" 
+	    	name="Import(JV Creation)" 
+	    	parent="zb_building_management.menu_action_config"
+	        action="action_wizard_import_jv_create" 
+	        sequence="21" 
+	        />
+	    
+	    
+	    
+  </odoo>      

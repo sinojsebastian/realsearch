@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+	       <record id="sale_order_form_view_inherited" model="ir.ui.view">
+		        <field name='name'>sale.order.form.inherit</field>
+		        <field name="model">sale.order</field>
+		        <field name="inherit_id" ref="sale.view_order_form"/>
+		            <field name="arch" type="xml">
+			            	<xpath expr="//field[@name='payment_term_id']" position="after">
+			            		<field name="job_order_id"/>
+								<field name="building_id"/>
+			     				<field name="module_id"></field>
+			                    <field name="lease_id"/>
+			                    <field name="ticket_id"/>
+							</xpath>
+		           	</field>
+	        </record>
+    </data>
+</odoo>

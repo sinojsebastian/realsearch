@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="agreement_terminate_wiz_form_view">
+    	<field name="name">terminate.agreement.wizard.form.view</field>
+   	 	<field name="model">terminate.agreement.wizard</field>
+    	<field name="type">form</field>
+    	<field name="arch" type="xml">
+      		<form string="Terminate Agreement" version="7.0">
+      		<group>
+          		<group>
+          			<field name="end_date"/>
+          			<!-- <field name="invoice_amount"/>    -->
+          		</group>
+          	</group>
+          	<footer>
+            	<button name="terminate_agreement_invoice" string="Create Invoice and Terminate Agreement" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+   </record>
+   
+    <record model="ir.actions.act_window" id="action_agreement_terminate_wizard_view">
+        <field name="name">Create Invoice and Terminate Agreement</field>
+        <field name="res_model">terminate.agreement.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
+    

@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="zb_bf_custom.rent_invoice_document">
+    	<t t-call="zb_bf_custom.rent_invoice_layout">  
+    	
+             <div class="page">
+             
+             <style>
+                            .border-black,td,table,tr{
+                            border:1px solid  #161A1D;
+                            }
+                            .first{
+                            border:1px white;
+                            }
+                            .border-white{
+                            border:1px white;
+                            }
+             </style>
+             <h2 style="font-size:23px;">
+                        <center><b>Rent Invoice</b></center>
+              </h2>
+               <div class="row">
+                                <div class="col-2 text-left" style="font-size:14px;padding-top:1cm;padding-left:1cm;padding-right:0;max-width:200px;">
+                                    <b>Tenant Code</b>
+                                </div>
+                                <div class="col-1 text-left" style="font-size:14px;width:2mm;padding-top:1cm;padding-right:0;max-width:10px;">:</div>
+                                <div class="col-3 text-left" style="font-size:14px;padding-top:1cm;padding-right:0;max-width:350px;">
+                                    <t t-if="o.partner_id.code"><span t-field="o.partner_id.code"></span></t>
+                                    <t t-if="not o.partner_id.code">
+                                        <span style="visibility: hidden;">text</span></t>
+                                </div>
+                                <div class="col-1" style="max-width:10px;"></div>
+                                <div class="col-2 text-left" style="font-size:14px;padding-top:1cm;padding-right:0;max-width:250px">
+                                    <b>Invoice Number</b>
+                                </div>
+                                <div class="col-1 text-left" style="font-size:14px;width:2mm;padding-top:1cm;padding-right:0;max-width:10px">:</div>
+                                <div class="col-3 text-left" style="font-size:14px;padding-top:1cm;padding-right:0;max-width:150px;">
+                                    <t t-if=" o.name"><span t-field="o.name"></span></t>
+                                    <t t-if="not o.name">
+                                        <span style="visibility: hidden;">text</span></t>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 text-left" style="font-size:14px;padding-left:1cm;padding-right:0;max-width:200px;">
+                                    <b>Tenant Name</b>
+                                </div>
+                                <div class="col-1 text-left" style="font-size:14px;width:2mm;padding-right:0;max-width:10px;">:</div>
+                                <div class="col-3 text-left" style="font-size:14px;padding-right:0;max-width:350px;">
+                                    <t t-if="o.partner_id.name"><span t-field="o.partner_id.name"></span></t>
+                                    <t t-if="not o.partner_id.name">
+                                        <span style="visibility: hidden;">text</span></t>
+                                </div>
+                                <div class="col-1" style="max-width:10px;"></div>
+                                <div class="col-2 text-left" style="font-size:14px;padding-right:0;max-width:250px">
+                                    <b>Invoice Date</b>
+                                </div>
+                                <div class="col-1 text-left" style="font-size:14px;width:2mm;padding-right:0;max-width:10px;">:</div>
+                                <div class="col-3 text-left" style="font-size:14px;width:50mm;padding-right:0;max-width:150px;">
+                                    <t t-if="o.invoice_date">
+										<span t-field="o.invoice_date"/>
+									</t>
+                                    <t t-if="not o.invoice_date">
+                                        <span style="visibility: hidden;">text</span></t>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 text-left" style="font-size:14px;padding-left:1cm;padding-right:0;max-width:200px;">
+                                    <b>Tenant Address</b><br />
+                                    <b>Billed By</b>
+                                </div>
+                                <div class="col-1 text-left" style="font-size:14px;width:2mm;padding-right:0;max-width:10px;">:<br />
+                                    <div>:</div>
+                                </div>
+                                <div class="col-3 text-left" style="font-size:14px;padding-right:0;max-width:350px;">
+                                   <t t-if="o.partner_id.street"><span t-field="o.partner_id.street"/></t>
+                                    <t t-if="o.partner_id.street2">,</t>
+                                    <t t-if="o.partner_id.street2" t-esc="o.partner_id.street2"></t>
+                                    <t t-if="o.partner_id.city">,</t>
+                                    <t t-if="o.partner_id.city" t-esc="o.partner_id.city"></t>
+                                    <t t-if="o.partner_id.country_id">,</t>
+                                    <t t-if="o.partner_id.country_id.name" t-esc="o.partner_id.country_id.name"/>
+                                    <t t-if="not o.partner_id.street">
+                                        <span style="visibility: hidden;">text</span></t>
+                                    <t t-if="not o.partner_id.street2">
+                                        <span style="visibility: hidden;">text</span></t>
+                                    <t t-if="not o.partner_id.city">
+                                        <span style="visibility: hidden;">text</span></t>
+                                    <t t-if="not o.partner_id.country_id.name">
+                                        <span style="visibility: hidden;">text</span></t>
+                                    <br />
+                                    <div>
+                                        <t t-if="o.module_id.owner_id"><span t-field="o.module_id.owner_id.name"></span>
+                                        </t>
+                                        <t t-if="not o.module_id.owner_id">
+                                            <span style="visibility: hidden;">text</span></t>
+                                    </div>
+                                    <div>
+                                        <t t-if="o.module_id.owner_id">
+                                            <t t-if="o.module_id.owner_id.street"><span t-field="o.module_id.owner_id.street"/></t>
+                                            <t t-if="o.module_id.owner_id.street2">,</t>
+                                            <t t-if="o.module_id.owner_id.street2" t-esc="o.module_id.owner_id.street2"></t>
+                                            <t t-if="o.module_id.owner_id.city">,</t>
+                                            <t t-if="o.module_id.owner_id.city" t-esc="o.module_id.owner_id.city"></t>
+                                            <t t-if="o.module_id.owner_id.country_id">,</t>
+                                            <t t-if="o.module_id.owner_id.country_id.name" t-esc="o.module_id.owner_id.country_id.name"/>
+                                            <t t-if="not o.module_id.owner_id.street">
+                                                <span style="visibility: hidden;">text</span></t>
+                                            <t t-if="not o.module_id.owner_id.street2">
+                                                <span style="visibility: hidden;">text</span></t>
+                                            <t t-if="not o.module_id.owner_id.city">
+                                                <span style="visibility: hidden;">text</span></t>
+                                            <t t-if="not o.module_id.owner_id.country_id.name">
+                                                <span style="visibility: hidden;">text</span></t>
+                                        </t>
+                                        <t t-if="not o.module_id.owner_id">
+                                            <span style="visibility: hidden;">text</span></t>
+                                    </div>
+                                </div>
+                                <div class="col-1" style="max-width:10px;"></div>
+                                <div class="col-2 text-left" style="font-size:14px;padding-right:0;max-width:250px">
+                                    <div><b>Invoice Frequency</b></div>
+                                    <div><b>Building Address</b></div>
+                                    <div><b>Unit Ref</b></div>
+                                    <div><b>Lease Contract Ref</b></div>
+                                    <div><b>Lease Contract Period</b></div>
+                                    <t t-if="o.partner_id.property_payment_term_id.name"> <div><b>Payment Terms</b></div></t>
+                                    <div><b>Currency</b></div>
+                                </div>
+                                <div class="col-1 text-left" style="font-size:14px;width:2mm;padding-right:0;max-width:10px;">:
+                                    <div>:</div>
+                                    <div>:</div>
+                                    <div>:</div>
+                                    <div>:</div>
+                                    <div><t t-if="o.partner_id.property_payment_term_id.name">:</t></div>
+                                    <div>:</div>
+                                    
+                                </div>
+                                <div class="col-3 text-left" style="font-size:14px;width:70mm;padding-right:0;max-width:350px;">
+                                    <t t-if="o.lease_id.invoice_cycle">
+                                        <span t-field="o.lease_id.invoice_cycle"></span></t>
+                                    <t t-if="o.lease_id.invoice_cycle"> </t>
+                                    <span style="visibility: hidden;">text</span>
+                                    <div>
+                                        <t t-if="o.building_id.name"><span t-field="o.building_id.name"></span></t>
+                                        <t t-if="not o.building_id.name">
+                                            <span style="visibility: hidden;">text</span></t>
+                                    </div>
+                                    <div>
+                                        <t t-if="o.module_id.name"><span t-field="o.module_id.name"></span></t>
+                                        <t t-if="not o.module_id.name">
+                                            <span style="visibility: hidden;">text</span>
+                                        </t>
+                                    </div>
+                                    <div>
+                                        <t t-if="o.lease_id.reference_no"><span t-field="o.lease_id.reference_no"></span></t>
+                                        <t t-if="not o.lease_id.reference_no">
+                                        	&#032;
+                                            <span style="visibility: hidden;">text</span></t>
+                                    </div>
+                                    <div>
+                                        <t t-if="o.lease_id.agreement_start_date">
+                                        	<span t-field="o.lease_id.agreement_start_date"></span>-<span t-field="o.lease_id.agreement_end_date"></span>
+                                        	<!-- <span t-esc="time.strftime('%d-%b-%Y',time.strptime(str(o.lease_id.agreement_start_date),'%Y-%m-%d'))"/> - <span t-esc="time.strftime('%d-%b-%Y',time.strptime(str(o.lease_id.agreement_end_date),'%Y-%m-%d'))"/> -->
+                                        </t>
+                                        <t t-if="not o.lease_id.agreement_start_date">
+                                        	&#032;
+                                            <span style="visibility: hidden;">text</span></t>
+                                    </div>
+                                     <t t-if="o.partner_id.property_payment_term_id.name">
+                                    <div>
+                                        <t t-if="o.partner_id.property_payment_term_id.name"><span t-field="o.partner_id.property_payment_term_id.name"></span></t>
+                                        <t t-if=" not o.partner_id.property_payment_term_id.name">
+                                        	&#032;
+                                            <span style="visibility: hidden;">text</span></t>
+                                    </div>
+                                    </t>
+                                    <div>
+                                        <t t-if="o.currency_id">Bahrain Dinars(<span t-field="o.currency_id.name"></span>)</t>
+                                        <t t-if="not o.currency_id">
+                                        	&#032;
+                                            <span style="visibility: hidden;">text</span></t>
+                                    </div>
+                                </div>
+                            </div>
+             
+             <br></br>
+             <div class="row" style="padding-left:1cm;">
+             			<table class="row border-black" style="width:270mm;padding-left:1cm;padding-top:0px;padding-top:0px;padding:0px;border-bottom:none;border-top: none!important;">
+		                <thead style="display:table-header-group;color:black;">
+		                <tr>
+                                <td  class="text-center" style="width:30mm;"><b>S.No.</b></td>
+                                <td  class="text-center" style="width:190;"><b>Invoice Description</b></td>
+                                <td class="text-center" style="width:50mm;"><b>Amount (BHD)</b></td>
+                                
+                        </tr>
+		                </thead>
+		                <t t-set="grand_total" t-value ="0"/>
+		                <t t-foreach="o.invoice_line_ids" t-as="line">
+		                <tr>
+		                <td class="text-center" style="width:30mm;">
+							<span t-esc="line_index + 1"/>
+						</td>
+						<td class="text-center" style="width:190mm;">
+							<t t-if="line.name">
+								<t t-if="o.from_date and o.to_date">
+									Rent for the Period from <span class="m-0" t-field="o.from_date"></span> to <span class="m-0" t-field="o.to_date"></span>
+									<!-- <span t-esc="time.strftime('%d-%b-%Y',time.strptime(str(o.from_date),'%Y-%m-%d'))"/> to <span t-esc="time.strftime('%d-%b-%Y',time.strptime(str(o.to_date),'%Y-%m-%d'))"/> -->
+								</t>
+								<t t-else="">
+									<span t-esc="line.name"/>
+								</t> 
+							</t>
+							<t t-if="not line.name">
+							<span style="visibility: hidden;">text</span>
+							</t>
+						</td>
+						<td class="text-right" style="width:50mm;padding-right:1mm;">
+						    <span t-esc="'{0:,.3f}'.format(float('%.3f'%(line.price_subtotal)))"/>
+						</td>
+						<t t-set="grand_total" t-value="grand_total+line.price_subtotal"/>
+						</tr>
+						</t>
+						<tr>
+	  					<td></td>
+  						<td class="text-left" style="padding-left:1mm;"><b>Grand Total</b></td>
+  						<td class="text-right" style="width:50mm;padding-right:1mm;">
+   							<span t-esc="'{:,.3f}'.format(grand_total)"></span>
+	   					</td>
+	  					</tr>
+		     			</table>
+		     </div>
+             <br></br>
+             <div class="row">
+             <div class="col-3" style="font-size:14px;padding-left:1cm;width:70mm;">
+             <b>Amount In Words</b><b style="padding-left:11mm;">:</b> 
+             </div>
+	         <div class="col-9" style="font-size:14px;padding-left:0mm;">
+              <span t-esc="words[o.id]"></span>
+             </div>
+             </div>
+             <br></br>
+             
+             <div class="row">
+             <div class="col-3" style="font-size:14px;padding-left:1cm;width:70mm;">
+             <t t-if="o.building_id and o.building_id.bank_id">
+             	<b>Building Bank Details</b><b style="padding-left:5mm;">:</b> 
+             </t>
+             <t t-else="">
+             	<b>Company Bank Details</b><b style="padding-left:5mm;">:</b> 
+             </t>
+             </div>
+	         <div class="col-9" style="font-size:14px;padding-left:0mm;">
+             <b>Bank Name:</b>
+              <t t-if="o.building_id and o.building_id.bank_id">
+             	 	<t t-if="o.building_id.bank_id.bank_id">
+             	 		<span  t-field="o.building_id.bank_id.bank_id.name"></span>
+             	 	</t>
+             </t>
+             <t t-else="">
+             	<t t-if="'name' in bank_data[o.id]">
+             		<span  t-esc="bank_data[o.id]['name']"></span>
+             	</t>
+             </t>
+             <br></br>
+             <b>Account Name:</b>
+             <t t-if="o.building_id and o.building_id.bank_id">
+              <t t-if="o.building_id.bank_id.partner_id">
+             	 <span  t-field="o.building_id.bank_id.partner_id.name"></span>
+             </t>
+             </t>
+             <t t-else="">
+             	<t t-if="'partner' in bank_data[o.id]">
+             		<span  t-esc="bank_data[o.id]['partner']"></span>
+             	</t>
+             </t>
+             <br></br>
+             <b>Account No:</b>
+             <t t-if="o.building_id and o.building_id.bank_id">
+             <t t-if="o.building_id.bank_id.acc_number">
+            	 <span  t-field="o.building_id.bank_id.acc_number"></span>
+            </t>
+            </t>
+            <t t-else="">
+             	<t t-if="'acc_number' in bank_data[o.id]">
+             		<span  t-esc="bank_data[o.id]['acc_number']"></span>
+             	</t>
+             </t>
+            <br></br>
+            <b>IBAN:</b>
+              <t t-if="o.building_id and o.building_id.bank_id">
+              <t t-if="o.building_id.bank_id.iban_no">
+             	 <span  t-field="o.building_id.bank_id.iban_no"></span>
+             </t>
+             </t>
+             <t t-else="">
+             	<t t-if="'iban' in bank_data[o.id]">
+             		<span  t-esc="bank_data[o.id]['iban']"></span>
+             	</t>
+             </t>
+             <br></br>
+             <b>Swift Code:</b>
+             <t t-if="o.building_id and o.building_id.bank_id">
+	         <t t-if="o.building_id.bank_id.bank_id">
+            	<t t-if="o.building_id.bank_id.bank_id.bic">
+            		<span t-field="o.building_id.bank_id.bank_id.bic"/>
+            	</t>
+	         </t>
+	         </t>
+	         <t t-else="">
+             	<t t-if="'bic' in bank_data[o.id]">
+             		<span  t-esc="bank_data[o.id]['bic']"></span>
+             	</t>
+             </t>
+             </div>
+             </div>
+             
+            <!-- <t t-if="o.report_bank_details == 'building_bank'">
+            <div class="row">
+	             <div class="col-2 text-left" style="font-size:14px;padding-left:1cm;">
+	             <b>Building Bank Details</b>
+	             </div>
+	             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	             <div class="col-8 text-left" style="font-size:14px;">
+		              <b>Bank Name:</b>
+		              <t t-if="o.building_id.bank_id">
+		             	 	<t t-if="o.building_id.bank_id.bank_id">
+		             	 		<span  t-field="o.building_id.bank_id.bank_id.name"></span>
+		             	 	</t>
+		             </t>
+		         </div>
+	             </div>
+	             <div class="row">
+	             	 <div class="col-2 text-left"/>	
+	             	 <div class="col-1 text-left" style="width:2mm"/>
+		             <div class="col-8 text-left" style="font-size:14px;">
+			              <b>Account Name:</b>
+			              <t t-if="o.building_id.bank_id.partner_id">
+			             	 <span  t-field="o.building_id.bank_id.partner_id.name"></span>
+			             </t>
+			         </div>
+			          <div class="col-1"></div>
+			      </div>
+			      <div class="row">
+	             	 <div class="col-2 text-left"/>	
+	             	 <div class="col-1 text-left" style="width:2mm"/>
+		             <div class="col-8 text-left" style="font-size:14px;">
+			              <b>Account No:</b>
+			              <t t-if="o.building_id.bank_id.acc_number">
+			             	 <span  t-field="o.building_id.bank_id.acc_number"></span>
+			             </t>
+			         </div>
+			       </div>
+			       <div class="row">
+	             	 <div class="col-2 text-left"/>	
+	             	 <div class="col-1 text-left" style="width:2mm"/>
+		             <div class="col-8 text-left" style="font-size:14px;">
+			              <b>IBAN:</b>
+			              <t t-if="o.building_id.bank_id.iban_no">
+			             	 <span  t-field="o.building_id.bank_id.iban_no"></span>
+			             </t>
+			         </div>
+			        </div>
+			        <div class="row">
+	             	 <div class="col-2 text-left"/>	
+	             	 <div class="col-1 text-left" style="width:2mm"/>
+		             <div class="col-8 text-left" style="font-size:14px;">
+			              <b>Swift Code:</b>
+			              <t t-if="o.building_id.bank_id.bank_id">
+				             	<t t-if="o.building_id.bank_id.bank_id.bic">
+				             		<span t-field="o.building_id.bank_id.bank_id.bic"/>
+				             	</t>
+				          </t>
+			         </div>
+             		</div>
+             	 </t>
+             	 <t t-if="o.report_bank_details == 'company_bank'">
+            	<div class="row">
+	             <div class="col-2 text-left" style="font-size:14px;padding-left:1cm;">
+	             <b>Company Bank Details</b>
+	             </div>
+	             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	             <div class="col-8 text-left" style="font-size:14px;">
+		              <b>Bank Name:</b>
+		              <t t-esc="bank_data[o.id]['name']"/>
+		         </div>
+	             </div>
+	             <div class="row">
+	             	 <div class="col-2 text-left"/>	
+	             	 <div class="col-1 text-left" style="width:2mm"/>
+		             <div class="col-8 text-left" style="font-size:14px;">
+			              <b>Account Name:</b>
+			             	 <t t-esc="bank_data[o.id]['partner']"/>
+			         </div>
+			      </div>
+			      <div class="row">
+	             	 <div class="col-2 text-left"/>	
+	             	 <div class="col-1 text-left" style="width:2mm"/>
+		             <div class="col-8 text-left" style="font-size:14px;">
+			              <b>Account No:</b>
+			              <t t-esc="bank_data[o.id]['acc_number']"/>
+			         </div>
+			       </div>
+			       <div class="row">
+	             	 <div class="col-2 text-left"/>	
+	             	 <div class="col-1 text-left" style="width:2mm"/>
+		             <div class="col-8 text-left" style="font-size:14px;">
+			              <b>IBAN:</b>
+			              <t t-esc="bank_data[o.id]['iban']"/>
+			         </div>
+			        </div>
+			        <div class="row">
+	             	 <div class="col-2 text-left"/>	
+	             	 <div class="col-1 text-left" style="width:2mm"/>
+		             <div class="col-8 text-left" style="font-size:14px;">
+			              <b>Swift Code:</b>
+			              <t t-esc="bank_data[o.id]['bic']"/>
+			         </div>
+             		</div>
+             	 </t> -->
+             <br></br>
+             <div class="row">
+             	 <t t-if="o.narration">
+	             <div class="col-3" style="font-size:14px;padding-left:1cm;width:70mm;">
+	             	<b>Note</b><b style="padding-left:31mm;">:</b> 
+	             </div>
+		         <div class="col-9" style="font-size:14px;padding-left:0mm;">
+	              	<span t-esc="o.narration"></span>
+	             </div>
+	             </t>
+             </div>
+             </div>
+        </t>
+   </template>
+   <template id="rent_invoice_layout">
+	  <div t-attf-class="header o_company_#{o.company_id.id}_layout">
+	        <div class="row">
+	       		 <div class="col-xs-9">
+	       	        <img t-if="o.company_id.header_image" t-att-src="image_data_uri(o.company_id.header_image)" style="max-height:192.96px;max-width:762.24px" alt="Header"/>
+	       	   </div> 
+	        </div>
+	  </div>
+	   <div class="article o_report_layout_standard">
+	            <t t-raw="0"/>
+	  </div>
+	  <div t-attf-class="footer o_standard_footer o_company_#{o.company_id.id}_layout"> 
+	  		<div class="row last-page">
+	             <div class="col-12 text-right" style="font-size:14px;padding-right:25mm;">
+	             	<b>Invoiced by Real Search W.L.L on behalf of owner</b>
+	             </div>
+             </div>
+             <div class="row last-page">
+			      <div class="col-12 text-center" style="font-size:14px;padding-top:20mm;">
+			      Computer generated document requires no signature 
+			      </div>
+		    </div>
+        	<div class="row" style="padding-top:25mm;">
+        	     <img t-if="o.company_id.footer_image"  t-att-src="image_data_uri(o.company_id.footer_image)" style="max-height:140px;max-width:1000px"/>
+            </div>
+        </div>
+  </template>
+  <template id="rent_invoice_report">
+	    <t t-call="web.html_container">
+	        <t t-foreach="docs" t-as="o">
+	            <t t-call="zb_bf_custom.rent_invoice_document" t-lang="user.lang"/>
+	        </t>
+	    </t>
+ </template>
+   			  
+   			  <!-- <div class="row " style=
+			      "width:80%;">
+			      <div class="col-4 text-left" style="padding-top:0.2cm;"><img  t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="padding-top:0.5cm;max-height:150px;max-width:250px" alt="Company Logo"/></div>
+			      <div class="col-1">
+			      </div>
+			      <div class="col-5 text-left" style="padding-top:0.2cm;">
+			     <t t-if="o.company_id.street"><span t-field="o.company_id.name"/></t><br></br>
+			      <t t-if="o.company_id.street"><span t-field="o.company_id.street"/></t><br></br>
+                  <t t-if="o.company_id.street2"  t-esc="o.company_id.street2"></t>
+                  ,<t  t-if="o.company_id.city"  t-esc="o.company_id.city"></t><br></br>
+                   <t t-if="o.company_id.country_id.name" t-esc="o.company_id.country_id.name"></t><br></br>
+                   <t t-if="o.company_id.email" t-esc="o.company_id.email"></t><br></br>
+			      </div>
+			      <div class="col-2">
+			      </div>
+			  </div>
+        	  <h2 style="font-size:23px;padding-top:.3cm">
+                        <center><b>Rent Invoice</b></center>
+              </h2>
+              <br></br> -->
+</odoo>

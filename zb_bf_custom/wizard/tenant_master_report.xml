@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- tenant_master_report_form_views -->
+	<record model="ir.ui.view" id="tenant_master_report_form_view">
+    	<field name="name">tenant.master.report.form.view</field>
+   	 	<field name="model">wiz.tenant.master.report</field>
+    	<field name="type">form</field>
+    	<field name="groups_id" eval="[(4,ref('sales_team.group_sale_salesman_all_leads'))]"/>
+    	<field name="arch" type="xml">
+      		<form string="Tenant Master">
+      		<group>
+          		<group>
+          			   
+          			<field name="date" required="1"/>                
+          		</group>
+          	</group>
+          	<footer>
+            	<button name="print_tenant_master_report" string="Print" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+   </record>
+   
+<!-- tenant_master_report_action --> 
+	<act_window id="action_tenant_master_report_wiz"
+            name="Tenant Master Report"
+            binding_model="zbbm.building"
+            res_model="wiz.tenant.master.report"
+            view_mode="form"
+            target="new"
+            groups="sales_team.group_sale_salesman_all_leads"
+            />
+
+</odoo>
+    

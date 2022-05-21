@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	<template id="report_resale_new">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="zb_bf_custom.resale_layout_new">
+					<div class="page">
+						<div class="container" style="border-bottom:none;padding:0px;margin:0px;"> 
+				             <style>
+				                            .border-black,td,table,tr{
+				                            border:1px solid #be9e55;
+				                            }
+				             </style>
+					        <!-- <div class="row">
+						        <div class="col-9" style="border-top:3px solid #be9e55;border-left:3px solid #be9e55;3px solid #be9e55;border-bottom:3px solid #be9e55;">
+					       	        <img t-if="user.company_id.header_image" t-att-src="image_data_uri(user.company_id.header_image)" style="max-height:192.96px;max-width:762.24px" alt="Header"/>
+					       	   	</div> 
+					       	   	<div class="col-3" style="border-top:3px solid #be9e55;border-right:3px solid #be9e55;3px solid #be9e55;border-bottom:3px solid #be9e55;">
+					       	   		<span style="visibility: hidden;">text</span>
+					       	   	</div>
+				       			<div class="col-12 text-center" style="border-top:3px solid #be9e55;border-left:3px solid #be9e55;border-right:3px solid #be9e55;border-bottom:3px solid #be9e55;">
+			          				<img t-if="user.company_id.header_image" t-att-src="image_data_uri(user.company_id.header_image)" style="max-height:350px;max-width:700px" alt="Header"/>
+			          			</div>	
+				       		</div> -->
+				       		<div class="row">
+				       			<div class="col-12 text-center" style="border-left:3px solid #be9e55;border-right:3px solid #be9e55;border-bottom:3px solid #be9e55;">
+			          			<span style="visibility: hidden;">text</span>
+			          			</div>	
+				       		</div>
+				       		<div class="row">
+				       			<div class="col-12 text-center" style="text-color:white;font-size:18px;background-color:#be9e55;color:#fdfefe;border-left:3px solid #be9e55;border-right:3px solid #be9e55;border-bottom:3px solid #be9e55;">
+			             			<b>RESALE STATEMENT</b>
+			             		</div>
+				       		</div>
+				       		<div class="row">
+				       			<div class="col-12 text-center" style="border-left:3px solid #be9e55;border-right:3px solid #be9e55;border-bottom:3px solid #be9e55;">
+			          			<span style="visibility: hidden;">text</span><br/>
+			          			<span style="visibility: hidden;">text</span>
+			          			</div>	
+				       		</div>
+				        	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-left" style="max-width:200px;border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				Seller Name
+				          		</div>	
+				          		<div class="col-1 text-left" style="width:10px;border-bottom:3px solid #be9e55;font-size:18px;">:</div>
+				          		<div class="col-3 text-left" style="max-width:350px;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span t-field="doc.owner_id.name"></span>
+				          		</div>	
+				          		<div class="col-1" style="max-width:10px;"></div>
+				          		<div class="col-2 text-left" style="max-width:200px;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			Date
+				          		</div>
+				          		<div class="col-1 text-left" style="width:10px;border-bottom:3px solid #be9e55;font-size:18px;">:</div>
+				          		<div class="col-3 text-left" style="max-width:350px;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%Y')"></span>
+				          		</div>	
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid white;">
+			          			<div class="col-2 text-left" style="max-width:200px;border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				Buyer Name
+				          		</div>	
+				          		<div class="col-1 text-left" style="width:10px;border-bottom:3px solid #be9e55;font-size:18px;">:</div>
+				          		<div class="col-3 text-left" style="max-width:350px;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span t-field="doc.buyer_id.name"></span>
+				          		</div>	
+				          		<div class="col-1" style="max-width:10px;"></div>
+				          		<div class="col-2 text-left" style="max-width:200px;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			Propery Advisor
+				          		</div>
+				          		<div class="col-1 text-left" style="width:10px;border-bottom:3px solid #be9e55;font-size:18px;">:</div>
+				          		<div class="col-3 text-left" style="max-width:350px;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span t-field="doc.agent_id.name"></span>
+				          		</div>	
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-left" style="max-width:200px;border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				Property
+				          		</div>	
+				          		<div class="col-1 text-left" style="width:10px;border-bottom:3px solid #be9e55;font-size:18px;">:</div>
+				          		<div class="col-3 text-left" style="max-width:350px;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span t-field="doc.building_id.name"></span>
+				          		</div>	
+				          		<div class="col-1" style="max-width:10px;"></div>
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-left" style="max-width:200px;border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				Flat No.
+				          		</div>	
+				          		<div class="col-1 text-left" style="width:10px;border-bottom:3px solid #be9e55;font-size:18px;">:</div>
+				          		<div class="col-3 text-left" style="max-width:350px;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span t-field="doc.name"></span>
+				          		</div>	
+				          		<div class="col-1" style="max-width:10px;"></div>
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-left" style="max-width:200px;border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				Resale Value
+				          		</div>	
+				          		<div class="col-1 text-left" style="width:10px;border-bottom:3px solid #be9e55;font-size:18px;">:</div>
+				          		<div class="col-3 text-left" style="max-width:350px;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span t-field="doc.price"></span>
+				          		</div>	
+				          		<div class="col-1" style="max-width:10px;"></div>
+			          	 	</div>
+				        	<div class="row">
+				       			<div class="col-12 text-center" style="border-left:3px solid #be9e55;border-right:3px solid #be9e55;border-bottom:3px solid #be9e55;">
+			          			<span style="visibility: hidden;">text</span>
+			          			</div>	
+				       		</div>
+				       		<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="background-color:#be9e55;color:#fdfefe;border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<b>Sl.No.</b>
+				          		</div>	
+				          		<div class="col-7 text-left" style="background-color:#be9e55;color:#fdfefe;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<b>Particulars</b>
+				          		</div>	
+				          		<div class="col-3" style="background-color:#be9e55;color:#fdfefe;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<b>Amount</b>
+				          		</div>
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-3" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<b>A</b>
+				          		</div>	
+				          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<b>FUNDS COLLECTED ON YOUR BEHALF</b>
+				          		</div>	
+				          		<div class="col-3" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+				          			Resale Amount Received in RS Bank Account
+				          		</div>	
+				          		<div class="col-3 text-right" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<t t-if="funds_collected">
+                             		 <span t-esc="'{0:,.3f}'.format(funds_collected)"/>
+                             		</t>
+                             		<t t-else="">
+                             			<span style="visibility: hidden;">text</span>
+                             		</t>
+				          		</div>
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-3" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-3" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<b>Total Funds Collected</b>
+				          		</div>	
+				          		<div class="col-3 text-right" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<t t-if="funds_collected">
+                             		 <span t-esc="'{0:,.3f}'.format(funds_collected)"/>
+                             		</t>
+                             		<t t-else="">
+                             			<span style="visibility: hidden;">text</span>
+                             		</t>
+				          		</div>
+			          	 	</div>
+				        	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-3" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>
+			          	 	</div>
+				        	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<b>B</b>
+				          		</div>	
+				          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<b>PAYMENTS MADE ON YOUR BEHALF</b>
+				          		</div>	
+				          		<div class="col-3" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+				          			Resale Commission
+				          		</div>	
+				          		<div class="col-3 text-right" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<t t-if="resale_commission">
+                             		 <span t-esc="'{0:,.3f}'.format(resale_commission)"/>
+                             		</t>
+                             		<t t-else="">
+                             			<span style="visibility: hidden;">text</span>
+                             		</t>
+				          		</div>
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+				          			VAT on Resale Commission
+				          		</div>	
+				          		<div class="col-3 text-right" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<t t-if="resale_vat">
+                            		 <span t-esc="'{0:,.3f}'.format(resale_vat)"/>
+                            		</t>
+                            		<t t-else="">
+                            			<span style="visibility: hidden;">text</span>
+                            		</t>
+				          		</div>
+			          	 	</div>
+			          	 	<t t-if="expenses">
+				          	 	<t t-foreach="expenses" t-as="exp">
+					          	 	<div class="row" style="border-right:3px solid #be9e55;">
+					          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+					          				<span style="visibility: hidden;">text</span>
+						          		</div>	
+						          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+						          			<span t-esc="exp.name"/>
+						          		</div>	
+						          		<div class="col-3 text-right" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+		                            		 <span t-esc="'{0:,.3f}'.format(expenses[exp])"/>
+						          		</div>
+					          	 	</div>
+				          	 	</t>
+			          	 	</t>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-3" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<b>Total Payments Made</b>
+				          		</div>	
+				          		<div class="col-3 text-right" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<t t-if="total_expenses">
+                             		 <span t-esc="'{0:,.3f}'.format(total_expenses)"/>
+                             		</t>
+                             		<t t-else="">
+                             			<span style="visibility: hidden;">text</span>
+                             		</t>
+				          		</div>
+			          	 	</div>
+			          	 	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-7 text-left" style="border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-3" style="border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<span style="visibility: hidden;">text</span>
+				          		</div>
+			          	 	</div>
+				        	<div class="row" style="border-right:3px solid #be9e55;">
+			          			<div class="col-2 text-center" style="background-color:#be9e55;color:#fdfefe;border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;font-size:18px;">
+			          				<span style="visibility: hidden;">text</span>
+				          		</div>	
+				          		<div class="col-7 text-left" style="background-color:#be9e55;color:#fdfefe;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<b>Net Amount Payable to Seller</b>
+				          		</div>	
+				          		<div class="col-3 text-right" style="background-color:#be9e55;color:#fdfefe;border-bottom:3px solid #be9e55;font-size:18px;">
+				          			<b><span t-esc="'{0:,.3f}'.format(funds_collected-total_expenses)"/></b>
+				          		</div>
+			          	 	</div>
+			          	 	<div class="row last-page" style="height:45mm;border-left:3px solid #be9e55;border-bottom:3px solid #be9e55;border-right:3px solid #be9e55;padding-top:25mm;">
+			          	 		<div class="col-2">
+			          	 		</div>
+					             <div class="col-3 text-left" style="font-size:18px;border-top:3px solid black;">
+					             	<b>Prepared by</b>
+					             </div>
+					             <div class="col-4">
+			          	 		</div>
+					             <div class="col-3 text-right" style="font-size:18px;border-top:3px solid black;">
+					             	<b>Approved by</b>
+					             </div>
+						    </div>
+				        	
+				        </div>
+				    </div>
+				</t>
+			</t>
+		</t>
+ 	</template>	
+	<template id="resale_layout_new">
+		<div t-attf-class="header o_company_#{user.company_id.id}_layout">
+	        <div class="row">
+	       		 <div class="col-12" style="border-top:2px solid #be9e55;border-left:2px solid #be9e55;border-right:2px solid #be9e55;border-bottom:2px solid #be9e55;">
+	       	        <img t-if="user.company_id.header_image" t-att-src="image_data_uri(user.company_id.header_image)" style="max-height:140px;max-width:1000px" alt="Header"/>
+	       	   </div> 
+	        </div>
+	  </div>
+	   <div class="article o_report_layout_standard">
+	            <t t-raw="0"/>
+	  </div>
+	  <div t-attf-class="footer o_standard_footer o_company_#{user.company_id.id}_layout"> 
+        	<div class="row">
+        	     <img t-if="user.company_id.footer_image"  t-att-src="image_data_uri(user.company_id.footer_image)" style="max-height:140px;max-width:1000px"/>
+            </div>
+        </div>
+  </template>
+
+</odoo>
+ 

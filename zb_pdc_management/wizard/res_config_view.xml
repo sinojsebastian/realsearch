@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_account_config_inherit_pdc" model="ir.ui.view">
+      <field name="name">res settings Inherits</field>
+      <field name="model">res.config.settings</field>
+      <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//div[@id='eu_service']" position="before">
+          <separator string="Charges Account Details"/>
+          <group name="pdc_charges_account_details">
+            <label for="charges_account_id" string="Charges Account"/>
+            <div name="charges_account_sinfo">
+              <div>
+                <field class="oe_inline" name="charges_account_id"/>
+              </div>
+            </div>
+          </group>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

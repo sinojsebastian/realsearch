@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ 
+ <record id="res_config_settings_view_form_rs" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.rs</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="0"/>
+            <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//div[@data-key='general_settings']//div[@id='companies']" position="inside">
+                	<!-- <h2>Companies</h2> -->
+                	<div class="row mt16 o_settings_container">
+		            		<div class="col-6 col-lg-6 o_setting_box">
+		                           <div class="o_setting_left_pane"/>
+		                           <div class="o_setting_right_pane">
+		                               <span class="o_form_label">Configure Company Bank</span>
+		                                <div class="content-group">
+		                                       <div class="row mt16">
+		                                       	 	<label for="company_bank_id" class="col-lg-3 o_light_label"/>
+		                                     		<field name="company_bank_id"/>
+		                                       </div>
+		                                </div>
+		                           </div>
+		                       </div>
+		            </div>
+                </xpath>
+            </field>
+ </record>
+ 
+ <record id="res_config_settings_view_form_inherit_rs" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.rs</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="40"/>
+            <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]"  position="inside">
+                <div class="app_settings_block" data-string="Invoicing" string="Invoicing" data-key="account" groups="account.group_account_manager">
+	            		<h2>Service Products</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                            
+	                                <span class="o_form_label">Service Products</span>
+	                                <div class="text-muted">
+	                                    Service Products For Service Charge
+	                                </div>
+	                                <div class="content-group">
+	                                        <div class="row mt16">
+	                                            <!-- <label for="service_products_ids" class="col-lg-3 o_light_label"/>
+	                                            <field name="service_products_ids" widget="many2many_tags"/> -->
+	                                        	<label for="service_product_id" class="col-lg-3 o_light_label"/>
+	                                        	<field name="service_product_id"/>
+	                                        </div>
+	                                    </div>
+	                           		<div class="text-muted">
+	                                    Configure Service Journal here
+	                                </div>
+	                                <div class="content-group">
+	                                        <div class="row mt16">
+	                                            <label for="service_journal_id" class="col-lg-3 o_light_label"/>
+	                                            <field name="service_journal_id"  domain="[('type', '=', ('sale'))]"/>
+	                                        	
+	                                        </div>
+	                                    </div>
+	                           		
+	                            </div>
+	                        </div>
+                       </div>
+                       <h2>Products and Journal For Admin Fees</h2>
+						<div class="row mt16 o_settings_container">
+							<div class="col-12 col-lg-6 o_setting_box">
+								<div class="o_setting_left_pane"/>
+									<div class="o_setting_right_pane">
+										<span class="o_form_label">Admin Fees Product and Journal</span>
+										<div class="text-muted"> Products For Admin Fees </div>
+											<div class="content-group">
+												<div class="row mt16">
+												<label for="admin_fee_product_id" class="col-lg-3 o_light_label"/>
+												<field name="admin_fee_product_id"/>
+											</div>
+										</div>
+										<div class="text-muted">Admin Fees Journal</div>
+											<div class="content-group">
+												<div class="row mt16">
+												<label for="admin_fee_journal_id" class="col-lg-3 o_light_label"/>
+												<field name="admin_fee_journal_id"/>
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+                       
+                         <h2>Deposit</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <span class="o_form_label">Deposit Product and Journal</span>
+	                                <div class="text-muted">
+	                                    Deposit Product
+	                                </div>
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="deposit_product_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="deposit_product_id"/>
+                                        </div>
+	                                </div>
+	                           		<div class="text-muted">
+	                                    Deposit Journal
+	                                </div>
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="deposit_journal_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="deposit_journal_id"  domain="[('type', '=', ('sale'))]"/>
+                                        </div>
+	                                </div>
+	                            </div>
+	                        </div>
+						</div>
+						
+						<h2>EWA ,Internet And Tabreed</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <span class="o_form_label"></span>
+	                                <!-- <div class="text-muted">
+	                                    EWA
+	                                </div> -->
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="ewa_product_id" class="col-lg-3 o_light_label"/>
+                                            <field name="ewa_product_id"  domain="[('type', '=', ('service'))]"/>
+                                        </div>
+	                                </div>
+	                                <div class="content-group">
+	                                <div class="row mt16">
+	                                            <label for="ewa_journal_id" class="col-lg-3 o_light_label"/>
+	                                            <field name="ewa_journal_id"  domain="[('type', '=', ('sale'))]"/>
+	                                        	
+	                                        </div>
+	                                 </div>
+	                           		<!-- <div class="text-muted">
+	                                    Internet
+	                                </div> -->
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="internet_product_id" class="col-lg-3 o_light_label"/>
+                                            <field name="internet_product_id" domain="[('type', '=', ('service'))]"/>
+                                        </div>
+	                                </div>
+	                                <div class="content-group">
+	                                <div class="row mt16">
+	                                            <label for="internet_journal_id" class="col-lg-3 o_light_label"/>
+	                                            <field name="internet_journal_id"/>
+	                                        	
+	                                        </div>
+	                                 </div>
+	                                
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="tabreed_product_id" class="col-lg-3 o_light_label"/>
+                                            <field name="tabreed_product_id" domain="[('type', '=', ('service'))]"/>
+                                        </div>
+	                                </div>
+	                                <div class="content-group">
+	                                <div class="row mt16">
+	                                            <label for="tabreed_journal_id" class="col-lg-3 o_light_label"/>
+	                                            <field name="tabreed_journal_id"/>
+	                                        	
+	                                        </div>
+	                                 </div>
+	                            </div>
+	                        </div>
+					     </div>
+					     
+					     <h2>Service Income Accounts</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                            
+	                                <span class="o_form_label"></span>
+	                                <div class="text-muted">
+	                                    Configure Service Income Accounts
+	                                </div>
+	                                <div class="content-group">
+	                                        <div class="row mt16">
+	                                        	<label for="income_account_ids" class="col-lg-3 o_light_label"/>
+	                                        	<field name="income_account_ids" widget="many2many_tags"/>
+	                                        </div>
+	                                    </div>
+	                           		<!-- <div class="text-muted">
+	                                    Configure Expense Accounts
+	                                </div>
+	                                <div class="content-group">
+	                                        <div class="row mt16">
+	                                            <label for="expense_account_ids" class="col-lg-3 o_light_label"/>
+	                                            <field name="expense_account_ids"  widget="many2many_tags"/>
+	                                        	
+	                                        </div>
+	                                    </div> -->
+	                           		
+	                            </div>
+	                        </div>
+                       </div>
+                       
+                       <h2>Project Wise Income And Expense Account Types</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                            
+	                                <span class="o_form_label"></span>
+	                                <div class="text-muted">
+	                                    Configure Income Account Types
+	                                </div>
+	                                <div class="content-group">
+	                                        <div class="row mt16">
+	                                        	<label for="project_income_type_ids" class="col-lg-3 o_light_label"/>
+	                                        	<field name="project_income_type_ids" widget="many2many_tags"/>
+	                                        </div>
+	                                    </div>
+	                                <span class="o_form_label"></span>
+	                                <div class="text-muted">
+	                                    Configure Expense Account Types
+	                                </div>
+	                                <div class="content-group">
+	                                        <div class="row mt16">
+	                                        	<label for="project_expense_type_ids" class="col-lg-3 o_light_label"/>
+	                                        	<field name="project_expense_type_ids" widget="many2many_tags"/>
+	                                        </div>
+	                                    </div>
+                       			</div>
+                       		</div>
+                       </div>
+                       <h2>Collection Account Types To Be Excluded</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                            
+	                                <span class="o_form_label"></span>
+	                                <div class="text-muted">
+	                                    Configure Account Types
+	                                </div>
+	                                <div class="content-group">
+	                                        <div class="row mt16">
+	                                        	<label for="collection_excluded_account_ids" class="col-lg-3 o_light_label"/>
+	                                        	<field name="collection_excluded_account_ids" widget="many2many_tags"/>
+	                                        </div>
+	                                    </div>
+	                                <span class="o_form_label"></span>
+                       			</div>
+                       		</div>
+                       </div>
+                         <h2>Configure Accounts and Journals</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                                <div class="o_setting_left_pane"/>
+		                            <div class="o_setting_right_pane">
+			                                <span class="o_form_label"></span>
+			                                <div class="text-muted">
+			                                    Configure Advance Expense Account
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="advance_expense_account_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="advance_expense_account_id"/>
+		                                        </div>
+			                                </div>
+			                                
+			                                <div class="text-muted">
+			                                    Configure Advance Expense Journal
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="advance_expense_journal_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="advance_expense_journal_id"/>
+		                                        </div>
+			                                </div>
+			                                
+			                                <div class="text-muted">
+			                                    Configure Contra Liability Account
+			                                </div>
+			                                <div class="content-group">
+			                                    <div class="row mt16">
+		                                        	<label for="contra_liability_account_id" class="col-lg-3 o_light_label"/>
+		                                        	<field name="contra_liability_account_id" />
+			                                    </div>
+			                                </div>
+			                           		<div class="text-muted">
+			                                    Configure Security Deposit Liability Account
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="deposit_liability_account_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="deposit_liability_account_id"/>
+		                                        </div>
+			                                </div>
+			                                
+			                                <div class="text-muted">
+			                                    Configure Commission Journal
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="commission_journal_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="commission_journal_id"/>
+		                                        </div>
+			                               </div>
+			                               <div class="text-muted"> Configure Commission Product </div>
+											<div class="content-group">
+												<div class="row mt16">
+													<label for="commission_product_id" class="col-lg-3 o_light_label"/>
+													<field name="commission_product_id" domain="[('type', '=', ('service'))]" required="1"/>
+												</div>
+											</div>
+			                               
+			                               <div class="text-muted">
+			                                    Configure Rent Invoice Journal
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="rent_invoice_journal_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="rent_invoice_journal_id"/>
+		                                        </div>
+			                               </div>
+			                               
+			                               <div class="text-muted">
+			                                    Configure Rent Invoice Product
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="rent_invoice_product_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="rent_invoice_product_id" domain="[('type', '=', ('service'))]" />
+		                                        </div>
+			                               </div>
+			                               
+			                               <div class="text-muted">
+			                                    Configure Rent Transfer Journal
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="rent_transfer_journal_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="rent_transfer_journal_id"/>
+		                                        </div>
+			                               </div>
+			                               
+			                               <div class="text-muted">
+			                                    Configure Rent Transfer Product
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="rent_transfer_product_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="rent_transfer_product_id" domain="[('type', '=', ('service'))]" />
+		                                        </div>
+			                               </div>
+			                               
+			                               <div class="text-muted">
+			                                    Configure Deposit Transfer Journal
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="deposit_transfer_journal_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="deposit_transfer_journal_id"/>
+		                                        </div>
+			                               </div>
+			                               
+			                               
+			                               <div class="text-muted">
+			                                    Configure Service Invoice Journal
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="service_invoice_journal_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="service_invoice_journal_id"/>
+		                                        </div>
+			                               </div>
+			                               
+			                               
+			                               <div class="text-muted">
+			                                    Configure Maintenance Journal
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="maintenance_journal_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="maintenance_journal_id"/>
+		                                        </div>
+			                               </div>
+			                               
+			                               <div class="text-muted">
+			                                    Configure Management Fee Journal
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="management_fee_journal_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="management_fee_journal_id"/>
+		                                        </div>
+			                               </div>
+			                               
+			                               <div class="text-muted">
+			                                    Configure Management Product
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="management_product_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="management_product_id"/>
+		                                        </div>
+			                               </div>
+			                               
+			                               <div class="text-muted">
+			                                    Configure Vendor Journal
+			                                </div>
+			                                <div class="content-group">
+		                                        <div class="row mt16">
+		                                            <label for="vendor_journal_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="vendor_journal_id"/>
+		                                            <label for="resale_vendor_journal_id" class="col-lg-3 o_light_label"/>
+		                                            <field name="resale_vendor_journal_id"/>
+		                                        </div>
+			                               </div>
+			                               
+		                            </div>
+	                        </div>
+                       </div>
+                       
+                       <h2>Resale Commission</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="resale_commission_product_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="resale_commission_product_id" domain="[('type', '=', ('service'))]"/>
+                                        </div>
+	                                </div>
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="resale_commission_journal_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="resale_commission_journal_id"  domain="[('type', '=', ('sale'))]"/>
+                                        </div>
+	                                </div>
+	                            </div>
+	                        </div>
+						</div>
+						
+					 
+				</div>
+           	</xpath>
+            </field>
+        </record>
+        
+        <record id="building_config_settings_inherited_rs" model="ir.ui.view">
+            <field name="name">building.settings.view.form.inherit.rs</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="zb_building_management.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//div[@data-key='zb_building_management']" position="inside">
+                		<h2>Owner</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <span class="o_form_label">Owner Of The Unit</span>
+	                                <div class="text-muted">
+	                                   Unit Owner
+	                                </div>
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="owner_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="owner_id"/>
+                                        </div>
+	                                </div>
+	                            </div>
+	                        </div>
+						</div>
+						
+						<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <span class="o_form_label">Building Income And Expense Accounts</span>
+	                                 <div class="content-group">
+	                                        <div class="row mt16">
+	                                        	<label for="building_income_acccount_id" class="col-lg-3 o_light_label"/>
+	                                        	<field name="building_income_acccount_id" required="1"/>
+	                                        </div>
+	                                 </div>
+	                                 <div class="content-group">
+	                                        <div class="row mt16">
+	                                        	<label for="building_expense_acccount_id" class="col-lg-3 o_light_label"/>
+	                                        	<field name="building_expense_acccount_id" required="1"/>
+	                                        </div>
+	                                 </div>
+	                            </div>
+	                        </div>
+						</div>
+						
+						
+						<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <span class="o_form_label">Building Journal</span>
+	                                 <div class="content-group">
+	                                        <div class="row mt16">
+	                                        	<label for="building_journal_id" class="col-lg-3 o_light_label"/>
+	                                        	<field name="building_journal_id" required="1"/>
+	                                        </div>
+	                                 </div>
+	                            </div>
+	                        </div>
+						</div>
+						
+						<div class="row mt16 o_settings_container">
+	                        <div class="col-12 col-lg-6 o_setting_box">
+	                        	<div class="o_setting_left_pane"/>
+	                             <div class="o_setting_right_pane">
+	                                <span class="o_form_label">Common EWA Service Product</span>
+	                                 <div class="content-group">
+	                                        <div class="row mt16">
+	                                        	<label for="common_service_product_id" class="col-lg-3 o_light_label"/>
+	                                        	<field name="common_service_product_id"  domain="[('type', '=', ('service'))]" required="1"/>
+	                                        </div>
+	                                 </div>
+	                            </div>
+	                        </div>
+						</div>
+						
+						<h2>Real Search and Owner Income and Expense Account Types</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="rs_in_exp_type_ids" class="col-lg-3 o_light_label"/>
+	                                        <field name="rs_in_exp_type_ids" widget="many2many_tags"/>
+                                        </div>
+	                                </div>
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="owner_in_exp_type_ids" class="col-lg-3 o_light_label"/>
+	                                        <field name="owner_in_exp_type_ids" widget="many2many_tags"/>
+                                        </div>
+	                                </div>
+	                            </div>
+	                        </div>
+						</div>
+						
+						<h2>Agent Commission Journal</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="agent_journal_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="agent_journal_id"/>
+                                        </div>
+	                                </div>
+	                            </div>
+	                        </div>
+						</div>
+						
+						
+						<h2>Commission Accounts</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="rent_commission_expense_acccount_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="rent_commission_expense_acccount_id"/>
+                                        </div>
+	                                </div>
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="rent_commission_payable_acccount_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="rent_commission_payable_acccount_id"/>
+                                        </div>
+	                                </div>
+	                                  <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="accruded_journal_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="accruded_journal_id"/>
+                                        </div>
+	                                </div>
+	                            </div>
+	                        </div>
+						</div>
+						
+						<h2>Installment Journal And Product</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="installment_journal_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="installment_journal_id"/>
+                                        </div>
+	                                </div>
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="installment_product_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="installment_product_id"/>
+                                        </div>
+	                                </div>
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="install_journal_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="install_journal_id"/>
+                                        </div>
+	                                </div>
+	                            </div>
+	                        </div>
+						</div>
+						
+						<h2>Advance Journal And Product</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="advance_payment_journal_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="advance_payment_journal_id"/>
+                                        </div>
+	                                </div>
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="advance_product_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="advance_product_id"/>
+                                        </div>
+	                                </div>
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="advance_transfer_journal_id" class="col-lg-3 o_light_label"/>
+	                                        <field name="advance_transfer_journal_id"/>
+                                        </div>
+	                                </div>
+	                            </div>
+	                        </div>
+						</div>
+						
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-6 col-lg-6 o_setting_box">
+		            			<h2>Rent Prorated Calculation</h2>
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<!-- <label for="rent_prorated_calculation" class="col-lg-3 o_light_label"/> -->
+	                                        <field name="rent_prorated_calculation" widget="radio"/>
+                                        </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        
+	                        <div class="col-6 col-lg-6 o_setting_box">
+	                        	<h2>Invoice Generation Days</h2>
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="invoice_generation_days" class="col-lg-3 o_light_label"/>
+	                                        <field name="invoice_generation_days"/>
+                                        </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        
+						</div>
+						
+	            		<div class="row mt16 o_settings_container">
+		            		
+						
+						<div class="col-6 col-lg-6 o_setting_box">
+	                        	<h2>Invoice Start Date</h2>
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="invoice_start_date" class="col-lg-3 o_light_label"/>
+	                                        <field name="invoice_start_date"/>
+                                        </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-12 col-lg-6 o_setting_box">
+		            		<h2>Invoice End Date</h2>
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="invoice_generation_date" class="col-lg-3 o_light_label"/>
+	                                        <field name="invoice_generation_date"/>
+                                        </div>
+	                                </div>
+	                            </div>
+	                        </div>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						</div>
+						
+						
+                </xpath>
+                <xpath expr="//div[@id='reservation_sale']" position="after">
+                        <div class="col-6 col-lg-6 o_setting_box" id="reservation_lease">
+                            <div class="o_setting_left_pane">
+                                <field name="max_reservation_time_lease"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="max_reservation_time_lease" />
+                            </div>
+                        </div>
+                </xpath>
+            </field>
+        </record>
+        
+ </odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!-- Title Deed Form View -->
+	    <record id="view_title_deed_form" model="ir.ui.view">
+	        <field name="name">title.deed.form.view</field>
+	        <field name="model">title.deed</field>
+	        <field name="arch" type="xml">
+	            <form string="Title Deed">
+	            <group>
+	            	<field name="name"/>
+	            </group>
+	            </form>
+	        </field>
+	    </record>
+</odoo>

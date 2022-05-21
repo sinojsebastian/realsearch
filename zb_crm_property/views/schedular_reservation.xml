@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+    
+         <record model="ir.cron" id="Reservation_expiry_id">
+            <field name='name'>Reservation expiry email</field>
+            <field name="model_id" ref="model_zbbm_unit"/>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True" />
+            <field name="doall" eval="True" />
+            <field name="state">code</field>
+            <field name="code">model.action_set_new()</field>
+          
+        </record>
+        
+        
+        
+          
+        
+        <record model="ir.cron" id="crm_unitreser_on exp">
+            <field name='name'>Reservation expiry</field>
+            <field name="model_id" ref="model_zbbm_unit"/>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True" />
+            <field name="doall" eval="True" />
+            <field name="state">code</field>
+            <field name="code">model.action_set_new_reserved()</field>
+          
+        </record>
+        
+        
+     </data>
+</odoo>

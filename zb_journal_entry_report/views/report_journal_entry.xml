@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--TEMPLATE [REPORT - JOURNAL ENTRY]-->
+    <template id="report_journal_entry_document">
+        <t t-call="zb_journal_entry_report.journal_entry_layout">  
+            <!-- <t t-set="o" t-value="o.with_context({'lang': 'en_US'})" /> -->
+            <div class="page">
+                <center>
+                    <h3><b>JOURNAL VOUCHER REPORT</b></h3>
+                </center>
+                <h2>
+                    <span t-field="o.name" />
+                </h2>
+                <div class="row mt32 mb32">
+                    <div class="col-auto mw-100 mb-2" t-if="o.journal_id">
+                        <strong>Journal:</strong>
+                        <p t-field="o.journal_id" />
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.ref">
+                        <strong>Reference:</strong>
+                        <p t-field="o.ref" />
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.date">
+                        <strong>Date:</strong>
+                        <p t-field="o.date" />
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.cheque_no">
+                        <strong>Cheque No:</strong>
+                        <p t-field="o.cheque_no" />
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.cheque_date">
+                        <strong>Cheque Date:</strong>
+                        <p t-field="o.cheque_date" />
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.cheque_bank_id">
+                        <strong>Cheque Bank:</strong>
+                        <p t-field="o.cheque_bank_id" />
+                    </div>
+                </div>
+                <table class="table table-sm o_main_table">
+                    <thead style="color:black;">
+                        <tr>
+                            <th>Account</th>
+                            <th>Partner</th>
+                            <th>Label</th>
+                            <th>Debit</th>
+                            <th>Credit</th>
+                            <th>Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <tr t-foreach="o.line_ids" t-as="l">
+                            <td><span t-field="l.account_id" /></td>
+                            <td><span t-field="l.partner_id" /></td>
+                            <td><span t-field="l.name" /></td>
+                            <td><span t-field="l.debit" /></td>
+                            <td><span t-field="l.credit" /></td>
+                            <td><span t-field="l.date_maturity" /></td>
+                        </tr>
+                        <tr />
+                        <tr class="border-black">
+                            <td />
+                            <td />
+                            <td />
+                            <td> <span t-field="o.amount_total" /></td>
+                            <td> <span t-field="o.amount_total" /></td>
+                            <td />
+                        </tr>
+                        <tr class="border-black" />
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+    <!--TEMPLATE [REPORT - JOURNAL ENTRY]-->
+    <template id="journal_entry_layout">
+		   <div t-attf-class="header o_company_#{o.company_id.id}_layout">
+             <div class="row">
+            		 
+            		 <div class="col-xs-9">
+            	        <img t-if="o.company_id.header_image" t-att-src="image_data_uri(o.company_id.header_image)" style="max-height:192.96px;max-width:762.24px" alt="Header"/>
+            	   </div> 
+             		<div class="col-1"> </div>
+             </div>
+           </div>
+		  <div class="article o_report_layout_standard">
+		            <t t-raw="0"/>
+		  </div>
+</template>
+    
+    
+    <template id="tmpte_journal_entry">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="zb_journal_entry_report.report_journal_entry_document" t-lang="user.lang" />
+            </t>
+        </t>
+    </template>
+    <!---->
+    <record id="paperformat_journal_entry" model="report.paperformat">
+            <field name="name">Journal Entry</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">25</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+      </record>
+    
+    <report id="report_journal_entry" 
+    model="account.move" 
+    string="Journal Entries" 
+    report_type="qweb-pdf" 
+    name="zb_journal_entry_report.tmpte_journal_entry" 
+    file="zb_journal_entry_report.report_journal_entry" 
+    paperformat="zb_journal_entry_report.paperformat_journal_entry"
+    attachment_use="True" />
+    
+    <!--FORM JOURNAL ENTRY-->
+    <record id="view_move_form_inherit" model="ir.ui.view">
+        <field name="name">account.move.report.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <button name="action_post" position="after">
+                <button name="print_journal_entry" string="Print" type="object" class="oe_highlight" help="Print in Pdf" attrs="{'invisible': [('type', '!=', 'entry')]}"/>
+            </button>
+        </field>
+    </record>
+</odoo>

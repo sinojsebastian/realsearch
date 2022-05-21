@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <odoo>
+	
+	<record model="ir.ui.view" id="ewa_master_report_form_view">
+    	<field name="name">ewa.master.report.form.view</field>
+   	 	<field name="model">wiz.ewa.master.report</field>
+    	<field name="type">form</field>
+    	<field name="groups_id" eval="[(4,ref('sales_team.group_sale_salesman_all_leads'))]"/>
+    	<field name="arch" type="xml">
+      		<form string="EWA Master">
+      		<group>
+          		<group>
+          			<field name="date" required='1'/>  
+          			<field name="building_id" invisible='1'/>  
+          		</group>
+          	</group>
+          	<footer>
+            	<button name="print_ewa_master_report" string="Print" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+    </record>
+   
+    <act_window id="action_ewa_master_report_wiz"
+            name="EWA Master Report"
+            binding_model="zbbm.building"
+            res_model="wiz.ewa.master.report"
+            view_mode="form"
+            target="new"
+            groups="sales_team.group_sale_salesman_all_leads"/>
+
+</odoo>

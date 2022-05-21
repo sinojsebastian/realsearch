@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+			<!-- Customer Statement xlsx Form View -->
+		<record id="view_owner_statement" model="ir.ui.view">
+			<field name="name">Owner Rental Statement</field>
+			<field name="model">owner.statement.report</field>
+			<field name="groups_id" eval="[(4,ref('sales_team.group_sale_salesman_all_leads'))]"/>
+			<field name="arch" type="xml">
+				<form string="Owner Statement">
+					 <group col="4">
+                        <field name="from_date" required="1"/>
+                    	<field name="to_date" required="1"/>
+                    </group>
+                   <!--  <group>
+                    	<field name="partner_id" readonly ="1"/>
+                    </group> -->
+					<footer>
+						<button name="print_owner_statement" string="Print" type="object" class="oe_highlight"/>
+						or
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+	
+			<!-- Customer Statement xlsx Action -->
+		<record model="ir.actions.act_window" id="action_owner_statement1">
+			<field name="name">Owner Rental Statement</field>
+			<field name="res_model">owner.statement.report</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+	
+			<!-- Customer Statement xlsx Action Menu -->
+		<act_window id="action_owner_statement1_report"
+				name="Owner Rental Statement Report"
+				res_model="owner.statement.report"
+				binding_model="zbbm.module"
+				view_mode="form" target="new"
+				groups="sales_team.group_sale_salesman_all_leads"
+	           />
+	            
+
+	</data>
+</odoo>

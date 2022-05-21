@@ -1,0 +1,11 @@
+Version 0.02 - 21/07/2020 by Rilu
+	* Added 'default_pos_receivable_account_id' in xml
+
+Version 0.01 - 26/07/2020 by Derick
+	*Migrated to odoo 13
+	
+Version 0.01 - 30/12/2015 by Chandhu
+	* Migarted to odoo 9
+
+Version 0.01 - 27/05/2015 by Parvathy
+	* Created new Chart of Account Module for Bahrain

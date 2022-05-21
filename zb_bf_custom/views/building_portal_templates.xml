@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_menu_units" name="Portal layout : Units menu entries" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'unit' or unit_details" t-attf-class="breadcrumb-item #{'active ' if not unit_details else ''}">
+                <a t-if="unit_details" t-attf-href="/my/units?{{ keep_query() }}">Units</a>
+                <t t-else="">Units</t>
+            </li>
+            <li t-if="unit_details" class="breadcrumb-item active">
+                <t t-esc="unit_details.name" />
+            </li>
+            <li t-if="page_name == 'agreement' or agreement_details" t-attf-class="breadcrumb-item #{'active ' if not agreement_details else ''}">
+                <a t-if="agreement_details" t-attf-href="/my/agreements?{{ keep_query() }}">Agreements</a>
+                <t t-else="">Agreements</t>
+            </li>
+            <li t-if="agreement_details" class="breadcrumb-item active">
+                <t t-esc="agreement_details.reference_no" />
+            </li>
+        </xpath>
+    </template>
+    <template id="portal_my_home_building" name="Portal My Home : building entries" inherit_id="portal.portal_my_home" priority="21">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="units_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">My Units</t>
+                <t t-set="url" t-value="'/my/units'" />
+                <t t-set="count" t-value="units_count" />
+            </t>
+            <t t-if="agreement_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">My Agreements</t>
+                <t t-set="url" t-value="'/my/agreements'" />
+                <t t-set="count" t-value="agreement_count" />
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_units" name="My Units">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Units</t>
+            </t>
+            <t t-if="not units">
+                <p>There are Currently No Units for your account.</p>
+            </t>
+            <t t-if="units" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Flat/Office </th>
+                        <th class="text-center">Building</th>
+                        <th class="text-right">Tenant</th>
+                        <th class="text-right">Monthlty Rent</th>
+                        <th class="text-right">Status</th>
+                    </tr>
+                </thead>
+                <t t-foreach="units" t-as="unit">
+                    <tr>
+                        <td><a t-att-href="unit.get_portal_url()">
+                                <t t-esc="unit.name" /></a></td>
+                        <td class="text-center">
+                            <span t-field="unit.building_id" />
+                        </td>
+                        <td class="text-right"><span t-field="unit.tenant_id" /></td>
+                        <td class="text-right"><span t-field="unit.monthly_rate" /></td>
+                        <td class="text-right">
+                            <span t-field="unit.state" />
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="units_portal_template" name="Units Portal Template" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <div t-attf-class="card #{'pb-5' if report_type == 'html' else ''}">
+                <div t-call="zb_bf_custom.unit_portal_content" />
+            </div>
+        </xpath>
+    </template>
+    <template id="unit_portal_content" name="Unit Portal Content">
+        <!-- Intro -->
+        <div id="introduction" t-attf-class="pb-2 pt-3 #{'card-header bg-white' if report_type == 'html' else ''}">
+            <h2 class="my-0">
+                <em t-esc="unit_details.name" />
+            </h2>
+        </div>
+        <div t-attf-class="#{'card-body' if report_type == 'html' else ''}">
+            <!-- Informations -->
+            <div id="informations">
+                <div class="row" id="so_date">
+                    <div class="mb-2 col-6">
+                        <strong>Building:</strong> <span t-field="unit_details.building_id" />
+                    </div>
+                    <div class="mb-2 col-6">
+                        <strong>Potential Rent:</strong> <span t-field="unit_details.potential_rent" />
+                    </div>
+                    <div class="mb-2 col-6">
+                        <strong>Building Type:</strong> <span t-field="unit_details.res_com" />
+                    </div>
+                    <div class="mb-2 col-6">
+                        <strong>Monthly Rent:</strong> <span t-field="unit_details.monthly_rate" />
+                    </div>
+                    <div class="mb-2 col-6">
+                        <strong>Type:</strong> <span t-field="unit_details.type" />
+                    </div>
+                    <div class="mb-2 col-6">
+                        <strong>Deposit:</strong> <span t-field="unit_details.deposit" />
+                    </div>
+                    <div class="mb-2 col-6">
+                        <strong>Feature:</strong> <span t-field="unit_details.feature" />
+                    </div>
+                </div>
+            </div>
+            <section id="details" style="page-break-inside: auto;" class="mt16">
+                <h4 id="details">General Information</h4>
+                <div class="row" id="so_date">
+                    <div class="mb-2 col-6">
+                        <div><strong>Bedroom:</strong>
+                            <t t-if="unit_details.bed_room"><span t-field="unit_details.bed_room" />m²</t>
+                        </div>
+                    </div>
+                     <div class="mb-2 col-6">
+                        <div><strong>No of Rooms:</strong> <span t-field="unit_details.no_of_rooms" /></div>
+                    </div>
+                    <div class="mb-2 col-6">
+                        <div><strong>Floor Area:</strong>
+                            <t t-if="unit_details.floor_area"> <span t-field="unit_details.floor_area" />m²</t>
+                        </div>
+                    </div>
+                    <div class="mb-2 col-6">
+                        <div><strong>No of WashRooms:</strong> <span t-field="unit_details.no_of_washroom" /></div>
+                    </div>
+                    <div class="mb-2 col-6">
+                        <div><strong>Bathroom:</strong>
+                            <t t-if="unit_details.bath_room"><span t-field="unit_details.bath_room" />m²</t>
+                        </div>
+                    </div>
+                   <div class="mb-2 col-6">
+                        <div><strong>Balcony:</strong>
+                            <t t-if="unit_details.balcony"><i class="fa fa-check" /></t>
+                        </div>
+                    </div>
+                    <div class="mb-2 offset-6 col-6">
+                        <div><strong>Managed:</strong>
+                            <t t-if="unit_details.managed"><i class="fa fa-check" /></t>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-2 offset-6 col-6">
+                        <div><strong>Gym:</strong>
+                            <t t-if="unit_details.gym"><i class="fa fa-check" /></t>
+                        </div>
+                    </div>
+                    <div class="mb-2 offset-6 col-6">
+                        <div><strong>Pool:</strong>
+                            <t t-if="unit_details.pool"><i class="fa fa-check" /></t>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </template>
+    <template id="portal_my_agreements" name="My Agreements">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Units</t>
+            </t>
+            <t t-if="not agreements">
+                <p>There are Currently No Agreements for your account.</p>
+            </t>
+            <t t-if="agreements" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-center">Ref No</th>
+                        <th class="text-center">Building</th>
+                        <th class="text-right">Unit</th>
+                        <th class="text-right">Agreement Start Date</th>
+                        <th class="text-right">Agreement End Date</th>
+                        <th class="text-right">Status</th>
+                    </tr>
+                </thead>
+                <t t-foreach="agreements" t-as="agreement">
+                    <tr>
+                        <td><a t-att-href="agreement.get_portal_url()">
+                                <t t-esc="agreement.reference_no" /></a></td>
+                        <td class="text-center">
+                            <span t-field="agreement.building_id" />
+                        </td>
+                        <td class="text-right"><span t-field="agreement.subproperty" /></td>
+                        <td class="text-right"><span t-field="agreement.agreement_start_date" /></td>
+                        <td class="text-right"><span t-field="agreement.agreement_end_date" /></td>
+                        <td class="text-right">
+                            <span t-field="agreement.state" />
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="agreements_portal_template" name="Portal Agreement Template" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <div t-attf-class="card #{'pb-5' if report_type == 'html' else ''}">
+                <div t-call="zb_bf_custom.agreement_portal_content" />
+            </div>
+        </xpath>
+    </template>
+    <template id="agreement_portal_content" name="Unit Agreement Content">
+        <!-- Intro -->
+        <div id="introduction" t-attf-class="pb-2 pt-3 #{'card-header bg-white' if report_type == 'html' else ''}">
+            <h2 class="my-0">
+                <em t-esc="agreement_details.reference_no" />
+            </h2>
+        </div>
+        <div t-attf-class="#{'card-body' if report_type == 'html' else ''}">
+            <!-- Informations -->
+            <div id="informations">
+                <div class="row" id="so_date">
+                    <div class="mb-2 col-6">
+                        <strong>Building:</strong> <span t-field="agreement_details.building_id" />
+                    </div>
+                    <div class="mb-2 col-6">
+                        <strong>Advance / Security Deposti:</strong> <span t-field="agreement_details.security_deposit" />
+                    </div>
+                    <div class="mb-2 col-6">
+                        <strong>Unit:</strong> <span t-field="agreement_details.subproperty" />
+                    </div>
+                    <div class="mb-2 col-6">
+                        <strong>Monthly Rent:</strong> <span t-field="agreement_details.monthly_rent" />
+                    </div>
+                    <div class="mb-2 col-6">
+                        <strong>Agreement Start Date:</strong> <span t-field="agreement_details.agreement_start_date" />
+                    </div>
+                    <div class="mb-2 col-6">
+                        <strong>EWA Limit:</strong> <span t-field="agreement_details.ewa_limit" />
+                    </div>
+                    <div class="mb-2 col-6">
+                        <strong>Agreement End Date:</strong> <span t-field="agreement_details.agreement_end_date" />
+                    </div>
+                    <div class="mb-2 col-6">
+                        <strong>Commission Percent:</strong> <span t-field="agreement_details.commission_percent" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <record id="inherit_tenants_tree_view" model="ir.ui.view">
+		<field name="name">tenant.tree.inherit</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="zb_building_management.view_tenants_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='amount_due']" position ="replace">
+				<field name="amount_due" digits="[14, 3]" />
+		    </xpath>
+		</field>
+	</record>
+    
+</odoo>

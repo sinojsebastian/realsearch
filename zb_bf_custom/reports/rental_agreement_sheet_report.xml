@@ -1,0 +1,433 @@
+<odoo>
+<data>
+	<template id="lease_agreement_sheet">
+	<t t-call="web.html_container">
+	<t t-foreach="docs" t-as="o">
+	<t t-call="zb_bf_custom.agreement_sheet_layout">
+	<!--   First page  -->
+		<div class="page">
+		
+		<style> .border-black,td,table,tr{ border:1px solid black;padding: 5px; } 
+				.border-black,.page1{border-left: 3px solid #161A1D; border-right: 3px solid #161A1D; border-top: 3px solid #161A1D; border-bottom: 3px solid #161A1D;} </style>
+		<!-- <div class="page_border" style="height:280mm;"/> -->
+		<div class="page1">
+			<div class="row">
+				<div class="col-1 text-center">
+					<img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="height:150px;width:200px;padding:10px;padding-right:16mm;" alt="Company Logo"/>
+				</div>
+				<div class="col-11 text-center" style="font-size:30px;bold:True;padding-top:1cm;"> Lease Agreement Sheet </div>
+			</div>
+		<div class="row">
+			<div class="col-1"/>
+			<table class="col-10" style="width:200mm;">
+				<tr>
+					<td colspan="1" class="text-center" style="font-size:15px;vertical-align:center;width:70mm;"> Project Name </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.building_id.name">
+					<span t-esc="o.building_id.name"/>
+					</t>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-center" style="font-size:15px;vertical-align:center;width:70mm;"> Property Advisor </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.adviser_id.name">
+					<span t-esc="o.adviser_id.name"/>
+					</t>
+					<t t-if="not o.adviser_id.name">
+					<span style="visibility: hidden;">text</span>
+					</t>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-center" style="font-size:15px;vertical-align:center;width:70mm;"> Flat No. </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.subproperty.name">
+					<span t-esc="o.subproperty.name"/>
+					</t>
+					<t t-if="not o.subproperty.name">
+					<span style="visibility: hidden;">text</span>
+					</t>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-center" style="font-size:15px;vertical-align:center;width:70mm;"> Flat Type </td>
+					<td colspan="11" style="font-size:15px;vertical-align:center;">
+					    
+					<t t-if="o.subproperty.type.name == 'Studio'">
+					&#160;<input type="checkbox" checked="True"/>
+					</t>
+					<t t-if="o.subproperty.type.name != 'Studio'">
+					&#160;<input type="checkbox"/>
+					</t>
+					 
+					&#160;<span>Studio</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+					             
+					<t t-if="o.subproperty.type.name == '1 BR'">
+					<input type="checkbox" checked="True"/>
+					</t>
+					<t t-if="o.subproperty.type.name != '1 BR'">
+					<input type="checkbox"/>
+					</t>
+					 
+					&#160;<span>1 BR</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+					             
+					<t t-if="o.subproperty.type.name == '2 BR'">
+					<input type="checkbox" checked="True"/>
+					</t>
+					<t t-if="o.subproperty.type.name != '2 BR'">
+					<input type="checkbox"/>
+					</t>
+					 
+					&#160;<span>2 BR</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+					             
+					<t t-if="o.subproperty.type.name == '3 BR'">
+					<input type="checkbox" checked="True"/>
+					</t>
+					<t t-if="o.subproperty.type.name != '3 BR'">
+					<input type="checkbox"/>
+					</t>
+					 
+					&#160;<span>3 BR</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+					             
+					<t t-if="o.subproperty.type.name == 'P.H'">
+					<input type="checkbox" checked="True"/>
+					</t>
+					<t t-if="o.subproperty.type.name != 'P.H'">
+					<input type="checkbox"/>
+					</t>
+					 
+					&#160;<span>P.H</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+					</td>
+				</tr>
+			</table>
+			<div class="col-1"/>
+			</div>
+			<br/>
+			<br/>
+		<div class="row">
+			<div class="col-1"/>
+			<table class="col-10" style="width:200mm;">
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Management </td>
+					<td colspan="11" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.subproperty.managed">
+					&#160;<input type="checkbox" checked="True"/>
+					</t>
+					<t t-else="">
+					&#160;<input type="checkbox"/>
+					 </t>
+					<!-- &#160;<input type="checkbox"/> -->
+					&#160;<span>Management</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+					<t t-if="not o.subproperty.managed">
+					&#160;<input type="checkbox" checked="True"/>
+					 </t>
+					 <t t-else="">
+					&#160;<input type="checkbox"/>
+					 </t>
+					&#160;<span>Not Under-Management</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+					<t t-if="o.subproperty.flat_on_offer">
+					&#160;<input type="checkbox" checked="True"/>
+					</t>
+					<t t-else="">
+					&#160;<input type="checkbox"></input>
+					</t>
+					&#160;<span>B.F Offer/Flat</span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Tenant Name </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.tenant_id.name">
+					<span t-esc="o.tenant_id.name"/>
+					</t>
+					<t t-if="not o.tenant_id.name">
+					<span style="visibility: hidden;">text</span>
+					</t>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> I.Ds </td>
+					<td colspan="11" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.tenant_id.passport">
+					<input type="checkbox" checked="True"/></t>
+					<t t-else="">
+					<input type="checkbox"/>
+					</t>
+					&#160;<span>Passport(Attached)</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+					<t t-if="o.tenant_id.cpr">
+					<input type="checkbox" checked="True"/></t>
+					<t t-else="">
+					<input type="checkbox"/>
+					</t>
+					&#160;<span>I.D.(Attached)</span>
+					  
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Full Address </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.tenant_id.street">
+					<span t-field="o.tenant_id.street"/>
+					</t>
+					<t t-if="o.tenant_id.street2" t-esc="o.tenant_id.street2"/>
+					<t t-if="o.tenant_id.city" t-esc="o.tenant_id.city"/>
+					<t t-if="o.tenant_id.country_id.name" t-esc="o.tenant_id.country_id.name"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Mobile </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.tenant_id.mobile" t-esc="o.tenant_id.mobile"/>
+					<t t-if="not o.tenant_id.mobile">
+					<span style="visibility: hidden;">text</span>
+					</t>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Work Address </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.tenant_id.parent_id.street">
+					<span t-field="o.tenant_id.parent_id.street"/>
+					</t>
+					<t t-if="o.tenant_id.parent_id.street2" t-esc="o.tenant_id.parent_id.street2"/>
+					<t t-if="o.tenant_id.parent_id.city" t-esc="o.tenant_id.parent_id.city"/>
+					<t t-if="o.tenant_id.parent_id.country_id.name" t-esc="o.tenant_id.parent_id.country_id.name"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Work Tel No </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.tenant_id.parent_id.phone" t-esc="o.tenant_id.parent_id.phone"/>
+					<t t-if="not o.tenant_id.parent_id.phone">
+					<span style="visibility: hidden;">text</span>
+					</t>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Email </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.tenant_id.email" t-esc="o.tenant_id.email"/>
+					<t t-if="not o.tenant_id.email">
+					<span style="visibility: hidden;">text</span>
+					</t>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Reference Person Name </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;"> 
+					<t t-if="o.ref_person_id" t-esc="o.ref_person_id.name"/>
+					<t t-if="not o.ref_person_id">
+					<span style="visibility: hidden;">text</span>
+					</t>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Mobile </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.ref_person_id.mobile" t-esc="o.ref_person_id.mobile"/>
+					<t t-if="not o.ref_person_id.mobile">
+					<span style="visibility: hidden;">text</span>
+					</t>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Flat Status </td>
+					<td colspan="11" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.subproperty.feature == 'fully furnish'">
+					&#160;<input type="checkbox" checked="True"/>
+					</t>
+					<t t-else="">
+					&#160;<input type="checkbox"/>
+					 </t>
+					&#160;<span>Furnished</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+					<t t-if="o.subproperty.feature == 'semi furnish'">
+					&#160;<input type="checkbox" checked="True"/>
+					</t>   
+					<t t-else="">  
+					&#160;<input type="checkbox"/>
+					 </t>
+					&#160;<span>Semi</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+					<t t-if="o.subproperty.feature == 'bare'"> 
+					&#160;<input type="checkbox" checked="True"/>
+					</t> 
+					<t t-else="">
+					&#160;<input type="checkbox"/>
+					</t>
+					&#160;<span>Unfurnished</span>
+					        
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Rent Amount </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.monthly_rent">BD&#160;<!-- <span t-esc="o.currency_id.name"/> -->&#160;<span t-esc="'{:,.3f}'.format(o.monthly_rent)"/></t>
+					<t t-if="not o.monthly_rent">
+					<span style="visibility: hidden;">text</span>
+					</t>
+					</td>
+					</tr>
+					<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Advance and deposit </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.security_deposit" t-esc="'{:,.3f}'.format(o.security_deposit)"/>
+					<t t-if="not o.security_deposit">
+					<span>0.000</span>
+					</t>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Move in date </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;"> 
+					<t t-if="o.agreement_start_date"/>
+					<span t-field="o.agreement_start_date"/>
+					<t t-if="not o.agreement_start_date">
+					<span style="visibility: hidden;">text</span>
+					</t>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Inclusive </td>
+					<td colspan="11" style="font-size:15px;vertical-align:center;">
+					
+						<t t-if="o.check_services('EWA')">
+							<input type="checkbox" checked="True"/>&#160;
+						</t>
+						<t t-else="">
+						<input type="checkbox"/>&#160;
+						</t>
+						<span>Electricity/Water</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+						<t t-if="o.check_services('Internet')">
+							<input type="checkbox" checked="True"/>&#160;
+						</t>
+						<t t-else="">
+						<input type="checkbox"/>&#160;
+						</t>
+						<span>Internet</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+						<t t-if="o.tax_municipality == 'lessor'">
+							<input type="checkbox" checked="True"/>&#160;
+						</t>
+						<t t-else="">
+						<input type="checkbox"/>&#160;
+						</t>
+						<span>Municipality</span><br></br><br></br>
+						<t t-if="o.check_services('OSN')">
+							<input type="checkbox" checked="True"/>&#160;
+						</t>
+						<t t-else="">
+						<input type="checkbox"/>&#160;
+						</t>
+						<span>OSN</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+						<t t-if="o.check_services('Housekeeping')">
+							<input type="checkbox" checked="True"/>&#160;
+						</t>
+						<t t-else="">
+						<input type="checkbox"/>&#160;
+						</t>
+						<span>Housekeeping(____week)</span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Limit on utilities </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-set="ewa_amount" t-value="'{:,.3f}'.format(0.000)"/>
+					<t t-foreach="o.services_ids" t-as="line">
+					<t t-if="line.product_id.name == 'EWA'">
+						<t t-set="ewa_amount" t-value="'{:,.3f}'.format(line.owner_share)"/>
+					</t>
+					</t>
+					BD&#160;<t t-esc="ewa_amount"/>
+					<!-- <t t-if="not o.ewa_limit">
+					<span style="visibility: hidden;">text</span>
+					</t> -->
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Preparation priority </td>
+					<td colspan="11" style="font-size:15px;vertical-align:center;">
+					    
+					<t t-if="o.prep_priority == '3 hours'">
+					&#160;<input type="checkbox" checked="True"/>
+					</t>
+					<t t-else="">
+					&#160;<input type="checkbox"/>
+					</t>
+					&#160;<span>3 hours</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+					<t t-if="o.prep_priority == '1 day'">
+					&#160;<input type="checkbox" checked="True"/>
+					</t>
+					<t t-else="">
+					&#160;<input type="checkbox"/>
+					</t>
+					&#160;<span>1 day</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+					<t t-if="o.prep_priority == '2 days'">
+					&#160;<input type="checkbox" checked="True"/>
+					</t>
+					<t t-else="">
+					&#160;<input type="checkbox"/>
+					</t>
+					&#160;<span>2 days</span>
+					        
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Date of pro-rate payment </td>
+					<td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;">
+					<t t-if="o.voucher_move_id">
+					<t t-set="payments_vals" t-value="o.voucher_move_id._get_reconciled_info_JSON_values()"/>
+		                <t t-foreach="payments_vals" t-as="payment_vals">
+		                        <!-- <td colspan="11" class="text-left" style="font-size:15px;vertical-align:center;"> -->
+		                            <t t-esc="payment_vals['date']" t-options='{"widget": "date"}'/>
+		                       <!--  </td> -->
+		                </t>
+		            </t>
+		            </td>
+				</tr>
+				<tr>
+					<td colspan="1" class="text-left" style="font-size:15px;vertical-align:center;width:70mm;"> Notes: </td>
+					<td colspan="11" style="font-size:15px;vertical-align:center;"> 
+					<t t-if="o.notes">
+					<t t-esc="o.notes"/>
+					</t>
+					</td>
+				</tr>
+			</table>
+			<div class="col-1"/>
+			</div>
+			<br/>
+			<div class="row">
+				<div class="col-1"/>
+				<div class="col-5 text-left" style="font-size:15px;">
+				<b>Date:</b>
+				</div>
+			</div>
+			<br/>
+			<div class="row" style="padding-bottom:1cm;">
+				<div class="col-1"/>
+				<div class="col-5 text-left" style="font-size:15px;">
+				<b>Signature:</b>
+				</div>
+			</div>
+		</div>
+		</div>
+	</t>
+	</t>
+	</t>
+	</template>
+	<template id="agreement_sheet_layout">
+		   <!-- <div class="header">
+	   			  <div class="row " style="width:110%;">
+				      <div class="col-3 text-left">
+				      		<img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="height:200px;width:250px;padding:10px;padding-right:16mm;" alt="Company Logo"/>
+				      </div>
+				      <div class="col-9 text-center" style="font-size:30px;bold:True;padding-top:1cm;">
+				      Lease Agreement Sheet
+				      </div>
+				  </div>
+		  </div> -->
+		  <div class="article o_report_layout_standard">
+		        <t t-raw="0"/>
+		  </div>
+  	</template>
+</data>
+</odoo>

@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	<template id="report_owner_rentalstatement">
+		<t t-call="web.html_container">
+			<t t-foreach="data" t-as="d">
+				<t t-call="zb_bf_custom.owner_rental_statement_layout_new">
+					<div class="page">
+						<div class="container" style="border-bottom:none;padding:0px;margin:0px;"> 
+				             <style>
+				                            .border-black,td,table,tr{
+				                            border:white;
+				                            }
+				             </style>
+					            
+            
+			            <div class="row" style="background-color:#be9e55;color:#fdfefe;">
+			             	<div class="col-12 text-center" style="text-color:white;font-size:18px;">
+			             		<b>Managed Property:Owner Statement of account</b>
+			             	</div>
+			             	
+			             	<!-- <div class="col-3 text-left" style="font-size:13px;padding-left:0.5cm;text-color:white;">
+				             	Building Name:<span t-field="docs.building_id.name"></span>
+				         	</div>
+				            <div class="col-3 text-center">
+				             	 <span style="visibility: hidden;">textttttttttttttt</span>
+				         	</div>
+				            <div class="col-6 text-left" style="font-size:13px;">
+				             	OWNER STATEMENT : <span  t-field="docs.owner_id.title.name"></span><t t-if="docs.owner_id"><b><span  t-field="docs.owner_id.name"></span></b></t>
+				         	</div> -->
+				        </div>
+			            
+			            <br></br>
+			            <br></br>
+			            <div class="row">
+			          		<div class="col-2 text-left" style="font-size:18px;max-width:200px;border-top:1px solid #bc9c54">
+			          			Owners Name
+			          		</div>	
+			          		<div class="col-1 text-left" style="font-size:18px;width:2mm;padding-right:0;max-width:10px;border-top:1px solid #bc9c54">:</div>
+			          		<div class="col-3 text-left" style="font-size:18px;max-width:350px;border-top:1px solid #bc9c54">
+			          			<span t-field="docs.owner_id.name"></span>
+			          		</div>	
+			          		<div class="col-1" style="max-width:10px;"></div>
+			          		<div class="col-2 text-left" style="font-size:18px;max-width:200px;border-top:1px solid #bc9c54">
+			          			Date
+			          		</div>
+			          		<div class="col-1 text-left" style="font-size:18px;width:2mm;padding-right:0;max-width:10px;border-top:1px solid #bc9c54">:</div>
+			          		<div class="col-3 text-left" style="font-size:18px;max-width:350px;border-top:1px solid #bc9c54">
+			          			<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%Y')"></span>
+			          		</div>	
+			          	 </div>
+			            
+			          	 
+			          	<div class="row">
+			          		<div class="col-2 text-left" style="font-size:18px;max-width:200px;border-top:1px solid #bc9c54">
+			          			Property
+			          		</div>	
+			          		<div class="col-1 text-left" style="font-size:18px;width:2mm;padding-right:0;max-width:10px;border-top:1px solid #bc9c54">:</div>
+			          		<div class="col-3 text-left" style="font-size:18px;max-width:350px;border-top:1px solid #bc9c54">
+			          			<span t-field="docs.building_id.name"></span>
+			          		</div>	
+			          		<div class="col-1" style="max-width:10px;"></div>
+			          		<div class="col-2 text-left" style="font-size:18px;max-width:200px;border-top:1px solid #bc9c54">
+			          			Payment Mode
+			          		</div>
+			          		<div class="col-1 text-left" style="font-size:18px;width:2mm;padding-right:0;max-width:10px;border-top:1px solid #bc9c54">:</div>
+			          		<div class="col-3 text-left" style="font-size:18px;max-width:350px;border-top:1px solid #bc9c54">
+			          			<t t-if="payment_mode">
+			          			<t t-set="count" t-value ="1"/>
+				          			<t t-foreach="payment_mode" t-as="mode">
+				          				<span t-esc="mode"/><t t-if="count != len(payment_mode)">,</t>
+				          			<t t-set="count" t-value="count+1"/>
+				          			</t>
+			          			</t>
+			          		</div>	
+			          	 </div>
+			          	 
+			          	 <div class="row">
+			          		<div class="col-2 text-left" style="font-size:18px;max-width:200px;border-top:1px solid #bc9c54;border-bottom:1px solid #bc9c54">
+			          			Flat No.
+			          		</div>	
+			          		<div class="col-1 text-left" style="font-size:18px;width:2mm;padding-right:0;max-width:10px;border-bottom:1px solid #bc9c54;border-top:1px solid #bc9c54">:</div>
+			          		<div class="col-3 text-left" style="font-size:18px;max-width:350px;border-bottom:1px solid #bc9c54;border-top:1px solid #bc9c54">
+			          			<span t-field="docs.subproperty.name"></span>
+			          		</div>	
+			          		<div class="col-1" style="max-width:10px;"></div>
+			          		<div class="col-2 text-left" style="font-size:18px;max-width:200px;border-top:1px solid #bc9c54;border-bottom:1px solid #bc9c54">
+			          			Payment Period
+			          		</div>
+			          		<div class="col-1 text-left" style="font-size:18px;width:2mm;padding-right:0;max-width:10px;border-top:1px solid #bc9c54;border-bottom:1px solid #bc9c54">:</div>
+			          		<div class="col-3 text-left" style="font-size:18px;max-width:350px;border-top:1px solid #bc9c54;border-bottom:1px solid #bc9c54">
+			          			<t t-if="payment_period">
+			          				<span t-esc="payment_period[0]"/>&#160;&#160;&#160;&#160;&#160;<span t-esc="payment_period[-1]"/>
+			          			</t>
+			          		</div>	
+			          	 </div>
+			          	 <div class="row">
+			          		<div class="col-2 text-left" style="font-size:18px;max-width:200px;border-bottom:1px solid #bc9c54">
+			          			Rental Period
+			          		</div>
+			          		<div class="col-1 text-left" style="font-size:18px;width:2mm;padding-right:0;max-width:10px;border-bottom:1px solid #bc9c54">:</div>
+			          		<div class="col-3 text-left" style="font-size:18px;max-width:350px;border-bottom:1px solid #bc9c54;">
+			          			<span t-esc="rent_start_date"/>&#160;&#160;&#160;&#160;&#160;<span t-esc="rent_end_date"/>
+			          		</div>
+			          		<div class="col-1" style="max-width:10px;"></div>
+			          		<div class="col-2 text-left" style="font-size:18px;max-width:200px;border-top:1px solid #bc9c54;border-bottom:1px solid #bc9c54">
+			          			Service Charge
+			          		</div>
+			          		<div class="col-1 text-left" style="font-size:18px;width:2mm;padding-right:0;max-width:10px;border-top:1px solid #bc9c54;border-bottom:1px solid #bc9c54">:</div>
+			          		<div class="col-3 text-left" style="font-size:18px;max-width:350px;border-top:1px solid #bc9c54;border-bottom:1px solid #bc9c54">
+			          			<t t-if="d['service_amount']">
+				          			<span t-field="docs.currency_id.name"></span>&#160;
+				          			<span t-esc="'{0:,.3f}'.format(d['service_amount'])"></span>&#160;for
+				          		</t>
+				          		<span t-esc="service_start_date"/>-<span t-esc="service_end_date"/>
+			          		</div>	
+			          	</div>
+
+			          	 <!-- <div class="row">
+			          		<div class="col-3 text-left" style="font-size:13px;width:50mm;">
+			          			<b>EWA Limit</b>
+			          		</div>	
+			          		<div class="col-3 text-left" style="font-size:13px;">
+			          			BD : <span t-esc="ewa"/>/-
+			          		</div>	
+			          		
+			          		<div class="col-3 text-left" style="font-size:13px;width:50mm;">
+			          			<b>Annual Service charges:</b>
+			          		</div>
+			          		<div class="col-3 text-left" style="font-size:13px;">
+			          			<span t-if ="docs.tenant_id" t-field="docs.tenant_id.name"></span>
+			          		</div>	
+			          	 </div>
+			          	 
+			          	 <div class="row">
+			          		<div class="col-3 text-left" style="font-size:13px;width:50mm;">
+			          			<b>Internet Package:</b>
+			          		</div>	
+			          		<div class="col-3 text-left" style="font-size:13px;">
+			          			BD : <span t-esc="internet"/>/-
+			          		</div>	
+			          		
+			          		<div class="col-3 text-left" style="font-size:13px;width:50mm;">
+			          			<b>Service charges Period: </b>
+			          		</div>
+			          		<div class="col-3 text-left" style="font-size:13px;">
+			          			<span t-if ="docs.tenant_id" t-field="docs.tenant_id.name"></span>
+			          		</div>	
+			          	 </div>
+			          	 
+			          	 
+			          	 <div class="row">
+			          		<div class="col-3 text-left" style="font-size:13px;width:50mm;">
+			          			<b>Tabreed / BBU Limit:</b>
+			          		</div>	
+			          		<div class="col-3 text-left" style="font-size:13px;">
+			          			NA<span t-field="docs.subproperty.name"></span>
+			          		</div>	
+			          		
+			          		<div class="col-3"></div>
+			          		<div class="col-3"></div>	
+			          	 </div>
+			          	 
+			          	 
+			          	 <div class="row">
+			          		<div class="col-3 text-left" style="font-size:13px;width:50mm;">
+			          			<b>Housekeeping:</b>
+			          		</div>	
+			          		<div class="col-3 text-left" style="font-size:13px;">
+			          			NA<span t-field="docs.subproperty.name"></span>
+			          		</div>	
+			          		
+			          		<div class="col-3"></div>
+			          		<div class="col-3"></div>	
+			          	 </div> -->
+			          	 
+			             
+			             <br></br>
+			             <br></br>
+			             <table style="width:100%;padding-top:0.3;border:white;padding:0px;border-bottom:none;border-top: none!important;">
+				                <thead style="display:table-header-group;background-color:#be9e55;color:#fdfefe;">
+					                <tr>
+			                                <td class="text-center" style="font-size:18px;"><b>Sl.No.</b></td>
+			                                <td class="text-center" style="font-size:18px;"><b>Particulars</b></td>
+			                                <t t-foreach="dates" t-as="month">
+				                                <td class="text-center" style="font-size:18px;border-left:2px solid #be9e55;">
+				                                		<b><span t-esc="month"/></b>
+				                                </td>
+				                            </t>
+			                        </tr>
+				                </thead>
+				                <tbody>
+				                	<tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			                             <td class="text-center"><b></b></td>
+			                             <td class="text-left"></td>
+			                             <t t-foreach="dates" t-as="month">
+				                             	<td class="text-center" style="border-left:2px solid #be9e55;">
+				                             		<span style="visibility: hidden;">text</span>
+				                             	</td>
+			                             </t>
+			                        </tr>
+				                	<tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			                             <td class="text-center" style="font-size:18px;"><b>A</b></td>
+			                             <td class="text-left" style="font-size:18px;"><b>FUNDS COLLECTED ON YOUR BEHALF</b></td>
+			                             <t t-foreach="dates" t-as="month">
+				                             	<td class="text-center" style="border-left:2px solid #be9e55;">
+				                             		<span style="visibility: hidden;">text</span>
+				                             	</td>
+			                             </t>
+			                        </tr>
+			                        <tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			                             <td class="text-center"></td>
+			                             <td class="text-left" style="font-size:18px;">Rent Collected</td>
+			                             <t t-foreach="dates" t-as="month">
+	                             			<td class="text-right" style="font-size:18px;border-left:2px solid #be9e55;">
+	                             				<t t-if="rent_collected[month] == 0">
+	                             					<span style="visibility: hidden;">text</span>
+	                             				</t>
+	                             				<t t-else="">
+		                                			<span t-esc="'{0:,.3f}'.format(rent_collected[month])"/>
+		                                		</t>
+		                                	</td>
+		                                </t>
+			                        </tr>
+			                        <tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			                             <td class="text-center"></td>
+			                             <td class="text-left" style="font-size:18px;">Prior Period Rent Collected</td>
+			                        	<t t-foreach="dates" t-as="month">
+	                             			<td class="text-right" style="border-left:2px solid #be9e55;font-size:18px;">
+	                             				<t t-if="prior_rent_dict[month] == 0">
+	                             					<span style="visibility: hidden;">text</span>
+	                             				</t>
+	                             				<t t-else="">
+		                                			<span t-esc="'{0:,.3f}'.format(prior_rent_dict[month])"/>
+		                                		</t>
+		                                	</td>
+		                                </t>
+			                        </tr>
+			                        <tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			                             <td class="text-center"></td>
+			                             <td class="text-left" style="font-size:18px;">Rent Collected in Advance</td>
+			                        	<t t-foreach="dates" t-as="month">
+		                             			<td class="text-right" style="border-left:2px solid #be9e55;font-size:18px;">
+		                             			<t t-if="advance_rent_dict[month] == 0">
+	                             					<span style="visibility: hidden;">text</span>
+	                             				</t>
+	                             				<t t-else="">
+			                                			<span t-esc="'{0:,.3f}'.format(advance_rent_dict[month])"/>
+			                                	</t>
+			                                	</td>
+		                                </t>
+			                        </tr>
+			                        <tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			                             <td class="text-center"></td>
+			                             <td class="text-left" style="font-size:18px;">EWA Excess Collected</td>
+			                        	 <t t-foreach="dates" t-as="month">
+		                             			<td class="text-right" style="border-left:2px solid #be9e55;font-size:18px;">
+		                             			<t t-if="excess_ewa_collected[month] == 0">
+	                             					<span style="visibility: hidden;">text</span>
+	                             				</t>
+	                             				<t t-else="">
+			                                			<span t-esc="'{0:,.3f}'.format(excess_ewa_collected[month])"/>
+			                                	</t>
+			                                	</td>
+		                                </t>
+			                        </tr>
+			                        <t t-if="deposit_dict">
+			                        	<tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			                             <td class="text-center"></td>
+			                             <td class="text-left" style="font-size:18px;">Deposit Collected</td>
+			                        	 <t t-foreach="dates" t-as="month">
+		                             			<td class="text-right" style="border-left:2px solid #be9e55;font-size:18px;">
+		                             			<t t-if="deposit_dict[month] == 0">
+	                             					<span style="visibility: hidden;">text</span>
+	                             				</t>
+	                             				<t t-else="">
+			                                			<span t-esc="'{0:,.3f}'.format(deposit_dict[month])"/>
+			                                	</t>
+			                                	</td>
+		                                </t>
+			                        </tr>
+			                        </t>
+			                        <tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			                        	<td class="text-center"></td>
+				        				<td class="text-left"></td>
+				        				<t t-foreach="dates" t-as="month">
+				                             	<td class="text-center" style="border-left:2px solid #be9e55;">
+				                             		<span style="visibility: hidden;">text</span>
+				                             	</td>
+			                             </t>
+			                        </tr>
+			                        <tr style="border-top:2px solid #be9e55;border-bottom:2px solid #be9e55;border-left:2px solid #be9e55;border-right:3px solid #be9e55">
+			                        	<td class="text-center" style="border-left:3px solid #be9e55;"></td>
+				        				<td class="text-left" style="font-size:18px;"><b>Total Funds Collected</b></td>
+			        					<t t-foreach="dates" t-as="month">
+		                             			<td class="text-right" style="border-left:2px solid #be9e55;font-size:18px;">
+		                             				<t t-if="funds_total">
+		                             				<t t-if="funds_total[month] == 0">
+	                             						<span style="visibility: hidden;">text</span>
+	                             					</t>
+	                             					<t t-else="">
+			                                			<b><span t-esc="'{0:,.3f}'.format(funds_total[month])"/></b>
+			                                		</t>
+			                                		</t>
+			                                	</td>	
+		                                </t>
+			        				</tr>
+			        				<tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			                        	<td class="text-center"></td>
+				        				<td class="text-left"></td>
+				        				<t t-foreach="dates" t-as="month">
+				                             	<td class="text-center" style="border-left:2px solid #be9e55;">
+				                             		<span style="visibility: hidden;">text</span>
+				                             	</td>
+			                             </t>
+			                        </tr>
+			        				<tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			                             <td class="text-center" style="font-size:18px;"><b>B</b></td>
+			                             <td class="text-left" style="font-size:18px;"><b>PAYMENTS MADE ON YOUR BEHALF</b></td>
+			                             <t t-foreach="dates" t-as="month">
+				                             	<td class="text-center" style="border-left:2px solid #be9e55">
+				                             		<span style="visibility: hidden;">text</span>
+				                             	</td>
+			                             </t>
+			                        </tr>
+			                        <t t-foreach="dict_expense" t-as="exp_journal">
+		                        		<tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+		                        			<td class="text-center"></td>
+		                        			<td class="text-left" style="font-size:18px;">
+			                        			<span t-esc="exp_journal"/>
+			                        		</td>
+			                        		<t t-foreach="dates" t-as="month">
+			                             			<td class="text-right" style="font-size:18px;border-left:2px solid #be9e55">
+				                                		<t t-if="exp_journal_value[month] == 0">
+	                             							<span style="visibility: hidden;">text</span>
+	                             						</t>
+	                             						<t t-else="">
+				                                			<span t-esc="'{0:,.3f}'.format(exp_journal_value[month])"/>
+				                                		</t>
+				                                	</td>
+		                                	</t>
+			                        	</tr>
+				                   	</t>
+				                   <tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			                        	<td class="text-center"></td>
+				        				<td class="text-left"></td>
+				        				<t t-foreach="dates" t-as="month">
+				                             	<td class="text-center" style="border-left:2px solid #be9e55">
+				                             		<span style="visibility: hidden;">text</span>
+				                             	</td>
+			                             </t>
+			                        </tr>
+			                        <tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			                        	<td class="text-center"></td>
+				        				<td class="text-left"></td>
+				        				<t t-foreach="dates" t-as="month">
+				                             	<td class="text-center" style="border-left:2px solid #be9e55">
+				                             		<span style="visibility: hidden;">text</span>
+				                             	</td>
+			                             </t>
+			                        </tr>
+			                        <tr style="border-top:2px solid #be9e55;border-bottom:2px solid #be9e55;border-left:2px solid #be9e55;border-right:3px solid #be9e55">
+			                        	<td class="text-center" style="border-left:3px solid #be9e55"></td>
+				        				<td class="text-left" style="font-size:18px;"><b>Total Payments Made</b></td>
+				        				<t t-foreach="dates" t-as="month">
+		                             			<td class="text-right" style="font-size:18px;border-left:2px solid #be9e55">
+		                             				<t t-if="expense_total">
+		                             					<t t-if="expense_total[month] == 0">
+	                             							<span style="visibility: hidden;">text</span>
+	                             						</t>
+	                             						<t t-else="">
+			                                				<b><span t-esc="'{0:,.3f}'.format(expense_total[month])"/></b>
+			                                			</t>
+			                                		</t>
+			                                	</td>
+		                                </t>
+			        				</tr>
+			        				<tr style="border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			                        	<td class="text-center"></td>
+				        				<td class="text-left"></td>
+				        				<t t-foreach="dates" t-as="month">
+				                             	<td class="text-center" style="border-left:2px solid #be9e55">
+				                             		<span style="visibility: hidden;">text</span>
+				                             	</td>
+			                             </t>
+			                        </tr>
+			        				<tr style="background-color:#be9e55;color:#fdfefe;border-top:1px solid #be9e55;border-bottom:1px solid #be9e55">
+			        					<td class="text-center"></td>
+				        				<td class="text-left" style="font-size:18px;"><b>Net Amount Payable</b></td>
+				        				<t t-foreach="dates" t-as="month">
+					        					<td class="text-right" style="font-size:18px;border-left:2px solid white;">
+					        						<t t-if="funds_total">
+					        							<t t-if="expense_total">
+					        								<t t-if="funds_total[month]-expense_total[month] == 0">
+	                             								<span style="visibility: hidden;">text</span>
+	                             							</t>
+	                             							<t t-else="">
+			                                					<b><span t-esc="'{0:,.3f}'.format(funds_total[month]-expense_total[month])"/></b>
+			                                				</t>
+			                                			</t>
+			                                		</t>
+			                                	</td>
+				        				</t>
+			        				</tr>
+				                </tbody>
+					     </table>
+			             
+			             
+			             <!-- <div class="row" style="height:0.5cm;background-color: #997f11;color:#fdfefe;padding-top:0.3;">
+				             	<div class="col-3 text-left" style="font-size:13px;padding-left:0.5cm;text-color:white;">
+					              	LEASE PERIOD SUMMARY 
+					         	</div>
+					            <div class="col-3 text-center">
+					             	 <span style="visibility: hidden;">textttttttttttttt</span>
+					         	</div>
+					            <div class="col-6 text-left" style="font-size:13px;">
+					             	Monthly Rent -BHD&#160;<t t-if="docs.monthly_rent"><b><span  t-field="docs.monthly_rent"></span></b></t>
+					         	</div>
+				         </div> -->
+				         
+				        
+				        <br/>
+			        	<!-- <table class="row border-black">
+				             <thead style="display:table-header-group;padding-top:0px;padding:0px;border-bottom:none;border-top: none!important;" >
+			        			<tr>
+				        			<td class="text-center" style="font-size:13px;width:18%;">Description</td>
+					        		<td class="text-center" style="font-size:13px;width:8%;"><span t-esc="months[0]"/></td>
+					        		<td class="text-center" style="font-size:13px;width:8%;"><span t-esc="months[1]"/></td>
+					        		<td class="text-center" style="font-size:13px;width:8%"><span t-esc="months[2]"/></td>
+					        		<td class="text-center" style="font-size:13px;width:8%;"><span t-esc="months[3]"/></td>
+					        		<td class="text-center" style="font-size:13px;width:8%;"><span t-esc="months[4]"/></td>
+					        		<td class="text-center" style="font-size:13px;width:8%;"><span t-esc="months[5]"/></td>
+					        		<td class="text-center" style="font-size:13px;width:8%;"><span t-esc="months[6]"/></td>
+					        		<td class="text-center" style="font-size:13px;width:8%;"><span t-esc="months[7]"/></td>
+					        		<td class="text-center" style="font-size:13px;width:8%;"><span t-esc="months[8]"/></td>
+				        		</tr>
+			        		</thead>
+			        		<tbody>
+			        			<t t-set="data0" t-value="0"/>
+			        			<t t-set="data1" t-value="0"/>
+			        			<t t-set="data2" t-value="0"/>
+			        			<t t-set="data3" t-value="0"/>
+			        			<t t-set="data4" t-value="0"/>
+			        			<t t-set="data5" t-value="0"/>
+			        			<t t-set="data6" t-value="0"/>
+			        			<t t-set="data7" t-value="0"/>
+			        			<t t-set="data8" t-value="0"/>
+			        			<t t-set="data9" t-value="0"/>
+			        			<t t-foreach="data_vals" t-as="data">
+			        				<tr>
+			        					<td><span t-esc="data[0]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[1])"/><t t-set="data1" t-value="data1+data[1]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[2])"/><t t-set="data2" t-value="data2+data[2]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[3])"/><t t-set="data3" t-value="data3+data[3]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[4])"/><t t-set="data4" t-value="data4+data[4]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[5])"/><t t-set="data5" t-value="data5+data[5]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[6])"/><t t-set="data6" t-value="data6+data[6]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[7])"/><t t-set="data7" t-value="data7+data[7]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[8])"/><t t-set="data8" t-value="data8+data[8]"/></td> 
+			        					<td><span t-esc="'%.3f'%(data[9])"/><t t-set="data9" t-value="data9+data[9]"/></td> 
+			        				</tr>
+			        			</t>
+			        			
+			        			<tr>
+			        				<td><b>Total Collection</b></td>
+			        				<td><b><span t-esc="'%.3f'%(data1)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(data2)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(data3)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(data4)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(data5)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(data6)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(data7)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(data8)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(data9)"/></b></td>
+			        			</tr>
+			        			
+			        			<tr>
+			        				<td class="text-center" style="font-size:16px;width:18%;"><b>Expenses</b></td>
+			        			</tr>
+			        			
+			        			<t t-set="dataexp0" t-value="0"/>
+			        			<t t-set="dataexp1" t-value="0"/>
+			        			<t t-set="dataexp2" t-value="0"/>
+			        			<t t-set="dataexp3" t-value="0"/>
+			        			<t t-set="dataexp4" t-value="0"/>
+			        			<t t-set="dataexp5" t-value="0"/>
+			        			<t t-set="dataexp6" t-value="0"/>
+			        			<t t-set="dataexp7" t-value="0"/>
+			        			<t t-set="dataexp8" t-value="0"/>
+			        			<t t-set="dataexp9" t-value="0"/>
+			        			<t t-foreach="expense_data_vals" t-as="data">
+			        				<tr>
+			        					<td><span t-esc="data[0]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[1])"/><t t-set="dataexp1" t-value="dataexp1+data[1]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[2])"/><t t-set="dataexp2" t-value="dataexp2+data[2]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[3])"/><t t-set="dataexp3" t-value="dataexp3+data[3]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[4])"/><t t-set="dataexp4" t-value="dataexp4+data[4]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[5])"/><t t-set="dataexp5" t-value="dataexp5+data[5]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[6])"/><t t-set="dataexp6" t-value="dataexp6+data[6]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[7])"/><t t-set="dataexp7" t-value="dataexp7+data[7]"/></td>
+			        					<td><span t-esc="'%.3f'%(data[8])"/><t t-set="dataexp8" t-value="dataexp8+data[8]"/></td> 
+			        					<td><span t-esc="'%.3f'%(data[9])"/><t t-set="dataexp9" t-value="dataexp9+data[9]"/></td> 
+			        				</tr>
+			        			</t>
+			        			
+			        			<tr>
+			        				<td><b>Total Expenses</b></td>
+			        				<td><b><span t-esc="'%.3f'%(dataexp1)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(dataexp2)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(dataexp3)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(dataexp4)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(dataexp5)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(dataexp6)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(dataexp7)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(dataexp8)"/></b></td>
+			        				<td><b><span t-esc="'%.3f'%(dataexp9)"/></b></td>
+			        			</tr>
+			        		</tbody>
+			        	</table> -->
+				        
+						
+					</div>
+				</div> 
+			</t>
+		 </t>
+	  </t>
+  </template>
+	
+	<template id="owner_rental_statement_layout_new">
+	  <div t-attf-class="header o_company_#{user.company_id.id}_layout">
+	        <div class="row" style="border-bottom:2px solid #be9e55;width:110%;">
+	       		 <div class="col-xs-9">
+	       	        <img t-if="user.company_id.header_image" t-att-src="image_data_uri(user.company_id.header_image)" style="max-height:192.96px;max-width:762.24px" alt="Header"/>
+	       	   </div> 
+	        </div>
+	  </div>
+	   <div class="article o_report_layout_standard">
+	            <t t-raw="0"/>
+	  </div>
+	  <div t-attf-class="footer o_standard_footer o_company_#{user.company_id.id}_layout"> 
+	  		<div class="row last-page">
+	             <div class="col-6 text-left" style="font-size:18px;padding-left:15mm;">
+	             	<b style="border-top:1px solid black;">Prepared by</b>
+	             </div>
+	             <div class="col-6 text-right" style="font-size:18px;padding-right:15mm;">
+	             	<b style="border-top:1px solid black;">Approved by</b>
+	             </div>
+		    </div>
+        	<div class="row" style="padding-top:25mm;">
+        	     <img t-if="user.company_id.footer_image"  t-att-src="image_data_uri(user.company_id.footer_image)" style="max-height:140px;max-width:1000px"/>
+            </div>
+        </div>
+  </template>
+	
+	<!-- <template id="owner_rental_statement_layout">
+		   <div class="header">
+	   			  <div class="row" style="width:110%;border-bottom:1px solid #b7950b">
+				      <div class="col-12 text-center">
+				      		<img  t-if="company_id.logo" t-att-src="image_data_uri(company_id.logo)" style="max-height:200px;max-width:150px" alt="Company Logo"/>
+				      		<br></br>
+				      		<t t-if="docs.building_id.building_address">
+						  	<span t-field="docs.building_id.building_address.street"></span>,<span t-field="docs.building_id.building_address.city"></span>,<span t-field="docs.building_id.building_address.country_id.name"></span>|
+						  	Tel: <t t-esc="docs.building_id.building_address.phone"></t>
+						  	Fax: <t t-esc="docs.building_id.building_address.fax"></t>
+						  	</t>
+				      </div>
+				  </div>
+		  </div>
+		  <div class="article o_report_layout_standard">
+		        <t t-raw="0"/>
+		  </div>
+		  <div class="footer"> 
+	  		<div class="row last-page">
+	             <div class="col-6 text-left" style="font-size:14px;padding-left:15mm;">
+	             	<b style="border-top:1px solid black;">Prepared by</b>
+	             </div>
+	             <div class="col-6 text-right" style="font-size:14px;padding-right:15mm;">
+	             	<b style="border-top:1px solid black;">Approved by</b>
+	             </div>
+             </div>
+        </div>
+  	</template> -->
+  	
+  	
+  	
+	
+</odoo>
+
+
+
+
+
+
+
+

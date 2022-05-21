@@ -1,0 +1,1726 @@
+11/05/2022 v.6.39 Neha
+	[ZB-8464] Partner Ledger Filter
+
+10/05/2022 v.6.38 Aswanth
+	[ZB-8467] Hide Reset to Draft / Cancel Menu Buttons
+
+10/05/2022 v.6.37 Neha
+	[ZB-8464] Partner Ledger Filter
+
+28/04/2022 v.6.36 Aswanth J V
+	ZB-7397-message log/track visibility for total comission amount in lease agreement
+
+28/04/2022 v.6.35 Shilpa mariya
+	[ZB-8169] Advance Expenses Adjustment
+
+25/04/2022 v.6.34 Neha
+	[ZB-8350] Management Fee Invoice State Change
+	[ZB-8169] Advance Expenses Adjustment-->Account changes
+	[ZB-8338] Duplicate Invoice Creation
+
+20/04/2022 v.6.33 Neha
+	[ZB-8286] Check Tax Reports
+
+14/04/2022 v.6.32 Neha
+	[ZB-8169] Advance Expenses Adjustment-->Feedbacks
+	[ZB-8262] Reconciled Entries Showing as Unreconciled --> Feedbacks
+
+14/04/2022 v.6.31 Neha
+	[ZB-8169] Advance Expenses Adjustment
+
+12/04/2022 v.6.30 Neha
+	[ZB-8262] Reconciled Entries Showing as Unreconciled
+
+07/04/2022 v.6.29 Neha
+	[ZB-8206] Payment Voucher Update
+	[ZB-8263] Payment / Receipt Voucher Menu
+
+31/03/2022 v.6.28 Neha
+	[ZB-8207] Contact Creation Mandatory Fields
+
+30/03/2022 v.6.27 Neha
+	[ZB-8066] BF Rental Report
+	[ZB-8207] Contact Creation Mandatory Fields
+
+28/03/2022 v.6.26 Neha
+	[ZB-8066] BF Rental Report
+	[ZB-8207] Contact Creation Mandatory Fields
+	[ZB-8206] Payment Voucher Update
+
+11/03/2022 v.6.25 Neha
+	[ZB-8066] BF Rental Report
+
+09/03/2022 v.6.24 Neha
+	[ZB-8119] Customer Receipt Error
+
+04/03/2022 v.6.23 Neha
+	[ZB-8066] BF Rental Report --> Value fetching partial
+
+02/03/2022 v.6.22 Aswanth
+	[ZB-8066] BF Rental Report
+
+01/03/2022 v.6.21 Neha
+	[ZB-8037] Receipt Voucher Update
+
+22/02/2022 v.6.20 Neha
+	Bank details in all invoice report
+
+18/02/2022 v.6.19 Neha
+	[ZB-8037] Receipt Voucher Update
+
+18/02/2022 v.6.18 Neha
+	[ZB-8007] Service Charge Terms and Conditions
+
+17/02/2022 v.6.17 Neha
+	[ZB-8029] Payment Voucher Report Issue
+
+15/02/2022 v.6.16 Neha
+	[ZB-8007] Service Charge Terms and Conditions
+
+10/02/2022 v.6.15 Neha
+	[ZB-6711] Rent Period In Rent Invoice Report
+
+25/01/2022 v.6.14 Neha
+	Payment Voucher Changes,Message log in payment
+
+19/01/2022 v.6.13 Neha
+	Payment Voucher Changes
+
+17/01/2022 v.6.12 Davis
+	ZB-7756 - Partner Ledger Filter
+
+14/01/2022 v.6.11 Rizwan
+	ZB-7782-Payment Voucher Changes
+
+13/01/2022 v.6.10 Neha
+	ZB-7782-Payment Voucher Changes
+
+13/01/2022 v.6.9 Neha
+	[ZB-7789] Receipt Voucher Correction
+
+12/01/2022 v.6.8 Neha
+	[ZB-7797] Payment Advise Unit Selection
+
+12/01/2022 v.6.7 Ansu
+		ZB-7782-Payment Voucher Changes===feedback
+	
+10/01/2022 v.6.6 Ansu
+	ZB-7782-Payment Voucher Changes===feedback
+	ZB-7714-Payment Advice Report Adjustments
+	
+07/01/2022 v.6.5 Neha
+	[ZB-7789] Receipt Voucher Correction
+
+07/01/2022 v.6.4 Ansu
+	ZB-7782-Payment Voucher Changes===feedback
+	
+06/01/2022 v.6.3 Ansu
+	ZB-7782-Payment Voucher Changes
+
+30/12/2021 v.6.2 Neha
+	[ZB-7766] Vendor Payment Unreconcile error
+
+29/12/2021 v.6.1 Ansu
+	ZB-7714-Payment Advice Report Adjustments
+	
+28/12/2021 v.6.0 Neha
+	[ZB-7755] Aged receivable Reference
+
+23/12/2021 v.5.98 Ansu
+	ZB-7714-Payment Advice Report Adjustments
+	
+22/12/2021 v.5.97 Neha
+	[ZB-7603] Payment Advise Functionality Upgrade -> Feedback
+
+21/12/2021 v.5.96 Neha
+	[ZB-7603] Payment Advise Functionality Upgrade
+
+17/12/2021 v.5.95 Neha
+	[ZB-7598] Tenant Advance Payment Transfer
+
+16/12/2021 v.5.94 Neha
+	Customer Receipt Sequence Issue
+
+07/12/2021 v.5.93 Ansu
+	[ZB-7604] Open Tickets View
+	
+23/11/2021 v.5.92 Ansu
+	ZB-7505-Expired Agreement to Terminate State
+
+23/11/2021 v.5.91 Neha
+	[ZB-7529] Payment Advise Duplication Error
+
+15/11/2021 v.5.90 Neha
+	[ZB-7425] Terminate Button in Expired State
+
+09/11/2021 v.5.89 Neha
+	[ZB-7425] Terminate Button in Expired State
+
+09/11/2021 v.5.88 Neha
+	ZB-4031
+
+05/11/2021 v.5.87 Neha
+	ZB-4031 
+
+02/11/2021 v.5.86 Roopa
+	ZB-4031 - Owner Rental Statement Report Implementation-Feedback points
+
+29/10/2021 v.5.85 Ansu
+	ZB-7320-Lease Agreement Auto Expire== state active
+	
+29/10/2021 v.5.84 PV
+	
+	
+28/10/2021 v.5.83 Ansu
+	ZB-7320-Lease Agreement Auto Expire
+	
+27/10/2021 v.5.82 Neha
+	[ZB-7299] Resale Menu Button
+
+27/10/2021 v.5.81 Neha
+	[ZB-7282] Management Fees according to the Commission Invoice amount
+
+26/10/2021 v.5.80 Neha
+	Opening Balance import
+
+26/10/2021 v.5.79 Ansu
+	ZB-7298-Field for Advance, removed digits declaration
+	
+26/10/2021 v.5.78 Ansu
+	ZB-7298-Field for Advance, type changed to char
+	
+25/10/2021 v.5.77 Neha
+	[ZB-7282] Management Fees according to the Commission Invoice amount
+
+25/10/2021 v.5.76 Ansu
+	ZB-7298-Field for Advance
+	
+22/10/2021 v.5.75 Ansu
+	ZB-7244-Call Center Report Error
+	
+28/09/2021 v.5.74 Ansu
+	*[ZB-6786] Commission Invoice Report --- margin bottom changed
+
+28/09/2021 v.5.73 Ansu
+	*[ZB-6786] Commission Invoice Report --- feedback corrected
+	
+23/09/2021 v.5.72 Neha
+	*[ZB-6786] Commission Invoice Report
+
+23/09/2021 v.5.71 Neha
+	*[ZB-6971] Unit Selling Price
+
+20/09/2021 v.5.70 Neha
+	*[ZB-7045] Service Charge Invoice Line Description
+
+16/09/2021 v.5.69 Neha
+	*[ZB-7062] Settlement Date Inactive
+
+16/09/2021 v.5.68 Ansu
+	* [ZB-6817] Management Fee Invoice Report,footer changed 
+
+14/09/2021 v.5.67 Neha
+	*[ZB-7049],[ZB-7048],[ZB-7045]
+
+14/09/2021 v.5.66 Neha
+	*[ZB-7013] Bldg / Unit in Customer Invoices
+
+13/09/2021 v.5.65 Neha
+	*[ZB-7013] Bldg / Unit in Customer Invoices
+
+10/09/2021 v.5.64 Neha
+	*[ZB-4031] Owner Rental Statement Report Implementation
+
+10/09/2021 v.5.63 Neha
+	*[ZB-7013] Bldg / Unit in Customer Invoices
+	*[ZB-6980] Settlement Date Editable
+
+09/09/2021 v.5.62 Davis
+	*ZB-6969 - Unit / Bldg Code Column
+
+09/09/2021 v.5.61 Neha
+	* [ZB-6970] Service Data Date
+
+09/09/2021 v.5.60 Neha
+	* Raw Services import
+
+08/09/2021 v.5.59 Neha
+	*[ZB-6751] Job Order in SO/PO Report
+
+08/09/2021 v.5.58 Ansu
+	*ZB-6980-Settlement Date Editable
+
+08/09/2021 v.5.57 Ansu
+	*ZB-6973-Owner History Tab
+
+08/09/2021 v.5.56 Neha
+	*[ZB-6971] Unit Selling Price
+
+08/09/2021 v.5.55 Neha
+	*[ZB-6970] Service Data Date
+
+07/09/2021 v.5.54 Neha
+	*[ZB-6968] Server Log / Restriction
+
+07/09/2021 v.5.53 Neha
+	*[ZB-6633] All Reports Date and Address Format
+
+07/09/2021 v.5.52 Rizwan
+ 	*[ZB-6379] Extended Journal item access
+
+06/09/2021 v.5.51 Neha
+ 	*[ZB-6633] All Reports Date and Address Format
+ 	*[ZB-6751] Job Order in SO/PO Report
+
+06/09/2021 v.5.50 Neha
+ 	*[ZB-6835] All PDF Reports Header and Footer
+
+03/09/2021 v.5.49 Neha
+ 	*[ZB-6633] All Reports Date and Address Format
+
+03/09/2021 v.5.48 Rizwan
+ 	*[ZB-6379] Added Default Grouping
+	 		   Added Computed field (Units) in Journal entry
+
+03/09/2021 v.5.47 Ansu
+ 	*[ZB-6184] code changes: is_salesperson
+
+03/09/2021 v.5.46 Neha
+	*[ZB-4031] Owner Rental Statement Report Implementation
+
+03/09/2021 v.5.45 Ansu
+	*[ZB-6633] All Reports Date and Address Format.
+
+02/09/2021 v.5.44 Neha
+	*[ZB-6835] All PDF Reports Header and Footer
+
+02/09/2021 v.5.43 Rizwan
+	*[ZB-6785] Title Corrected
+
+01/09/2021 v.5.42 Ansu
+	*ZB-6751-Job Order in SO/PO Report
+
+01/09/2021 v.5.41 Rizwan
+	*[ZB-6379] - Corrections in Grouping
+
+01/09/2021 v.5.40 Neha
+	*[ZB-6932] Settlement date on Bank reconciliation-Feedback
+
+01/09/2021 v.5.39 Rizwan
+	*[ZB-6379] - Partner Ledger Grouping
+
+01/09/2021 v.5.38 Neha
+	*[ZB-6932] Settlement date on Bank reconciliation
+
+01/09/2021 v.5.37 Neha
+	*[ZB-6804] Flat on Offer workflow check
+
+31/08/2021 v.5.36 Neha
+	*[ZB-6729] customer payment : field reset issue-Feedback
+
+31/08/2021 v.5.35 Neha
+	*[ZB-6908] Avoid duplicate units
+	*[ZB-5741] Probability and stage
+
+27/08/2021 v.5.34 Neha
+	*[ZB-6836] Agreement :EWA clause updation
+
+27/08/2021 v.5.33 Ansu
+	*ZB-6835-All PDF Reports Header and Footer
+
+26/08/2021 v.5.32 Rizwan
+	*[ZB-6785] Tenant Deposit Invoice Report
+
+26/08/2021 v.5.31 Neha
+	*    [ZB-6711] Rent Period In Rent Invoice Report
+
+24/08/2021 v.5.30 Rizwan 
+	*[ZB-6785] Tenant Deposit Invoice Report
+	
+24/08/2021 v.5.30 Ansu 
+	*[ZB-6817] Management Fee Invoice Report
+	
+18/08/2021 v.5.29 Jeena
+	*[ZB-6786] Commission Invoice Report
+
+17/08/2021 v.5.28 Neha
+	* [ZB-5862] Booking Fee/ Down Payment Change
+
+17/08/2021 v.5.27 Jeena
+	*[ZB-6786] Commission Invoice Report
+
+17/08/2021 v.5.26 Neha
+	* [ZB-5007] Debit Note Invoice Report : Findings
+
+16/08/2021 v.5.25 Dhanalakshmi
+	* ZB-6751 - Job Order in PO Report - Added area in PO report
+
+16/08/2021 v.5.24 Neha
+	[ZB-4705] Resale Report Implementation-Feedbacks
+
+13/08/2021 v.5.23 Dhanalakshmi
+	* ZB-6649 - Decimal Accuracy - Corrected in Sales,Purchase,Accounting,Property Management modules
+
+13/08/2021 v.5.22 Neha
+	* [ZB-5007] Debit Note Invoice Report : Findings
+
+12/08/2021 v.5.21 Dhanalakshmi
+	* ZB-6751 - Job Order in PO Report 
+
+12/08/2021 v.5.20 Neha
+	[ZB-6695] Opening Balance Import
+
+12/08/2021 v.5.19 Dhanalakshmi
+	* ZB-6752 - Bldg / Unit Ticket List View
+
+12/08/2021 v.5.18 Dhanalakshmi
+	* ZB-6685 - SO / PO Header Image
+
+12/08/2021 v.5.17 Neha
+	[ZB-4705] Resale Report Implementation
+
+11/08/2021 v.5.16 Neha
+	[ZB-6750] Lease Activation Error
+
+10/08/2021 v.5.15 Neha
+	[ZB-5862] Booking Fee/ Down Payment Change
+
+10/08/2021 v.5.14 Neha
+	[ZB-6729] customer payment : field reset issue
+
+10/08/2021 v.5.13 Neha
+	[ZB-6735] Flat on Offer workflow
+
+06/08/2021 v.5.12 Neha
+	[ZB-6711] Rent Period In Rent Invoice Report
+	Deposit Transfer creation
+
+05/08/2021 v.5.11 Neha
+	[ZB-6695] Opening Balance Import
+
+03/08/2021 v.5.10 Neha
+	[ZB-6564] Rent Invoices Correction Live
+	[ZB-6657] error on Quotation in unit
+
+02/08/2021 v.5.9 Neha
+	Decimal precision changes in invoice,journal entry and journal item
+	[ZB-4031] - Feedbacks
+
+31/07/2021 v.5.8 PV
+	Decimal precision changes in fields
+	Management fees in invoice invisible
+	Receipt Voucher Changes
+	
+29/07/2021 v.5.7 PV
+	[ZB-6638] Create Server action to send out mail
+	
+29/07/2021 v.5.6 PV
+	ZB-6564 - Rent Invoices Correction Live --> Modified
+	
+29/07/2021 v.5.5 Neha
+	[ZB-6638] Create Server action to send out mail
+
+28/07/2021 v.5.4 Neha
+	ZB-5658,[ZB-5435],[ZB-5666]
+
+27/07/2021 v.5.3 PV
+	ZB-6589 - Receipt Voucher Adjustments
+	ZB-6564 - Rent Invoices Correction Live
+	
+27/07/2021 v.5.2 Neha
+	[ZB-6522] Municipality Tax
+
+27/07/2021 v.5.1 Neha
+	ZB-5898,ZB-4031 
+
+26/07/2021 v.5.0 Jeena
+	ZB-6589 - Receipt Voucher Adjustments
+
+
+26/07/2021 v.4.99 Neha
+	[ZB-4031] Owner Rental Statement Report Implementation
+
+26/07/2021 v.4.98 Jeena
+ZB-6589 - Receipt Voucher Adjustments
+26/07/2021 v.4.97 PV
+	Email Template fetching from Journal
+	
+23/07/2021 v.4.96 PV
+	ZB-6589 - Receipt Voucher Adjustments
+	ZB-6564 - Rent Invoices Correction Live
+	
+20/07/2021 v.4.95 Neha
+	[ZB-6585] CRM rental flow & lease/unit status
+	[ZB-5666] Renewal agreement report
+
+20/07/2021 v.4.94 Neha
+	MF calculation restricted to refund
+
+19/07/2021 v.4.93 Neha
+	5898,5660,6522,5658,5435
+
+16/07/2021 v.4.92 Neha
+	paymet advise report adjustments
+
+16/07/2021 v.4.91 Neha
+	[ZB-6589] Receipt Voucher Adjustments
+
+16/07/2021 v.4.90 Neha
+	[ZB-6120] Property advisor permissions
+	
+16/07/2021 v.4.89 Neha
+	[ZB-6564] Rent Invoices Correction Live
+
+14/07/2021 v.4.88 Neha
+	[ZB-6120] Property advisor permissions
+
+13/07/2021 v.4.87 Neha
+	* [ZB-6552] Review the lease commission of the existing invocies
+
+12/07/2021 v.4.86 Neha
+	* [ZB-6154] -Heading Correction
+
+12/07/2021 v.4.85 Neha
+	* [ZB-6539] Advance invoice days in Schedular
+
+08/07/2021 v.4.84 Neha
+	* [ZB-6522] Municipality Tax
+
+28/06/2021 v.4.83 Neha
+	* [ZB-5435] Lease Agreement for Non Management Contract
+
+26/06/2021 v.4.81 Neha
+	* [ZB-6413] go live plan : Municipality tax
+
+26/06/2021 v.4.80 Neha
+	* [ZB-6403] -Feeback
+
+25/06/2021 v.4.79 Neha
+	* [ZB-6403] Go Live Plan :PDF report header/footer
+	* [ZB-6401] go live plan : Management fee calculation
+
+24/06/2021 v.4.78 Neha
+	* [ZB-6397] Go live Plan : invoice generator
+
+23/06/2021 v.4.77 Dhanalakshmi
+	* ZB-6374 - Property Management Menu name change
+
+22/06/2021 v.4.76 Neha
+	* [ZB-6313] -feedback
+
+21/06/2021 v.4.75 Neha
+	* [ZB-6313] invoices from lease agreement
+
+17/06/2021 v.4.74 Neha
+	* [ZB-5491] PDC management :reject flow
+
+16/06/2021 v.4.73 Neha
+	* [ZB-5862] Booking Fee/ Down Payment Change
+
+16/06/2021 v.4.72 PV
+	* [ZB-5922] Owner Restriction- Feedback
+	* [ZB-6120] Property advisor permissions
+	
+09/06/2021 v.4.71 Neha
+	* [ZB-5862] Booking Fee/ Down Payment Change
+
+08/06/2021 v.4.70 Neha
+	* [ZB-5898] Managed Lease Agreement-feedbacks 
+
+07/06/2021 v.4.69 Jeena
+	* ZB-6169 - Rent invoice generation should not create before 2021
+
+07/06/2021 v.4.68 Neha
+	* [ZB-5666] Renewal agreement report-feedbacks 
+
+04/06/2021 v.4.67 Neha
+	* [ZB-5898],[ZB-5658]-feedbacks 
+
+02/06/2021 v.4.66 Dhanalakshmi
+	* ZB-6169 - Rent invoice generation should not create before 2021
+
+31/05/2021 v.4.65 THaslima
+	ZB-6154-Report Changes as per MOM - 26/04
+
+26/05/2021 v.4.64 Neha
+	[ZB-6181] Report Name change : under lease agreement
+
+25/05/2021 v.4.63 Neha
+	[[ZB-5922] Owner Restriction- Feedback
+
+25/05/2021 v.4.62 Neha
+	[ZB-5780] Customer Call Centre - Feedback Report - Feedback
+
+24/05/2021 v.4.60 THaslima
+	ZB-6154-Report Changes as per MOM - 26/04
+
+21/05/2021 v.4.59 Neha
+	[ZB-5666] Renewal agreement report- Feedback
+
+20/05/2021 v.4.58 Neha
+	[ZB-5658] Management contract creation - Feedback
+
+19/05/2021 v.4.57 Neha
+	[ZB-5435] Lease Agreement for Non Management Contract - Feedback
+
+19/05/2021 v.4.56 Neha
+	[ZB-4705] Resale Report Implementation - Feedback
+
+18/05/2021 v.4.55 Neha
+	[ZB-6120] Property advisor permissions
+
+14/05/2021 v.4.54 Thaslima
+	ZB-5666-Renewal agreement report(feedbacks)
+
+12/05/2021 v.4.53 Neha
+	[ZB-6110] Building / Unit Deletion Restriction
+
+12/05/2021 v.4.52 Neha
+	[ZB-4696] - Feedback
+
+12/05/2021 v.4.51 Neha
+	[ZB-4783] Customer Call Center Division Report Implementation
+
+11/05/2021 v.4.50 Thaslima
+	ZB-6091-Rent Invoice Report Changes - MOM 26/04/2021
+
+11/05/2021 v.4.49 Neha
+	[ZB-4705] -feedback
+
+10/05/2021 v.4.48 Neha
+	[ZB-5658] Management contract creation
+
+10/05/2021 v.4.47 Thaslima
+	ZB-5666-Renewal agreement report(feedbacks)
+	
+10/05/2021 v.4.46 PV
+	ZB-4788 - Buildingwise Internet Report Implementation
+	
+10/05/2021 v.4.45 Neha
+	[ZB-5780] Customer Call Centre - Feedback Report
+
+07/05/2021 v.4.44 PV
+	Owner restriction
+	
+07/05/2021 v.4.43 Neha
+	Lease report changes both managed and non-managed
+
+05/05/2021 v.4.42
+	ZB-5824-Helpdesk Ticket Form Changes
+
+03/05/2021 v.4.41
+	Configuration in lease
+
+03/05/2021 v.4.40
+	ZB-5666-Renewal agreement report
+
+
+30/04/2021 v.4.39 Neha
+	raw services functionality correction
+
+30/04/2021 v.4.38 Neha
+	PA - payment lines correction
+
+28/04/2021 v.4.37 Neha
+	New model for lease services and write values in the one2many
+
+28/04/2021 v.4.36
+	6078 - Feedback
+
+28/04/2021 v.4.35
+	creation of new model zbbm.lease.services 
+
+27/04/2021 v.4.34
+	4696,4694,4786 - Feedbacks
+
+26/04/2021 v.4.33
+	Partial and advance Payment
+
+22/04/2021 v.4.32 PV
+	[ZB-4790]-sorted year in wizard
+	[ZB-4704]
+	
+22/04/2021 v.4.31 Neha
+	[ZB-4790]-sorted year in wizard
+	[ZB-4694]- fetched invoice lines
+
+21/04/2021 v.4.30 Neha
+	[ZB-4696] - required=0 for building field in wizard
+
+20/04/2021 v.4.29 Neha
+	[ZB-5862] Booking Fee/ Down Payment Change
+
+15/04/2021 v.4.28 PV
+	ZB-6000 - Enquiries button changes
+	
+12/04/2021 v.4.27 Neha
+	[ZB-5916],[ZB-5933],[ZB-5932]
+
+07/04/2021 v.4.26 Neha
+	[ZB-5898] Managed Lease Agreement
+
+07/04/2021 v.4.25 Neha
+	[ZB-5916] Lead Booking Stage Restriction
+
+30/03/2021 v.4.24 THaslima
+	ZB-5656-Owner Information restriction
+
+25/03/2021 v.4.23 Neha
+	5770
+
+24/03/2021 v.4.22 Neha
+	5741,5770
+
+23/03/2021 v.4.21 THaslima
+	ZB-5762-Search,Filter fields in CRM	
+
+22/03/2021 v.4.20 THaslima
+	ZB-5762-Search,Filter fields in CRM	
+	ZB-5656-Owner Information restriction
+
+
+19/03/2021 v.4.19 Neha
+	[ZB-5741] Probability and stage
+
+18/03/2021 v.4.18 Neha
+	Restriction to booking stage in rental and sales process
+
+17/03/2021 v.4.17 Neha
+	[ZB-4706] - feedbacks
+
+17/03/2021 v.4.16 Neha
+	[ZB-4706] - feedbacks
+
+17/03/2021 v.4.15 Neha
+	5649
+
+16/03/2021 v.4.14 Neha
+	5735,5674
+
+16/03/2021 v.4.13 Neha
+	[ZB-5741] Probability and stage
+
+15/03/2021 v.4.12 Neha
+	5650,5652 - Feedbacks
+
+15/03/2021 v.4.11 Neha
+	[ZB-5654],5655,5663 - Feedbacks
+
+12/03/2021 v.4.10 Jeena
+[ZB-5652] Rental activity booked stage changes
+
+12/03/2021 v.4.9 Thaslima
+	ZB-5665-security deposit amount box for arabic
+
+11/03/2021 v.4.8 Neha
+	[ZB-5655]- Added field for entry date
+
+11/03/2021 v.4.7 Neha
+	5663,5661,5657
+
+10/03/2021 v.4.6 Neha
+	[ZB-5649] Rental Workflow Changes
+
+05/03/2021 v.4.5 Thaslima
+	ZB-5665-security deposit amount box for arabic
+
+04/03/2021 v.4.4 Thaslima
+	ZB-5583-Receipt voucher report change
+	ZB-5655-Unit table view changes
+	
+04/03/2021 v.4.3 Neha
+	Solved Installment reconciliation issue
+
+04/03/2021 v.4.2 Thaslima
+	ZB-5583-Receipt voucher report change
+
+03/03/2021 v.4.1 Thaslima
+	ZB-5583-Receipt voucher report change
+
+03/03/2021 v.4.0 Thaslima
+	ZB-5655-Unit table view changes
+
+01/03/2021 v.3.9 Neha
+	* [ZB-5674] Prorated rent amount arabic
+
+23/02/2021 v.3.7,3.8 Davis
+	*View and feature,managed by rs field in zbbm.unit
+
+22/02/2021 v.3.6 Davis
+	*Service Charge field in zbbm.unit
+
+09/02/2021 v.3.5 Jeena
+	*ZB-5563 - Rent Agreement Report Error
+	*Register Payment Error
+
+04/02/2021 v.3.4 Neha
+	[ZB-5466] - error resolved
+
+03/02/2021 v.3.3 Neha
+	ZB-5466 -Feedback
+
+02/02/2021 v.3.2 Neha
+	[ZB-5466] -Feedback
+
+29/01/2021 v.3.1 Neha
+	[ZB-4791]-search account move type = 'out_invoice' and 'out_refund'
+
+28/01/2021 v.3.0 Neha
+	[ZB-5466] Rental activity :lease agreement creation
+
+28/01/2021 v.2.99 Neha
+	Vendor boolean field issue in res partner
+
+27/01/2021 v.2.98 Neha
+	[ZB-5435] Lease Agreement for Non Management Contract
+
+25/01/2021 v.2.97 Dayana
+	JV Creation through import
+
+25/01/2021 v.2.96 Neha
+	[ZB-5131] Receipt/Payment Voucher Report Change
+
+22/01/2021 v.2.95 Neha
+	4656 - Feedbacks
+	[ZB-5456] EWA Batelco Report Changes
+
+22/01/2021 v.2.94 Dayana
+	Remove type from imprt tenant and lease 
+
+22/01/2021 v.2.93 Dayana
+	Tenant import and lease creation code - date format
+
+22/01/2021 v.2.92 Neha
+	4656 - Rent invoice report changes
+
+21/01/2021 v.2.91 Neha
+	4656 - partial
+
+18/01/2021 v.2.90 Dayana
+	5447
+
+12/01/2021 v.2.89 Neha
+	payment lines in onchange of module
+
+12/01/2021 v.2.88 Dayana
+	Rent Invoice Refund
+
+12/01/2021 v.2.87 Neha
+	[ZB-4788] -code commented as per bhumi's Feedback on 11/01/2021
+
+11/01/2021 v.2.86 Neha
+	[ZB-5369] -Feedbacks
+
+11/01/2021 v.2.85 Neha
+	[ZB-5369] -warning error
+
+8/01/2021 v.2.84 Neha
+	[ZB-5369] Resale commission Workflow
+
+8/01/2021 v.2.83 Neha
+	[ZB-4694] EWA / Batelco Internet Report Implementation - Feedbacks
+
+8/01/2021 v.2.82 Neha
+	[ZB-4788] -Feedbacks
+
+8/01/2021 v.2.81 Neha
+	tenant sequence correction from lease
+
+8/01/2021 v.2.80 Neha
+	[ZB-5164] lease and rental invoice-replaced _company_default_get function
+
+7/01/2021 v.2.79 Dayana
+	import lease activating - error solved
+
+7/01/2021 v.2.78 Neha
+	[ZB-4781] - logo size correction
+	ZB-4803 - resolved the error
+
+7/01/2021 v.2.77 Neha
+	passed agent to resale report
+
+7/01/2021 v.2.76 Dayana
+	import lease activating
+
+7/01/2021 v.2.75 Neha
+	new field property adviser in sellable units
+
+7/01/2021 v.2.74 Neha
+	[ZB-4803] Report on commission deduction on contract termination - feddbacks
+
+7/01/2021 v.2.73 Dayana
+	import lease to aproved state
+
+7/01/2021 v.2.72 Dayana
+	refund commission on lease termination termination
+
+6/01/2021 v.2.71 Dayana
+	contract date in unit make copy = False
+
+6/01/2021 v.2.70 Neha
+	[ZB-4705] Resale Report Implementation
+
+6/01/2021 v.2.69 Dayana
+	Owner History One2many in Unit
+
+6/01/2021 v.2.68 Dayana
+	jv creation while doing paymnet on instament inv
+
+6/01/2021 v.2.67 Neha
+	5130-Feedbacks
+
+6/01/2021 v.2.66 Dayana
+	jv creation while payment resale commission
+
+6/01/2021 v.2.65 Neha
+	4784-header image size correction
+
+6/01/2021 v.2.64 Neha
+	[ZB-5034] Owner boolean field in partner :context
+
+6/01/2021 v.2.63 Neha
+	[ZB-5133] Crm view: property mangement
+
+6/01/2021 v.2.62 Dayana
+	resale commission invoice generation while booking unit 
+
+6/01/2021 v.2.61 Dayana
+	resale commission calculation and sellable unit creation from module
+
+6/01/2021 v.2.60 Neha
+	[ZB-5130] Service Charge/Commission/Credit Note Report Changes
+
+5/01/2021 v.2.59 Neha
+	[ZB-5131] Receipt/Payment Voucher Report Change
+
+5/01/2021 v.2.58 Dayana
+	Import tenants and lease
+	create function in module changes(vals instead of self)
+
+5/01/2021 v.2.57 Neha
+	[ZB-5051] Owner in Invoice
+
+5/01/2021 v.2.56 Neha
+	ZB-5328 - message post for the fields service charge,potential rent, management fees
+
+5/01/2021 v.2.55 Neha
+	[ZB-5164] lease and rental invoice - warning if invoice cycle is zero
+	- sequence number correction
+	- replaced _company_default_get function
+
+4/01/2020 v.2.54 Dayana
+	reload buttton in account.payment
+	copy = false fpr agreement commission amount 
+
+4/01/2021 v.2.53 Neha
+	[ZB-5294 - Changed the action name for rental enquiry button (both)
+	- Give space between count and label on all buttons
+
+4/01/2021 v.2.52 Neha
+	[ZB-4794]-Fetch values for admin fee in receipt and closing balance 
+
+4/01/2021 v.2.51 Neha
+	[ZB-4795]-Feedbacks -partial
+
+4/01/2020 v.2.50 Dayana
+	related fields for building,module and lease in move lines
+	renewal of agreement - 5322-partial
+
+31/12/2020 v.2.49 Dayana
+	3 decimal for price unit in move lines
+	created deposit jv for owner if not managed
+
+31/12/2020 v.2.48 Dayana
+	lease schedular invoice creation issue solved
+	service data creation modifiaction for tenant and owner
+	report type hide in payment
+
+31/12/2020 v.2.47 Neha
+	ZB-5332 - Customer invoice creation : product issue
+
+31/12/2020 v.2.46 Neha
+	[ZB-5333] Rental invoice payment :payment advice generation - Error solved
+
+31/12/2020 v.2.45 Neha
+	ZB-5328 - Service charge generation from building
+
+31/12/2020 v.2.44 Neha
+	Renamed collected by whom to collected by
+
+30/12/2020 v.2.43 Dayana
+	issue solved in posting account.move
+	nature of expense in view
+	payment receipt -owner onchange
+
+30/12/2020 v.2.42 Neha
+	Default journal_id for vendor bill register payment
+
+30/12/2020 v.2.41 Neha
+	Removed orginal bills from print in all move records
+
+30/12/2020 v.2.40 Neha
+	Removed rent invoice and debit note report from vendor bill
+
+30/12/2020 v.2.39 Neha
+	- Enable cheque details on group payment form
+	- column for lease_id in bill/invoice list
+
+29/12/2020 v.2.38 Neha
+	ZB-5253 - account payment : notes field
+
+29/12/2020 v.2.37 Dayana
+	4791,4794,4802 - Feedback points
+
+29/12/2020 v.2.36 Neha
+	[ZB-5256] Account payment : findings
+
+28/12/2020 v.2.35 Dayana
+	ZB-4803-Report on commission deduction on contract termination - Feedback point 
+
+28/12/2020 v.2.34 Neha
+	[ZB-5297] Remove Default Accounting Reports
+
+28/12/2020 v.2.33 Dayana
+	[ZB-4696] Building Wise - Owner Outstanding / Detail / Summary- Feedback point 
+
+28/12/2020 v.2.32 Neha
+	[ZB-4656] Rent Invoice Report Implementation - Sr and amount column width correction
+	[ZB-5066] Raw services - Verified the points
+
+28/12/2020 v.2.31 Dayana
+	[ZB-4695] Building Wise - Income Statement / Product Filter / Summary Report Implementation _ Feedbackpoints by dianne chechi
+
+24/12/2020 v.2.30 Dayana
+	Service Income Accounts
+
+24/12/2020 v.2.29 Dayana
+	invoice generation days
+
+24/12/2020 v.2.28 Dayana
+	issue solved in lease
+
+24/12/2020 v.2.27 Dayana
+	solved the error in lease active and added lease ref no in tree view
+
+23/12/2020 v.2.26 Neha
+	[ZB-5294] Property Dashboard
+
+22/12/2020 v.2.25 Neha
+	[ZB-4696]-Feedbacks
+
+22/12/2020 v.2.24 Neha
+	[ZB-4795] Rental Agreement Report Implementation-Feedbacks
+
+21/12/2020 v.2.23 Neha
+	[ZB-4030] -report wise feedbacks
+	ZB-5260] - consider the posted state of account.move
+
+21/12/2020 v.2.22 Dayana
+	Fetc management fees percet fromm flat
+
+21/12/2020 v.2.21 Neha
+	[ZB-4802] Project Wise Income Statement Report -Feedbacks
+
+21/12/2020 v.2.20 Dayana
+	amount in account ayment calculation
+	
+21/12/2020 v.2.19 Dayana
+	pass owner to account.payment 	
+
+21/12/2020 v.2.18 Dayana
+	Potentail rent in lease and make it readonly
+	add filter and group by in account.payment fir colected by 
+	hide trf status from service configuration
+
+18/12/2020 v.2.17 Neha
+	Empty list issue in collection report
+
+18/12/2020 v.2.16 Dayana
+	 Management Fees amount correction
+
+18/12/2020 v.2.15 Neha
+	Removed the visibility condition for set to approve button in lease
+
+18/12/2020 v.2.14 Neha
+	 * [ZB-5260] Building and Agreement changes -Feedbacks
+	 * [ZB-4787] Collection Report Implementation -Feedbacks
+
+18/12/2020 v.2.13 Dayana
+	 Management fees invoice generation issue solved
+
+18/12/2020 v.2.12 Dayana
+	 invoice plan unlinked for not managed
+
+18/12/2020 v.2.11 Dayana
+	Accruded journal added for agent ,removed entry from search condition
+
+18/12/2020 v.2.10 Dayana
+	View changes of account_payment,account_move and lease agreement(hide fields)
+
+17/12/2020 v.2.9 Neha
+	ZB-4787 - filter the search condition not to include receivable account type, expense,vendor bill
+
+17/12/2020 v.2.8 Dayana
+	ZB-4803 - feedback point by rilu on 17/12/2020
+
+17/12/2020 v.2.7 Neha
+	ZB-4696 - Building position correction
+
+17/12/2020 v.2.6 Dayana
+	ZB-5265-Service Not Manged by RS
+
+17/12/2020 v.2.5 Neha
+	* 5260  -New Fields Service Charge Total, Service Charge Collected, Service Charge Remaining.
+			-New Fields RS total Income, RS Total Expense, Owner Total Income, Owner Total Expense
+
+17/12/2020 v.2.4 Dayana
+	4803 -  date format changed
+
+17/12/2020 v.2.3 Neha
+	* 5260  - Add new smart button Invoices and Expenses with default journal group by
+
+16/12/2020 v.2.2 Neha
+	* 5260  - Two buttons in lease Send for approval and set to approved and renamed admin fee in building to default admin fee
+
+16/12/2020 v.2.1  Dayana
+	* 5219 - feedback point by rilu on 16/12/2020 
+
+16/12/2020 v.2.0  Dayana
+	* 5261 - rent prorated calculation
+
+16/12/2020 v.1.99  Dayana
+	* 5261 - new field in customer payments(collected by)
+
+
+16/12/2020 v.1.98  Neha
+	* Added two states waiting for approval and approved in lease
+
+16/12/2020 v.1.97  Dayana
+	* 5261 - partial
+
+16/12/2020 v.1.96  Neha
+	* 5260 - Rental agreement sheet report
+
+16/12/2020 v.1.95  Dayana
+	* 5261 -  partial
+
+15/12/2020 v.1.94  Dayana
+	* post function in account payment -  changed to allocation >0
+
+15/12/2020 v.1.93  Neha
+	* ZB-5248-Feedbacks
+	* ZB-4030 -Feedbacks
+
+15/12/2020 v.1.92  Dayana
+	* Added smart button in unit for owner and rs invoices,expenses,receipts and payments
+
+15/12/2020 v.1.91  Dayana
+	* Error solved in smart button of service invoices and commission invoices in building
+
+15/12/2020 v.1.90  Dayana
+	* Managemetn fees with amount from balance of commission amount calculatio and added a new boolean field commission generated
+
+14/12/2020 v.1.89 Neha
+	* Added two fields unit area as per final contract and unit area as per title deed
+	* ZB-5248 - Tenant Coding
+
+14/12/2020 v.1.88 Dayana
+	* Corrected the amount in payment advise while creating it
+
+14/12/2020 v.1.87 Dayana
+	* Added two smart buttons in building for commission and servces invoices
+
+14/12/2020 v.1.86 Dayana
+	* Cancel the payment advise when reset to draft in lease agreement
+
+14/12/2020 v.1.85 Neha
+	* [ZB-5247] Admin fee to be included on first service charge invoice
+	* Removed readonly for payment fields not in posted state
+
+14/12/2020 v.1.84 Neha
+	* ZB-4696 - Building Wise - Owner Outstanding / Detail / Summary-Feedback
+
+11/12/2020 v.1.83 Neha
+	* view changes
+
+11/12/2020 v.1.82 Dayana
+	* Management Fees Correction and Payment advise lines correction
+
+10/12/2020 v.1.81 Neha
+	A Button and a smart button in CRM->Rental activity and reconciling and unlink of payment and payment lines
+
+09/12/2020 v.1.80 Dayana
+	* 5066 - 4th point 
+
+09/12/2020 v.1.79 Dayana
+	* 5066 - partial
+
+09/12/2020 v.1.78 Dayana
+	* 5066 - partial
+	
+08/12/2020 v.1.77 Neha
+	[ZB-5179] Advance Rent calculation in Lease Agreement-Feedbacks on 08/12/2020
+
+08/12/2020 v.1.76 Dayana
+	eaw.services sequence correction
+
+08/12/2020 v.1.75 Dayana
+	Report correction
+
+08/12/2020 v.1.74 Neha
+	Image allignment 
+
+07/12/2020 v.1.73 Dayana
+	pass lease id to payment while register payment
+
+07/12/2020 v.1.72 Dayana
+	5219
+
+07/12/2020 v.1.71 Neha
+	resizing image in building
+
+07/12/2020 v.1.70 Neha
+	Changes in views - code correction in advance payment calculation,
+	- Fetch moving date in form
+	- put owner and managed field in leasable one2many in properties
+	- consider agreement start date too for activating a lease
+
+07/12/2020 v.1.69 Dayana
+	* changes in management fees 
+
+07/12/2020 v.1.68 Neha
+	[ZB-4787] Collection Report Implementation-Feedback-Consider partial and refund payments
+
+04/12/2020 v.1.67 Dayana
+	Solve the issue in adding services
+
+04/12/2020 v.1.66 Neha
+	[ZB-5179] Advance Rent calculation in Lease Agreement-Feedbacks
+
+04/12/2020 v.1.65	   Davis
+	Rental Activity
+
+
+04/12/2020 v.1.64 Neha
+	   [ZB-4780]- fetched service charge period
+
+03/12/2020 v.1.63 Neha
+	  [ZB-4696] Building Wise - Owner Outstanding / Detail / Summary
+
+03/12/2020 v.1.62 Davis
+	    ZB-4706]Rent oustanding feedback changes,product wise report changes
+
+
+03/12/2020 v.1.61 Neha
+	[ZB-5179] Advance Rent calculation in Lease Agreement
+
+02/12/2020 v.1.60 Neha
+	    [ZB-4780] Service Charge- Building Wise Collection Summary Report Implementation
+
+02/12/2020 v.1.59 Nehaa
+	    Flats changed to units
+
+01/12/2020 v.1.58 Dayana
+	    Owner Rental Statement Report -Partial
+
+01/12/2020 v.1.57 Dayana
+	    Owner Rental Statement Report -Partial
+
+01/12/2020 v.1.56 Neha
+	 [ZB-4802] Project Wise Income Statement Report - Code corrections
+
+01/12/2020 v.1.55 Neha
+	 [ZB-4802] Project Wise Income Statement Report - Summary
+
+30/11/2020 v.1.54 Dayana
+	    Owner Rental Statement Report -Partial
+
+27/11/2020 v.1.53 Davis
+	    [ZB-4706]Rent oustanding
+
+26/11/2020 v.1.52 Davis
+	    [ZB-4791] Product wise Movement Report Implementation function changes
+
+
+27/11/2020 v.1.53 Neha
+	* Rental agreement report feedbacks,[ZB-4694] EWA / Batelco Internet Report Implementation
+
+27/11/2020 v.1.52 Dhanalakshmi
+	* ZB-4696 - Building Wise - Owner Outstanding / Detail / Summary
+
+27/11/2020 v.1.51 Dayana
+	Payment Advise Report
+
+27/11/2020 v.1.50 Neha
+	4787 and 4783 - view level Feedbacks by rilu
+
+27/11/2020 v.1.49 Neha
+	    [ZB-4694] EWA / Batelco Internet Report Implementation
+
+26/11/2020 v.1.48 Dayana
+	    Fetch the product from invoice line to nw field (nature of expense)
+
+26/11/2020 v.1.47 Dayana
+	    raw services -  account no onchange and unique account no in service configuration
+
+26/11/2020 v.1.46 Dayana
+	    2 Tabs in agreement and module for payment and receipt,new field in account.move
+
+26/11/2020 v.1.45 Dayana
+	    issue solved in payment advise creation
+
+26/11/2020 v.1.43 PV
+	    changes in Payment Advice 
+	    
+25/11/2020 v.1.43 Dayana
+	    changes in active agreement 
+
+25/11/2020 v.1.42 Neha
+	    Pass lease_id to invoice in fixed service invoice generation using schedular
+
+25/11/2020 v.1.41 Neha
+	    [ZB-4793] EWA Account Building Wise Report Implementation-code correction
+
+25/11/2020 v.1.40 Neha
+	    [ZB-5083] Common Changes-Done all the points marked as NJ
+
+25/11/2020 v.1.39 Dayana
+	   Added a field in account.payment for rental payment
+
+
+25/11/2020 v.1.38 Davis
+	    [ZB-4791] Product wise Movement Report Implementation
+
+
+25/11/2020 v.1.37 Neha
+	[ZB-4789] Tenantwise Excess EWA Report Implementation-Feedback by bhumi
+
+24/11/2020 v.1.36 Neha
+	logo size correction for ewa common area,service charge outstanding and call center report
+
+24/11/2020 v.1.35 Neha
+ 	Changes in common area and service charge outstanding report
+ 	[ZB-4783] Customer Call Center Division Report Implementation
+
+24/11/2020 v.1.34 Dayana
+ 	Code changes in payment
+
+24/11/2020 v.1.33 Neha
+ 	[ZB-4795] Rental Agreement Report Implementation-Feedbacks by Rilu
+
+23/11/2020 v.1.32 Neha
+ 	[ZB-5057] Fixed Service Invoice generation-Feedbacks by Rilu
+
+20/11/2020 v.1.31 Neha
+ 	Creating invoice plan as per invoice cycle.
+
+20/11/2020 v.1.30 Dayana
+ 	Product Acnt is passed for every invoice creation
+
+20/11/2020 v.1.29 Dayana
+ 	Hide - EWA Limit,Agent commisssion amount,invoice day
+
+20/11/2020 v.1.28 Dayana
+ 	Reg Payment form view  - reverted to old view
+
+20/11/2020 v.1.27 Neha
+ 	correction in admin fee invoice generation 
+
+19/11/2020 v.1.26 Neha
+ 	Passed lease_id in service charge invoice creation
+ 	
+19/11/2020 v.1.25 Dayana
+ 	solved the error in common area report 
+
+19/11/2020 v.1.24 Dayana
+ 	ZB-5055-Management Fee Invoices - Feedback point by rilu on 19/11/2020
+ 	
+
+19/11/2020 v.1.23 Dayana
+ 	copy = False for fields in lease agreement
+
+19/11/2020 v.1.22 Dayana
+ 	Owner Payment while rental invoice payment
+
+19/11/2020 v.1.21 Dayana
+ 	ZB-5083 - point 2
+
+19/11/2020 v.1.20 Dayana
+ 	ZB-5083 - point 1 - VAT Passed
+
+19/11/2020 v.1.19 Dayana
+ 	ZB-5083 - point 1 - issue solved
+
+19/11/2020 v.1.18 Dayana
+ 	ZB-5083 - point 1
+
+19/11/2020 v.1.17 Neha
+ 	ZB-4800 - Supplier wise Statement Report
+
+18/11/2020 v.1.16 Dayana
+ 	Rent Invoice Report- alignment issue solved
+
+18/11/2020 v.1.15 Dayana
+ 	[ZB-4788] Buildingwise Internet Report Implementation - feedback points by rilu on 18/11/2020
+
+18/11/2020 v.1.14 Neha
+ 	4677,ZB-4795 - Rental Agreement Report Implementation
+
+18/11/2020 v.1.13 Dayana
+ 	commission refund contract report
+
+18/11/2020 v.1.12 Dayana
+ 	issue solved in set to active and commission refund refund
+
+18/11/2020 v.1.11 Neha
+ 	[ZB-4677]-Hide Vat_no field.Added a field preparation priority in lease.
+
+17/11/2020 v.1.10 Neha
+ 	[ZB-4794]-Considered refunds too.
+
+17/11/2020 v.1.9 Dayana
+ 	ZB-4655-Receipt Voucher Report Implementation (PDF) - Feedback point by bhumi
+
+17/11/2020 v.1.8 Neha
+ 	4781 - correction in the amount fields
+
+17/11/2020 v.1.7 Dayana
+ 	Solved the issue in commmission calculation in lease
+
+17/11/2020 v.1.6 Neha
+ 	4677,4781 feedback point by bhumi on 16/11/2020
+
+17/11/2020 v.1.5 Dayana
+ 	4785 feedback point by bhumi on 16/11/2020
+
+17/11/2020 v.1.4 Dayana
+ 	4803 - partial
+
+16/11/2020 v.1.3 Dayana
+ 	[ZB-4793] EWA Account Building Wise Report Implementation
+
+16/11/2020 v.1.2 Dayana
+ 	Added smart button in raw services for invoices and vendor bills
+
+16/11/2020 v.1.1 Dayana
+ 	raw service create  = invoice and bills
+
+16/11/2020 v.1.0 Neha
+ 	[ZB-5057] Fixed Service Invoice generation -Schedular for invoice generation
+
+16/11/2020 v.0.99 Dayana
+ 	 Added two fields in lease agreement (agent and total commission amount) and calculate dthe value
+ 	 
+13/11/2020 v.0.98 Neha
+ 	[ZB-5057] Fixed Service Invoice generation
+
+13/11/2020 v.0.97 Dayana
+ 	Functionality changes
+
+13/11/2020 v.0.96 Dayana
+ 	5055,collection report changes
+
+13/11/2020 v.0.95 Neha
+ 	Tenant Master Modifications.
+ 	
+12/11/2020 v.0.94 Dayana
+ 	ZB-5055-Management Fee Invoices
+ 	collection report
+
+11/11/2020 v.0.93 Neha
+ 	Leasing details report changes
+
+11/11/2020 v.0.92 PV
+ 	ZB-4790 - Common Area EWA Report Implementation
+ 	
+11/11/2020 v.0.91 Neha
+ 	Feedbacks of tenant wise ewa excess report and reciept voucher report
+
+10/11/2020 v.0.90 Dayana
+ 	[ZB-5042] Jv creation from Lease
+
+10/11/2020 v.0.89 Dayana
+ 	[ZB-5042] Jv creation from Lease
+
+10/11/2020 v.0.88 Dayana
+ 	ZB-4787-Collection Report Implementation - partial
+
+09/11/2020 v.0.87 Neha
+	leasing report,service charge outstanding report,tenant ewa excess report changes
+
+09/11/2020 v.0.86 Dayana
+	* [ZB-4784] EWA Master Report Implementation - Feedback point by bhumi 
+	* ZB-4785-Owner Master Report Implementation - Feedback point by bhumi 
+
+06/11/2020 v.0.85 Davis
+	* 4961 customer portal
+
+
+06/11/2020 v.0.84 Neha
+	[ZB-4794] Report - Service charge outstanding - Building wise movement analysis Report Implementation
+06/11/2020 v.0.83 Neha
+	Tax invoice,Leasing details and Receipt voucher report changes
+
+06/11/2020 v.0.82 Dayana
+	ZB-4695-Building Wise - Income Statement / Product Filter / Summary Report Implementation - budget amount calculation solved
+
+06/11/2020 v.0.81 Dayana
+	ZB-4695-Building Wise - Income Statement / Product Filter / Summary Report Implementation solve the issue
+
+06/11/2020 v.0.80 Dayana
+	ZB-4695-Building Wise - Income Statement / Product Filter / Summary Report Implementation
+
+05/11/2020 v.0.79 Dayana
+	MAke the decimal 3 digit in report  and 2 digit for percentage fees 
+
+04/11/2020 v.0.77 Dayana
+	Tenant and owner master report changes as said in feedback
+
+04/11/2020 v.0.76 Dayana
+	Solved the issue in tenant master report
+
+04/11/2020 v.0.75 Dayana
+	4989 and 4988
+
+04/11/2020 v.0.74 Neha
+	payment voucher report changes and [ZB-4893] Service charge related changes in building
+
+04/11/2020 v.0.73 Dayana
+	ZB-4704-Tenant Deposit - Building Wise Report Implementation - Date issue solved
+	4785 - owner manster eport- bring internet line no
+	4989
+
+03/11/2020 v.0.72 Neha
+	[ZB-4893] Service charge related changes in building-Feedback points by rilu on 03/11/2020
+
+03/11/2020 v.0.71 Dayana
+	ZB-4704-Tenant Deposit - Building Wise Report Implementation - Feedbackpoints by rilu on 03/11/2020
+
+03/11/2020 v.0.70 Neha
+	[ZB-4030] Payment Advise Report Implementation - Feedback points by rilu on 03/11/2020
+
+03/11/2020 v.0.69 Dayana
+	ZB-4704-Tenant Deposit - Building Wise Report Implementation - Feedbackpoints by rilu on 27/10/2020
+
+02/11/2020 v.0.68 Neha
+	error correction in leasing report
+
+02/11/2020 v.0.67 Neha
+	allignment Corrections in rental agreement report
+
+02/11/2020 v.0.66 Neha
+	Corrections in voucher reports,rental agreement report
+
+02/11/2020 v.0.65 Dayana
+ 	Lease Agrrement fetching in raw services,tenant deposit rport changes
+
+30/10/2020 v.0.64 Dayana
+ 	Added service date in  raw service form view
+
+30/10/2020 v.0.63 Neha
+ 	[ZB-4893] Service charge related changes in building-Feedbacks
+
+30/10/2020 v.0.62 Neha
+ 	Changes in payment advice report
+
+30/10/2020 v.0.61 Dayana
+ 	contraints in services,name in services
+
+30/10/2020 v.0.60 Neha
+ 	error while printing leasing report
+
+30/10/2020 v.0.59 Neha
+	Resolved the error while printing supplier report
+
+30/10/2020 v.0.58 Dayana
+	4704,4916 
+
+30/10/2020 v.0.57 Neha
+	voucher,leasing,supplier report changes 
+
+29/10/2020 v.0.56 Dayana
+	owner,tenant and ewa reort changes 
+
+29/10/2020 v.0.55 Neha
+* [ZB-4795] Rental Agreement Report Implementation-allignment correction
+* [ZB-4679] Debit Note Invoice Report Implementtation-corrected the length of notes field
+
+29/10/2020 v.0.54 Neha
+ 	* [ZB-4029] Payment Voucher Report Implementation-Feedbacks
+ 	* [ZB-4655] Receipt Voucher Report Implementation (PDF)-Feedbacks
+	* [ZB-4795] Rental Agreement Report Implementation
+
+29/10/2020 v.0.53 Dayana
+ 	*Voucher report correction
+
+29/10/2020 v.0.52 Dayana
+ 	*Voucher report functionality correction
+
+28/10/2020 v.0.51 Jeena
+ 	*[ZB-4781] Leasing Details Report Implementation
+
+
+27/10/2020 v.0.50 Dhanalakshmi
+	* ZB-4713 - Changes on Rent Agreement- feedbacks
+
+27/10/2020 v.0.49 Dhanalakshmi
+	* ZB-4890 - Changes in Rent/Lease Agreement2 - feedbacks
+
+27/10/2020 v.0.48 Dhanalakshmi
+	* ZB-4784 - EWA Master Report Implementation - feedbacks
+
+27/10/2020 v.0.47 Jeena
+ 	*[ZB-4781] Leasing Details Report Implementation
+
+27/10/2020 v.0.46 Jeena
+ 	*ZB-4785 - Owner Master Report Implementation-Feedbacks
+ 	*ZB-4786 - Tenant Master Report Implementation
+
+27/10/2020 v.0.45 Neha
+	* [ZB-4679] Debit Note Invoice Report Implementtation
+		- Changed report format
+		- made note field full row in length
+		- fetched invoice_date field of original bill for invoice date
+
+27/10/2020 v.0.44 Dayana
+	* Solved the singelton error
+
+23/10/2020 v.0.43 Davis
+	* version changes
+
+23/10/2020 v.0.42 Dhanalakshmi
+	* ZB-4784 - EWA Master Report Implementation, 4890 corrections
+
+23/10/2020 v.0.41 Jeena
+ * ZB-4893 - Service charge related changes in building-FEEDBACKS
+
+23/10/2020 v.0.40 Dayana
+ * owner and tenant calculation
+
+23/10/2020 v.0.39 Dayana
+ * 4713
+
+23/10/2020 v.0.38 Jeena
+ * ZB-4893 - Service charge related changes in building-FEEDBACKS
+
+
+23/10/2020 v.0.37 Neha
+	* [ZB-4679] Debit Note Invoice Report Implementtation
+	-Changes in allignment and address format in report
+	-Fetched value for payment voucher No. and Invoice No.
+
+23/10/2020 v.0.36 Neha
+	* [ZB-4677] Service Charge/Commission/Credit Note Invoice Report Implementation
+	-Changes in allignment and address format in report
+
+22/10/2020 v.0.35 Dhanalakshmi
+	* ZB-4890 - Changes in Rent/Lease Agreement 2
+
+22/10/2020 v.0.34 Neha
+ * [ZB-4655] Receipt Voucher Report Implementation (PDF)-Feedback
+
+22/10/2020 v.0.33 Jeena
+ * ZB-4893 - Service charge related changes in building-FEEDBACKS
+
+22/10/2020 v.0.32 Dayana
+ * alignment of inv cycle and no,3 decimal
+
+22/10/2020 v.0.31 Neha
+ * [ZB-4679] Debit Note Invoice Report Implementtation-Feedback
+
+22/10/2020 v.0.30 Dayana
+ * Makethe float fields 3 decimal
+
+22/10/2020 v.0.29 Jeena
+ * ZB-4893 - Service charge related changes in building
+
+22/10/2020 v.0.28 Dayana
+* 4711 and 4891
+
+22/10/2020 v.0.27 Neha
+*[ZB-4029] Payment Voucher Report Implementation-Feedback
+*[ZB-4677] Service Charge/Commission/Credit Note Invoice Report Implementation-Feedback
+
+22/10/2020 v.0.26 Dayana
+*[ZB-4890] Last two points
+
+21/10/2020 v.0.25 Jeena
+*[ZB-4656] Rent Invoice Report Implementation Feedbacks
+
+21/10/2020 v.0.24 Jeena
+ * ZB-4893 - Service charge related changes in building
+
+21/10/2020 v.0.24 Davis
+ * kanban changes
+
+21/10/2020 v.0.23 Jeena
+ * [ZB-4656] Rent Invoice Report Implementation Feedbacks
+
+21/10/2020 v.0.22 Neha
+ * [ZB-4676] Changes for the building
+
+21/10/2020 v.0.21 Dayana
+ * [ZB-4711] Changes on unit 2
+
+20/10/2020 v.0.20 Dhanalakshmi
+	* ZB-4890 - Changes in Rent/Lease Agreement 2
+
+20/10/2020 v.0.19 Neha
+ * [ZB-4676] Changes for the building
+
+20/10/2020 v.0.18 Dayana
+ * [ZB-4711] Changes on unit - point 18
+
+20/10/2020 v.0.17 Dayana
+ * [ZB-4891] Changes on unit - Added deposit field in lease.agreement
+
+20/10/2020 v.0.16 Neha
+ * [ZB-4781] Leasing Details Report Implementation
+ * [ZB-4679] Debit Note Invoice Report Implementation-Some changes
+ * [ZB-4677] Service Charge/Commission/Credit Note Invoice Report Implementation-Some changes
+
+20/10/2020 v.0.14 Dayana
+ * [ZB-4711] Changes on unit - Added fields in lease.agreement
+
+20/10/2020 v.0.14 Dayana
+ * Remove preview invoice button from account move
+
+14/10/2020 v.0.13 Jeena
+ * [ZB-4785]  Owner Master Report Implementation
+
+14/10/2020 v.0.12 Neha
+ * [ZB-4781] Leasing Details Report Implementation
+
+13/10/2020 v.0.11 Neha
+ * [ZB-4029] Payment Voucher Report Implementation
+
+12/09/2020 v.0.10 Jeena
+ * [ZB-4708] CRM Changes
+ * [ZB-4712] Purchase order changes
+ *[ZB-4713 RENT Agreement model corrections
+
+9/10/2020 v.0.9 Neha
+ * [ZB-4800] Supplier wise Statement Report
+
+8/10/2020 v.0.8 Neha
+ * [ZB-4711] Changes on unit
+
+28/09/2020 v.0.7 Jeena
+ * [ZB-4031] Owner Rental Statement Report 
+
+25/09/2020 v.0.6 Neha
+ * [ZB-4679] Debit Note Invoice Report Implementation 
+
+25/09/2020 v.0.5 Jeena
+ * [ZB-4030] Payment Advise Report Implementation 
+
+24/09/2020 v.0.4 Neha
+ * [ZB-4677] Service Charge/Commission/Credit Note Invoice Report Implementation
+
+24/09/2020 v.0.3 Jeena
+ * ZB-4656 - Implementation of rent invoice report
+
+23/09/2020 v.0.2 Neha
+ * ZB-4639 - Implementation of Partner Code
+23/09/2020 v.0.1 Neha
+	* [ZB-4655] Receipt Voucher Report Implementation (PDF)

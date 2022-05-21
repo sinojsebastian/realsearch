@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <odoo>
+	
+	<record model="ir.ui.view" id="call_center_report_form_view">
+    	<field name="name">wiz.call.center.report.form.view</field>
+   	 	<field name="model">wiz.call.center.report</field>
+    	<field name="type">form</field>
+    	<field name="groups_id" eval="[(4,ref('sales_team.group_sale_salesman_all_leads'))]"/>
+    	<field name="arch" type="xml">
+      		<form string="Customer Call Center Division Report">
+      		<group>
+          		<group>
+          			<field name="from_date" required='1'/>  
+          			<field name="to_date" required='1' /> 
+          		</group>
+          	</group>
+          	<footer>
+            	<button name="print_call_center_report" string="Print" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+    </record>
+   
+    <act_window id="action_call_center_report_wiz"
+            name="Customer Call Center Division Report"
+            binding_model="zbbm.building"
+            res_model="wiz.call.center.report"
+            view_mode="form"
+            target="new"
+            groups="sales_team.group_sale_salesman_all_leads"/>
+           
+    <!-- Maintenance Report Menu -->
+	<menuitem id="menu_maintenance_report" 
+	    name ="Maintenance Report" 
+	    sequence="3"
+	    parent="zb_building_management.menu_action_reporting"
+	    /> 
+    
+    
+    <!-- Customer Call Center Division Report Menu -->
+	<menuitem id="menu_call_center_report" 
+	    name ="Customer Call Center Division Report" 
+	     sequence="3"
+	    parent="zb_bf_custom.menu_maintenance_report"
+	    action="action_call_center_report_wiz"/>
+
+</odoo>

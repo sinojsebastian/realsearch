@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_pdc_management_form" model="ir.ui.view">
+            <field name="name">pdc.management.form</field>
+            <field name="model">pdc.management</field>
+            <field name="arch" type="xml">
+                <form string="Post Dated Cheque Clearance">
+                    <header>
+                        <button class="oe_highlight" name="button_submit" states="draft" string="Submit" type="object"/>
+                        <button name="button_cleared" states="submitted" string="Cleared" type="object"/>
+                        <button name="button_rejected" states="submitted" string="Rejected" type="object"/>
+                        <button class="oe_highlight" confirm="Please confirm if you want to cancel." name="button_cancel" states="draft,submitted" string="Cancel" type="object"/>
+                        <field name="state" nolabel="1" widget="statusbar"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field attrs="{'readonly':[('state','not in', ('draft'))]}" name="name" required="1"/>
+                            <field attrs="{'readonly':[('state','not in', ('draft'))]}" name="amount" required="1"/>
+                            <field attrs="{'readonly':[('state','not in', ('draft'))]}" name="submit_date" required="1"/>
+                            <field attrs="{'readonly':[('state','not in', ('draft'))]}" name="payment_ref_id" on_change="onchange_payment_ref(payment_ref_id)" required="1"/>
+                        </group>
+                        <group>
+                            <field attrs="{'readonly':[('state','not in', ('draft'))]}" name="cheque_date" required="1"/>
+                            <field attrs="{'readonly':[('state','not in', ('draft'))]}" name="bank_id" required="1"/>
+                            <field attrs="{'readonly':[('state','not in', ('draft'))]}" name="partner_id"/>
+                            <field attrs="{'readonly':[('state','not in', ('draft'))]}" name="voucher_date" required="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field attrs="{'readonly':[('state','not in', ('draft'))]}" name="partner_journal_id" required="1"/>
+                            <field name="type" readonly="1"/>
+                            <field attrs="{'readonly':[('state','not in', ('draft'))]}" name="posted_user_id"/>
+                            <field invisible="0" name="inv_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="clear_reject_date"/>
+                            <field attrs="{'readonly':[('state','not in', ('draft'))]}" name="journal_id" required="1"/>
+                            <field name="company_id" invisible="1" />
+                            <field attrs="{'invisible':[('state','not in', ('cleared','rejected'))]}" name="entry_id" readonly="1"/>
+                            <field invisible="1" name="deadline_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page attrs="{'invisible': [('state','not in',('cleared','rejected'))]}" string="Journal Items">
+                            <field name="move_ids" readonly="1">
+                                <tree string="Journal Items">
+                                    <field name="move_id"/>
+                                    <field name="ref"/>
+                                    <field name="date"/>
+                                    <field name="statement_id"/>
+                                    <field name="partner_id"/>
+                                    <field name="account_id"/>
+                                    <field name="name"/>
+                                    <field name="debit"/>
+                                    <field name="credit"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pdc_management_tree" model="ir.ui.view">
+            <field name="name">pdc.management.tree</field>
+            <field name="model">pdc.management</field>
+            <field name="arch" type="xml">
+                <tree >
+                    <field name="name"/>
+                    <field name="cheque_date"/>
+                    <field name="amount"/>
+                    <field name="bank_id"/>
+                    <field name="submit_date"/>
+                    <field name="partner_id"/>
+                    <field name="partner_journal_id"/>
+                    <field name="clear_reject_date"/>
+                    <field name="state"/>
+                    <field invisible="1" name="deadline_date"/>
+                </tree>
+            </field>
+        </record>
+
+       <!--  <record id="view_pdc_management_search" model="ir.ui.view">
+            <field name="name">pdc.management.search</field>
+            <field name="model">pdc.management</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="cheque_date"/>
+                    <field name="amount"/>
+                    <field name="bank_id"/>
+                    <field name="submit_date"/>
+                    <field name="partner_id"/>
+                    <field name="voucher_date"/>
+                    <field name="partner_journal_id"/>
+                    <field name="type"/>
+                    <field name="posted_user_id"/>
+                    <field name="clear_reject_date"/>
+                    <field name="journal_id"/>
+                    <field name="state"/>
+                    <filter domain="[('cheque_date','&lt;=',context_today().strftime('%Y-%m-%d'))]" string="Mature Cheque"/>
+                    <group expand="0" string="Group By">
+                        <filter context="{'group_by':'cheque_date'}" domain="[]" string="Date"/>
+                        <filter context="{'group_by':'bank_id'}" domain="[]" string="Bank"/>
+                        <filter context="{'group_by':'submit_date'}" domain="[]" string="Submit Date"/>
+                        <filter context="{'group_by':'partner_id'}" domain="[]" string="Partner"/>
+                        <filter context="{'group_by':'bank_id'}" domain="[]" string="Bank A/C"/>
+                        <filter context="{'group_by':'clear_reject_date'}" domain="[]" string="Clear/Reject Date"/>
+                        <filter context="{'group_by':'state'}" domain="[]" string="Status"/>
+                    </group>
+                </search>
+            </field>
+        </record> -->
+        <record id="action_pdc_received" model="ir.actions.act_window">
+            <field name="name">PDCs Received</field>
+            <field name="res_model">pdc.management</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type', 'in', ['received',])]</field>
+            <field name="view_id" ref="view_pdc_management_tree"/>
+        </record>
+        <record id="action_pdc_issued" model="ir.actions.act_window">
+            <field name="name">PDCs Issued</field>
+            <field name="res_model">pdc.management</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type', 'in', ['issued',])]</field>
+            <field name="view_id" ref="view_pdc_management_tree"/>
+        </record>
+        <menuitem id="menu_pdc_management_root" name="PDC Management" sequence="40"/>
+        <menuitem id="menu_pdc_management" name="PDC Management" parent="menu_pdc_management_root" sequence="29"/>
+        <menuitem id="menu_pdc_cheque" name="Post Dated Cheque" parent="menu_pdc_management"/>
+        <menuitem action="action_pdc_received" id="menu_pdc_received" name="PDCs Received" parent="menu_pdc_cheque" sequence="4"/>
+        <menuitem action="action_pdc_issued" id="menu_pdc_issued" name="PDCs Issued" parent="menu_pdc_cheque" sequence="5"/>
+    </data>
+</odoo>

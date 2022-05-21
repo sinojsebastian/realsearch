@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    	<!--  -->
+    	<record model="ir.ui.view" id="wizard_com_view">
+            <field name="name">wiz.complaints.report</field>
+            <field name="model">wiz.complaints.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Complaints Report">
+                <footer>
+                    	<button class="oe_highlight" string="Print Excel Report" name="print_report" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+           </field>
+        </record>
+        
+        
+         <record id="action_com_reports" model="ir.actions.act_window">
+            <field name="name">Complaints Report</field>
+            <field name="res_model">wiz.complaints.report</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_com_view"/>
+            <field name="target">new</field>
+        </record>
+        
+        
+ <!-- PV       <menuitem name="Complaints Report" 
+	        parent="menu_action_sevice" 
+	        action="action_com_reports"
+	        id="menu_cp_report" 
+	        sequence="3"/> -->
+	        
+	    
+	    
+	    <!-- Summary-All Assets Report -->
+    	<record model="ir.ui.view" id="wizard_summary_all_assets_view">
+            <field name="name">wiz.rentable.report</field>
+            <field name="model">wiz.rentable.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Rentable Unit Report">
+                 <group>
+                 </group>
+                <footer>
+                    	<button class="oe_highlight" string="Print Excel Report" name="print_report" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+           </field>
+        </record>
+	    
+	    
+	     <record id="action_summary_all_assets_reports" model="ir.actions.act_window">
+            <field name="name">Summary All Assets</field>
+            <field name="res_model">wiz.rentable.report</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_summary_all_assets_view"/>
+            <field name="target">new</field>
+        </record>
+	    
+	    
+	    <menuitem name="Summary-All Assets" 
+		    parent="menu_rental_report" 
+		    action="action_summary_all_assets_reports"
+	        id="menu_summary_all_assets_report" 
+	        sequence="1"/>
+	     
+	     
+	     
+	     <!-- Occupancy Summary -->
+    	 <record model="ir.ui.view" id="wizard_occupancy_summary_view">
+            <field name="name">wiz.occupancy.summary.report</field>
+            <field name="model">wiz.occupancy.summary</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Occupancy Summary Report">
+                 <group>
+                 	<group>
+                 		<field name="managed"/>
+                 	</group>
+                 </group>
+                <footer>
+                    	<button class="oe_highlight" string="Print Excel Report" name="print_report" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+           </field>
+        </record>
+	     
+	     
+	    <record id="action_occupancy_summary_report" model="ir.actions.act_window">
+           <field name="name">Occupancy Summary</field>
+           <field name="res_model">wiz.occupancy.summary</field>
+           <!-- <field name="view_type">form</field> -->
+           <field name="view_mode">form</field>
+           <field name="view_id" ref="wizard_occupancy_summary_view"/>
+           <field name="target">new</field>
+        </record>
+	     
+	     
+	    
+	    <menuitem name="Occupancy Summary Report" 
+		     parent="menu_rental_report" 
+		     action="action_occupancy_summary_report"
+	         id="menu_occupied_vacant_units" 
+	         sequence="2"/>
+        		  
+	    
+	    
+	    <!--  Outstanding Statement -->
+    	 <record model="ir.ui.view" id="wizard_outstanding_statement_view">
+            <field name="name">wiz.outstanding.statement.report</field>
+            <field name="model">wiz.outstanding.statement</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Outstanding Statement Report">
+                 <group>
+                 	<field name="date"/>
+                 </group>
+                <footer>
+                    	<button class="oe_highlight" string="Print Excel Report" name="print_report" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+           </field>
+        </record>
+        
+        <record id="action_outstanding_statement_report" model="ir.actions.act_window">
+           <field name="name">Outstanding Statement Report</field>
+           <field name="res_model">wiz.outstanding.statement</field>
+           <!-- <field name="view_type">form</field> -->
+           <field name="view_mode">form</field>
+           <field name="view_id" ref="wizard_outstanding_statement_view"/>
+           <field name="target">new</field>
+        </record>
+	    
+	    
+	    <menuitem name="Outstanding Statement Report" 
+		    parent="menu_rental_report" 
+		    action="action_outstanding_statement_report"
+	        id="menu_outstanding_statement" 
+	        sequence="3"/>
+	        
+	        
+	        
+	    <menuitem id="menu_sell" 
+		    name ="Sales Reports" 
+		    parent="menu_action_reporting" 
+		    groups="sales_team.group_sale_salesman_all_leads"/>
+        
+        
+        
+        
+         <record model="ir.ui.view" id="wizard_sellpie_view">
+            <field name="name">wiz.sellable.report</field>
+            <field name="model">wiz.sellablepie.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Sales Report">
+                   <group>
+               			<group>
+               				<field name="date_from"/>
+               			</group>
+               			<group>
+               				<field name="date_to"/>
+               			</group>
+               		</group>
+                <footer>
+                    	<button class="oe_highlight" string="Print Excel Report" name="print_report" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+           </field>
+        </record>
+        
+         
+        
+        
+        
+        <record id="action_pie_reports" model="ir.actions.act_window">
+            <field name="name">Sales Report</field>
+            <field name="res_model">wiz.sellablepie.report</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_sellpie_view"/>
+            <field name="target">new</field>
+        </record>
+        
+         
+        
+        
+        <menuitem name="Sales Analysis Report" 
+	        parent="menu_sell" 
+	        action="action_pie_reports"
+	        id="menu_cp_report2" 
+	        sequence="4"/>  
+        
+        
+        
+       <record model="ir.ui.view" id="wizard_sell_view">
+            <field name="name">wiz.sellable.report</field>
+            <field name="model">wiz.sellable.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Sellable unit Report">
+                 <group>
+                 	<group>
+                 		<field name="building_id"/>
+                 	</group>
+                 </group>
+                <footer>
+                    	<button class="oe_highlight" string="Print Excel Report" name="print_report" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+           </field>
+        </record>
+        
+        
+         <record id="action_test_reports" model="ir.actions.act_window">
+            <field name="name">Sellable Report</field>
+            <field name="res_model">wiz.sellable.report</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_sell_view"/>
+            <field name="target">new</field>
+        </record>
+        
+       
+        <menuitem name="Sellable Unit Report" 
+	        parent="menu_sell" 
+	        action="action_test_reports"
+	        id="menu_sell_report" 
+	        sequence="5"/>
+        		   
+       
+     </data>
+  </odoo>      

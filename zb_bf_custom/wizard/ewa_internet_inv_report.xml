@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <odoo>
+	
+	<record model="ir.ui.view" id="ewa_internet_inv_report_form_view">
+    	<field name="name">wiz.ewa.internet.invoice.report.form.view</field>
+   	 	<field name="model">wiz.ewa.internet.invoice.report</field>
+    	<field name="type">form</field>
+    	<field name="arch" type="xml">
+      		<form string="EWA / Batelco Internet Invoice Report">
+      		<!-- <group>
+          		<group>
+          			<field name="managed_by" required='1'/>  
+          			<field name="occupied_by"/> 
+          		</group>
+          	</group> -->
+          	<footer>
+            	<button name="print_ewa_internet_inv_report" string="Print" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+    </record>
+   
+    <act_window id="action_ewa_internet_inv_report_wiz"
+            name="EWA / Batelco Internet Invoice Report"
+            binding_model="account.payment"
+            res_model="wiz.ewa.internet.invoice.report"
+            view_mode="form"
+            target="new"/>
+
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+account_payment_line_form,account.payment.line.form,advance_payment_allocation.model_account_payment_line,,1,1,1,1
+advance_expense_line_form,advance.expense.line.form,advance_payment_allocation.model_advance_expense_line,base.group_user,1,1,1,1

@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_zbbm_module,zbbm.module,model_zbbm_module,sales_team.group_sale_salesman_all_leads,1,1,1,1
+access_zbbm_building,zbbm.building,model_zbbm_building,sales_team.group_sale_salesman_all_leads,1,1,1,1
+access_zbbm_type,zbbm.type,model_zbbm_type,base.group_user,1,1,1,1
+access_zbbm_month,zbbm.month,model_zbbm_month,base.group_user,1,1,1,1
+access_rental_analysis,rental.analysis,model_rental_analysis,base.group_user,1,1,1,1
+acess_bbm_unit,zbbm.unit,model_zbbm_unit,sales_team.group_sale_salesman_all_leads,1,1,1,1
+access_unit_type,zbbm.unit.type,model_zbbm_type_unit,base.group_user,1,1,1,1
+access_installment,instalment_mod,model_installment_details,base.group_user,1,1,1,1
+acess_zbbm_car_park,car_park,model_zbbm_car_park,base.group_user,1,1,1,1
+acess_bedroom,bed_room,model_zbbm_bedroom_unit,base.group_user,1,1,1,1
+access_project_name,project_name,model_project_name,base.group_user,1,1,1,1
+access_acccount_employee,employee_permission,model_account_payment,base.group_user,1,0,0,0
+access_legal_case,legal_permissions,model_legal_cases,base.group_user,1,1,1,0
+access_move_employee,account.move,model_account_move,base.group_user,1,0,0,0
+access_zbbm_module_lease_rent_agreement,zbbm.module.lease.rent.agreement,model_zbbm_module_lease_rent_agreement,base.group_user,1,1,1,0
+access_isd_codes,access_isd_codes,model_isd_codes,base.group_user,1,0,0,0

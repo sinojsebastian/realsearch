@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		
+	<!-- res.partner.inherit -->
+		
+		<record model="ir.ui.view" id="res_partner_inherit_view">
+    		<field name="name">res_partner_inherit_view</field>
+    		<field name="model">res.partner</field>
+    		<field name="inherit_id" ref="base.view_partner_form"/>
+    		<field name="arch" type="xml">
+				<xpath expr="//div[@class='oe_button_box']" position="inside">
+					<button name="open_journal_items" type="object"
+							class="oe_stat_button" icon="fa-edit" string="Journal Items" groups="account.group_account_invoice">
+					</button>
+				</xpath>
+    			  <xpath expr="//field[@name='vat']" position="before">
+    			  	<field name="address_arabic"/>
+    			  </xpath>
+        		  <xpath expr="//field[@name='vat']" position="after">
+					<field name="code"/>
+					<field name="owner"/>
+					<field name="pa_ids" widget="many2many_tags"/>
+					
+					<!-- <field name="nationality_arabic" attrs="{'invisible': [('company_type','=', 'company')]}"/> -->
+					<field name="payment_mode"/>
+					<field name="additional_pa_ids" widget="many2many_tags"/>
+				  </xpath>
+				  <xpath expr="//field[@name='passport']" position="after">
+				  	<field name="passport_arabic" attrs="{'invisible': [('company_type','=', 'company')]}"/>
+				  </xpath>
+				  <xpath expr="//field[@name='cpr']" position="after">
+				  <field name="cpr_arabic" attrs="{'invisible': [('company_type','=', 'company')]}"/>
+				  </xpath>
+				  <xpath expr="//field[@name='type']" position="before">
+				  <field name="name_arabic"/>
+				  </xpath>
+				  <xpath expr="//field[@name='vat_no']" position="attributes">
+				  	<attribute name="invisible">1</attribute>
+				  </xpath>
+				  <xpath expr="//field[@name='is_tenant']" position="attributes">
+				  	<attribute name="invisible">0</attribute>
+				  </xpath>
+				  <xpath expr="//field[@name='nationality']" position="attributes">
+				  	<attribute name="invisible">1</attribute>
+				  </xpath>
+				  <xpath expr="//field[@name='type']" position="after">
+				  	<field name="nationality_id"/>
+				  </xpath>
+    		</field>
+		</record>
+		
+		<!-- res.nationality.views -->
+		<record model="ir.ui.view" id="res_nationality_form_view">
+    		<field name="name">res_nationality_form_view</field>
+    		<field name="model">res.nationality</field>
+    		<field name="arch" type="xml">
+        		<form string="Nationality">
+        		<sheet>
+        		<group>
+	            <group>
+	            	<field name="name" required="1"/>
+	            	<field name="nationality_arabic"/>
+	            </group>
+	            </group>
+	            </sheet>
+	            </form>
+    		</field>
+		</record>
+		
+		<record id="res_nationality_tree_view" model="ir.ui.view">
+        <field name="name">res_nationality_tree_view</field>
+        <field name="model">res.nationality</field>
+        <field name="arch" type="xml">
+            <tree string="Nationality">
+            	 <field name='name'/>
+                 <field name="nationality_arabic"/>
+	       </tree>
+	     </field>
+	  </record>    
+		
+		<record id="action_res_nationality_view" model="ir.actions.act_window">
+            <field name="name">Nationality</field>
+            <field name="res_model">res.nationality</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+      </record>
+     
+	    <menuitem id="menu_nationality" 
+		    name="Nationality" 
+		    sequence="11" 
+		    parent="contacts.menu_localisation" 
+		    action="action_res_nationality_view"/>
+		    
+		<!-- res.users.views -->
+		<record model="ir.ui.view" id="res_users_form_view_inherited">
+    		<field name="name">res_users_form_view_inherit</field>
+    		<field name="model">res.users</field>
+    		<field name="inherit_id" ref="base.view_users_simple_form"/>
+    		<field name="arch" type="xml">
+        		<xpath expr="//div[@class='oe_title']" position="inside">
+				  <label for="name_arabic" class="oe_edit_only"/>
+                            <h2><field name="name_arabic"/></h2>
+				  </xpath>
+    		</field>
+		</record>
+		
+		<!-- res.bank.view.inherit -->
+		<record model="ir.ui.view" id="res_bank_form_view_inherited">
+    		<field name="name">res_bank_form_view_inherit</field>
+    		<field name="model">res.bank</field>
+    		<field name="inherit_id" ref="base.view_res_bank_form"/>
+    		<field name="arch" type="xml">
+        		<xpath expr="//field[@name='bic']" position="after">
+                     <field name="bank_name_arabic"/>
+				  </xpath>
+    		</field>
+		</record>
+		
+		<record model="ir.ui.view" id="res_partner_title_inherit_view">
+    		<field name="name">res_partner_title_inherit_view</field>
+    		<field name="model">res.partner.title</field>
+    		<field name="inherit_id" ref="base.view_partner_title_tree"/>
+    		<field name="arch" type="xml">
+        		  <xpath expr="//field[@name='shortcut']" position="after">
+					<field name="abbr_arabic"/>
+				  </xpath>
+    		</field>
+		</record>
+
+		<!-- res.partner filter inherit -->
+		<record id="view_account_move_line_filter_inherit_new" model="ir.ui.view">
+            <field name="name">Journal Items</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="zb_building_management.view_account_move_line_filter_inherit"/>
+            <field name="arch" type="xml">
+             <filter name="receivable" position ="after">
+	             <separator/>
+                  <filter string="Building" name="building_ref_id"  context="{'group_by':'building_ref_id'}"/>
+	              <filter string="Module" name="module_id" context="{'group_by':'module_id'}"/>
+             </filter>
+             <xpath expr="//filter[@name='unreconciled']" position="attributes">
+             	<attribute name="domain">[('full_reconcile_id', '=', False), ('balance', '!=', 0),('reconciled','=',False),('account_id.reconcile', '=', True)]</attribute>
+			  </xpath>
+            </field>
+     </record>
+	  
+</odoo>

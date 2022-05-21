@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+			<!-- Customer Statement OnScreen  View -->
+		<record id="customer_statement_onscreen" model="ir.ui.view">
+			<field name="name">Customer Statement Onscreen</field>
+			<field name="model">wiz.customer.statement</field>
+			<field name="arch" type="xml">
+				<form string="Customer Statement">
+					<group>
+						<field name="partner_id" string="Customer" required="1"/> 
+			            <field name="date_from" style="width:30%;"/>
+			            <field name="date_to" style="width:30%;" invisible="1"/>
+					</group>
+					<footer>
+						<button name="update_customer_statement" string="Print" type="object" class="oe_highlight"/>
+						or
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+	
+			<!-- Customer Statement Onscreen Action -->
+		<record model="ir.actions.act_window" id="action_customer_statement_onscreen">
+			<field name="name">Customer Statement</field>
+			<field name="res_model">wiz.customer.statement</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+	
+			<!-- Customer Statement OnScreen Action Menu -->
+		<act_window id="action_onscreen_customer_statement"
+				name="Customer Statement[OnScreen]"
+				res_model="wiz.customer.statement"
+				binding_model="res.partner"
+				view_mode="form" target="new"
+	            groups="base.group_partner_manager"/>
+	            
+
+	</data>
+</odoo>

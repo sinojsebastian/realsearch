@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+<template id="report_check">
+<t t-name="zb_check_printing.report_check">
+<!-- <t t-name="zb_check_printing.report_check"> -->
+    <t t-call="web.basic_layout">
+        <t t-foreach="docs" t-as="o">
+        	
+        	<div class="page">
+				<div class="dontchnage">
+					<div class="col-xs-12">
+					<p style="padding-top:6.5cm;">
+                        <t t-if="o.ac_payee">
+							<span style="font-size:14px; padding-left:17.9cm;"><span style="border-bottom:1px solid black;border-top:1px solid black">A/C Payee</span></span>
+							<span style="font-size:14px; padding-left:4.2cm;" t-esc="o.check_data_get()[7]"/>
+							<span style="font-size:14px; padding-left:0.4cm;" t-esc="o.check_data_get()[8]"/>
+							<span style="font-size:14px; padding-left:0.3cm;" t-esc="o.check_data_get()[5]"/>
+							<span style="font-size:14px; padding-left:0.3cm;" t-esc="o.check_data_get()[6]"/>
+							<span style="font-size:14px; padding-left:0.3cm;" t-esc="o.check_data_get()[1]"/>
+							<span style="font-size:14px; padding-left:0.4cm;" t-esc="o.check_data_get()[2]"/>
+							<span style="font-size:14px; padding-left:0.4cm;" t-esc="o.check_data_get()[3]"/>
+							<span style="font-size:14px; padding-left:0.4cm;" t-esc="o.check_data_get()[4]"/>
+						</t>
+						<t t-else="">
+							<span style="font-size:14px; padding-left:24.1cm;" t-esc="o.check_data_get()[7]"/>
+							<span style="font-size:14px; padding-left:0.4cm;" t-esc="o.check_data_get()[8]"/>
+							<span style="font-size:14px; padding-left:0.3cm;" t-esc="o.check_data_get()[5]"/>
+							<span style="font-size:14px; padding-left:0.3cm;" t-esc="o.check_data_get()[6]"/>
+							<span style="font-size:14px; padding-left:0.3cm;" t-esc="o.check_data_get()[1]"/>
+							<span style="font-size:14px; padding-left:0.4cm;" t-esc="o.check_data_get()[2]"/>
+							<span style="font-size:14px; padding-left:0.4cm;" t-esc="o.check_data_get()[3]"/>
+							<span style="font-size:14px; padding-left:0.4cm;" t-esc="o.check_data_get()[4]"/>
+						</t>
+					</p>	
+					</div>
+				</div>
+				
+				
+				
+				<t t-if="o.is_arabic == True">
+				<div class="row" style="font-size:15px; padding-top:0.3cm;padding-left:16cm">
+					<div class="col-xs-12">
+						<span t-field="o.name_on_cheque"/>
+					</div>
+				</div>
+				</t>
+				<t t-if="o.is_arabic == False">
+				<div class="row" style="font-size:15px; padding-top:0.3cm;padding-left:16cm">
+					<div class="col-xs-12">
+						<span t-field="o.name_on_cheque"/>
+					</div>
+				</div>
+				</t>
+				<div class="row" style="font-size:15px; padding-top:0.5cm;padding-left:15.8cm">
+					<div class="col-xs-7" style="width:85mm;">
+						<t t-set="amt" t-value="o.amount_to_text_check()"/>
+						<t t-set="len" t-value="len(amt)-1"/>
+						<!-- <span t-esc="len(amt)"/> -->
+						<t t-if="len(amt) &gt; 26">
+							<t t-set="amt_text" t-value="o.amount_to_text_wrapp_check(o.amount,o)"/>
+							<span t-esc="amt_text[0][0]"/><br/>
+							<t t-set="len2" t-value="len(amt_text[0])"/>
+							<t t-set="count" t-value="1"/>
+							<t t-foreach="range(count,len2)" t-as="amt_len">
+							<t t-if="amt_len &lt;= len2">
+								<span t-esc="amt_text[0][count]" style="line-height:0.9cm;"/><br/>
+								<t t-set="count" t-value="count + 1"/>
+							</t>
+							</t>
+							<!-- <span t-esc="amt_text[0][2]" style="line-height:0.9cm;"/><br></br>
+							<span t-esc="amt_text[0][3]"/> -->
+							<!-- <span t-esc="amt[0:39]"/><br></br>
+							<span t-esc="amt[39:-1]"/><span t-esc="amt[-1]"/> -->
+						</t>
+						<t t-if="len(amt) &lt;= 26">
+							<span t-esc="o.amount_to_text_check()"/>
+						</t>
+					</div>
+				<div class="col-xs-5" style="font-size:15px; font-weight:bold;padding-top:1cm;margin-right:5mm;margin-left:5mm;padding-left:10mm;">
+					<strong>**</strong><span t-esc="o._get_amount()"/>
+					</div>
+					</div>
+					
+				</div>
+				
+				
+				
+				<!-- <div  style="font-size:14px; font-weight:bold;padding-top:.1cm;padding-left:14cm;">
+					<div class="col-xs-12">
+						<strong>*</strong><span t-esc="o._get_amount()"/><strong>*</strong>
+					</div>
+				</div> -->
+            <!-- <div class="page">
+				<div class="row">
+					<div class="col-xs-12">
+					<p>
+						<span style="padding-top:.5cm; padding-left:10.8cm;" t-esc="o.check_data_get()[7]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[8]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[5]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[6]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[1]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[2]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[3]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[4]"/>
+					</p>	
+					</div>
+				</div>
+				
+				<span style="padding-top:.5cm; padding-left:11.1cm;" t-esc="o.check_data_get()[7]"/>
+						<span style="padding-top:.5cm; padding-left:11.7cm;" t-esc="o.check_data_get()[8]"/>
+						<span style="padding-top:.5cm;padding-left:12.3cm;" t-esc="o.check_data_get()[5]"/>
+						<span style="padding-top:.5cm;padding-left:12.9cm;" t-esc="o.check_data_get()[6]"/>
+						<span style="padding-top:.5cm;padding-left:13.5cm;" t-esc="o.check_data_get()[1]"/>
+						<span style="padding-top:.5cm;padding-left:14.1cm;" t-esc="o.check_data_get()[2]"/>
+						<span style="padding-top:.5cm;padding-left:14.7cm;" t-esc="o.check_data_get()[3]"/>
+						<span style="padding-top:.5cm;padding-left:15.3cm;" t-esc="o.check_data_get()[4]"/>
+				
+				<div class="row" style="padding-top:0.4cm;padding-left:3.1cm;">
+					<div class="col-xs-12">
+						<span t-field="o.partner_id.name"/>
+					</div>
+				</div>
+				
+				<div class="row" style="padding-top:0.4cm;padding-left:2cm;">
+					<div class="col-xs-12">
+						<span t-esc="o.amount_to_text(o.amount, o)"/>
+					</div>
+				</div>
+				
+				<div class="row" style="font-weight:bold;padding-top:0.1cm;padding-left:13.5cm;">
+					<div class="col-xs-12">
+						<strong>*</strong><span t-esc="o._get_amount()"/><strong>*</strong>
+					</div>
+				</div>
+            </div> -->
+        	
+        
+        
+        	<!-- <div class="page">
+				<div class="row">
+					<div class="col-xs-12">
+					<p>
+
+						<span style="font-size:14px; padding-top:.6cm; padding-left:12.3cm" t-esc="o.check_data_get()[7]"/>
+						<span style="font-size:14px; padding-top:.6cm; padding-left:0.29cm;" t-esc="o.check_data_get()[8]"/>
+						<span style="font-size:14px; padding-top:.6cm; padding-left:0.29cm;" t-esc="o.check_data_get()[5]"/>
+						<span style="font-size:14px; padding-top:.6cm; padding-left:0.29cm;" t-esc="o.check_data_get()[6]"/>
+						<span style="font-size:14px; padding-top:.6cm; padding-left:0.29cm;" t-esc="o.check_data_get()[1]"/>
+						<span style="font-size:14px; padding-top:.6cm; padding-left:0.29cm;" t-esc="o.check_data_get()[2]"/>
+						<span style="font-size:14px; padding-top:.6cm; padding-left:0.29cm;" t-esc="o.check_data_get()[3]"/>
+						<span style="font-size:14px; padding-top:.6cm; padding-left:0.29cm;" t-esc="o.check_data_get()[4]"/>
+					</p>	
+					</div>
+				</div>
+				
+				<span style="padding-top:.5cm; padding-left:11.1cm;" t-esc="o.check_data_get()[7]"/>
+						<span style="padding-top:.5cm; padding-left:11.7cm;" t-esc="o.check_data_get()[8]"/>
+						<span style="padding-top:.5cm;padding-left:12.3cm;" t-esc="o.check_data_get()[5]"/>
+						<span style="padding-top:.5cm;padding-left:12.9cm;" t-esc="o.check_data_get()[6]"/>
+						<span style="padding-top:.5cm;padding-left:13.5cm;" t-esc="o.check_data_get()[1]"/>
+						<span style="padding-top:.5cm;padding-left:14.1cm;" t-esc="o.check_data_get()[2]"/>
+						<span style="padding-top:.5cm;padding-left:14.7cm;" t-esc="o.check_data_get()[3]"/>
+						<span style="padding-top:.5cm;padding-left:15.3cm;" t-esc="o.check_data_get()[4]"/>
+				
+				<div class="row" style="font-size:14px; padding-top:0.6cm;padding-left:6cm">
+					<div class="col-xs-12">
+						<span t-field="o.partner_id.name"/>
+					</div>
+				</div>
+				
+				<div class="row" style="font-size:14px; padding-top:0.5cm;padding-left:4.6cm">
+					<div class="col-xs-12">
+						<t t-set='amt' t-value="o.amount_to_text(o.amount, o)"/>
+						<t t-set="len" t-value="len(amt)-1"/>
+						<t t-if="len(amt) &gt; 39">
+							<t t-set='amt_text' t-value="o.amount_to_text_wrapp(o.amount, o)"/>
+							<span t-esc="amt_text[0][0]"/><br></br>
+							<span t-esc="amt_text[0][1]"/><span t-esc="amt_text[0][2]"/>
+							<span t-esc="amt[0:39]"/><br></br>
+							<span t-esc="amt[39:-1]"/><span t-esc="amt[-1]"/>
+						</t>
+						<t t-if="len(amt) &lt;= 39">
+							<span t-esc="o.amount_to_text(o.amount, o)"/>
+						</t>
+					</div>
+				</div>
+				
+				<div class="row" style="font-size:14px; font-weight:bold;padding-top:0.6cm;padding-left:14cm;">
+					<div class="col-xs-12">
+						<strong>*</strong><span t-esc="o._get_amount()"/><strong>*</strong>
+					</div>
+				</div>
+            </div>
+            <div class="page">
+				<div class="row">
+					<div class="col-xs-12">
+					<p>
+						<span style="padding-top:.5cm; padding-left:10.8cm;" t-esc="o.check_data_get()[7]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[8]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[5]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[6]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[1]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[2]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[3]"/>
+						<span style="padding-top:.5cm; padding-left:0.25cm;" t-esc="o.check_data_get()[4]"/>
+					</p>	
+					</div>
+				</div>
+				
+				<span style="padding-top:.5cm; padding-left:11.1cm;" t-esc="o.check_data_get()[7]"/>
+						<span style="padding-top:.5cm; padding-left:11.7cm;" t-esc="o.check_data_get()[8]"/>
+						<span style="padding-top:.5cm;padding-left:12.3cm;" t-esc="o.check_data_get()[5]"/>
+						<span style="padding-top:.5cm;padding-left:12.9cm;" t-esc="o.check_data_get()[6]"/>
+						<span style="padding-top:.5cm;padding-left:13.5cm;" t-esc="o.check_data_get()[1]"/>
+						<span style="padding-top:.5cm;padding-left:14.1cm;" t-esc="o.check_data_get()[2]"/>
+						<span style="padding-top:.5cm;padding-left:14.7cm;" t-esc="o.check_data_get()[3]"/>
+						<span style="padding-top:.5cm;padding-left:15.3cm;" t-esc="o.check_data_get()[4]"/>
+				
+				<div class="row" style="padding-top:0.4cm;padding-left:3.1cm;">
+					<div class="col-xs-12">
+						<span t-field="o.partner_id.name"/>
+					</div>
+				</div>
+				
+				<div class="row" style="padding-top:0.4cm;padding-left:2cm;">
+					<div class="col-xs-12">
+						<span t-esc="o.amount_to_text(o.amount, o)"/>
+					</div>
+				</div>
+				
+				<div class="row" style="font-weight:bold;padding-top:0.1cm;padding-left:13.5cm;">
+					<div class="col-xs-12">
+						<strong>*</strong><span t-esc="o._get_amount()"/><strong>*</strong>
+					</div>
+				</div>
+            </div> -->
+        </t>
+    </t>
+<!-- </t> -->
+</t>
+
+</template>
+
+
+
+
+
+
+
+
+
+</data>
+</odoo>
+

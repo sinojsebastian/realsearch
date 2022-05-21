@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <odoo>
+	
+	<record model="ir.ui.view" id="ewa_ca_report_form_view">
+    	<field name="name">wiz.ewa.common.area.report.form.view</field>
+   	 	<field name="model">wiz.ewa.common.area.report</field>
+   	 	<field name="groups_id" eval="[(4,ref('sales_team.group_sale_salesman_all_leads'))]"/>
+    	<field name="type">form</field>
+    	<field name="arch" type="xml">
+      		<form string="Common Area EWA Report">
+      		<group>
+          		<group>
+          		    <field name="month" required='1'/> 
+          		    <field name="year" required='1'/> 
+          			<field name="from_date" required='1'/>  
+          			<field name="to_date" required='1' /> 
+          		</group>
+          	</group>
+          	<footer>
+            	<button name="print_ewa_ca_report" string="Print" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+    </record>
+   
+    <act_window id="action_ewa_ca_report_wiz"
+            name="Common Area EWA Report"
+            binding_model="zbbm.building"
+            res_model="wiz.ewa.common.area.report"
+            view_mode="form"
+            target="new"
+            groups="sales_team.group_sale_salesman_all_leads"/>
+            
+    <!--tenant_excess_ewa_menu -->
+
+	<menuitem id="menu_ewa_ca_report" 
+	    name ="Common Area EWA Report" 
+	     sequence="3"
+	    parent="zb_building_management.menu_action_reporting"
+	    action="action_ewa_ca_report_wiz"/>
+
+</odoo>

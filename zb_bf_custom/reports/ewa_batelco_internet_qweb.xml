@@ -1,0 +1,284 @@
+<odoo>
+<template id="report_ewa_internet_batelco_inv">
+	<t t-call="web.html_container">
+		<t t-foreach="docs" t-as="o">
+		<t t-call="web.external_layout">  
+		<div class="page">
+		<div class="container" style="border-bottom:none;padding:0px;margin:0px;">
+		<style> .border-black,td,table,tr{ border:1px solid #161A1D;color:black} </style>
+		
+		<h2 style="font-size:23px;">
+		<center>
+		<b>Journal Voucher</b>
+		</center>
+		</h2>
+		
+		<div class="row" style="padding-top:1cm;">
+		<div class="col-3 text-left" style="font-size:14px;">
+		<b>Voucher Number</b>
+		</div>
+		<div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+		<div class="col-8" style="font-size:14px;width:50mm">
+		<t t-if=" o.name">
+		<span t-field="o.name"/>
+		</t>
+		<t t-if="not o.name">
+		<span style="visibility: hidden;">text</span>
+		</t>
+		</div>
+		</div>
+		<br></br>
+		<div class="row">
+		<div class="col-3 text-left" style="font-size:14px;">
+		<b>Date</b>
+		</div>
+		<div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+		<div class="col-8 text-left" style="font-size:14px;width:50mm">
+		<t t-if="o.payment_date">
+		<span t-field="o.payment_date"/></t>
+		<t t-if="not o.payment_date">
+		<span style="visibility: hidden;">text</span>
+		</t>
+		</div>
+		<!-- <div class="col-2 text-left" style="font-size:14px;width:50mm;">
+		<b>Payment Voucher No</b>
+		</div>
+		<div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+		<div class="col-3" style="font-size:14px;">
+		<t t-if="o.ref">
+		<t t-foreach="payment_no[o]['payno']" t-as="doc">
+			<span t-esc="doc.name"/>
+		</t>
+		</t>
+		<t t-if="not o.ref">
+		<span style="visibility: hidden;">text</span>
+		</t>
+		</div> -->
+		</div>
+		<!-- <div class="row">
+		<div class="col-3 text-left" style="font-size:14px;">
+		<b>Building Name</b>
+		</div>
+		<div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+		<div class="col-2 text-left" style="font-size:14px;width:50mm">
+		<t t-if="o.building_id.name">
+		<span t-field="o.building_id.name"/>
+		</t>
+		<t t-if="not o.building_id.name">
+		<span style="visibility: hidden;">text</span>
+		</t>
+		</div>
+		</div> -->
+		<div class="row">
+		<div class="col-3 text-left" style="font-size:14px;">
+		<b>Vendor</b>
+		</div>
+		<div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+		<div class="col-8 text-left" style="font-size:14px;width:50mm">
+		<t t-if="o.partner_id.name">
+		<span t-field="o.partner_id.name"/>
+		</t>
+		<t t-if="not o.partner_id.name">
+		<span style="visibility: hidden;">text</span>
+		</t>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-3 text-left" style="font-size:14px;">
+		<b>Total Amount</b>
+		</div>
+		<div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+		<div class="col-8 text-left" style="font-size:14px;width:50mm">
+		<t t-if="o.amount">
+		<span t-field="o.amount"/>
+		</t>
+		<t t-if="not o.amount">
+		<span style="visibility: hidden;">text</span>
+		</t>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-3 text-left" style="font-size:14px;">
+		<b>Reference</b>
+		</div>
+		<div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+		<div class="col-8 text-left" style="font-size:14px;width:50mm">
+		<t t-if="o.communication">
+		<span t-field="o.communication"/>
+		</t>
+		<t t-if="not o.communication">
+		<span style="visibility: hidden;">text</span>
+		</t>
+		</div>
+		</div>
+		<br/>
+		<br/>
+		<div class="col-12">
+		<table class="row border-black" style="width:277mm;padding-top:0px;padding:0px;border-bottom:none;border-top: none!important;border-right:none;border-left:none;">
+		<thead style="display:table-header-group;">
+		<tr>
+		<td  class="text-center" style="width:15mm;">
+		<b>S.No.</b>
+		</td>
+		<td class="text-center" style="width:15mm;padding-left:1mm;padding-right:1mm;">
+		<b>Building Name</b>
+		</td>
+		<td class="text-center" style="width:15mm;">
+		<b>Flat No.</b>
+		</td>
+		<td class="text-center" style="width:15mm;">
+		<b>Party Name</b>
+		</td>
+		<td class="text-center" style="width:15mm;">
+		<b>Mgt Status</b>
+		</td>
+		<td class="text-center" style="width:15mm;">
+		<b>Occupancy Status</b>
+		</td>
+		<td class="text-center" style="width:15mm;padding-left:1mm;padding-right:1mm;">
+		<b>Paid by</b>
+		</td>
+		<!-- <td class="text-center" style="width:10%;">
+		<b>Billed to</b>
+		</td> -->
+		<td class="text-center" style="width:15mm;">
+		<b><t t-if="pdt == 'EWA'" t-esc="'EWA'" /> 
+		<t t-if="pdt == 'Internet'" t-esc="'Internet'" /> 
+		Line No.</b>
+		</td>
+		<td class="text-center" style="width:15mm;">
+		<b>Invoice No.</b>
+		</td>
+		<td class="text-center" style="width:15mm;padding-right:1mm;">
+		<b>Invoice Date</b>
+		</td>
+		<td class="text-center" style="width:15mm;">
+		<b>Description</b>
+		</td>
+		<td class="text-center" style="width:15mm;padding-left:1mm;padding-right:1mm;">
+		<b>Amount</b>
+		</td>
+		<td class="text-center" style="width:15mm;padding-left:1mm;padding-right:1mm;">
+		<b>Owner Share</b>
+		</td>
+		<td class="text-center" style="width:15mm;padding-left:1mm;padding-right:1mm;">
+		<b>Tenant Share</b>
+		</td>
+		</tr>
+		</thead>
+		 <!-- <t t-set="count" t-value="1"/> -->
+		<t t-foreach="payment_list" t-as="line">
+		<tr>
+		<td class="text-center" style="width:15mm;">
+			<span t-esc="line_index + 1"/>
+		</td>
+		<td class="text-center" style="width:15mm;padding-left:1mm;padding-right:1mm;">
+			<span t-esc="line['building'].name"/>
+		</td>
+		<td class="text-center" style="width:15mm;">
+		
+		<span t-esc="line['flat'].name"/>
+		
+		<!-- <t t-if="not line[flat]">
+		<span style="visibility: hidden;">text</span>
+		</t> -->
+		</td>
+		<td class="text-center" style="width:15mm;">
+			<span t-esc="line['party_name']"/>
+		</td>
+		<td class="text-center" style="width:15mm;">
+			<span t-esc="line['mgt_status']"/>
+		</td>
+		<td class="text-center" style="width:15mm;">
+			<span t-esc="line['occ_status']"/>
+		</td>
+		<td class="text-center" style="width:15mm;padding-left:1mm;padding-right:1mm;">
+			<span t-esc="line['paid_by']"/>
+		</td>
+		<!-- <td class="text-center" style="width:10%;">
+			<span t-esc="line['bill_to']"/>
+		</td> -->
+		<td class="text-center" style="width:15mm;">
+			<span t-esc="line['acc_no']"/>
+		</td>
+		<td class="text-center" style="width:15mm;padding-left:1mm;padding-right:1mm;">
+			<span t-esc="line['inv_no']"/>
+		</td>
+		<td class="text-center" style="width:15mm;">
+			<span t-esc="line['inv_date']"/>
+		</td>
+		<td class="text-center" style="width:15mm;padding-left:1mm;padding-right:1mm;">
+			<span t-esc="line['description']"/>
+		</td>
+		<td class="text-right" style="width:15mm;padding-right:1mm;">
+			<span t-esc="'{:,.3f}'.format(line['amount'])"/>
+		</td>
+		<td class="text-right" style="width:15mm;padding-left:1mm;padding-right:1mm;">
+		<span t-esc="'{:,.3f}'.format(line['owner_share'])"/>
+		</td>
+		<td class="text-right" style="width:15mm;padding-left:1mm;padding-right:1mm;">
+		<span t-esc="'{:,.3f}'.format(line['tenant_share'])"/>
+		</td>
+		</tr>
+		</t>
+		</table>
+		</div>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<div class="row">
+      <div class="col-3 text-left" style="font-size:14px;">
+      <b>Created By</b>
+      </div>
+    </div>
+    <br/>
+	<br/>
+	<br/>
+	<br/>
+	<div class="row">
+      <div class="col-11 text-right" style="font-size:14px;">
+      Computer generated document requires no signature 
+      </div>
+    </div>
+	</div>
+	</t>
+	</t>
+	</t>
+</template>
+<!-- <template id="ewa_internet_inv_layout">
+<div class="header">
+	<div class="row " style="width:110%;">
+		<div class="col-4 text-left">
+		<img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="padding-top:0.5cm;max-height:150px;max-width:250px" alt="Company Logo"/>
+		</div>
+		<div class="col-1"> </div>
+		<div class="col-5 text-left" style="padding-top:0.5cm;">
+		<t t-if="o.company_id.name">
+		<b>
+		<span t-field="o.company_id.name"/>
+		</b>
+		</t>
+		<br/>
+		<t t-if="o.company_id.street">
+		<span t-field="o.company_id.street"/><br></br>
+		</t>
+		<t t-if="o.company_id.street2" t-esc="o.company_id.street2"/><br></br>
+		<t t-if="o.company_id.city" t-esc="o.company_id.city"/><br></br>
+		<t t-if="o.company_id.country_id.name" t-esc="o.company_id.country_id.name"/><br></br>
+		<t t-if="o.company_id.email">Email:<span t-esc="o.company_id.email"/></t>
+		</div>
+		<div class="col-2"> </div>
+	</div>
+	<h2 style="font-size:23px;padding-top:1cm;">
+	<center>
+	<b>Journal Voucher</b>
+	</center>
+	</h2>
+</div>
+<div class="article o_report_layout_standard">
+<t t-raw="0"/>
+</div>
+</template> -->
+</odoo>

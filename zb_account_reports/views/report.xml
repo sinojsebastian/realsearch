@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	
+	   <!-- Customer Invoice Report -->
+       <report
+           id="report_customer_invoice"
+           model="account.move"
+           string="Customer Invoice"
+           report_type="qweb-pdf"
+           name="zb_account_reports.report_customer_invoice_report"
+           file="zb_account_reports.report_customer_invoice_report"
+           menu="True"
+        /> 
+        
+       <!-- Customer Invoice Paperformat -->
+       <record id="paperformat_customer_invoice" model="report.paperformat">
+            <field name="name">European A4(Customer Invoice)</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">55</field>
+            <field name="margin_bottom">25</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+        </record>
+        
+        <record id="report_customer_invoice" model="ir.actions.report">
+			<field name="paperformat_id" ref="paperformat_customer_invoice"/>
+		</record> 
+		
+		<!--  Vendor bill report -->
+       <report 
+            id="report_vendor_bill"
+            model="account.move"
+            string="Vendor Bill"
+            report_type="qweb-pdf"
+            name="zb_account_reports.report_invoice"
+            file="zb_account_reports.report_invoice"
+        /> 
+        
+        <!-- **Vendor bill Paperformat** -->
+       <record id="paper_format_invoice" model="report.paperformat">
+            <field name="name">European A4(Vendor Invoice)</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">25</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+        </record>
+        
+        <record id="report_vendor_bill" model="ir.actions.report">
+			<field name="paperformat_id" ref="paper_format_invoice"/>
+		</record>
+	
+	  <!-- Hide Invoice report-->
+       <report 
+            id="account.account_invoices"
+            model="account.move"
+            string="Invoice"
+            report_type="qweb-pdf"
+            name="account.report_invoice_with_payments"
+            file="account.report_invoice_with_payments"
+            attachment_use="True"
+            attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+        	menu="False"
+        /> 
+            
+        <!-- Hide Invoices without Payment Report -->
+        <report
+            id="account.account_invoices_without_payment"
+            model="account.move"
+            string="Invoices without Payment"
+            report_type="qweb-pdf"
+            name="account.report_invoice"
+            file="account.report_invoice"
+            attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+            print_report_name="(object._get_printed_report_name())"
+        	menu="False"
+        />
+        
+        <!-- **Hide Payment Receipt Report** -->
+		<report
+            id="account.action_report_payment_receipt"
+            model="account.payment"
+            string="Payment Receipt"
+            report_type="qweb-pdf"
+            name="account.report_payment_receipt"
+            file="account.report_payment_receipt"
+            menu="False"
+        />
+		
+       <!-- ** Payment Receipt Report** -->
+ 	   <report
+            id="payment_receipt_report"
+            string="Receipt"
+            model="account.payment" 
+            report_type="qweb-pdf"
+            name="zb_account_reports.report_payment_receipt"
+            file="zb_account_reports.report_payment_receipt"
+          />  
+          
+         <!-- ** Payment Receipt Paperformat** -->
+         <record id="paperformat_payment" model="report.paperformat">
+            <field name="name">European A4(Payment)</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">55</field>
+            <field name="margin_bottom">25</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+        </record>
+        
+         <record id="zb_account_reports.payment_receipt_report" model="ir.actions.report">
+			<field name="paperformat_id" ref="paperformat_payment"/>
+		</record>
+ 		
+ 		
+ 		<report 
+            id="action_voucher_report"
+            model="account.move"
+            string="Receipts"
+            report_type="qweb-pdf"
+            name="zb_account_reports.report_voucher_qweb"
+            file="zb_account_reports.report_voucher_qweb"
+            />
+            
+    
+    <record id="paperformat_voucher_report" model="report.paperformat">
+	    <field name="name">European A4(Voucher)</field>
+	    <field name="default" eval="True"/>
+	    <field name="format">A4</field>
+	    <field name="page_height">0</field>
+	    <field name="page_width">0</field>
+	    <field name="orientation">Portrait</field>
+	    <field name="margin_top">45</field>
+	    <field name="margin_bottom">25</field>
+	    <field name="margin_left">5</field>
+	    <field name="margin_right">5</field>
+	    <field name="header_line" eval="False"/>
+	    <field name="header_spacing">30</field>
+	    <field name="dpi">90</field>
+    </record>
+    
+    <record id="action_voucher_report" model="ir.actions.report">
+    	<field name="paperformat_id" ref="paperformat_voucher_report"/>
+    </record>
+      
+        
+ </odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+	
+		<!--******************Supplier Statement********************* -->
+         <report
+            id="report_supplier_statement"
+            string="Supplier Statement"
+            model="supplier.statement.report"
+            report_type="qweb-pdf"
+            name="zb_supplier_statement.report_supplierstatement"
+            file="zb_supplier_statement.report_supplierstatement"/>
+	     
+		
+	   </data> 
+</odoo>

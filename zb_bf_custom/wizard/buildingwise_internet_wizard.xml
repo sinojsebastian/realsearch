@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+	<!-- Building Wise Internet Report_form_views -->
+	<record model="ir.ui.view" id="building_wise_internet_report_form_view">
+    	<field name="name">building.internet.wizard.form.view</field>
+   	 	<field name="model">building.internet.wizard</field>
+    	<field name="type">form</field>
+    	<field name="groups_id" eval="[(4,ref('sales_team.group_sale_salesman_all_leads'))]"/>
+    	<field name="arch" type="xml">
+      		<form string="BuildingWise Internet Report">
+      		<group>
+          		<group>
+          			<field name="building_id" invisible="1"/>  
+          		</group>
+          	</group>
+          	<footer>
+            	<button name="print_building_internet_Report" string="Print" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+   </record>
+   
+     <record id="action_building_internet_report" model="ir.actions.act_window">
+            <field name="name">BuildingWise Internet Report</field>
+            <field name="res_model">building.internet.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="building_wise_internet_report_form_view"/>
+            <field name="target">new</field>
+     </record>
+     
+     
+		<act_window id="action_building_internet_report"
+				name="BuildingWise Internet Report"
+				res_model="building.internet.wizard"
+				binding_model="zbbm.building"
+				view_mode="form" target="new"
+				groups="sales_team.group_sale_salesman_all_leads"
+	           />
+	            
+    
+    
+	    
+	    
+	    
+	    
+	    
+   
+
+</odoo>

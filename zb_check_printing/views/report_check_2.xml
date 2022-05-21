@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+
+<template id="report_check_2">
+<!-- <t t-name="zb_check_printing.report_check"> -->
+    <t t-call="web.basic_layout">
+        <t t-foreach="docs" t-as="o">
+        	
+        	<div class="page">
+				<div class="row">
+					<div class="col-xs-12">
+					<p>
+                        <br/>
+						
+						
+						<span style="font-size:14px; padding-top:4cm; padding-left:11.9cm;" t-esc="o.check_data_get()[7]"/>
+						<span style="font-size:14px; padding-top:4cm; padding-left:0.29cm;" t-esc="o.check_data_get()[8]"/>
+						<span style="font-size:14px; padding-top:4cm; padding-left:0.29cm;" t-esc="o.check_data_get()[5]"/>
+						<span style="font-size:14px; padding-top:4cm; padding-left:0.35cm;" t-esc="o.check_data_get()[6]"/>
+						<span style="font-size:14px; padding-top:4cm; padding-left:0.45cm;" t-esc="o.check_data_get()[1]"/>
+						<span style="font-size:14px; padding-top:4cm; padding-left:0.37cm;" t-esc="o.check_data_get()[2]"/>
+						<span style="font-size:14px; padding-top:4cm; padding-left:0.35cm;" t-esc="o.check_data_get()[3]"/>
+						<span style="font-size:14px; padding-top:4cm; padding-left:0.29cm;" t-esc="o.check_data_get()[4]"/>
+						
+					</p>	
+					</div>
+				</div>
+				
+				
+				
+				<t t-if="o.is_arabic == True">
+				<div class="row" style="font-size:14px; padding-top:1.3cm;padding-left:8cm">
+					<div class="col-xs-12">
+						<span t-field="o.name_on_cheque"/>
+					</div>
+				</div>
+				</t>
+				<t t-if="o.is_arabic == False">
+				<div class="row" style="font-size:14px; padding-top:1.3cm;padding-left:4cm">
+					<div class="col-xs-12">
+						<span t-field="o.name_on_cheque"/>
+					</div>
+				</div>
+				</t>
+				<div class="row" style="font-size:14px; padding-top:0.6cm;padding-left:3.5cm">
+					<div class="col-xs-7">
+						<t t-set="amt" t-value="o.amount_to_text(o.amount, o)"/>
+						<t t-set="len" t-value="len(amt)-1"/>
+						<!-- <span t-esc="len(amt)"/> -->
+						<t t-if="len(amt) &gt; 26">
+							<t t-set="amt_text" t-value="o.amount_to_text_wrapp(o.amount, o)"/>
+							<span t-esc="amt_text[0][0]"/><br/>
+							<span t-esc="amt_text[0][1]" style="line-height:1cm;"/><span t-esc="amt_text[0][2]"/>
+							<!-- <span t-esc="amt[0:39]"/><br></br>
+							<span t-esc="amt[39:-1]"/><span t-esc="amt[-1]"/> -->
+						</t>
+						<t t-if="len(amt) &lt;= 26">
+							<span t-esc="o.amount_to_text(o.amount, o)"/>
+						</t>
+					</div>
+					<div class="col-xs-5" style="font-size:14px; font-weight:bold;padding-top:0.8cm;padding-left:2cm;">
+					<strong>*</strong><span t-esc="o._get_amount()"/><strong>*</strong>
+					</div>
+					</div>
+					
+				</div>
+				
+				
+				
+			
+        </t>
+    </t>
+
+
+</template>
+</data>
+</odoo>

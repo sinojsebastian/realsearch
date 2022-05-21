@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_ticket_view_form_inherit_helpdesk_new" model="ir.ui.view">
+        <field name='name'>helpdesk.ticket.form.inherit.new</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+               
+				<xpath expr="//field[@name='complaint_date']" position="after">
+					<field name="ticket"/>
+					<field name = "reason" attrs="{'invisible': [('ticket','=','satisfactory')]}"/>
+					<field name = "narration" attrs="{'invisible': [('ticket','=','satisfactory')]}"/>
+					<field name= "call_conducted"/>
+				</xpath>
+			<xpath expr="//field[@name='building_id']" position="after">
+					<field name = "area" attrs="{'invisible': [('building_id','=',False)]}"/>
+			</xpath>
+            	</field>
+            	</record>
+      
+     <record id="inherit_helpdesk_tickets_view_tree" model="ir.ui.view">
+			<field name="name">helpdesk.ticket.tree.inherit</field>
+			<field name="model">helpdesk.ticket</field>
+			<field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="after">
+                         <field name="building_id"/>
+                         <field name="module_id"/>
+				</xpath>
+			</field>
+	 </record>    
+	 
+	 <record id="helpdesk_stage_inherit_form" model="ir.ui.view">
+        <field name='name'>helpdesk.stage.form.inherit</field>
+        <field name="model">helpdesk.stage</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_stage_view_form"/>
+            <field name="arch" type="xml">
+			<xpath expr="//field[@name='fold']" position="after">
+					<field name = "running_stage"/>
+			</xpath>
+            	</field>
+            	</record>
+	    	
+            	
+    </odoo>
+            	

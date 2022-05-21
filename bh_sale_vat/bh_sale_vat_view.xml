@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Sale Order View to remove tax -->
+        <record model="ir.ui.view" id="view_sale_inherit_bh_sale">
+            <field name="name">view.sale.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+            	 <xpath expr="//tree/field[@name='tax_id']" position="attributes">
+            		<attribute name="string">VAT</attribute>
+			   	</xpath>
+			   	<xpath expr="//page/field[@name='order_line']/form//field[@name='tax_id']" position="attributes">
+            		<attribute name="string">VAT</attribute>
+			   	</xpath>
+			    <xpath expr="//group[@name='sale_total']//field[@name='amount_untaxed']" position="attributes">
+			   		<attribute name="string">Total Excl. VAT</attribute>
+			   </xpath>
+			   <xpath expr="//group[@name='sale_total']//field[@name='amount_tax']" position="attributes">
+			   		<attribute name="string">VAT</attribute>
+			   </xpath>
+			   <!-- <xpath expr="//group[@name='sale_total']//button[@name='button_dummy']" position="attributes">
+			   		<attribute name="invisible">1</attribute>
+			   </xpath> -->
+            </field>
+        </record>
+
+
+        <!-- Inherit Product template View to remove tax -->
+        <record model="ir.ui.view" id="view_product_inherit_bh_sale">
+            <field name="name">view.sale.product.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+            	  <field name="taxes_id" position="attributes">
+			   		<attribute name="string">Customer VAT</attribute>
+				</field>
+				 <field name="supplier_taxes_id" position="attributes">
+			   		<attribute name="string">Vendor VAT</attribute>
+				</field>
+            </field>
+        </record>
+
+        <!-- Inherit Product View to remove tax -->
+        <record model="ir.ui.view" id="view_product_product_inherit_bh_sale">
+            <field name="name">view.sale.product.product.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+            	  <field name="taxes_id" position="attributes">
+			   		<attribute name="string">Customer VAT</attribute>
+				 </field>
+				<field name="supplier_taxes_id" position="attributes">
+			   		<attribute name="string">Vendor VAT</attribute>
+				</field>
+            </field>
+        </record>
+     </data>
+</odoo>

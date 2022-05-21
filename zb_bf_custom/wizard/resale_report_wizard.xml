@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<odoo>
+	    <!-- resale report wizard view -->
+	    <record model="ir.ui.view" id="resale_report_form_view">
+	        <field name="name">resale.report.wizard.form.view</field>
+	        <field name="model">resale.report.wizard</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Resale Report" version="7.0">
+	                <group>
+	                    <group>
+	                        <field name="from_date" required="1"/>
+	                        <field name="to_date" required="1"/>
+	                    </group>
+	                </group>
+	                <footer>
+	                    <button name="print_resale_report" string="Print" type="object" class="oe_highlight" />
+	                    or
+	                    <button string="Cancel" class="oe_link" special="cancel" />
+	                </footer>
+	            </form>
+	        </field>
+	    </record>
+	    
+	    
+	    <!-- Resale Report action-->
+	    <record id="resale_report_action" model="ir.actions.act_window">
+	        <field name="name">Resale Report</field>
+	        <field name="res_model">resale.report.wizard</field>
+	        <field name="view_mode">form</field>
+	        <field name="target">new</field>
+	    </record>
+	    
+	    
+	    <!-- Resale Report Menuitem -->
+	    
+	    <!-- <menuitem id="menu_resale_report" 
+		    name="Resale Report" 
+		    sequence="1" 
+		    parent="menu_tenant_deposit_wiz_parent_view" 
+		    action="resale_report_action" /> -->
+		    
+		    
+	</odoo>

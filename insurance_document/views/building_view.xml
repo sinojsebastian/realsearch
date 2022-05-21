@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+    
+		<!-- zbbm.building.form.inherit -->
+		<record model="ir.ui.view" id="zbbm_building_form_inherited_view_ins">
+    		<field name="name">zbbm_building_form_inherit_view_bf</field>
+    		<field name="model">zbbm.building</field>
+    		<field name="inherit_id" ref="zb_building_management.view_building_form"/>
+	    		<field name="arch" type="xml">
+	    			<xpath expr="//page[4]" position="after">
+	    				<page string="Documents">
+							<field name="insurance_document_ids" nolabel="1">
+	                            <tree string="Documents" editable="bottom">
+	                            	<field name="insurance_document_type"/>
+	                            	<field name="document_number"/>
+	                                <field name="insurer_partner_id"/>
+	                                <field name="start_date"/>
+	                                <field name="end_date"/>
+	                                <field name="insured_value"/>
+	                                <field name="state"/>
+	                            </tree>
+	             		    </field>
+	             		 </page>
+	    			</xpath>
+	    		</field>
+	     </record>
+	
+    </data>
+</odoo>

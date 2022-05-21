@@ -1,0 +1,187 @@
+<odoo>
+    <data>
+    
+    
+    <record model="ir.ui.view" id="view_insurance_document_tree">
+      <field name="name">insurance.document.tree</field>
+      <field name="model">insurance.document</field>
+	      <field name="arch" type="xml">
+		        <tree string="Insurance Documents">
+		          <field name="document_number"/>
+		          <field name="insurer_partner_id"/>
+		          <field name='building_id'/>
+		          <field name='start_date' />
+		          <field name='end_date'/>
+		          <field name="state"/>
+		          <field name="insured_value"/>
+		          <button name="action_state_active" string="Active" type="object" icon="fa-check-circle" states="new"/>
+		          <button name="action_state_expired" string="Expired" type="object" icon="fa-times" states="active"/>
+		          <button name="action_state_renewed" string="Renewed" type="object" icon="fa-refresh" states="expired"/>
+		          <button name="action_state_reactivate" string="Reactivate" type="object" icon="fa-reply" states="renewed"/>
+		          <button name="action_state_cancel" string="Cancel" type="object" icon="fa-times-circle" states="active,renewed,expired"/>
+		        </tree>
+	      </field>
+    </record>
+    
+    
+    <record model="ir.ui.view" id="view_insurance_document_calendar">
+        <field name="name">insurance.document.calendar</field>
+        <field name="model">insurance.document</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar string="Document" color="insurer_partner_id" mode="month" date_start="end_date" date_stop="end_date">
+                  <field name="document_number"/>
+                  <field name='end_date'/>
+            </calendar>
+        </field>
+    </record>
+
+
+    <record model='ir.ui.view' id='view_insurance_document_form'>
+        <field name='name'>insurance.document.form</field>
+        <field name='model'>insurance.document</field>
+        <field name='arch' type='xml'>
+            <form string='Insurance Document Form'>
+            <header>
+            	<field name="state" widget="statusbar" statusbar_visible="new,active,expired,renewed,cancel" statusbar_colors='{"new":"blue","expired":"red","active":"green"}'/>
+                <button string="Active" name="action_state_active" states="new" type="object"  class="btn-primary" attrs="{'invisible': [('state', '!=', ['new','expired','renewed','cancel'])]}" />
+                <button string="Expired" name="action_state_expired" states="active" type="object" class="btn-primary" style="background:red;color: white;border-color:red;"  attrs="{'invisible': [('state', '!=', ['new','expired','cancel','renewed'])]}"/>
+                <button string="Renewed" name="action_state_renewed" states="expired" type="object" attrs="{'invisible': [('state', '!=', ['new', 'active','cancel','renewed'])]}" class="btn-primary"/>
+                <button string="Reactivate" name="action_state_reactivate" states="renewed" type="object" attrs="{'invisible': [('state', '!=', ['new', 'active','expired','cancel'])]}" class="btn-primary" />
+                <button string="Cancel" name="action_state_cancel" states="active,renewed,expired" type="object" attrs="{'invisible': [('state', 'in', 'cancel')]}"/>
+            </header>
+                <sheet>
+                	<group>
+                		 <group>
+		                	 <field name='document_number'/>
+		                     <field name='insurer_partner_id'/>
+		                     <field name='start_date'/>
+		                 </group>
+		                 <group>
+		                 	 <field name="insurance_document_type"/>
+		                 	 <field name="building_id"/>
+		                 	 <field name='end_date'/>
+		                 </group>
+                	</group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    
+    <record id="view_insurance_document_search" model="ir.ui.view">
+        <field name="name">Insurance Documents</field>
+        <field name="model">insurance.document</field>
+        <field name="arch" type="xml">
+            <search string="Documents">
+                <field name='insurer_partner_id'/>
+                <field name="building_id"/>
+                <field name="document_number"/>
+                <field name="insurance_document_type"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                        <filter string="Building" name="building_id" domain="" context="{'group_by':'building_id'}"/>
+                        <filter string="Status" name="status" domain="" context="{'group_by':'state'}"/>
+                        <filter string="Insurance Document Type" name="insurance_document_type" domain="" context="{'group_by':'insurance_document_type'}"/>
+                </group>
+                <group string="Period">
+	                <!-- <filter string="Current Month" name="current_month" domain="[('end_date','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('end_date','&gt;=',time.strftime('%%Y-%%m-01'))]" help="Current month"/>
+	                <filter icon="terp-go-month" string="1 month" name="first_month" separator="1"
+		                 domain="[('end_date','&lt;=', (context_today()+relativedelta(day=31, months=1)).strftime('%Y-%m-%d')),
+		                 ('end_date','&gt;=',(context_today()+relativedelta(day=1,months=1)).strftime('%Y-%m-%d'))]"
+		                 help="after 1 month"/>
+	                <filter icon="terp-go-month" string="2 month" name="second_month"  separator="1"
+		                 domain="[('end_date','&lt;=', (context_today()+relativedelta(day=31, months=2)).strftime('%Y-%m-%d')),
+		                 ('end_date','&gt;=',(context_today()+relativedelta(day=1,months=2)).strftime('%Y-%m-%d'))]"
+		                 help="after 2 month"/>
+	                <filter icon="terp-go-month" string="3 month" name="third_month"  separator="1"
+		                 domain="[('end_date','&lt;=', (context_today()+relativedelta(day=31, months=3)).strftime('%Y-%m-%d')),
+		                 ('end_date','&gt;=',(context_today()+relativedelta(day=1,months=3)).strftime('%Y-%m-%d'))]"
+		                 help="after 3 month"/> -->
+		           <filter string="Current Month" name="current_month" domain="[('end_date','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('end_date','&gt;=',time.strftime('%%Y-%%m-01'))]" help="Current month"/>
+	                <filter icon="terp-go-month" string="1 month" name="first_month" separator="1"
+		                 domain="[('end_date','&lt;=', (context_today()+relativedelta(day=31, months=1)).strftime('%Y-%m-%d')),('end_date','&gt;=',time.strftime('%%Y-%%m-01'))]"
+		                 help="after 1 month"/>
+	                <filter icon="terp-go-month" string="2 month" name="second_month"  separator="1"
+		                 domain="[('end_date','&lt;=', (context_today()+relativedelta(day=31, months=2)).strftime('%Y-%m-%d')),('end_date','&gt;=',time.strftime('%%Y-%%m-01'))]"
+		                 help="after 2 month"/>
+	                <filter icon="terp-go-month" string="3 month" name="third_month"  separator="1"
+		                 domain="[('end_date','&lt;=', (context_today()+relativedelta(day=31, months=3)).strftime('%Y-%m-%d')),('end_date','&gt;=',time.strftime('%%Y-%%m-01'))]"
+		                 help="after 3 month"/>
+                </group>
+                <separator string="Status"/>
+                <group string ="Status">
+                    <filter string="New" domain="[('state', '=', 'new')]" name="new"/>
+                    <filter string="Active" domain="[('state', '=', 'active')]" name="active"/>
+                    <filter string="Expired" domain="[('state', '=', 'expired')]" name="expired"/>
+                    <filter string="Cancel" domain="[('state', '=', 'cancel')]" name="cancel"/>
+                    <filter string="Renewed" domain="[('state', '=', 'new')]" name="renewed"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+    <record id='action_insurance_document' model='ir.actions.act_window'>
+        <field name='name'>Documents</field>
+        <field name='res_model'>insurance.document</field>
+        <field name='view_mode'>tree,calendar,form</field>
+         <field name="view_id" ref="view_insurance_document_tree"/>
+        <field name="search_view_id" ref="view_insurance_document_search"/>
+        <field name="context">{'search_default_third_month':True}</field>
+    </record>
+    
+    
+    		  
+    <menuitem name="Documents" 
+    		  id="menu_insurance_document" 
+    		  parent="zb_building_management.menu_zbbm_root" 
+    		  sequence="3" 
+              action="action_insurance_document"/>
+              
+              
+     
+     
+     
+    <record model="ir.ui.view" id="view_insurance_document_type_tree">
+      <field name="name">insurance.document.type.tree</field>
+      <field name="model">insurance.document.type</field>
+	      <field name="arch" type="xml">
+		        <tree string="Insurance Document Type">
+		         	<field name="name"/>
+		        </tree>
+	      </field>
+    </record>
+    
+    
+      <record model="ir.ui.view" id="view_insurance_document_type_from">
+      <field name="name">insurance.document.type.form</field>
+      <field name="model">insurance.document.type</field>
+	      <field name="arch" type="xml">
+		        <form string="Insurance Document Type">
+		        	 <sheet>
+	                	<group>
+	                		 <group>
+			                	 <field name="name"/>
+			                 </group>
+	                	</group>
+	                </sheet>
+		        </form>
+	      </field>
+    </record>
+    
+    
+    
+    <record id='action_insurance_document_type' model='ir.actions.act_window'>
+        <field name='name'>Insurance Document Type</field>
+        <field name='res_model'>insurance.document.type</field>
+        <field name='view_mode'>tree,form</field>
+        <field name="view_id" ref="view_insurance_document_type_tree"/>
+    </record>
+    
+    
+    
+    
+    </data>
+</odoo>

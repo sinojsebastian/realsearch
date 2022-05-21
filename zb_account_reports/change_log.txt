@@ -1,0 +1,25 @@
+Version 1.4 - 06/09/2021 by Neha
+	[ZB-6835] All PDF Reports Header and Footer
+
+Version 1.3 - 08/03/2021 by Jeena
+	ZB-6589 - Receipt Voucher Adjustments
+Version 1.2 - 08/03/2021 by Neha
+	* [ZB-5576] Receipt Report Error
+
+Version 1.1 - 09/07/2020 by Rilu
+	* ZB-4272-Accounting reports Inforise formats
+
+Version 1.0 - 03/04/2020 by Dhanalakshmi
+	* ZB-3684 - zb_account_reports migration - customer invoice,vendor bill,payment_receipt migrated
+
+
+
+	
+
+
+
+
+
+	 
+
+	

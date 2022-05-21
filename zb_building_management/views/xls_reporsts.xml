@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- PV   <report
+            id="complaints_xlsx"
+            model="wiz.complaints.report"
+            string="Complaints Report"
+            report_type="xlsx"
+            name="zb_building_management.complaintsreport.xlsx"
+            file="Complaints_report.xlsx"
+            attachment_use="False"
+        /> -->
+        
+         <report
+            id="summary_all_assets_xlsx"
+            model="wiz.rentable.report"
+            string="Summary All Assets"
+            report_type="xlsx"
+            name="zb_building_management.summary_all_assets.xlsx"
+            file="Summary_all_assets"
+            attachment_use="False"
+        />
+        
+         <report
+            id="occupancy_summary_xlsx"
+            model="wiz.occupancy.summary"
+            string="Occupancy Summary Report"
+            report_type="xlsx"
+            name="zb_building_management.occupancy_summary.xlsx"
+            file="Occupancy_summary"
+            attachment_use="False"
+        />
+        
+        
+         <report
+            id="outstanding_statement_xlsx"
+            model="wiz.outstanding.statement"
+            string="Outstanding Statement Report"
+            report_type="xlsx"
+            name="zb_building_management.outstanding_statement.xlsx" 
+            file="Outstanding_statement"
+            attachment_use="False"
+        />
+        
+        
+        <report
+            id="pie_chart_xlsx"
+            model="wiz.sellablepie.report"
+            string="Sales Process Report"
+            report_type="xlsx"
+            name="zb_building_management.salesanalysis_report.xlsx"
+            file="Sales_Analysis_Report" 
+            attachment_use="False"
+        /> 
+        
+        <report
+            id="sellable_xlsx"
+            model="wiz.sellable.report"
+            string="Sales Report"
+            report_type="xlsx"
+            name="zb_building_management.sellable_report.xlsx"
+            file="Sales_Report"
+            attachment_use="False"
+        />
+        
+      
+        
+      </data>
+</odoo>     

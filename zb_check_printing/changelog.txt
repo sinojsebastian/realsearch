@@ -1,0 +1,19 @@
+10/02/2022 v 1.5 Neha
+	* [ZB-7807] Cheque Printing
+
+08/02/2022 v 1.4 Neha
+	* [ZB-7807] Cheque Printing
+
+01/02/2022 v 1.3 Neha
+	* [ZB-7807] Cheque Printing
+
+25/01/2022 v 1.2 Neha
+	* [ZB-7807] Cheque Printing
+
+13/11/2020 v 1.1 PV
+	* Migrated from odoo11 to odoo13
+	
+30/07/2020 v 1.0 Rilu
+	* Migrated from odoo11 to odoo13
+
+

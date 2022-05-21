@@ -1,0 +1,912 @@
+<odoo>
+	<data>
+		
+		<!--  Purchase Order Paper Format  -->
+		<record id="paperformat_purchase_order" model="report.paperformat">
+            <field name="name">Sale Order</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">40</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+        </record>
+	
+		<report 
+            string="Purchase Order" 
+            id="purchase.action_report_purchase_order" 
+            model="purchase.order" 
+            report_type="qweb-pdf"
+            name="purchase.report_purchaseorder" 
+            file="purchase.report_purchaseorder"
+            paperformat="zb_bf_custom.paperformat_purchase_order"
+            print_report_name="
+                (object.state in ('draft', 'sent') and 'Request for Quotation - %s' % (object.name) or
+                'Purchase Order - %s' % (object.name))" />
+
+        <report 
+            string="Request for Quotation" 
+            id="purchase.report_purchase_quotation" 
+            model="purchase.order" 
+            report_type="qweb-pdf"
+            name="purchase.report_purchasequotation" 
+            file="purchase.report_purchasequotation"
+            paperformat="zb_bf_custom.paperformat_purchase_order"
+            print_report_name="'Request for Quotation - %s' % (object.name)" />
+
+	
+		<!--  Rental Agreement Report   -->
+		<record id="paperformat_rental_agreement" model="report.paperformat">
+			<field name="name">Rental Agreement</field>
+			<field name="default" eval="True"/>
+			<field name="format">A4</field>
+			<field name="page_height">0</field>
+			<field name="page_width">0</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">10</field>
+			<field name="margin_bottom">25</field>
+			<field name="margin_left">10</field>
+			<field name="margin_right">10</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">5</field>
+			<field name="dpi">90</field>
+		</record>
+		
+		
+		<report string="Managed Agreement" 
+		id="report_rent_agreement_qweb" 
+		model="zbbm.module.lease.rent.agreement" 
+		report_type="qweb-pdf" 
+		name="zb_bf_custom.rent_agreement" 
+		file="zb_bf_custom.rent_agreement" 
+		paperformat="zb_bf_custom.paperformat_rental_agreement"/>
+		
+		<!--  Non managed lease agreement   -->
+		<record id="paperformat_lease_agreement_non_managed" model="report.paperformat">
+			<field name="name">Non Managed Lease Agreement</field>
+			<field name="default" eval="True"/>
+			<field name="format">A4</field>
+			<field name="page_height">0</field>
+			<field name="page_width">0</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">20</field>
+			<field name="margin_bottom">30</field>
+			<field name="margin_left">8</field>
+			<field name="margin_right">8</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">15</field>
+			<field name="dpi">90</field>
+		</record>
+		<report string="Non Managed Lease Agreement" 
+		id="report_non_managed_lease_agreement" 
+		model="zbbm.module.lease.rent.agreement" 
+		report_type="qweb-pdf" 
+		name="zb_bf_custom.non_managed_lease_agreement" 
+		file="zb_bf_custom.non_managed_lease_agreement" 
+		paperformat="zb_bf_custom.paperformat_lease_agreement_non_managed"/>
+		
+		<!--Receipt Voucher Report -->
+	  <record id="paperformat_receipt_voucher" model="report.paperformat">
+            <field name="name">Receipt Voucher</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">65</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+      </record>
+	  <report 
+            string="Receipt Voucher Report" 
+            id="report_receipt_voucher_qweb" 
+            model="account.payment" 
+            report_type="qweb-pdf"
+            name="zb_bf_custom.receipt_voucher_report" 
+            file="zb_bf_custom.receipt_voucher_report"
+            paperformat="zb_bf_custom.paperformat_receipt_voucher"
+
+        />
+        
+     <!--Payment Voucher Voucher Report -->
+	  <record id="paperformat_payment_voucher" model="report.paperformat">
+            <field name="name">Payment Voucher</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">85</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+      </record>
+	  <report 
+            string="Payment Voucher Report" 
+            id="report_payment_voucher_qweb" 
+            model="account.payment" 
+            report_type="qweb-pdf"
+            name="zb_bf_custom.payment_voucher_report" 
+            file="zb_bf_custom.payment_voucher_report"
+            paperformat="zb_bf_custom.paperformat_payment_voucher"
+
+        />
+     <!-- Rent Invoice Report -->
+     
+     <record id="paperformat_rent_invoice" model="report.paperformat">
+            <field name="name">Rent Invoice</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">65</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+      </record>
+	  <report 
+            string="Rent Invoice" 
+            id="report_rent_invoice_qweb" 
+            model="account.move" 
+            report_type="qweb-pdf"
+            name="zb_bf_custom.rent_invoice_report" 
+            file="zb_bf_custom.rent_invoice_report"
+            paperformat="zb_bf_custom.paperformat_rent_invoice"
+
+        />
+     	
+     	<!-- Commission invoice Report  -->
+		<record id="paperformat_comm_invoice" model="report.paperformat">
+			<field name="name">Commission Invoice</field>
+			<field name="default" eval="True"/>
+			<field name="format">A4</field>
+			<field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">65</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+		</record>
+		
+		
+		<record id="paperformat_tax_invoice" model="report.paperformat">
+			<field name="name">Tax Invoice</field>
+			<field name="default" eval="True"/>
+			<field name="format">A4</field>
+			<field name="page_height">0</field>
+			<field name="page_width">0</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">50</field>
+			<field name="margin_bottom">23</field>
+			<field name="margin_left">5</field>
+			<field name="margin_right">5</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">50</field>
+			<field name="dpi">90</field>
+		</record>
+		<report string="Tax Invoice" id="report_tax_invoice" model="account.move" report_type="qweb-pdf" name="zb_bf_custom.tax_invoice_report" file="zb_bf_custom.tax_invoice_report" paperformat="zb_bf_custom.paperformat_tax_invoice"/>
+        
+        
+        <report string="Commission Invoice" 
+        id="report_commission_invoice" 
+        model="account.move" 
+        report_type="qweb-pdf" 
+        name="zb_bf_custom.commission_invoice_report" 
+        file="zb_bf_custom.commission_invoice_report" 
+        paperformat="zb_bf_custom.paperformat_comm_invoice"/>
+        
+        
+        
+     
+      <!--Payment Advice Report  -->
+     
+       <record id="paperformat_payment_advice" model="report.paperformat">
+            <field name="name">Payment Advice</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+      </record>
+	  <report 
+            string="Payment Advice Report" 
+            id="report_payment_invoice_qweb" 
+            model="account.payment" 
+            report_type="qweb-pdf"
+            name="zb_bf_custom.payment_advice_report" 
+            file="zb_bf_custom.payment_advice_report"
+            paperformat="zb_bf_custom.paperformat_payment_advice"
+
+        />
+     
+     
+     	<!--Debit note Report -->
+	  <record id="paperformat_debit_note" model="report.paperformat">
+            <field name="name">Debit Note</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">65</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">60</field>
+            <field name="dpi">90</field>
+      </record>
+	  <report 
+            string="Debit Note" 
+            id="report_debit_note" 
+            model="account.move" 
+            report_type="qweb-pdf"
+            name="zb_bf_custom.debit_note_report" 
+            file="zb_bf_custom.debit_note_report"
+            paperformat="zb_bf_custom.paperformat_debit_note"
+
+        />
+      <!-- Owner Rental Statement Report -->
+     	
+     	<record id="paperformat_owner_rental" model="report.paperformat">
+            <field name="name">Owner Rental Statement</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">45</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+     	 </record>
+	  <report 
+            string="Owner Rental Statement" 
+            id="report_owner_qweb" 
+            model="zbbm.unit" 
+            report_type="qweb-pdf"
+            name="zb_bf_custom.report_owner_statement" 
+            file="zb_bf_custom.report_owner_statement"
+            paperformat="zb_bf_custom.paperformat_owner_rental"
+			menu="False"
+        />
+     
+     <!-- Suppiler Statement Report -->
+     
+     	<report 
+            string="Supplier Statement" 
+            id="report_supplier_statement_xlsx" 
+            model="zb_bf_custom.supplier.statement.report" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_supplier_statement" 
+            file="Supplier Wise Statement Report"
+            menu="False" />
+            
+       <!--  Leasing details Report  -->
+		<report string="Leasing Details Report" 
+		id="report_leasing_details_xlsx" 
+		model="wiz.leasing.details.report" 
+		report_type="xlsx" 
+		name="zb_bf_custom.report_leasing_details" 
+		file="Leasing Details Report" 
+		menu="False"/>
+
+
+        <!--  Tenant Deposit Report  -->
+        <report string="Tenant Deposit" 
+        id="report_tenant_deposit_xlsx" 
+        model="wiz.tenant.deposit.report" 
+        report_type="xlsx" 
+        name="zb_bf_custom.report_tenant_deposit_details" 
+        file="Tenant Deposit Details Report" 
+        menu="False"/>
+
+
+
+        <!-- Rent Outstanding Report  -->
+        <report string="Rent Outstanding Report" 
+        id="report_rent_outstanding_xlsx" 
+        model="rent.outstanding.wizard" 
+        report_type="xlsx" 
+        name="zb_bf_custom.report_rent_outstanding_details" 
+        file="Rent Outstanding Report" 
+        menu="False"/>
+            
+       <!-- Tenant Master Report -->
+     
+     	<report 
+            string="Tenant Master" 
+            id="report_tenant_master_report_xlsx" 
+            model="wiz.tenant.master.report" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_tenant_master" 
+            file="Tenant Master"
+            menu="False" />
+            
+       <!--Owner Master Report  -->
+     		<report 
+            string="Owner Master" 
+            id="report_owner_master_report_xlsx" 
+            model="wiz.owner.master.report" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_owner_master" 
+            file="Owner Master"
+            menu="False" />
+            
+      <!-- EWA Master Report  -->
+        <report 
+            string="EWA Master Report" 
+            id="report_ewa_master_report_xlsx" 
+            model="wiz.ewa.master.report" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_ewa_master" 
+            file="EWA Master Report"
+            menu="False"/>
+            
+            
+           <report 
+            string="Building Wise Income Statement Report" 
+            id="report_building_income_statement" 
+            model="building.income.statement.wizard" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_building_income_statement" 
+            file="Building Wise Income Statement Report"
+            menu="False"/>
+            
+            <!-- Building Wise Movement Analysis Report  -->
+     
+     	<report 
+            string="Building Wise Movement Analysis Report " 
+            id="report_building_move_analysis_xlsx" 
+            model="wiz.service.charge.outstanding" 
+            report_type="xlsx"
+            name="zb_bf_custom.service_charge_outstanding_report" 
+            file="Service Charge Outstanding Movement Analysis-Building Wise"
+            menu="False" />
+            
+       <!-- Tenantwise EWA Excess Report  --> 
+        <report 
+            string="Tenantwise EWA Excess Report" 
+            id="report_tenant_ewa_excess_report_xlsx" 
+            model="wiz.tenant.ewa.excess.report" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_tenant_ewa_excess" 
+            file="Tenantwise EWA Excess Report"
+            menu="False"/>
+            
+            
+         <report 
+            string="Collection Report" 
+            id="report_colection_report" 
+            model="collection.report.wizard" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_colection_report" 
+            file="CollectionReport"
+            />
+            
+        <!-- Building-wise EWA Common Area Report  --> 
+        <report 
+            string="EWA Common Area Report" 
+            id="report_ewa_ca_report_xlsx" 
+            model="wiz.ewa.common.area.report" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_ewa_ca" 
+            file="EWA Common Area Report"
+            menu="False"/>
+            
+         <!-- Building-Wise Owner Outstanding/Detail/Summary Report -->    
+          <report 
+            id="report_building_owner_outstanding_xlsx" 
+            string="Building Wise Owner Outstanding / Detail / Summary Report" 
+            model="building.owner.outstanding.wizard" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_building_owner_outstanding" 
+            file="Building Wise Owner Outstanding Detail Summary Report"
+            menu="False"/>         
+	
+	<report 
+            string="BuildingWise Internet Report" 
+            id="report_building_internet" 
+            model="building.internet.wizard" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_building_internet_report" 
+            file="BuildingWiseInternetReport"
+            />
+
+
+        </data>
+        
+        <!-- Buildingwise EWA Account Report  --> 
+        <report 
+            string="Buildingwise EWA Account Report" 
+            id="report_building_ewa_account_report_xlsx" 
+            model="building.wise.ewa.account.wiz" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_building_ewa_account" 
+            file="EWA Account Summary"
+            menu="False"/>
+            
+        
+        <!-- Commission Deduction on Contract Termination Report --> 
+        <report 
+            string="Commission Deduction on Contract Termination Report" 
+            id="report_contract_commission_deduction" 
+            model="contract.commission.deduction.wizard" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_commission_deduction_contract" 
+            file="CommissionDeductiononContractTerminationReport"
+            />
+            
+        <!-- Customer Call Center Division Report --> 
+        <report 
+            string="Customer Call Center Division Report" 
+            id="report_call_center_division_report" 
+            model="wiz.call.center.report" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_call_center" 
+            file="Customer Call Center Division Report"
+            />
+        
+        <!-- Product wise movement Report --> 
+        <report 
+            string="Product Wise Movement Report" 
+            id="report_pdt_wise_movement_report" 
+            model="wiz.product.wise.movement" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_pdt_wise_movement" 
+            file="Product Wise Movement Report"
+            />
+            
+         <!-- EWA / Batelco Internet Invoice Report --> 
+        <!-- <report 
+            string="EWA / Batelco Internet Invoice Report" 
+            id="report_ewa_internet_invoice" 
+            model="account.payment" 
+            report_type="qweb-pdf"
+            name="zb_bf_custom.report_ewa_internet_inv" 
+            file="zb_bf_custom.report_ewa_internet_inv"
+            menu="False"/> -->
+            
+            
+       <!-- EWA / Batelco Internet Invoice Report --> 
+        
+        <record id="paperformat_ewa_internet_invoice" model="report.paperformat">
+            <field name="name">EWA/Batelco Internet Invoice</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">25</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+     	 </record>
+        
+        
+        
+        <report 
+            string="EWA / Batelco Internet Invoice Report" 
+            id="report_ewa_internet_batelco_invoice" 
+            model="account.payment" 
+            report_type="qweb-pdf"
+            name="zb_bf_custom.report_ewa_internet_batelco_inv" 
+            file="zb_bf_custom.report_ewa_internet_batelco_inv"
+            paperformat="zb_bf_custom.paperformat_ewa_internet_invoice"
+            menu = "False"
+            />
+            
+            
+            
+            <!-- Owner Rental Statement Report -->
+     	
+     	<record id="paperformat_owner_rental_statement" model="report.paperformat">
+            <field name="name">Owner Rental Statement</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">41</field>
+            <field name="margin_bottom">43</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">41</field>
+            <field name="dpi">90</field>
+     	 </record>
+         
+         
+         
+         <report 
+            string="Owner Rental Statement" 
+            id="report_owner_rental_statement_qweb" 
+            model="owner.rental.statement.wizard" 
+            report_type="qweb-pdf"
+            name="zb_bf_custom.report_owner_rentalstatement" 
+            file="zb_bf_custom.report_owner_rentalstatement"
+            paperformat="zb_bf_custom.paperformat_owner_rental_statement"
+        />
+        
+        <!-- project wise income statement report -->
+        
+        <report 
+            string="Project Wise Income Statement Report" 
+            id="report_project_wise_income_statement" 
+            model="proect.wise.income.stmnt.wiz" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_project_income_statement" 
+            file="Project Wise Income Statement Report"
+            menu="False"/>
+            
+        <!-- service charge report -->
+        
+        <report 
+            string="Service Charge Report" 
+            id="report_service_charge_collection" 
+            model="wiz.service.charge.collection" 
+            report_type="xlsx"
+            name="zb_bf_custom.report_service_charge_report" 
+            file="Service Charge Report"
+            menu="False"
+            />
+            
+       <!-- Lease Agreement Sheet report -->
+        
+        <!--  Rental Agreement Sheet Report   -->
+		<record id="paperformat_rental_agreement_sheet" model="report.paperformat">
+			<field name="name">Rental Agreement</field>
+			<field name="default" eval="True"/>
+			<field name="format">A4</field>
+			<field name="page_height">0</field>
+			<field name="page_width">0</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">20</field>
+			<field name="margin_bottom">20</field>
+			<field name="margin_left">10</field>
+			<field name="margin_right">10</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">15</field>
+			<field name="dpi">90</field>
+		</record>
+        <report 
+            string="Lease Agreement Sheet" 
+            id="report_lease_agreement_sheet" 
+            model="zbbm.module.lease.rent.agreement" 
+            report_type="qweb-pdf"
+            name="zb_bf_custom.lease_agreement_sheet" 
+            file="zb_bf_custom.lease_agreement_sheet"
+             paperformat="zb_bf_custom.paperformat_rental_agreement_sheet"
+            />
+            
+            <!-- Resale Report -->
+            
+           <record id="paperformat_resale_report" model="report.paperformat">
+			<field name="name">Resale</field>
+			<field name="default" eval="True"/>
+			<field name="format">A4</field>
+			<field name="page_height">0</field>
+			<field name="page_width">0</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">57</field>
+			<field name="margin_bottom">20</field>
+			<field name="margin_left">15</field>
+			<field name="margin_right">15</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">32</field>
+			<field name="dpi">90</field>
+		</record>
+           
+           
+           
+           
+           
+           
+           
+           
+            <report 
+            string="Resale Report" 
+            id="report_resale_report" 
+            model="zbbm.unit" 
+            report_type="qweb-pdf"
+            name="zb_bf_custom.report_resale_new" 
+            file="Report On Resale"
+            paperformat="zb_bf_custom.paperformat_resale_report"
+            groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+            
+            <!--  Renewal Agreement Report   -->
+		<record id="paperformat_renewal_agreement" model="report.paperformat">
+			<field name="name">Renewal Agreement</field>
+			<field name="default" eval="True"/>
+			<field name="format">A4</field>
+			<field name="page_height">0</field>
+			<field name="page_width">0</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">10</field>
+			<field name="margin_bottom">25</field>
+			<field name="margin_left">10</field>
+			<field name="margin_right">10</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">10</field>
+			<field name="dpi">90</field>
+		</record>
+		
+		
+		<report string="Renewal Agreement" 
+		id="report_renewal_agreement_qweb" 
+		model="zbbm.module.lease.rent.agreement" 
+		report_type="qweb-pdf" 
+		name="zb_bf_custom.renewal_agreement" 
+		file="zb_bf_custom.renewal_agreement" 
+		paperformat="zb_bf_custom.paperformat_renewal_agreement"/>
+		
+		<!-- Customer call center feedback report -->
+		
+		<record id="paperformat_customer_call_center_feedback" model="report.paperformat">
+            <field name="name">Customer Call Center Feedback</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">45</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">30</field>
+            <field name="dpi">90</field>
+     	</record>
+	  <report 
+            string="Customer Call Center Feedback" 
+            id="report_helpdesk_feedback" 
+            model="wiz.helpdesk.feedback.report" 
+            report_type="qweb-pdf"
+            name="zb_bf_custom.helpdesk_feedback_report" 
+            file="zb_bf_custom.helpdesk_feedback_report"
+            paperformat="zb_bf_custom.paperformat_customer_call_center_feedback"
+			menu="False"
+        />
+		
+            <!--   Management Contract Report    -->
+			<record id="paperformat_management_contract" model="report.paperformat">
+				<field name="name">Management Contract</field>
+				<field name="default" eval="True"/>
+				<field name="format">A4</field>
+				<field name="page_height">0</field>
+				<field name="page_width">0</field>
+				<field name="orientation">Portrait</field>
+				<field name="margin_top">20</field>
+				<field name="margin_bottom">30</field>
+				<field name="margin_left">8</field>
+				<field name="margin_right">8</field>
+				<field name="header_line" eval="False"/>
+				<field name="header_spacing">50</field>
+				<field name="dpi">90</field>
+			</record>
+			<report string="Management Contract" 
+				id="report_management_contract_qweb" 
+				model="zbbm.module" 
+				report_type="qweb-pdf"
+				name="zb_bf_custom.management_contract"
+				file="zb_bf_custom.management_contract"
+				paperformat="zb_bf_custom.paperformat_management_contract"/>
+        
+
+				 <!--   Management Fee Invoice Report    -->
+			<record id="paperformat_management_fee_invoice" model="report.paperformat">
+				<field name="name">Management Fee Invoice Report</field>
+				<field name="default" eval="True"/>
+				<field name="format">A4</field>
+				<field name="page_height">0</field>
+				<field name="page_width">0</field>
+				<field name="orientation">Portrait</field>
+				<field name="margin_top">50</field>
+				<field name="margin_bottom">65</field>
+				<field name="margin_left">5</field>
+				<field name="margin_right">5</field>
+				<field name="header_line" eval="False"/>
+				<field name="header_spacing">50</field>
+				<field name="dpi">90</field>
+			</record>
+			<report string="Management Fee Invoice" 
+				id="report_management_fee_invoice_qweb" 
+				model="account.move" 
+				report_type="qweb-pdf"
+				name="zb_bf_custom.management_fee_invoice_report"
+				file="zb_bf_custom.management_fee_invoice_report"
+				paperformat="zb_bf_custom.paperformat_management_fee_invoice"/>
+
+
+
+            <!-- Tenant Deposit Invoice Report -->
+     
+        <record id="paperformat_tenant_deposit_invoice" model="report.paperformat">
+            <field name="name">Tenant Deposit Invoice</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">65</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+        </record>
+	    <report 
+            string="Tenant Deposit Invoice" 
+            id="report_tenant_deposit_invoice_qweb" 
+            model="account.move" 
+            report_type="qweb-pdf"
+            name="zb_bf_custom.tenant_advance_deposit_invoice" 
+            file="zb_bf_custom.tenant_advance_deposit_invoice"
+            paperformat="zb_bf_custom.paperformat_tenant_deposit_invoice"
+
+        />
+        
+        <record id="new_paperformat_delivery_report"
+            model="report.paperformat">
+            <field name="name">Delivery Report</field>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+        </record>
+		
+		
+		 <report
+            string="Delivery Slip"
+            id="stock.action_report_delivery"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="stock.report_deliveryslip"
+            file="stock.report_deliveryslip"
+            print_report_name="'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"
+            paperformat="zb_bf_custom.new_paperformat_delivery_report"/>
+            
+            
+        <record id="new_paperformat_picking_operations"
+            model="report.paperformat">
+            <field name="name">Picking Operations</field>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+        </record>
+        
+        
+        <report
+            string="Picking Operations"
+            id="stock.action_report_picking"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="stock.report_picking"
+            file="stock.report_picking_operations"
+            print_report_name="'Picking Operations - %s - %s' % (object.partner_id.name or '', object.name)"
+            paperformat="zb_bf_custom.new_paperformat_picking_operations"
+        />
+        
+        <record id="new_paperformat_purchase_order"
+            model="report.paperformat">
+            <field name="name">Purchase Order</field>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+        </record>
+        
+        <report 
+            string="Purchase Order" 
+            id="purchase.action_report_purchase_order" 
+            model="purchase.order" 
+            report_type="qweb-pdf"
+            name="purchase.report_purchaseorder" 
+            file="purchase.report_purchaseorder"
+            print_report_name="
+                (object.state in ('draft', 'sent') and 'Request for Quotation - %s' % (object.name) or
+                'Purchase Order - %s' % (object.name))"
+            paperformat="zb_bf_custom.new_paperformat_purchase_order"
+        />
+
+        <record id="new_paperformat_purchase_rfq"
+            model="report.paperformat">
+            <field name="name">Request for Quotation</field>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+        </record>
+        
+        <report 
+            string="Request for Quotation" 
+            id="purchase.report_purchase_quotation" 
+            model="purchase.order" 
+            report_type="qweb-pdf"
+            name="purchase.report_purchasequotation" 
+            file="purchase.report_purchasequotation"
+            print_report_name="'Request for Quotation - %s' % (object.name)"
+            paperformat="zb_bf_custom.new_paperformat_purchase_rfq"
+        />
+
+        <!--    BF Rental Reports    -->
+
+        <report
+            string="BF Rental Reports"
+            id="bf_rental_reports_xlsx"
+            model="wiz.bf.rental.report"
+            report_type="xlsx"
+            name="zb_bf_custom.bf.rental.report"
+            file="BF Rental Report"
+            menu="False" />
+				 
+</odoo>
+     
+	
+        
+
+	 

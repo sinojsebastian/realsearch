@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data>
+		
+	   <!-- Service tree and form views -->
+	    
+	 <record id="view_service_tree" model="ir.ui.view">
+        <field name="name">zbbm.services.tree</field>
+        <field name="model">zbbm.services</field>
+        <field name="arch" type="xml">
+            <tree string="Services">
+                 <field name="product_id" domain="[('type', '=', 'service')]"/>
+                 <field name="bill"/>
+                 <field name="owner_share"/>
+                 <field name="tenant_share"/>
+	       </tree>
+	     </field>
+	  </record>     
+	
+	
+	    <record id="view_service_form" model="ir.ui.view">
+	        <field name="name">zbbm.services.form</field>
+	        <field name="model">zbbm.services</field>
+	        <field name="arch" type="xml">
+	            <form string="Services">
+		              <sheet>
+		                 <group>
+		                     <group>
+				                 <field name="product_id" domain="[('type', '=', 'service')]" required="1"/>
+				                 <field name="account_no"/>
+				                 <field name="bill"/>
+				                 <field name="managed_by_rs"/>
+				                 <field name="ewa"/>
+				                 <field name="owner_id"/>
+				                 <field name="from_date"/>
+				                 <field name="to_date"/>
+		                     </group>
+		                     <group>
+		                     	 <field name="initial_connection_date"/>
+		                     	 <field name="tenant_upgrade_date"/>
+		                     	 <field name="lease_agreement_id"/>
+		                     	 <field name="module_id"/>
+		                     	 <field name="building_id"/>
+		                     	 <field name="osn_extra_charge"/>
+		                      	 <field name="owner_share"/>
+				                 <field name="tenant_share"/>
+		                     </group>
+		                  </group>   
+		              </sheet>
+	            </form>
+	         </field>
+	     </record>     
+	  
+	  
+	  <record id="action_service_view" model="ir.actions.act_window">
+            <field name="name">Services</field>
+            <field name="res_model">zbbm.services</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+      </record>
+     
+	   <!--  <menuitem id="menu_services" 
+		    name="Services" 
+		    sequence="10" 
+		    parent="zb_building_management.menu_zbbm_buildings" 
+		    action="action_service_view"/>
+		     -->
+		    
+		    
+		    
+		    
+		    
+		  <!--Raw Service tree and form views -->
+	    
+	 <record id="view_raw_service_tree" model="ir.ui.view">
+        <field name="name">raw.services.tree</field>
+        <field name="model">raw.services</field>
+        <field name="arch" type="xml">
+            <tree string="Service Data">
+            	 <field name='name'/>
+                 <field name="product_id" domain="[('type', '=', 'service')]"/>
+                 <field name="bill" invisible="1"/>
+                 <field name="owner_share"/>
+                 <field name="tenant_share"/>
+	       </tree>
+	     </field>
+	  </record>     
+	
+	
+	    <record id="view_raw_service_form" model="ir.ui.view">
+	        <field name="name">raw.services.form</field>
+	        <field name="model">raw.services</field>
+	        <field name="arch" type="xml">
+	            <form string="Service Data">
+		              <sheet>
+			               <div class="oe_button_box" position="inside" align="right">
+	                            <button type="object" name="action_view_invoice" class="oe_stat_button" icon="fa-pencil-square-o">
+                                 	<field name="invoices_count" widget="statinfo" string="Invoices" />
+                          		</button>
+                          		<button type="object" name="action_view_expense" class="oe_stat_button" icon="fa-pencil-square-o">
+                                 	<field name="expenses_count" widget="statinfo" string="Vendor Bills" />
+                          		</button>
+	                        </div>
+		              
+                          
+				 	
+		              		<div class="oe_title">
+                            	<h1><field name="name"/></h1>
+                        	</div>
+		                 <group>
+		                     <group>
+				                 <field name="product_id" domain="[('type', '=', 'service')]"/>
+				                 <field name="bill" invisible="1"/>
+				                 <field name="account_no" required="1"/>
+				                 <field name="bill_no" required="1"/>
+				                 <field name="type_of_service"/>
+				                 <field name="service_date"/>
+				                 <field name="due_date" invisible="1"/>
+				                 <field name="from_date"/>
+		                     </group>
+		                     <group>
+		                     	 <field name="building_id" attrs="{'invisible': [('building_id', '==', False)]}"/>
+		                     	 <field name="lease_agreement_id" attrs="{'invisible': [('lease_agreement_id', '==', False)]}"/>
+		                     	 <field name="module_id" attrs="{'invisible': [('building_id', '!=', False)]}"/>
+		                     	 <field name="area" attrs="{'invisible': [('building_id', '==', False)]}"/>
+		                     	 <field name="move_id" invisible="1"/>
+		                      	 <field name="owner_share"/>
+				                 <field name="tenant_share"/>
+				                 <field name="amount"/>
+				                 <field name="to_date"/>
+		                     </group>
+		                  </group>   
+		              </sheet>
+	            </form>
+	         </field>
+	     </record>     
+	  
+	  
+	  <record id="action_raw_service_view" model="ir.actions.act_window">
+            <field name="name">Service Data</field>
+            <field name="res_model">raw.services</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+      </record>
+     
+	    <menuitem id="menu_services" 
+		    name="Service Bill Data" 
+		    sequence="11" 
+		    parent="zb_building_management.menu_zbbm_buildings" 
+		    action="action_raw_service_view"
+	     	groups="zb_building_management.group_tijaria_admin,zb_building_management.group_administrator,sales_team.group_sale_salesman_all_leads,account.group_account_invoice"/>
+     
+	  
+	</data>
+</odoo>	   		

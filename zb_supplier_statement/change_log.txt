@@ -1,0 +1,13 @@
+V 1.1 08/07/2020 by Rilu
+	* Corrected Supplier Statement Qweb Report
+
+V 1.0 03/02/2020 by Lekshmi Priya
+    *Migration from odoo11 to odoo13
+
+
+
+
+
+
+
+

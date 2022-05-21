@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Activity Tree View -->
+        <record id="activity_details_tree_view" model="ir.ui.view">
+            <field name="name">activity.details.tree.view</field>
+            <field name="model">activity.details</field>
+            <field name="arch" type="xml">
+                <tree string="Activity Details" default_order="id desc">
+                    <field name="name" />
+                    <field name="partner_id" invisible="1" />
+                    <field name="building_id" />
+                    <field name="module_id" />
+                    <field name="report_id" />
+                    <field name="client_name" />
+                    <field name="phone" />
+                    <field name="email" />
+                    <field name="create_date" />
+                    <field name="date" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <!--Activity Form View-->
+        
+        <record id="activity_details_form" model="ir.ui.view">
+            <field name="name">activity.details.form</field>
+            <field name="model">activity.details</field>
+            <field name="arch" type="xml">
+                <form string="Activity Details">
+                    <header>
+                        <field name="state" widget="statusbar" options="{'clickable': '1'}" />
+                        <button name="create_lease_agreement" string="Create Lease Agreement" type="object" states="new,schedule,follow_up,done" class="oe_highlight" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <div class="oe_button_box" position="inside" align="right">
+                            <button name="view_agreements" class="oe_stat_button" icon="fa-book" type="object">
+                                <field name="agreement_count" widget="statinfo" string="Lease Agreement" />
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <!--  <field name="activity_type_id" domain="['|', ('res_model_id', '=', False), ('res_model_id' , '=', res_model_id)]"/>-->
+                                <field name="partner_id" invisible="1" />
+                                <field name="building_id" options='{"no_create": 1, "no_create_edit": 1}' />
+                                <field name="module_id" domain="[('building_id', '=', building_id),('state','=','available')]" options='{"no_create": 1, "no_create_edit": 1}' />
+                            </group>
+                            <group>
+                                <field name="report_id" />
+                                <field name="create_date" invisible="1" />
+                                <field name="date" />
+                            </group>
+                            <separator string="Client Information" /><br />
+                            <group>
+                            	<field name="action" widget="radio"/>
+                            	<field name="client_id" attrs="{'invisible': [('action', '!=', 'existing')]}" domain="[('is_tenant', '=',True)]"/>
+                                <field name="client_name" attrs="{'invisible': [('action', '!=', 'new')]}"/>
+                                <label for="build_no" string="Client Address" />
+                                <div class="o_address_format">
+                                    <field name="build_no" placeholder="Building" class="o_address_street" />
+                                    <field name="street" placeholder="Street ..." class="o_address_street" />
+                                    <field name="road_no" placeholder="Road" class="o_address_city" />
+                                    <!-- <field name="state_id" class="o_address_state" placeholder="State" options='{"no_open": True}'/> -->
+                                    <field name="area" placeholder="Area" class="o_address_zip" />
+                                    <field name="po" placeholder="PO Box" class="o_address_zip" />
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}' />
+                                </div>
+                                <field name="phone" />
+                                <field name="mobile" />
+                                <field name="email" />
+                            </group>
+                            <notebook colspan="4">
+                                <page string="Comment">
+                                    <group>
+                                        <group>
+                                            <field name="notes" />
+                                        </group>
+                                    </group>
+                                </page>
+                                <page string="Summary">
+                                    <group>
+                                        <group>
+                                            <field name="summary" />
+                                        </group>
+                                    </group>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                        <field name="activity_ids" widget="mail_activity" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <!-- Search View -->
+
+        <record id="activity_details_search" model="ir.ui.view">
+            <field name="name">activity.details.search</field>
+            <field name="model">activity.details</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="partner_id" />
+                    <field name="building_id" />
+                    <field name="module_id" />
+                    <field name="report_id" />
+                    <field name="create_date" />
+                    <field name="date" />
+                    <field name="name" />
+                    <filter string="Today" name="this_date" domain="[('date', '=',  context_today().strftime('%Y-%m-%d'))]" />
+                    <filter string="Current Month" name="current_month" domain="[('date','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('date','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+                   <filter string="Current Week" name="Current Week" domain="[('date','&lt;',(context_today()+relativedelta(days=7)).strftime('%Y-%m-%d 23:59:59')), ('date','&gt;=',context_today().strftime('%Y-%m-%d 00:00:00'))]"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="state" string="Status" context="{'group_by':'state'}" />
+                        <filter name="partner_id" string="Customer" context="{'group_by':'partner_id'}" />
+                        <filter name="building_id" string="Building" context="{'group_by':'building_id'}" />
+                        <filter name="module_id" string="Customer" context="{'group_by':'module_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+       
+        <record id="activity_details_pivot_view" model="ir.ui.view">
+            <field name="name">activity.details.pivot</field>
+            <field name="model">activity.details</field>
+            <field name="arch" type="xml">
+                <pivot string="Rental Activity" display_quantity="true">
+                    <field name="create_date" type="row" />
+                    <field name="state" type="row" />
+                    <field name="report_id" type="row" />
+                    <field name="building_id" type="col" />
+                    <field name="module_id" type="col" />
+                    <!-- <field name="report_id" type="col"/>
+                    <field name="probability" type="measure"/> -->
+                </pivot>
+            </field>
+        </record>
+        <!-- Action View -->
+        <record id='activity_details_action' model='ir.actions.act_window'>
+            <field name="name">Rental Activity</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">activity.details</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="context">{"search_default_this_date":1}</field>
+        </record>
+        <!-- <menuitem id="menu_Activity" name="Rental Activity" action="activity_details_action"  parent="crm.crm_menu_sales"  sequence="3"/> -->
+    
+    	
+    	
+    
+    </data>
+</odoo>

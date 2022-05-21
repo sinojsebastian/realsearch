@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    <t t-name="DynamicPlgMain">
+        <div class="DynamicPlgMain">
+            <div class="FiltersSectionPlg">
+                <!--<t t-call="UserFilters"/>-->
+            </div>
+
+            <div id="loader">
+              <div id="top"></div>
+              <div id="bottom"></div>
+              <div id="line"></div>
+            </div>
+
+            <div class="ControlSectionPlg">
+                <!--<t t-call="ControlButtons"/>-->
+            </div>
+            <div class="DataSectionPlg">
+                <!--<t t-call="AccountContents"/>-->
+            </div>
+        </div>
+    </t>
+
+    <t t-name="CompanyDatefilterLinePlg">
+        <div class="row filter-row">
+            <div class="col-sm-2">
+                <p><b>Date filters</b></p>
+            </div>
+            <div class="col-sm-4 date-filters">
+            </div>
+            <div class="col-sm-2" style="visibility:hidden">
+                <p><b>Company</b></p>
+            </div>
+            <div class="col-sm-4 multi-companies" style="visibility:hidden">
+            </div>
+        </div><!-- row -->
+    </t>
+
+    <t t-name="DatefilterSelectionLinePlg">
+        <!-- Filters -->
+        <select class="dynamic-datefilter-multiple" name="states[]" multiple="multiple">
+            <option value="today">Today</option>
+            <option value="this_week">This week</option>
+            <option value="this_month">This month</option>
+            <option value="this_quarter">This quarter</option>
+            <option value="this_financial_year">This financial year</option>
+            <option value="yesterday">Yesterday</option>
+            <option value="last_week">Last week</option>
+            <option value="last_month">Last month</option>
+            <option value="last_quarter">Last quarter</option>
+            <option value="last_financial_year">Last financial year </option>
+        </select>
+    </t>
+
+    <t t-name="MultiCompaniesPlg">
+        <select class="dynamic-company-multiple" name="states[]" multiple="multiple">
+            <t t-foreach="companies" t-as="company">
+                <option t-attf-value="{{company.code}}"><t t-esc="company.name"/></option>
+                <!--<option value="AL">Sales journal</option>-->
+            </t>
+        </select>
+    </t>
+
+    <t t-name="UserFiltersPlg">
+        <div class="account_filter_plg">
+
+        </div>
+    </t>
+
+    <t t-name="ControlButtonsPlg">
+        <div class="control_buttons_pl">
+            <div class="row filter-row">
+                <div class="col-sm-4" align="left">
+                    <button id="pdf_button" type="button" class="btn btn-success"><span class="fa fa-download"/> PDF</button>
+                    <button id="xlsx_button" type="button" class="btn btn-success"><span class="fa fa-download"/> XLSX</button>
+                </div>
+                <div class="col-sm-4" align="center">
+                    <button id="filter_button" type="button" class="btn btn-success"><span class="fa fa-filter"/> Filter</button>
+                    <button id="apply_button" type="button" class="btn btn-success"><span class="fa fa-arrow-down"/> Apply</button>
+                </div>
+                <div class="col-sm-4" align="right">
+                    <button id="expand_all" type="button" class="btn btn-success"><span class="fa fa-expand"/> Expand all</button>
+                    <button id="merge_all" type="button" class="btn btn-success"><span class="fa fa-compress"/> Merge all</button>
+                </div>
+            </div>
+
+        </div>
+    </t>
+
+    <t t-name="TargetAccountsLinePlg">
+        <div class="row filter-row">
+            <div class="col-sm-2">
+                <b>Target moves</b>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="targetMoves" id="all_posted_entries" value="option1" checked="1">All posted entries</input>
+                      <input class="form-check-input" type="radio" name="targetMoves" id="all_entries" value="option2">All entries</input>
+                  </label>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <b>Partner's</b>
+            </div>
+            <div class="col-sm-4">
+                <select class="dynamic-report-type-multiple" name="states[]" multiple="multiple">
+                    <option value="rec">Receivable accounts</option>
+                    <option value="pay">Payable accounts</option>
+                    <option value="rec_and_pay">Receivable and Payable</option>
+                </select>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="DateLinePlg">
+        <div class="row filter-row">
+            <div class="col-sm-2">
+                <p><b>Start date</b></p>
+            </div>
+            <div class="col-sm-4">
+                <div class='input-group date' id='from_date_plg'>
+                    <input type='date' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <p><b>End date</b></p>
+            </div>
+            <div class="col-sm-4">
+                <div class='input-group date' id='to_date_plg'>
+                    <input type='date' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="ComparisonLinePlg">
+        <div class="row filter-row">
+            <div class="col-sm-2">
+                <b>With currency</b>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="currency" id="with_currency" value="option5">Yes</input>
+                      <input class="form-check-input" type="radio" name="currency" id="without_currency" value="option6" checked="1">No</input>
+                  </label>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <b>Reconciled Entries</b>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="reco" id="with_reco" value="option7">Yes</input>
+                      <input class="form-check-input" type="radio" name="reco" id="without_reco" value="option8" checked="1">No</input>
+                  </label>
+                </div>
+            </div>
+        </div>
+
+    </t>
+
+    <t t-name="JournalsLine">
+        <!-- Journals -->
+        <div class="row filter-row">
+            <div class="col-sm-2">
+                <b>Journals</b>
+            </div>
+            <div class="col-sm-10">
+                <div class="form-check form-check-inline">
+                    <select class="dynamic-journal-multiple" name="states[]" multiple="multiple">
+                        <t t-foreach="journals" t-as="journal">
+                            <option t-attf-value="{{journal.code}}"><t t-esc="journal.name"/>-<t t-esc="journal.short_code"/></option>
+                        </t>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="AccountContentsPlg">
+        <div class="report_header_plg">
+            <div class="col-xs-4" align="center">
+                <h3>Partner Ledger</h3>
+            </div>
+        </div>
+        <t t-set="Acc_lines" t-value="widget.result.lines"/>
+        <t t-set="data" t-value="widget.result.data"/>
+        <t t-log="data"/>
+        <div class="cont">
+
+            <div class="row mt32 mb32">
+                <div class="col-xs-4">
+                    <strong>Target Moves:</strong>
+                    <p>
+                        <span t-if="data['form']['target_move'] == 'all'">All Entries</span>
+                        <span t-if="data['form']['target_move'] == 'posted'">All Posted Entries</span>
+                    </p>
+                </div>
+                <div class="col-xs-4">
+                    <p>
+                        <t t-if="data['form']['date_from']"><strong>Date from :</strong> <span t-esc="data['form']['date_from']"/><br/></t>
+                        <t t-if="data['form']['date_to']"><strong>Date to :</strong> <span t-esc="data['form']['date_to']"/></t>
+                    </p>
+                </div>
+                <div class="col-xs-4">
+                    <p>
+                        <t t-if="data['form']['reconciled']">Reconciled : Yes<br/></t>
+                        <t t-if="!data['form']['reconciled']">Reconciled : No</t>
+                    </p>
+                </div>
+            </div>
+
+            <table class="table account-moves">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td>Date</td>
+                        <td>JRNL</td>
+                        <td>Account</td>
+                        <td>Ref</td>
+                        <td align="right">Debit</td>
+                        <td align="right">Credit</td>
+                        <td align="right">Balance</td>
+                        <t t-if="widget.result.data['form']['amount_currency']">
+                            <td align="right">Currency</td>
+                        </t>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="Acc_lines" t-as="line">
+                        <t t-if="line['main']">
+                            <tr data-toggle="collapse" class="move-line" t-attf-data-target=".A{{line['id']}}">
+                                <td><span class="fa fa-caret-right"/></td>
+                                <t t-if="line['ref']">
+                                    <td><b><t t-esc="line['ref']"/></b></td>
+                                </t>
+                                <t t-if="!line['ref']">
+                                    <td></td>
+                                </t>
+                                <td colspan="3"><b><t t-esc="line['name']"/></b></td>
+                                <td align="right"><t t-esc="widget.format_currency_with_symbol(line['debit'],line['precision'],line['symbol'],line['position'])"/></td>
+                                <td align="right"><t t-esc="widget.format_currency_with_symbol(line['credit'],line['precision'],line['symbol'],line['position'])"/></td>
+                                <td align="right"><t t-esc="widget.format_currency_with_symbol(line['debit-credit'],line['precision'],line['symbol'],line['position'])"/></td>
+                                <t t-if="widget.result.data['form']['amount_currency']">
+                                    <td align="right"></td>
+                                </t>
+                            </tr>
+                        </t>
+                        <t t-if="!line['main']">
+                            <tr t-attf-class="collapse A{{line['parent']}} move-sub-line">
+                                <td></td>
+                                <td >
+                                    <div class="dropdown">
+                                        <a data-toggle="dropdown" href="#">
+                                            <span data-id="17">
+                                                <t t-esc="line['date']"/>
+                                            </span>
+                                            <span class="caret"></span>
+                                        </a>
+                                        <span data-id="17"></span>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <t t-if="line['move_name']">
+                                                <li role="presentation">
+                                                    <a role="menuitem" class="view-source" tabindex="-1"
+                                                       action="open_document" t-att-data-move-id="line['move_id']">
+                                                        View Source move
+                                                    </a>
+                                                </li>
+                                            </t>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td><t t-esc="line['code']"/></td>
+                                <td><t t-esc="line['a_name']"/></td>
+                                <td><t t-esc="line['displayed_name']"/></td>
+                                <td align="right"><t t-esc="widget.format_currency_with_symbol(line['debit'],line['precision'],line['symbol'],line['position'])"/></td>
+                                <td align="right"><t t-esc="widget.format_currency_with_symbol(line['credit'],line['precision'],line['symbol'],line['position'])"/></td>
+                                <td align="right"><t t-esc="widget.format_currency_with_symbol(line['progress'],line['precision'],line['symbol'],line['position'])"/></td>
+                                <t t-if="widget.result.data['form']['amount_currency']">
+                                    <t t-if="line['currency_id']">
+                                        <td align="right"><t t-esc="line['currency_symbol']"/><t t-esc="line['amount_currency']"/></td>
+                                    </t>
+                                </t>
+                            </tr>
+                        </t>
+                            <!--<t t-if="sub_line.lid">-->
+                                <!--<tr t-attf-class="collapse {{line.code}} move-sub-line">-->
+                                    <!--<td></td>-->
+                                    <!--<td >-->
+                                        <!--<div class="dropdown">-->
+                                            <!--<a data-toggle="dropdown" href="#">-->
+                                                <!--<span data-id="17">-->
+                                                    <!--<t t-esc="sub_line.ldate"/>-->
+                                                <!--</span>-->
+                                                <!--<span class="caret"></span>-->
+                                            <!--</a>-->
+                                            <!--<span data-id="17"></span>-->
+                                            <!--<ul class="dropdown-menu" role="menu">-->
+                                                <!--<t t-if="sub_line.move_id">-->
+                                                    <!--<li role="presentation">-->
+                                                        <!--<a role="menuitem" class="view-source" tabindex="-1"-->
+                                                           <!--action="open_document" t-att-data-move-id="sub_line.move_id">-->
+                                                            <!--View Source move-->
+                                                        <!--</a>-->
+                                                    <!--</li>-->
+                                                <!--</t>-->
+                                                <!--<t t-if="sub_line.lref">-->
+                                                    <!--<li role="presentation">-->
+                                                        <!--<a role="menuitem" class="view-invoice" tabindex="-1"-->
+                                                           <!--action="open_document2" t-att-data-lref="sub_line.lref">-->
+                                                            <!--View Invoice-->
+                                                        <!--</a>-->
+                                                    <!--</li>-->
+                                                <!--</t>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td><t t-esc="sub_line.lcode"/></td>-->
+                                    <!--<td><t t-esc="sub_line.partner_name"/></td>-->
+                                    <!--<td><t t-esc="sub_line.lref"/></td>-->
+                                    <!--<td><t t-esc="sub_line.move_name"/></td>-->
+                                    <!--<td><t t-esc="sub_line.lname"/></td>-->
+                                    <!--<td align="center">-->
+                                        <!--<t t-if="sub_line.reconciled">-->
+                                            <!--<span>&#10004;</span>-->
+                                        <!--</t>-->
+                                        <!--<t t-if="!sub_line.reconciled">-->
+                                            <!--<span>&#10008;</span>-->
+                                        <!--</t>-->
+                                    <!--</td>-->
+                                    <!--<td align="right"><t t-esc="widget.format_currency_with_symbol(sub_line.debit,line.precision,line.currency_symbol,line.currency_position)"/></td>-->
+                                    <!--<td align="right"><t t-esc="widget.format_currency_with_symbol(sub_line.credit,line.precision,line.currency_symbol,line.currency_position)"/></td>-->
+                                    <!--<td align="right"><t t-esc="widget.format_currency_with_symbol(sub_line.balance,line.precision,line.currency_symbol,line.currency_position)"/></td>-->
+                                    <!--<t t-if="sub_line.amount_currency">-->
+                                        <!--<td align="right"><t t-esc="widget.format_currency_with_symbol(sub_line.amount_currency,sub_line.amount_currency_precision,sub_line.currency_code,sub_line.amount_currency_position)"/></td>-->
+                                    <!--</t>-->
+                                    <!--<t t-log="sub_line"/>-->
+                                <!--</tr>-->
+                            <!--</t>-->
+
+
+                        </t>
+                </tbody>
+            </table>
+
+        </div>
+
+    </t>
+
+</templates>

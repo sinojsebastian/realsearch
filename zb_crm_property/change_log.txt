@@ -1,0 +1,32 @@
+Version 0.10 15/03/2021 Neha
+	[ZB-5654]
+
+Version 0.9 12/03/2021 Jeena
+	*Version 0.8 10/03/2021 Neha
+Version 0.8 10/03/2021 Neha
+	[ZB-5649] Rental Workflow Changes
+
+Version 0.7 08/01/2021 by Neha
+	[ZB-5351]- changed probability while clicking buttons like  'call', 'followup' etc
+
+Version 0.6 08/01/2021 by Neha
+	[ZB-5164] lease and rental invoice-replaced _company_default_get function
+
+Version 0.5 06/01/2021 by Neha
+	[ZB-5201] crm lost action : error (function overided)
+
+Version 0.4 03/12/2020 by Davis
+	* 5126
+
+Version 0.3 21/10/2020 by Davis
+	* Label changes
+	* openerp code changes
+	* kanban img alt changes
+	* view issue changes
+	
+
+Version 0.2 22/09/2020 by Dayana
+	* Migrated to odoo13 from odoo11
+
+Version 0.1 21/08/2020 by Dayana
+	* Migrated to odoo13 from odoo11

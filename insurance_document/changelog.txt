@@ -1,0 +1,18 @@
+Version 0.06 - 31/07/2021 by PV
+	Solved the dp in fields
+	
+Version 0.05 - 12/01/2021 by Neha
+	correction in 1month,2month,3month filters
+
+Version 0.04 - 30/12/2020 by Dayana
+	* Added new field and created new model
+
+Version 0.03 - 24/12/2020 by Dayana
+	* ZB-5266-Feedback point by dianne chechi on 24/12/2020
+
+Version 0.02 - 21/12/2020 by Dayana
+	* ZB-5266-solved the error 
+
+Version 0.01 - 18/12/2020 by Dayana
+	* ZB-5266-Insurance Documents
+	

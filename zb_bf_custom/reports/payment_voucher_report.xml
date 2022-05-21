@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="payment_voucher_report">
+    	<t t-call="web.html_container">
+    	<t t-foreach="docs" t-as="o">
+    	<t t-call="zb_bf_custom.payment_voucher_layout">  
+    	
+              <div class="page">
+             <div class="container" style="border-bottom:none;padding:0px;margin:0px;"> 
+             <style>
+                            .border-black,td,tr{
+                            border:1px solid  #161A1D;color:black;
+                            }
+                            thead { display: table-header-group }
+				tfoot { display: table-row-group }
+				tr { page-break-inside: avoid } 
+             </style>
+             <h2 style="font-size:23px;">
+                        <center><b>Payment Voucher</b></center>
+              </h2>
+             <br></br>
+             <div class="row" style="padding-top:1cm">
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+	              <b>Payment Voucher Number</b>
+	         </div>
+	         <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-3 text-left" style="font-size:14px;">
+	              <t t-if=" o.name"><span  t-field="o.name"></span></t>
+	              <t t-if="not o.name" > 
+			      <span style="visibility: hidden;">text</span></t>
+             </div>
+             <div class="col-5"></div>
+             </div>
+              <br></br>
+             <div class="row">
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+	              <b>Payment Date</b>
+	         </div>
+	         <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-3 text-left" style="font-size:14px;width:300mm">
+	              <t t-if="o.payment_date"><span  t-field="o.payment_date"/>
+	              </t>
+	              <t t-if="not o.payment_date" > 
+			      <span style="visibility: hidden;">text</span></t>
+             </div>
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+             	<b>Payment Method</b>
+             </div>
+             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+             <div class="col-3 text-left" style="font-size:14px;width:350mm">
+             	<t t-if="o.journal_id.name">
+					<span  t-field="o.journal_id.name"></span>
+				</t>
+	            <t t-if="not o.journal_id.name" > 
+			    <span style="visibility: hidden;">text</span></t>
+             </div>
+             </div>
+             <div class="row">
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+	             <t t-if="o.partner_id.owner">
+		              <span><b>Owner Name</b></span>
+		          </t>
+		           <t t-if="not o.partner_id.owner and not o.partner_id.is_tenant">
+		           <span><b>Vendor Name</b></span>
+		           </t>
+		           <t t-if="o.partner_id.is_tenant">
+		              <span><b>Tenant Name</b></span>
+		          </t>
+	         </div>
+	         <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-3 text-left" style="font-size:14px;width:300mm">
+	              <t t-if="o.partner_id.name"><span  t-field="o.partner_id.name"></span></t>
+	              <t t-if="not o.partner_id.name" > 
+			      <span style="visibility: hidden;">text</span></t>
+             </div>
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+             	<b>Document Date</b>
+             </div>
+             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-3 text-left" style="font-size:14px;width:350mm">
+             	<t t-if="o.cheque_date"><span  t-field="o.cheque_date"></span></t>
+	            <t t-if="not o.cheque_date" > 
+			    <span style="visibility: hidden;">text</span></t>
+             </div>
+             </div>
+             <div class="row">
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+              <t t-if="o.partner_id.owner">
+		           <span><b>Owner Code</b></span>
+		      </t>
+		      <t t-if="not o.partner_id.owner and not o.partner_id.is_tenant">
+		           <span><b>Vendor Code</b></span>
+		      </t>
+	           <t t-if="o.partner_id.is_tenant">
+		           <span>Tenant Code</span>
+		      </t>   
+	         </div>
+	         <div class="col-1 text-left" style="font-size:14px;width:2mm">:
+	         </div>
+	         <div class="col-3 text-left" style="font-size:14px;width:300mm">
+	              <t t-if="o.partner_id.code"><span  t-field="o.partner_id.code"></span></t>
+	              <t t-if="not o.partner_id.code" > 
+			      <span style="visibility: hidden;">text</span></t>
+             </div>
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+             	<b>Document No</b>
+             </div>
+             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-3 text-left" style="font-size:14px;width:350mm">
+             	<t t-if="o.cheque_no"><span  t-field="o.cheque_no"></span></t>
+	            <t t-if="not o.cheque_no" > 
+			    <span style="visibility: hidden;">text</span></t>
+             </div>
+             </div>
+             <div class="row">
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+             	<t t-if="o.partner_id.owner">
+		              <span><b>Owner VAT No.</b></span>
+		       </t>
+		        <t t-if="not o.partner_id.owner and not o.partner_id.is_tenant">
+		           <span><b>Vendor VAT No.</b></span>
+		       </t>
+	            <t t-if="o.partner_id.is_tenant">
+		              <span><b>Tenant VAT No.</b></span>
+		          </t>  
+	         </div>
+	         <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-3 text-left" style="font-size:14px;width:300mm">
+	              <t t-if="o.partner_id.vat"><span  t-field="o.partner_id.vat"></span></t>
+	              <t t-if="not o.partner_id.vat" > 
+			      <span style="visibility: hidden;">text</span></t>
+             </div>
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+             	<b>Bank</b>
+             </div>
+             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-3 text-left" style="font-size:14px;width:350mm">
+             	<t t-if="o.cheque_bank_id.name"><span  t-field="o.cheque_bank_id.name"></span></t>
+	            <t t-if="not o.cheque_bank_id.name" > 
+			    <span style="visibility: hidden;">text</span></t>
+             </div>
+             </div>
+             <div class="row">
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+	              <b>Payment Amount</b>
+	         </div>
+	         <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-3 text-left" style="font-size:14px;width:300mm">
+	              <t t-if="o.amount"><span  t-field="o.amount"></span></t>
+	              <t t-if="not o.amount" > 
+			      <span style="visibility: hidden;">text</span></t>
+             </div>
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+             	<b>Payee Name</b>
+             </div>
+             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-3 text-left" style="font-size:14px;width:350mm">
+             	<t t-if="o.partner_id.name"><span  t-field="o.partner_id.name"></span></t>
+	            <t t-if="not o.partner_id.name" > 
+			    <span style="visibility: hidden;">text</span></t>
+             </div>
+             </div>
+             <div class="row">
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+	              <b>Payment Reference</b>
+	         </div>
+	         <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-3 text-left" style="font-size:14px;width:300mm">
+	              <t t-if="o.communication"><span  t-field="o.communication"></span></t>
+	              <t t-if="not o.communication" > 
+			      <span style="visibility: hidden;">text</span></t>
+             </div>
+             <t t-if="o.partner_id.owner or o.partner_id.is_tenant">
+	             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+	             	<b>Payment Mode</b>
+	             </div>
+	             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+		         <div class="col-3 text-left" style="font-size:14px;width:350mm">
+	             	<t t-if="o.payment_mode">
+	             		<span ><t t-esc="dict(o.fields_get(allfields=['payment_mode'])['payment_mode']['selection'])[o.payment_mode]"/></span>
+					</t>
+		            <t t-if="not o.payment_mode" > 
+				    <span style="visibility: hidden;">text</span></t>
+	             </div>
+	         </t>
+             </div>
+              <div class="row">
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+	             <b>Currency</b>
+	         </div>
+	         <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-3 text-left" style="font-size:14px;width:300mm">
+	            <t t-if="o.currency_id"><span  t-field="o.currency_id"></span></t>
+				            <t t-if="not o.currency_id" > 
+						    <span style="visibility: hidden;">text</span></t>
+             </div>
+             <t t-if="o.partner_id.owner or o.partner_id.is_tenant">
+             <div class="col-3 text-left" style="font-size:14px;width:53mm">
+             	<b>Payment Period</b>
+             </div>
+             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-3 text-left" style="font-size:14px;width:350mm">
+       			<span t-field="o.from_date"/>-<span t-field="o.to_date"/>
+             </div>
+             </t>
+             </div>
+             <br></br>
+             <br></br>
+             
+             <table style="width:261mm;padding-top:0px;padding:0px;border-bottom:none;border-top: none!important;border-right: none!important;">
+	                <thead>
+		                <tr>
+                                <td colspan="1" class="text-center" style="width:25mm;"><b>S.No</b></td>
+                                <td colspan="1" class="text-center" style="width:25mm;"><b>Invoice Date</b></td>
+                                <td colspan="1" class="text-center" style="width:30mm;"><b>Invoice No.</b></td>
+                                <t t-if="not o.partner_id.owner and not o.partner_id.is_tenant">
+                                	 <td class="text-center" style="width:100mm;"><b>Reference</b></td>
+                                </t>
+                                <t t-else="">
+                                <td class="text-center" style="width:100mm;"><b>Invoice Description</b></td>
+                                </t>
+                               <!--  <td class="text-center" style="width:35mm;"><b>Amount</b></td> -->
+                                <td class="text-center" style="width:46mm;"><b>Amount</b></td>
+                        </tr>
+	                </thead>
+	                 <tbody>
+			                <t t-if="o.method_type=='advance'">
+				                <t t-if="o.payment_entries()">
+			             			<t t-set="total" t-value="0"/>
+			             			<t t-set="line_index" t-value="1"/>
+			             			<t t-set="grand_total" t-value ="0"/>
+		          						<tr t-foreach="o.payment_entries()" t-as="doc">
+		          							<td colspan="1" class="text-center" style="width:25mm;">
+					                 			<span t-esc="line_index"/>
+					                 		</td>
+		          							<td class="text-center" style="width:30mm;padding-left:1mm;">
+			          							<t t-if="doc['invoice_date']">
+			          								<span t-esc="doc['invoice_date']"/>
+			          							</t>
+			          						</td>
+			          						<td class="text-center" style="width:30mm;padding-left:1mm;padding-right:1mm;">
+			          							<span t-esc="doc['number']"/>
+			          						</td>
+			          						<td class="pl-3 text-left" style="width:70mm;">
+			          							<t t-if="doc['label']">
+			          								<span t-esc="doc['label']"/>
+			          							</t>
+			          						</td>
+			          					<!-- 	<td class="text-right" style="width:35mm;padding-right:1mm;">
+			          							<span t-esc="'{:,.3f}'.format((doc['amt_total']))"></span>
+			          						</td> -->
+			          						<!-- <td class="text-center" style="width:35mm;">
+			          							<span t-esc="'{:,.3f}'.format((doc['amt_due']))"></span>
+			          						</td> -->
+			          						<td class="text-right" style="width:46mm;padding-right:1mm;">
+			          							<span t-esc="'{:,.3f}'.format((doc['amount']))"></span>
+			          						</td>
+			          						<t t-set="grand_total" t-value="grand_total+doc['amount']"/>
+			          						<t t-set="line_index" t-value="line_index+1"/>
+		          						</tr>
+		          						<tr>
+		          						<td></td>
+		          						<td></td>
+		          						<td></td>
+		          					<!-- 	<td></td> -->
+		          						<td class="text-right" style="padding-right:1mm;"><b>Grand Total</b></td>
+		          						<td class="text-right" style="width:30mm;padding-right:1mm;">
+			          							<span t-esc="'{:,.3f}'.format(grand_total)"></span>&#160;&#160;BD
+			          					</td>
+		          						</tr>
+			          			</t>
+			          		</t>
+			          		<t t-else="">
+            					<t t-if="o.payment_line_ids">
+            					<t t-set="grand_total" t-value ="0"/>
+            					<t t-set="label" t-value=""/>
+            					<t t-set="name" t-value=""/>
+            					<t t-set="count" t-value="1"/>
+            					
+            						<tr t-foreach="o.payment_line_ids" t-as="doc">
+            						<t t-if="doc.allocation">
+             							<t t-set="total" t-value="0"/>
+             							<td colspan="1" class="text-center" style="width:25mm;">
+				                 			<span t-esc="count"/>
+				                 		</td>
+             							<td class="text-center" style="width:30mm;padding-left:1mm;">
+             								<t t-if="doc.original_date">
+             									<span t-field="doc.original_date"/>
+             								</t>
+             							</td>
+             							<!-- <td>
+             								<span t-esc="doc.move_line_id"></span>
+             							</td> -->
+             							<td class="text-center" style="width:30mm;padding-left:1mm;padding-right:1mm;"><span t-esc="doc.inv_id.name"/></td>
+										<td class="pl-3 text-left" style="width:70mm;">
+										<t t-if="not o.partner_id.owner and not o.partner_id.is_tenant">
+												<span t-esc="doc.ref_num"></span>
+										</t>
+										<!-- <t t-else="">
+											<span t-esc="doc.move_line_id.name"></span>
+										</t> -->
+										<t t-if="o.partner_id.owner or o.partner_id.is_tenant">
+										<t t-foreach="doc.inv_id.invoice_line_ids" t-as="line">
+										<span t-esc="line.name"></span>
+											<t t-set="name" t-value="[line.name]"/>
+											</t>
+											<t t-set="label"/>
+											<span  t-esc="label"/>
+										</t>
+										</td>
+										<!-- <td class="text-right" style="width:35mm;padding-right:1mm;">
+										<span t-esc="'{:,.3f}'.format((doc.inv_id.amount_total))"></span>
+										</td> -->
+		          						<!-- <td class="text-center" style="width:41mm;">
+		          							<span t-esc="'{:,.3f}'.format((doc.inv_id.amount_residual))"></span>
+		          						</td> -->	
+										<td class="text-right" style="width:46mm;padding-right:1mm;">
+										<t t-if="doc.debit and not doc.credit">
+											<span t-esc="'{:,.3f}'.format((-doc.allocation))"></span>
+											<t t-set="grand_total" t-value="grand_total-(doc.allocation)"/>
+										</t>
+										<t t-elif="doc.credit and not doc.debit">
+											<span t-esc="'{:,.3f}'.format((doc.allocation))"></span>
+											<t t-set="grand_total" t-value="grand_total+doc.allocation"/>
+										</t>
+										<t t-else="">
+											<span t-esc="'{:,.3f}'.format((doc.allocation))"></span>
+											<t t-set="grand_total" t-value="grand_total+doc.allocation"/>
+										</t>
+										</td>
+				             			<!-- <t t-set="total" t-value="total+doc.allocation"/>
+				             			<t t-set="grand_total" t-value="grand_total+doc.allocation"/> -->
+				             			<t t-set="count" t-value="count+1"/>
+				             			</t>
+				             		</tr>
+				             		
+				             		
+				             		<tr t-foreach="o.advance_expense_ids" t-as="docs">
+				             		<td colspan="1" class="text-center" style="width:25mm;">
+				                 	<span t-esc="count"/>
+				                 	</td>
+				                 	<td></td>
+				                 	<td></td>
+				             		<td class="pl-3 text-left" style="width:70mm;">
+				             		<span t-esc="docs.name"></span>
+				             		</td>
+				             		<!-- <td class="text-right" style="width:35mm;padding-right:1mm;">
+				             		<span t-esc="'{:,.3f}'.format((docs.amount))"></span>
+				             		</td> -->
+				             		<td class="text-right" style="width:35mm;padding-right:1mm;">
+				             			<span t-esc="'{:,.3f}'.format((-docs.amount))"></span>
+				             			<t t-set="grand_total" t-value="grand_total-docs.amount"/>
+				             		</td>
+				             		<t t-set="count" t-value="count+1"/>
+				             		<t t-set="debit" t-value="docs.amount"/>
+				             		</tr>
+				             		
+				             		
+				             		<tr>
+		          						<td></td>
+		          						<td></td>
+		          						<td></td>
+		          						<!-- <td></td> -->
+		          						<td class="text-right" style="padding-right:1mm;"><b>Grand Total</b></td>
+		          						<td class="text-right" style="width:30mm;padding-right:1mm;">
+			          							<span t-esc="'{:,.3f}'.format(grand_total)"></span>&#160;&#160;BD
+			          					</td>
+		          						</tr>
+		             			</t>
+             				</t>
+					</tbody>
+	                
+		     </table>
+             </div>
+             <br></br>
+             <!-- <div class="row">
+             <div class="col-3 text-left" style="font-size:14px;">
+             <b>Grand Total</b>
+             </div>
+             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+             <t t-if="o.amount"><span  t-field="o.amount"></span></t>
+	            <t t-if="not o.amount" > 
+			    <span style="visibility: hidden;">text</span></t>
+             </div>
+             </div> -->
+             <div class="row">
+             <div class="col-3 text-left" style="font-size:14px;">
+             <b>Amount In Words</b>
+             </div>
+             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-8" style="font-size:14px;">
+              <span t-esc="words[o.id]"></span>
+             </div>
+             </div>
+             <t t-if="o.partner_id.owner or o.partner_id.is_tenant">
+             <br></br>
+             <br></br>
+             <div class="row">
+             <div class="col-3 text-left" style="font-size:14px;">
+             <b>Payment Description</b>
+             </div>
+             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-8" style="font-size:14px;">
+              <span t-esc="o.notes"></span>
+             </div>
+             </div>
+             </t>
+             <!-- <div class="row">
+             <div class="col-3 text-left" style="font-size:14px;">
+             <b>Payment Description</b>
+             </div>
+             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+             
+	         <div class="col-8" style="font-size:14px;">
+             <t t-if="o.communication"><span  t-field="o.communication"></span></t>
+	            <t t-if="not o.communication" > 
+			    <span style="visibility: hidden;">text</span></t>
+             </div>
+             </div> -->
+	         <!-- <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+	              <t t-if="o.partner_id.code"><span  t-field="o.partner_id.code"></span></t>
+	              <t t-if="not o.partner_id.code" > 
+			      <span style="visibility: hidden;">text</span></t>
+             </div> -->
+             <!-- <div class="col-3 text-left" style="font-size:14px;">
+             	<b>Authorised Signature</b>
+             </div>
+             <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+	         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+             	<t t-if="o.journal_id.bank_id.name"><span  t-field="o.journal_id.bank_id.name"></span></t>
+	            <t t-if="not o.journal_id.bank_id.name" > 
+			    <span style="visibility: hidden;">text</span></t>
+             </div> -->
+             </div> 
+        </t>
+        </t>
+        </t>
+   </template>
+   <template id="payment_voucher_layout">
+		<div t-attf-class="header o_company_#{o.company_id.id}_layout">
+			<div class="row">
+            		 <div class="col-xs-9">
+            	        <img t-if="o.company_id.header_image" t-att-src="image_data_uri(o.company_id.header_image)" style="max-height:192.96px;max-width:762.24px" alt="Header"/>
+            	   </div> 
+             </div>
+           	</div>
+		  	<div class="article o_report_layout_standard">
+				<t t-raw="0"/>
+		  	</div>
+		  	<div t-attf-class="footer o_standard_footer o_company_#{o.company_id.id}_layout"> 
+
+			<t t-if="not o.partner_id.owner and not o.partner_id.is_tenant">
+				<div class="row last-page">
+					<div class="col-4 text-left" style="font-size:14px;padding-right:0;max-width:350px;">
+						<b>Created By : </b><br></br>
+						<t t-if="o.collected_by_user_id"><span  t-field="o.collected_by_user_id.name"></span></t>
+						<t t-if="not o.collected_by_user_id" > 
+							<span style="visibility: hidden;">text</span>
+						</t>
+					</div>
+					<div class="col-4 text-left" style="font-size:14px;padding-right:0;max-width:350px;">
+						<b>Checked by : </b>
+					</div>
+					<div class="col-4 text-left" style="font-size:14px;padding-right:0;max-width:350px;">
+						<b>Authorised Signature : </b>
+					</div>
+				</div>
+				<div class="row last-page">
+				  <div class="col-3 text-left" style="font-size:14px;padding-top:20mm;">
+					  <b>Receiver Signature : </b>
+				  </div>
+				</div>
+			</t>
+
+			<t t-else=" ">
+				<div class="row last-page">
+					<div class="col-4 text-left" style="font-size:14px;padding-right:0;max-width:350px;">
+						<b>Created By : </b><br></br>
+						<t t-if="o.collected_by_user_id"><span  t-field="o.collected_by_user_id.name"></span></t>
+						<t t-if="not o.collected_by_user_id" > 
+							<span style="visibility: hidden;">text</span>
+						</t>
+					</div>
+					<div class="col-4 text-left" style="font-size:14px;padding-right:0;max-width:350px;">
+						<b>Receivers Signature</b><br></br>
+						<!-- <t t-if="not o.create_uid" > 
+							<span style="visibility: hidden;">text</span>
+						</t> -->
+					</div>
+					<!-- <div class="col-4 text-left" style="font-size:14px;padding-right:0;max-width:350px;">
+						<b>Checked by</b>
+					</div> -->
+					<div class="col-4 text-left" style="font-size:14px;padding-right:0;">
+						<b>Authorised Signature:</b>
+					</div>
+				</div>
+			</t>
+			
+		  	<div class="row last-page">
+				<div class="col-12 text-right" style="font-size:14px;padding-top:20mm;">
+				Computer generated document requires no signature 
+				</div>
+		    </div>
+        	<div class="row" style="padding-top:25mm;">
+				<img t-if="o.company_id.footer_image"  t-att-src="image_data_uri(o.company_id.footer_image)" style="max-height:140px;max-width:1000px"/>
+            </div>
+        </div>
+  </template>
+   
+   <!-- <template id="payment_voucher_layout">
+   <div class="header">
+   			  <div class="row " style=
+			      "width:110%;">
+			      <div class="col-4 text-left"><img  t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="padding-top:0.5cm;max-height:150px;max-width:250px" alt="Company Logo"/></div>
+			      <div class="col-1">
+			      </div>
+			      <div class="col-5 text-left" style="padding-top:0.5cm;">
+			      <t t-if="o.company_id.name"><b><span t-field="o.company_id.name"/></b></t><br></br>
+			      <t t-if="o.company_id.street"><span t-field="o.company_id.street"/></t><br></br>
+                  <t t-if="o.company_id.street2"  t-esc="o.company_id.street2"></t><br></br>
+                  <t  t-if="o.company_id.city"  t-esc="o.company_id.city"></t><br></br>
+                   <t t-if="o.company_id.country_id.name" t-esc="o.company_id.country_id.name"></t><br></br>
+                   <t t-if="o.company_id.email">E-Mail:<span t-field="o.company_id.email"/></t>
+			      </div>
+			      <div class="col-2">
+			      </div>
+			  </div>
+        	  <h2 style="font-size:23px;padding-top:1cm">
+                        <center><b>Payment Voucher</b></center>
+              </h2>
+              
+  </div>
+  <div class="article o_report_layout_standard">
+            <t t-raw="0"/>
+  </div>
+  </template> -->
+</odoo>

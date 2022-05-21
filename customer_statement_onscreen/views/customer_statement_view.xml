@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+		
+		<record id="customer_statement_tree_view" model="ir.ui.view">
+            <field name="name">customer.statement.tree</field>
+            <field name="model">customer.statement</field>
+            <field name="arch" type="xml">
+	            <tree string="Customer Statement" create="false">
+	            	<field name="sl_no"/>
+	            	<field name="date"/>
+	            	<field name="name"/>
+	            	<field name="debit"/>
+	            	<field name="credit"/>
+	            	<field name="balance"/>
+	            </tree>
+            </field>
+        </record>
+    	
+    	<record id="customer_statement_form_view" model="ir.ui.view">
+            <field name="name">customer.statement.form</field>
+            <field name="model">customer.statement</field>
+            <field name="arch" type="xml">
+     			<form string="Customer Statement" create="false">
+     				<sheet>
+	   					<group>
+	   						<group>
+		         				<field name="name"/>
+	            				<field name="date"/>
+		         			</group>
+		         			<group>
+		            			<field name="debit"/>
+	            				<field name="credit"/>
+	            				 <field name="balance"/>
+		            		</group>
+			            </group>
+      				</sheet>
+     			</form>
+            </field>
+		</record>
+		
+		
+		
+		<record id="action_customer_statement" model="ir.actions.act_window">
+           <field name="name">Customer Statement</field>
+           <field name="res_model">customer.statement</field>
+           <field name="view_mode">tree</field>
+           <field name="view_id" ref="customer_statement_tree_view"/>
+       </record>
+		
+		
+		
+		
+		
+				 
+				 
+      </data>
+</odoo>

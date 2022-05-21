@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- Building Wise Income Statement_Report_form_views -->
+	<record model="ir.ui.view" id="building_wise_income_statement_report_form_view">
+    	<field name="name">building.income.statement.wizard.form.view</field>
+   	 	<field name="model">building.income.statement.wizard</field>
+    	<field name="type">form</field>
+    	<field name="arch" type="xml">
+      		<form string="Building Wise Income Statement Report">
+      		<group>
+          		<group>
+          			<field name="from_date" required="1"/> 
+          			<field name="building_id" required="1"/>  
+          			<field name="report_for"/>             
+          		</group>
+          		<group>
+          			<field name="to_date" required="1"/>
+          			<field name="service_product_id"  domain="[('type', '=', ('service'))]" required="1"/>
+          		</group>
+          	</group>
+          	<footer>
+            	<button name="print_building_income_statement" string="Print" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+   </record>
+   
+     <record id="action_building_income_stmt_report" model="ir.actions.act_window">
+            <field name="name">Building Wise Income Statement Report</field>
+            <field name="res_model">building.income.statement.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="building_wise_income_statement_report_form_view"/>
+            <field name="target">new</field>
+        </record>
+        
+    
+    <menuitem id="menu_building_income_stmnt_report" 
+	    name ="Building Wise Income Statement Report" 
+	    parent="zb_building_management.menu_action_reporting"
+	    action="action_building_income_stmt_report"/>
+	    
+	    
+	    
+	    
+	    
+   
+
+</odoo>

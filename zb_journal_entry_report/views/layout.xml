@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <template id="external_layout_standard_inherit" inherit_id="web.external_layout_standard">
+    
+      <xpath expr="//div[contains(@t-attf-class, 'header o_company_#{company.id}_layout')]" position="replace">
+
+       <div t-attf-class="header o_company_#{company.id}_layout">
+             <div class="row">
+            		 <div class="col-xs-9">
+            	        <img t-if="company.header_image" t-att-src="image_data_uri(company.header_image)" style="max-height:140px;max-width:100000px" alt="Header"/>
+            	   </div> 
+             </div>
+           </div>
+
+
+    </xpath>
+      
+      
+      <xpath expr="//div[contains(@t-attf-class, 'footer o_standard_footer o_company_#{company.id}_layout')]" position="replace">
+
+       <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout"> 
+        	<div class="row">
+        	     <img t-if="company.footer_image"  t-att-src="image_data_uri(company.footer_image)" style="max-height:140px;max-width:1000px"/>
+            </div>
+        </div>
+
+    </xpath>
+    
+    
+    
+ </template>
+    
+    <!-- <template id="external_layout_standard">
+        <div class="header">
+            <div class="row">
+                <div class="col-xs-3 mb4">
+                    <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" style="max-height: 45px;" />
+                </div>
+                <div class="col-xs-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto" />
+            </div>
+                        <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                <div class="col-xs-12">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-xs-6" name="company_address" style="border-bottom: 1px solid black;">
+                    <span t-field="company.partner_id"
+                          t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                          style="display:inline-block;"/><br/>
+                    <span t-if="company.phone">PH:
+                        <span t-field="company.phone" />
+                    </span><br />
+                    <span t-if="company.phone">Email:
+                        <span t-field="company.email" />
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="article o_report_layout_standard">
+            <t t-raw="0" />
+        </div>
+        <div class="footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <t t-if="company.street"><span t-field="company.street" /></t>
+                    <t t-if="company.street2"><span t-field="company.street2" /></t>
+                    <t t-if="company.city"><span t-field="company.city" /></t>
+                    <t t-if="company.zip"><span t-field="company.zip" /></t>
+                    <t t-if="company.country_id"><span t-field="company.country_id.name" /></t>
+                    <li t-if="company.street"><span t-field="company.street"/></li>
+                    <li t-if="company.street2"><span t-field="company.street2"/></li>
+                    <li t-if="company.city"><span t-field="company.city"/></li>
+                    <li t-if="company.zip"><span t-field="company.zip"/></li>
+                    <li t-if="company.country_id"><span t-field="company.country_id.name"/></li>
+                </ul>
+                <div name="financial_infos">
+                    <span t-field="company.report_footer"/>
+                </div>
+                <div class="text-muted">
+                    Page: <span class="page" /> / <span class="topage" />
+                </div>
+            </div>
+        </div>
+    </template>
+    Public api: layout to t-call from reports
+    <template id="external_layout">
+        Multicompany
+        <t t-if="not o and doc">
+            <t t-set="o" t-value="doc" />
+        </t>
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id.sudo()" />
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company" />
+        </t>
+        <t t-call="zb_journal_entry_report.external_layout_standard">
+            <t t-raw="0" />
+        </t>
+    </template> -->
+</odoo>

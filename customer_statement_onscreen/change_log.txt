@@ -1,0 +1,2 @@
+Version 1.0 - 07/07/2020 by Rilu
+	* Migration from odoo11 to odoo13

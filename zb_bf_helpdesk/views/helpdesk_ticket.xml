@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_ticket_view_form_inherit_helpdesk_bf" model="ir.ui.view">
+        <field name='name'>helpdesk.ticket.form.inherit.bf</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='assign_ticket_to_self']" position="after">   
+                    <button name="action_create_jobs" string="Create JOb Order" type="object" class="oe_highlight" groups="helpdesk.group_helpdesk_user" />
+                </xpath>
+            	<xpath expr="//div[@class='oe_button_box']" position="inside">
+            		<button name="view_job_orders" type='object' class="oe_inline oe_stat_button" icon="fa-bars">
+				         <field name="job_count" widget="statinfo" string="Job Orders" />
+				         </button>
+            	</xpath>
+            	<xpath expr="//group[2]//field[@name='partner_id']" position="before">
+					<field name="building_id"/>
+     				<field name="module_id" domain="[('building_id', '=', building_id)]"></field>
+                    <field name="lease_id" />
+				</xpath>
+				<xpath expr="//field[@name='tag_ids']" position="after">
+					<field name="complaint_date"/>
+				</xpath>
+            	</field>
+            	</record>
+            	
+            	
+            	
+       <record id="helpdesk_ticket_view_search_inherit_helpdesk_bf" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.search.inherit.bf</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="building_id"/>
+                <field name="module_id" domain="[('building_id', '=', building_id)]"></field>
+
+            </xpath>
+        </field>
+    </record>
+ </odoo>
+         

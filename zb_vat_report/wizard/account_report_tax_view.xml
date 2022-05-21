@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    
+   <!--  <record model="ir.ui.view" id="tax_report_wizard">
+        <field name="name">zb_account.tax.report.wizard</field>
+        <field name="model">zb_account.tax.report</field>
+        <field name="arch" type="xml">
+            <form string="Tax Report Wizard">
+            	<group col="4" string="Tax Report">
+            		<field name="from_date" required="True"/>
+            		<field name="to_date" required="True"/>
+            	</group>
+                <footer>
+                    <button name="print_tax_report" string="Print" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    <act_window id="action_account_tax_report"
+			key2="client_action_multi"
+		    name="VAT Report"
+		    res_model="zb_account.tax.report" 
+		    view_mode="form" target="new" 
+		    view_type="form"/>
+
+    <menuitem id="menu_account_report" 
+    		name="VAT Report" 
+    		action="action_account_tax_report" 
+    		parent="account.menu_finance_reports"/> -->
+    		
+    		
+     <!-- <report 
+     		id="report_account_tax_report" 
+     		string="Tax Report"
+			model="zb_account.tax.report" 
+			report_type="qweb-pdf"
+			name="zb_vat_report.report_tax_account_report_template" />
+
+
+		<template id="report_tax_account_report_template">
+			<t t-call="report.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="report.external_layout">
+						<div class="page">
+							<br/>
+								<div>
+									<center><b><h3>Tax Report</h3></b></center>
+								</div>
+						</div>
+					</t>
+				</t>
+			</t>
+		</template> -->
+    
+   </data>
+</odoo>
+        

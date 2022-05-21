@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_vat_switch_group_cron","vat_switch group_vat_switch","model_vat_switch","base.group_system",1,1,1,1
+"access_vat_switch_mapping_group_cron","vat_switch_mapping group_vat_switch_mapping","model_vat_switch_mapping","base.group_system",1,1,1,1

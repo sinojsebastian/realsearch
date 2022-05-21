@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_customer_invoice_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                   <t t-call="web.external_layout">  
+                    <div class="page">
+                         <div class="row">
+                         	<div class="col-6">
+                         	<span t-if="o.type == 'out_invoice'">
+                         		<span style="color:#696969">Bill To</span>
+                         	</span>
+                         	<span t-if="o.type == 'in_invoice'">
+                         		<span style="color:#696969">Bill From</span>
+                         	</span>
+                         	<br></br>
+                         	<strong><span t-field="o.partner_id.name"></span></strong>
+                            <div t-field="o.partner_id.contact_address" />
+                         	<br></br>
+                         	VAT Number:&#160;<span t-field="o.partner_id.vat"></span>
+                         	</div>
+							<div class="col-3" style="padding-left:1.5cm">
+								<span t-if="o.invoice_payment_term_id">Payment Terms:</span>
+                    			<br></br>
+								<span t-if="o.invoice_date">Invoice Date:</span>
+                    			<br></br>
+								<span t-if="o.invoice_date_due">Due Date:</span>
+							</div> 
+							<div class="col-3" style="text-align:left">
+								<span t-if="o.invoice_payment_term_id" t-field="o.invoice_payment_term_id"/>
+								<br></br>
+								<span t-if="o.invoice_date" t-field="o.invoice_date"/>
+                    			<br></br>
+								<span t-if="o.invoice_date_due" t-field="o.invoice_date_due"/>
+							</div> 
+                         </div>
+                       <br></br>
+                      <div class="row">
+                          <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
+                       		<table class="table table-sm o_main_table" name="customer_invoice_table">
+	                        	<thead>
+		                            <tr>
+		                                <th style="background:gray;color:white;">#</th>
+		                                <th style="background:gray;color:white;" name="th_description" class="text-left"><span>Description</span></th>
+		                                <th style="background:gray;color:white;" name="th_quantity" class="text-right"><span>Quantity</span></th>
+		                                <th style="background:gray;color:white;" name="th_unit_price" class="text-right"><span>Unit Price</span></th>
+		                                <th style="background:gray;color:white;" name="th_discount" t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Disc.%</span></th>
+                                        <th style="background:gray;color:white;" name="th_vat" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>VAT(%)</span></th>
+		                                <th style="background:gray;color:white;" name="th_subtotal" class="text-right"><span>Amount</span></th>
+		                            </tr>
+		                        </thead>
+                            <tbody class="invoice_tbody" style="border:0px;">
+                             <t t-set="count" t-value="0"/>
+                            
+                            <tr t-foreach="o.invoice_line_ids" t-as="line">
+                                <t t-set="count" t-value="count + 1"/>
+                                <td>
+                                	<span t-esc="count"/>
+                                </td>
+                                <td name="account_invoice_line_name">
+                                	<span style="color:#696969" t-field="line.name" t-options="{'widget': 'text'}"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="int(line.quantity)"/>
+                                </td>
+                                <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                    <span t-esc="'%.3f'%(line.price_unit)"/>
+                                </td>
+                                <td t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                    <span t-esc="'%.3f'%(line.discount)"/>
+                                </td>
+                                 <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                     <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids))" id="line_tax_ids"/>
+                                 </td>
+                                <td class="text-right o_price_total">
+                                   <span t-esc="'%.3f'%(line.price_subtotal)"/>
+                                </td>
+                            </tr>
+                             </tbody>
+				                   
+                       		</table>
+                       	</div>
+                       		 
+                    	<div class="row">
+                    		<div class="col-8">
+                    	    </div>
+	                       	<div class="col-2 text-right">
+	                       		<strong>Total Excl. VAT</strong>
+	                       	</div>
+	                       	<div class="col-2 text-right">
+	                       		<strong><span t-field="o.amount_untaxed"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></strong>
+	                       	</div>
+                		</div>	 
+                		<div class="row">
+                		    <div class="col-8">
+                    	    </div>
+	                       	<div class="col-2 text-right">
+	                       		<strong>VAT</strong>
+	                       	</div>
+	                       	<div class="col-2 text-right">
+	                       		<strong><span t-field="o.amount_tax"
+				                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></strong>
+	                       	</div>
+                		</div>
+                		<div class="row">
+                		    <div class="col-8">
+                    	    </div>
+	                       	<div class="col-2 text-right">
+	                       		<strong>Total</strong>
+	                       	</div>
+	                       	<div class="col-2 text-right">
+	                       		<strong><span t-field="o.amount_total"
+				                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></strong>
+	                       	</div>
+                		</div>
+                		<div class="row">
+                		    <div class="col-8">
+                    	    </div>
+	                       	<div class="col-2" style="text-align:right;background:#DCDCDC">
+	                       		<strong>Balance Due</strong>
+	                       	</div>
+	                       	<div class="col-2" style="text-align:right;background:#DCDCDC">
+	                       		<strong><span t-field="o.amount_residual"
+				                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></strong>
+	                       	</div>
+                		</div> 
+                		<div t-if="o.narration" class="row" style="margin-top:3cm;">
+	                     	<span style="font-size:14px;color:#696969">Terms &amp; Conditions</span>
+	                     	<br/>
+	                     	<span style="font-size:14px;" t-field="o.narration"/>
+	                    </div>   
+	                    <div class="row" style="margin-top:3cm;">
+	                     	<div class="col-3">
+	                     		<span style="font-size:14px;color:#696969">Customer Signature</span>
+	                     	</div>
+	                     	<div class="col-4">
+	                     	</div>
+	                     	<div class="col-5">
+	                     	<span style="font-size:14px;color:#696969;"><span t-field="o.company_id.name"/></span>
+	                     	</div>
+	                     </div>  
+            </div>
+            </t> 
+        </t> 
+         </t> 
+    </template>
+    
+     <template id="external_layout_customer_invoice">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <t t-if="company.external_report_layout_id" t-call="{{company.external_report_layout_id.key}}"><t t-raw="0"/></t>
+        <t t-else="else" t-call="zb_account_reports.external_layout_customer_invoice_standard"><t t-raw="0"/></t>
+
+    </template>
+    
+    <!-- <template id="external_layout_customer_invoice_standard">
+    	 <div t-attf-class="header o_company_#{company.id}_layout">
+             <div class="row">
+            		 <div class="col-9">
+            	        <img t-if="company.header_image" t-att-src="image_data_uri(company.header_image)" style="max-height:140px;max-width:100000px" alt="Header"/>
+            	   </div> 
+             </div>
+             <div class="row">
+                		<div class="col-8">
+                		</div>
+                		<div class="col-4 text-right">
+                			<span style="font-size:34px">TAX Invoice</span>
+                			<br></br>
+                			<span t-if="o.name" style="font-size:14px;color:#696969"># </span><span style="font-size:14px;color:#696969" t-field="o.name"></span>
+                			<br></br>
+                 			<span t-if="o.company_id.vat" style="font-size:14px;color:#696969"># Vat No.</span><span style="font-size:14px;color:#696969" t-field="o.company_id.vat"></span>
+                 			<br></br>
+                			<span style="font-size:14px">Balance Due</span>
+                			<br></br>
+                			<strong><span style="font-size:16px" t-field="o.amount_residual"></span></strong>
+                		</div>
+                	</div>
+           </div>
+
+       <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="web.address_layout"/>
+            <t t-raw="0"/>
+        </div>
+
+	   <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout"> 
+        	<div class="row">
+        	    <img t-if="company.footer_image"  t-att-src="image_data_uri(company.footer_image)" style="max-height:140px;max-width:100000px"/>
+            </div>
+        </div>
+    </template> -->
+</odoo>

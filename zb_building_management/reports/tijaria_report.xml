@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+	<report 
+     id="action_report_receipts"
+     model="account.payment"
+     string="Receipt report"
+     report_type="qweb-pdf"
+     name="zb_building_management.report_payment_receipt_new"
+     file="zb_building_management.report_payment_receipt_new"
+     attachment_use="True"
+     menu="False"
+     
+     />
+    <report 
+     id="action_report_invoice"
+     model="account.move"
+     string="Invoice report"
+     report_type="qweb-pdf"
+     name="zb_building_management.report_invoice_new"
+     file="zb_building_management.report_invoice_new" 
+     attachment_use="True"
+     menu="False"
+     />
+       <report 
+     id="action_report_invoice_new"
+     model="account.move"
+     string="Property Invoice report"
+     report_type="qweb-pdf"
+     name="zb_building_management.report_invoice_new_cus"
+     file="zb_building_management.report_invoice_new_cus" 
+     attachment_use="True"
+     menu="False"
+     />
+     
+     
+     <record id="action_report_invoice" model="ir.actions.report">
+            <field name="paperformat_id" ref="zb_building_management.new_paperformat_custom_library_report"/>
+    </record>
+    
+    <record id="action_report_invoice_new" model="ir.actions.report">
+            <field name="paperformat_id" ref="zb_building_management.new_paperformat_custom_library_report2"/>
+    </record>
+    <record id="action_report_receipts" model="ir.actions.report">
+            <field name="paperformat_id" ref="zb_building_management.new_paperformat_custom_library_report"/>
+    </record>
+     
+     
+    </data>
+     
+     
+     
+</odoo>

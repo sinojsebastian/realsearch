@@ -1,0 +1,8 @@
+v 1.2 03/07/2020 by Rilu
+	* Edited action_pdf function
+
+v 1.1 07/04/2020 by derick
+    *Datepicker fix
+
+V 1.0 02/04/2020 by derick
+    *Migrate from odoo10 to odoo13

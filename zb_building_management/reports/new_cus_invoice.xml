@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="report_invoice_document_new_cus">
+      <div class="page" style="font-size:12px;">
+        <div class="row" style="margin-left:0px;margin-right:0px;">
+          <div class="header">
+            <div class="row">
+              <div class="col-xs-4 mt16">
+                <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % to_text(o.partner_id.company_id.logo)" style="max-height: 100px;"/>
+              </div>
+            </div>
+          </div>
+          <table border="0">
+            <strong>
+              <tr>
+                <td width ="5%" style="background-color:#E3E3E3;font-size:16px">
+                  <strong>Invoice Date:</strong>
+                </td>
+                <td width ="30%" style="font-size:16px">
+                  <strong>
+                    <span t-field="o.date_invoice"/>
+                  </strong>
+                </td>
+              </tr>
+              <tr>
+                <td  style="background-color:#E3E3E3;font-size:16px">
+                  <strong>Invoice Number: </strong>
+                </td>
+                <td style="font-size:16px">
+                  <strong>
+                    <span t-field="o.number"/>
+                  </strong>
+                </td>
+              </tr>
+              <tr>
+                <td  style="background-color:#E3E3E3;font-size:16px">
+                  <strong>Bill To:</strong>
+                </td>
+                <td style="font-size:16px">
+                  <strong>Flat/Office - 
+                    <span t-field="o.module_id.name"/>
+                  </strong>
+                  <br></br>
+                  <span t-field ="o.building_id.building_address.street"/>,
+                  <span t-field ="o.building_id.building_address.street2"></span>
+                  <span t-field ="o.building_id.building_address.city"/> ,
+                  <span t-field ="o.building_id.building_address.country_id.name"/>
+                </td>
+              </tr>
+              <tr>
+                <td  style="background-color:#E3E3E3;font-size:16px">
+                  <strong>Contact No:</strong>
+                </td>
+                <td style="font-size:16px">
+                  <strong>
+                    <span t-field="o.partner_id.phone"/>
+                  </strong>
+                </td>
+              </tr>
+              <tr>
+                <td  style="background-color:#E3E3E3;font-size:16px">
+                  <strong>Kind Attn:</strong>
+                </td>
+                <td style="font-size:16px">
+                  <strong>
+                    <span t-field="o.partner_id.name"/>
+                  </strong>
+                </td>
+              </tr>
+            </strong>
+          </table>
+          <br></br>
+          <div>
+            <table class="table table-bordered table-condensed" style="font-family:'Calibri';border-color:black;">
+              <tr style="background-color:#E3E3E3;font-size:18px;border-right-color:black;border-left-color:black;border-top-color:black;" border ="1">
+                <th style="border-right-color:black;border-left-color:black;border-top-color:black;border-bottom-color:black;" border ="1" colspan="3">
+                  <strong>
+                    <center>INVOICE</center>
+                  </strong>
+                </th>
+              </tr>
+              <tr style='font-size:14px;'>
+                <th width ="80%" colspan="2" border ="1" style='font-size:16px border-right-color:black;border-left-color:black;border-bottom-color:black;border-top-color:black;'>
+                  <center>Description</center>
+                </th>
+                <th style='font-size:16px text-align:center;border-right-color:black;border-bottom-color:black;border-top-color:black;border-left-color:black;'>Amount(BHD)</th>
+              </tr>
+              <tbody>
+                <t t-set="line" t-value ="0"/>
+                <t t-foreach="o.invoice_line_dates_ids" t-as="inv">
+                  <t t-set ="line"  t-value="line+1"/>
+                  <t t-if="line == len(o.invoice_line_dates_ids)">
+                    <t t-if="line == 1">
+                      <tr style="font-size:16px;">
+                        <td style="border-bottom-color:black;border-left-color:black;border-top-color:black;border-right-color:black;font-size:16px;" colspan="2">
+                          <span t-field="inv.name"/>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                        </td>
+                        <td style="border-bottom-color:black;border-right-color:black;border-top-color:black;border-left-color:black;font-size:16px;" align="right">
+                          <span t-field="inv.price_unit"  />
+                        </td>
+                      </tr>
+                    </t>
+                    <t t-else ="">
+                      <tr style="font-size:16px;">
+                        <td style="border-right-color:black;border-left-color:black;border-top-color:black;border-bottom-color:black;font-size:16px;" colspan="2">
+                          <span t-field="inv.name"/>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                        </td>
+                        <td style="border-right-color:black;border-left-color:black;border-top-color:black;border-bottom-color:black;font-size:16px;" align="right">
+                          <span t-field="inv.price_unit" />
+                        </td>
+                      </tr>
+                    </t>
+                  </t>
+                  <t t-else ="">
+                    <tr style="font-size:16px;">
+                      <td style="font-size:16px; border-right-color:black;border-left-color:black;border-top-color:solid black;border-bottom-color:black;font-size:14px;" colspan="2">
+                        <span t-field="inv.name"/>
+                      </td>
+                      <td style="border-right-color:black;border-left-color:black;border-top-color:black;border-bottom-color:black;font-size:16px;" align="right">
+                        <span t-field="inv.price_unit"/>
+                      </td>
+                    </tr>
+                  </t>
+                </t>
+              </tbody>
+              <!-- <td width ="80%" colspan="2"> -->
+              <tr border ="0" style="font-size:15px;border:0;">
+                <br></br>
+                <br></br>
+                <br></br>
+                <td colspan="3" style="border-bottom-color:black;border-right-color:black;border-left-color:black;">
+                  <strong>Payment Terms:</strong>
+                  <span t-field ="o.payment_term_id.name"/>
+                </td>
+              </tr>
+              <tr style="border:0;">
+                <td  style="font-size:15px;background-color:#E3E3E3; border-right-color:black;border-bottom-color:black;border-left-color:black;" width ="15%" >
+                  <strong>Total Amount(BHD)</strong>
+                </td>
+                <td style="font-size:15px;background-color:#E3E3E3; border-right-color:black;border-bottom-color:black;border-left-color:black;">
+                  <strong>
+                    <span t-field="o.amount_total_words"/> Only
+                  </strong>
+                </td>
+                <td style="font-size:15px;background-color:#E3E3E3; border-right-color:black;border-bottom-color:black;border-left-color:black;" align="right">
+                  <strong>
+                    <span t-field="o.amount_total" />
+                  </strong>
+                </td>
+              </tr>
+            </table>
+            <div class="row" style="margin-left:0px;margin-right:0px;">
+              <br/><br/>
+              <div class="col-xs-5 mb4 ml16" style="border: 1px solid black;">
+                      All Cheque are Payable to11111 '
+                <span t-field ="o.company_id.name"/>' OR by  wire transfer
+                      to:
+                <br></br>
+                <strong>
+                  <span t-field ="o.company_id.name"/>
+                  <br></br>
+                         Account No : 
+                  <span t-field ="o.bank_id.acc_number"/>
+                  <br></br>
+                         IBAN NO : 
+                  <span t-field ="o.bank_id.iban_no"/>
+                  <br></br>
+                         Bank Name : 
+                  <span t-field ="o.bank_id.bank_id.name"/>
+                </strong>
+              </div>
+              <div class="col-xs-3 col-xs-offset-3 mt32">
+                <div style="width:auto;border-top:1px solid #000;margin-top:16px;">
+                      <center>Authorized Signature</center>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer">
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          <div class="row" style="margin-left:0px;margin-right:0px;">
+              <div class="col-xs-12" style="color:red;font-size:10px;text-align:center;border-top:1px solid black;">
+                  <span t-field ="o.company_id.arab_address"/>
+              </div>
+          </div>
+          <!-- <div class="footer o_background_footer" style="border: 1px solid black;">
+            <div class="row" style="border-top:1px solid black;margin-left:0px;margin-right:0px;">
+               <br/><br/><br/>
+              <div style="color:red;font-size:10px;">
+                <center>
+                  <span t-field ="o.company_id.arab_address"/>
+                </center>
+              </div>
+            </div>
+          </div> -->
+          </div>
+        </div>
+        <!-- <div class="footer">
+          <div class="row mt8" style="margin-left:0px;margin-right:0px;">
+              <div class="col-xs-12" style="color:red;font-size:10px;text-align:center;border-top:1px solid black;">
+                  <span t-field ="o.company_id.arab_address"/>
+              </div>
+          </div>
+        </div> -->
+      </div>
+    </template>
+    <template id="report_invoice_new_cus">
+      <t t-call="web.basic_layout">
+        <t t-foreach="docs" t-as="o">
+          <t t-call="zb_building_management.report_invoice_document_new_cus"/>
+        </t>
+      </t>
+    </template>
+  </data>
+</odoo>

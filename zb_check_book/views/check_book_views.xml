@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+<!-- Check Book Form view -->
+    <record id="check_book_form_view" model="ir.ui.view">
+        <field name="name">check.book.form.view</field>
+        <field name="model">check.book</field>
+        <field name="arch" type="xml">
+            <form string="Check Book">
+             <header>
+             
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+             </header>
+             <sheet>
+                 <group>
+                     <group>
+                         <field name="bank_account_id" domain="[('type','=','bank')]" attrs="{'readonly':[('state','not in',['draft'])]}"/>
+                         <field name="next_number" attrs="{'readonly':[('state','in',['draft','active','finished'])]}" force_save="1"/>
+                         <field name="number_check_leaf" attrs="{'readonly':[('state','not in',['draft'])]}"/>
+                     </group>
+                     <group>
+                    	 <field name="starting_number" attrs="{'readonly':[('state','not in',['draft'])]}"/>
+                    	 <field name="end_number" attrs="{'readonly':[('state','not in',['draft'])]}"/>
+                     </group>
+                 </group>
+                 
+             </sheet> 
+            </form>
+        </field>
+    </record>
+    
+    <!-- Check Book Tree view -->
+    <record id="check_book_tree_view" model="ir.ui.view">
+        <field name="name">check.book.tree.view</field>
+        <field name="model">check.book</field>
+        <field name="arch" type="xml">
+            <tree string="Check Book">
+            <field name="bank_account_id"/>
+            <field name="next_number"/>
+            <field name="number_check_leaf"/>
+            <field name="starting_number"/>
+            <field name="end_number"/>
+            </tree>
+        </field>
+    </record>
+    
+    <!-- Check Book Search view -->
+    <record id="check_book_search_view" model="ir.ui.view">
+        <field name="name">check.book.search.view</field>
+        <field name="model">check.book</field>
+        <field name="arch" type="xml">
+            <search string="Check Book">
+      			<filter string="Active" name="active_check_book" domain="[('state', '=', 'active')]"/>
+			</search>
+        </field>
+    </record>
+    
+    <!-- check_book_action --> 
+   
+   <record id="check_book_action" model="ir.actions.act_window">
+        <field name="name">Check Book</field>
+        <field name="res_model">check.book</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{'search_default_active_check_book': 1}</field>
+    </record>
+    
+    <menuitem id="menu_check_book" 
+	    name="Check Book" 
+	    sequence="2" 
+	    parent="account.root_payment_menu" 
+	    action="check_book_action"/>
+    </data>
+    </odoo>

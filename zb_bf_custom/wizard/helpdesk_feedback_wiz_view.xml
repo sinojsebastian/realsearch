@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <odoo>
+	
+	<record model="ir.ui.view" id="helpdesk_feedback_report_form_view">
+    	<field name="name">wiz.helpdesk.feedback.report.form.view</field>
+   	 	<field name="model">wiz.helpdesk.feedback.report</field>
+    	<field name="type">form</field>
+    	<field name="arch" type="xml">
+      		<form string="Helpdesk Feedback Report">
+	      		<group>
+	          		<group>
+	          			<field name="from_date" required='1'/>  
+	          			<field name="to_date" required='1'/> 
+	          		</group>
+	          	</group>
+          	<footer>
+            	<button name="print_helpdesk_feedback_report" string="Print" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+    </record>
+            
+    <record id="action_helpdesk_feedback_report_wiz" model="ir.actions.act_window">
+           <field name="name">Helpdesk Feedback Report</field>
+           <field name="res_model">wiz.helpdesk.feedback.report</field>
+           <field name="view_mode">form</field>
+           <field name="view_id" ref="helpdesk_feedback_report_form_view"/>
+           <field name="target">new</field>
+    </record>
+    	
+   	<menuitem id="menu_helpdesk_feedback_report" 
+    	name="Helpdesk Feedback Report" 
+    	parent="zb_building_management.menu_action_reporting"
+        action="action_helpdesk_feedback_report_wiz" 
+        sequence="35" 
+    />
+
+</odoo>

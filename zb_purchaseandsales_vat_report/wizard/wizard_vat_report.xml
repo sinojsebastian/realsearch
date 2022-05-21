@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+    	
+    	 
+            
+    	<record id="form_view_vat_report_wizard" model="ir.ui.view">
+            <field name="name">VAT Report</field>
+            <field name="model">wizard.vat.report</field>
+            <field name="arch" type="xml">
+               <form string="Purchase And Sales VAT Report">
+               		<group>
+               			<group>
+               				<field name="start_date" required="True"/>
+               			</group>
+               			<group>
+               				<field name="end_date" required="True"/>
+               			</group>
+               			<group>
+               				<field name="type" invisible="1"/>
+               			</group>
+               		</group>
+                    <footer>
+                    	<button name="print_report" type="object" string="Print" class="oe_highlight"/>
+        				<button string="Cancel" class="btn-default" special="cancel"></button>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    	 <act_window id="vat_report_action"
+            name="Purchase/Sales VAT Report"            
+            res_model="wizard.vat.report"
+            view_mode="form" 
+            target="new"
+            
+            />
+            
+           <menuitem id="vat_report_menu" 
+		        name="Purchase/Sales VAT Report" 
+		        action="vat_report_action" 
+		        parent="account.account_reports_management_menu" sequence="2"/>
+            
+
+    </data>
+</odoo>
+

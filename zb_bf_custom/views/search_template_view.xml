@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="search_template_unit">
+        <a t-if="options.get('unit')" type="button" class="dropdown-toggle account_unit_filter" data-toggle="dropdown">
+            <span class="fa fa-folder-open"/> Units
+        </a>
+        <ul  class="dropdown-menu o_filters_menu" role="menu">
+            <li class="o_account_report_search js_account_unit_m2m"/>
+        </ul>
+    </template>
+    <template id="search_template_partner_type">
+        <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="fa fa-user"/>
+            Partner Type:
+            <!-- <t t-set="account_value" t-value="'Both'"/> -->
+            <t t-foreach="options['partner_type']" t-as="type">
+                <t t-if="type.get('selected') == True">
+                    <t t-esc="type.get('name')"/>
+                </t>
+            </t>
+            <!-- <t t-esc="account_value"/> -->
+        </a>
+        <div class="dropdown-menu o_filters_menu" role="menu">
+            <t t-foreach="options['partner_type']" t-as="type">
+                <a role="menuitem" class="dropdown-item js_account_report_choice_filter" t-att-title="type.get('name')" t-att-data-id="type.get('id')" data-filter="partner_type"><t t-esc="type.get('name')"/></a>
+            </t>
+        </div>
+    </template>
+    
+    <template id="search_template_inherit" inherit_id="account_reports.search_template">
+    	<xpath expr="//div[@id='extra_options_dropdown']" position="after">
+    		<div class="btn-group o_dropdown o_account_reports_filter_unit" t-if="options.get('unit')">
+            	<t t-call="zb_bf_custom.search_template_unit"/>
+        	</div>
+    	</xpath>
+    	<xpath expr="//div[4]" position="after">
+    		<div class="btn-group o_dropdown o_account_reports_filter_account_type" t-if="options.get('partner_type') != None">
+            	<t t-call="zb_bf_custom.search_template_partner_type"/>
+        	</div>
+    	</xpath>
+    </template>
+    <!-- <template id="search_template_extra_options_inherit" inherit_id="account_reports.search_template_extra_options">
+    	<xpath expr="//a//t[2]" position="after">
+    		<t t-if="options.get('owner_vendor') != None">
+                <t t-if="options['owner_vendor']">,Owner/Vendor</t>
+            </t>
+    	</xpath>
+    	<xpath expr="//div[1]" position="inside">
+    		<a role="menuitem" class="dropdown-item js_account_report_bool_filter" title="Owner/Vendor" data-filter="owner_vendor">Owner/Vendor</a>
+    	</xpath>
+    </template> -->
+</odoo>

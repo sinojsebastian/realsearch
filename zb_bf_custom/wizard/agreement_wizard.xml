@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="agreement_invoice_wiz_form_view">
+    	<field name="name">agreement.invoice.wiz.form.view</field>
+   	 	<field name="model">agreement.invoice.wizard</field>
+    	<field name="type">form</field>
+    	<field name="arch" type="xml">
+      		<form string="Agreement Invoice" version="7.0">
+      		<group>
+          		<group>
+          			<field name="start_date"/>
+          			<field name="invoice_amount"/>   
+          		</group>
+          		<group>
+          			<field name="deposit_amount" readonly="1"/>
+          			<label for="advance_payment_mnth" />
+                     <div class="o_row" name="advance_payment_mnth">
+                         <field name="advance_payment_mnth" readonly="1"/>
+                         <span>Months</span>
+                     </div>
+                    <label for="advance_payment_cycle" />
+                     <div class="o_row" name="advance_payment_cycle">
+                         <field name="advance_payment_cycle" />
+                         <span>Invoice Cycle</span>
+                     </div>  
+          		</group>
+          	</group>
+          	<footer>
+            	<button name="create_invoice_activate_agreement" string="Create Invoice and Activate Agreement" type="object" class="oe_highlight"/>
+						or
+				<button string="Cancel" class="oe_link" special="cancel" /> 
+          	</footer>
+      		</form>
+    	</field>
+   </record>
+   
+    <record model="ir.actions.act_window" id="action_agreement_invoice_wizard_view">
+        <field name="name">Create Invoice and Activate Agreement</field>
+        <field name="res_model">agreement.invoice.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
+    

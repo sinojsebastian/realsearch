@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!-- View Unit Form View -->
+	    <record id="unit_view_form_view" model="ir.ui.view">
+	        <field name="name">view.unit.form.view</field>
+	        <field name="model">view.unit</field>
+	        <field name="arch" type="xml">
+	            <form string="View Unit">
+	            <group>
+	            	<field name="name"/>
+	            </group>
+	            </form>
+	        </field>
+	    </record>
+</odoo>

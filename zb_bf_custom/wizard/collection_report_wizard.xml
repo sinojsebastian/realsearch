@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<odoo>
+	    <!-- tenant deposit view -->
+	    <record model="ir.ui.view" id="collection_report_form_view">
+	        <field name="name">collection.report.wizard.form.view</field>
+	        <field name="model">collection.report.wizard</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Collection Report" version="7.0">
+	                <group>
+	                    <group>
+	                        <field name="from_date" required="1"/>
+	                        <field name="to_date" required="1"/>
+	                    </group>
+	                    <group>
+	                        <field name="building_id" required="1"/>
+	                    </group>
+	                </group>
+	                <footer>
+	                    <button name="print_collection_report" string="Print" type="object" class="oe_highlight" />
+	                    or
+	                    <button string="Cancel" class="oe_link" special="cancel" />
+	                </footer>
+	            </form>
+	        </field>
+	    </record>
+	    
+	    
+	    <!-- Tenant Deposit Report -->
+	    <record id="collection_report_action" model="ir.actions.act_window">
+	        <field name="name">Collection Report</field>
+	        <field name="res_model">collection.report.wizard</field>
+	        <field name="view_mode">form</field>
+	        <field name="target">new</field>
+	    </record>
+	    
+	    
+	    <!-- Collection Report Menuitem -->
+	    
+	    <menuitem id="menu_collection_report" 
+		    name="Collection Report" 
+		    sequence="2" 
+		    parent="menu_tenant_deposit_wiz_parent_view" 
+		    action="collection_report_action" />
+		    
+		    
+	</odoo>

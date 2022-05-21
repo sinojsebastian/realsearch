@@ -1,0 +1,2266 @@
+<odoo>
+<data>
+	<template id="non_managed_lease_agreement">
+	<t t-call="web.html_container">
+	<t t-foreach="docs" t-as="o">
+	<t t-call="zb_bf_custom.non_managed_lease_external_layout">
+	<!--   First page  -->
+		<div class="page">
+		<style> 
+		
+			
+			ol {
+			  margin-left: 0;
+			  padding-left: 0;
+			}
+			ul {
+			  margin-left: 0;
+			  padding-left: 0;
+			}
+			ol li {
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			ol li::before {
+			  display: inline-block;
+			  content: attr(seq) ") ";
+			  width: 2em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			}
+			
+			ol li.first {
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			ol li.first::before {
+			  display: inline-block;
+			  content: attr(seq) ") ";
+			  width: 2em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			  font-weight: bold;
+			}
+			
+			ul li{
+			  list-style-type: none;
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			ul li::before {
+			  list-style-type: none;
+			  display: inline-block;
+			  width: 2em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			}
+			
+			ol li.subbullets {
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			
+			ol li.subbullets::before {
+			display: inline-block;
+			  content: attr(seq) ") ";
+			  width: 3em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			  
+			}
+			
+			ol li.subbulletss {
+			  display: block;
+			  margin-bottom: .5em;
+			  margin-left: 1em;
+			  margin-right: 1em;
+			}
+			
+			ol li.subbulletss::before {
+			display: inline-block;
+			  content: attr(seq) ") ";
+			  width: 4em;
+			  margin-left: -1em;
+			  margin-right: -1em;
+			  font-weight: normal;
+			}
+			
+		
+		</style>
+			<div class="row">
+			<div class="col-1"> </div>
+			<div class="col-4 text-center" style="padding-top:9cm;font-size:19px;border-bottom: 2px solid black;">
+			<b>Lease Contract For Flat</b>
+			</div>
+			<div class="col-2"></div>
+			<div class="col-4 text-center" style="padding-top:9cm;font-size:19px;border-bottom: 2px solid black;">
+			<b>عقد إيجار شقة</b>
+			</div>
+			<div class="col-1"> </div>
+		</div>
+		<br/>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"> This Lease Contract, which includes all its Schedules hereinunder, is made and effective on <span t-field="o.agreement_start_date"/></div>
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:right;">
+			 ‫     حرر عقد الإيجار هذا شاملا كافة ملاحقه الواردة أدناه ويدخل حيز التنفيذ في يوم  
+			 <span t-esc="o.start_date_arabic"/>
+			 </div>
+			<!-- <div class="col-1"/> -->
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;">
+			<b>BETWEEN</b>
+			</div>
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-right" style="font-size:11px;">
+			<b>بين كل من</b>
+			</div>
+			<!-- <div class="col-1"/> -->
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;">
+			<b>1)&#160;The Lessor: </b>
+			</div>
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-right" style="font-size:11px;"><b>
+			 ‫1) &#160;     المؤجر:
+			</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Name:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+				<t t-if="o.owner_id.name">
+				<span t-esc="o.owner_id.name"/>
+				</t>
+				<t t-if="not o.owner_id.name">
+				<span style="visibility: hidden;">text</span>
+				</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<t t-if="o.owner_id.name_arabic">
+				<span t-esc="o.owner_id.name_arabic"/>
+				</t>
+				<t t-if="not o.owner_id.name_arabic">
+				<span style="visibility: hidden;">text</span>
+				</t>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫الإسم: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Nationality:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+				<t t-if="o.owner_id.nationality_id.name">
+				<span t-esc="o.owner_id.nationality_id.name"/>
+				</t>
+				<t t-if="not o.owner_id.nationality_id.name">
+				<span style="visibility: hidden;">text</span>
+				</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<t t-if="o.owner_id.nationality_id.nationality_arabic">
+				<span t-esc="o.owner_id.nationality_id.nationality_arabic"/></t>
+				<t t-if="not o.owner_id.nationality_id.nationality_arabic">
+				<span style="visibility: hidden;">text</span>
+				</t>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫الجنسية: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Passport No:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.owner_id.passport">
+			<span t-esc="o.owner_id.passport"/>
+			</t>
+			<t t-if="not o.owner_id.passport">
+			<span style="visibility: hidden;">text</span>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.owner_id.passport_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫ رقم جواز السفر: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Tel No.:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.owner_id.mobile">
+			<t t-if="not o.owner_id.phone">
+			<span t-esc="o.owner_id.mobile"/>
+			</t>
+			</t>
+			
+			<t t-if="not o.owner_id.mobile">
+			<t t-if="o.owner_id.phone">
+			<span t-esc="o.owner_id.phone"/>
+			</t>
+			</t>
+			
+			<t t-if="o.owner_id.mobile">
+			<t t-if="o.owner_id.phone">
+			<span t-esc="o.owner_id.mobile"/>/<span t-esc="o.owner_id.phone"/>
+			</t>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<t t-if="o.owner_id.mobile">
+			<t t-if="not o.owner_id.phone">
+			<span t-esc="o.owner_id.mobile"/>
+			</t>
+			</t>
+			
+			<t t-if="not o.owner_id.mobile">
+			<t t-if="o.owner_id.phone">
+			<span t-esc="o.owner_id.phone"/>
+			</t>
+			</t>
+			
+			<t t-if="o.owner_id.mobile">
+			<t t-if="o.owner_id.phone">
+			<span t-esc="o.owner_id.mobile"/>/<span t-esc="o.owner_id.phone"/>
+			</t>
+			</t>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫رقم التلفون: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Email:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<span t-field="o.owner_id.email"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<span t-field="o.owner_id.email"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫البريدالإلكتروني:
+			</b>
+			</div>
+		</div>
+		
+		<br></br>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;">
+			<b>AND</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;">
+			<b>و</b>
+			</div>
+			<!-- <div class="col-1"/> -->
+		</div>
+		<br></br>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;">
+			<b>2)   The Lessee:</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;"><b> 
+						 ‫2) &#160;     المستأجر:
+			 </b>
+			</div>
+			<!-- <div class="col-1"/> -->
+		</div>
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Name:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.name">
+			<span t-esc="o.tenant_id.name"/>
+			</t>
+			<t t-if="not o.tenant_id.name">
+			<span style="visibility: hidden;">text</span>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<span t-esc="o.tenant_id.name_arabic"/>			
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫  الإسم: 
+			</b>
+			</div>
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Nationality:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.nationality_id">
+			<span t-esc="o.tenant_id.nationality_id.name"/>
+			</t>
+			<t t-if="not o.tenant_id.nationality_id">
+			<span style="visibility: hidden;">text</span>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.tenant_id.nationality_id.nationality_arabic"/>	
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫  الجنسية: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Passport No:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.passport">
+			<span t-esc="o.tenant_id.passport"/>
+			</t>
+			<t t-if="not o.tenant_id.passport">
+			<span style="visibility: hidden;">text</span>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.tenant_id.passport_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫ رقم جواز السفر: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			ID No.:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.cpr">
+			<span t-esc="o.tenant_id.cpr"/>
+			</t>
+			<t t-if="not o.tenant_id.cpr">
+			<span style="visibility: hidden;">text</span>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.tenant_id.cpr_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫ رقم الهوية: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Address:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.street">
+			<span t-field="o.tenant_id.street"/>
+			</t>
+			<t t-if="o.tenant_id.street2" t-esc="o.tenant_id.street2"/>
+			<t t-if="o.tenant_id.city" t-esc="o.tenant_id.city"/>
+			<t t-if="o.tenant_id.country_id.name" t-esc="o.tenant_id.country_id.name"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.tenant_id.address_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫العنوان: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;">
+			<b>Tel No.:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.mobile">
+			<t t-if="not o.tenant_id.phone">
+			<span t-esc="o.tenant_id.mobile"/>
+			</t>
+			</t>
+			
+			<t t-if="not o.tenant_id.mobile">
+			<t t-if="o.tenant_id.phone">
+			<span t-esc="o.tenant_id.phone"/>
+			</t>
+			</t>
+			
+			<t t-if="o.tenant_id.mobile">
+			<t t-if="o.tenant_id.phone">
+			<span t-esc="o.tenant_id.mobile"/>/<span t-esc="o.tenant_id.phone"/>
+			</t>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<t t-if="o.tenant_id.mobile">
+			<t t-if="not o.tenant_id.phone">
+			<span t-esc="o.tenant_id.mobile"/>
+			</t>
+			</t>
+			
+			<t t-if="not o.tenant_id.mobile">
+			<t t-if="o.tenant_id.phone">
+			<span t-esc="o.tenant_id.phone"/>
+			</t>
+			</t>
+			
+			<t t-if="o.tenant_id.mobile">
+			<t t-if="o.tenant_id.phone">
+			<span t-esc="o.tenant_id.mobile"/>/<span t-esc="o.tenant_id.phone"/>
+			</t>
+			</t>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+							‫رقم التلفون: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Email:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<span t-field="o.tenant_id.email"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-field="o.tenant_id.email"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫ البريدالإلكتروني: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Work Address:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.parent_id.street">
+			<span t-field="o.tenant_id.parent_id.street"/>
+			</t>
+			<t t-if="o.tenant_id.parent_id.street2" t-esc="o.tenant_id.parent_id.street2"/>
+			<t t-if="o.tenant_id.parent_id.city" t-esc="o.tenant_id.parent_id.city"/>
+			<t t-if="o.tenant_id.parent_id.country_id.name" t-esc="o.tenant_id.parent_id.country_id.name"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.tenant_id.parent_id.address_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫عنوان العمل: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Reference Person Name:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<span t-field="o.ref_person_id.name"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.ref_person_id.name_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫ اسم الشخص المرجعي: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;">
+			<b>Tel No.:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.ref_person_id.mobile">
+			<t t-if="not o.ref_person_id.phone">
+			<span t-esc="o.ref_person_id.mobile"/>
+			</t>
+			</t>
+			
+			<t t-if="not o.ref_person_id.mobile">
+			<t t-if="o.ref_person_id.phone">
+			<span t-esc="o.ref_person_id.phone"/>
+			</t>
+			</t>
+			
+			<t t-if="o.ref_person_id.mobile">
+			<t t-if="o.ref_person_id.phone">
+			<span t-esc="o.ref_person_id.mobile"/>/<span t-esc="o.ref_person_id.phone"/>
+			</t>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<t t-if="o.ref_person_id.mobile">
+			<t t-if="not o.ref_person_id.phone">
+			<span t-esc="o.ref_person_id.mobile"/>
+			</t>
+			</t>
+			
+			<t t-if="not o.ref_person_id.mobile">
+			<t t-if="o.ref_person_id.phone">
+			<span t-esc="o.ref_person_id.phone"/>
+			</t>
+			</t>
+			
+			<t t-if="o.ref_person_id.mobile">
+			<t t-if="o.ref_person_id.phone">
+			<span t-esc="o.ref_person_id.mobile"/>/<span t-esc="o.ref_person_id.phone"/>
+			</t>
+			</t>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+							‫رقم التلفون: 
+			</b>
+			</div>
+		</div>
+		<br></br>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;">
+			<b>PREAMBLE</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;">
+			<b>تمهيد</b>
+			</div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"> Whereas, The Lessor owns a real estate unit (the “Leased Premises”), located in the Building,
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;">
+‫     حيث أن المؤجر يملك الوحدة عقارية ("العين المؤجرة") الكائنة في المبنى،			
+			</div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"> 
+The Lessee desires to lease the Leased Premises from the Lessor and the Lessor accepts to lease the Leased Premises to the Lessee.
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;">
+‫     وحيث  أن المؤجر يرغب في تأجير العين المؤجرة للمستأجر القابل لذلك.			
+			</div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"> 
+Therefore, the Parties, acknowledging their capacity to enter into a legally binding contract, agree on the following terms and conditions:
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;">
+‫     وبناء على ذلك، وبعد أن أقر الطرفان بأهليتهما للتعاقد ، فقد اتفقا على الشروط والأحكام التالية:			
+			</div>
+		</div>
+		<ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"> 
+			<li class ='first' seq="1">
+The Preamble and the Schedules (the “Schedule”)shall form an integral part of the Lease Contract and shall have full force and effect as if set out in full in the body of this Lease Contract, and any reference to this Lease Contract shall include its Preamble and its Schedules.Moreover, any defined terms not defined in the body of the Lease Contract shall be referred to / defined in Schedule “A”.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;">
+			<li class ='first' seq="1" dir='rtl'>     
+‫    يشكل التمهيد والملاحق ("الملحق") جزء لا يتجزأ من عقد الأيجار وله كامل القوة والنفاذ كما لو وردت بالكامل في متن عقد الأيجار ويشمل أي إشارة لعقد الإيجار التمهيد وملاحق العقد. و أي مصطلحات لم يتم تعريف معناها بالتفصيل في عقد الايجار يتم تحديدها في الملحق "أ".	
+		</li>
+		</div>
+		</div>
+		</ol>
+		<div class="row">
+		<div class="col-6 text-left" style="font-size:11px;text-align:justify;"><ol><li style="font-weight: bold;" seq="2"> LEASE REGISTRATION</li> </ol>
+		<ul>
+		<li> 
+		This Lease Contract, or any amendments thereof, shall be duly registered in the “Lease Agreements Registration Office”, in the Municipality of the Leased Premises and on the Lessor’s expense. In case the Lessor fails to register the Lease Contract, or any amendments thereof, the Lessee shall perform the aforementioned registration and deduct the amount from the Rent.
+		</li></ul>
+		</div>
+		<div class="col-6 text-right" style="font-size:11px;">
+		<ol>
+		<li style="font-weight: bold;" seq="2" dir='rtl'>
+			 ‫   تسجيل عقد الإيجار
+		</li></ol>
+		<ul>
+		<li>   
+			 ‫  ‫     يلزم تسجيل عقد الإيجار أو أي تعديلات تطرأ عليه حسب الأصول في "مكتب تسجيل عقود الإيجار" في  البلدية التي تقع في نطاقها العين المؤجرة على نفقة المؤجر. وفي حالة عدم تسجيل المؤجر لعقد الإيجار  أو أي من التعديلات التي تطرأ عليه، فعلى المستأجر القيام بالتسجيل سابق الذكر وخصم تكلفته من مبلغ الإيجار .
+		</li></ul>
+		</div>
+		</div>
+		
+		<ol>
+		<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:11px;"><li style="font-weight: bold;" seq="3"> DESCRIPTION OF LEASED PREMISES, USES, AND INITIAL INSPECTION</li> </div>
+		<div class="col-6 text-right" style="font-size:11px;"><li style="font-weight: bold;" seq="3" dir='rtl'>
+			 ‫   بيان العين المؤجرة والاستخدامات والمعاينة المبدئية
+			
+		</li>    </div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="3.1">
+			The Lessor leases the Leased Premises to the Lessee for residential purposes only.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="3-1" dir='rtl'>   
+			‫      قام المؤجر بتأجير العين المؤجرة على المستأجر لغرض السكنى فقط.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="3.2">
+			 The Lessee leases the Leased Premises as mentioned in Schedule “A”.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="3-2" dir='rtl'>    
+						‫     وافق المستأجر على استئجار العـين المؤجرة على النحو المشار اليه في الملحق "أ".
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="3.3">
+			The Lessee acknowledges and confirms that he/she alongside the Lessor, have performed the Initial Inspection of the Leased Premises thoroughly and finds it to be in a satisfactory condition and fit for residency and proclaims to find no defects which may lead to future damage and issues with regard to the utilization thereof.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="3-3" dir='rtl'>    
+			‫     أقر المستأجر بأنه قام مع المؤجر بالمعاينة المبدئية للعين المؤجرة المعاينة النافية للجهالة ووجدها بحالة مرضية وقابلة للإنتفاع وخالية من أي عيوب قد تؤدي إلى ضرر في المستقبل أو قضايا تتعلق باستغلالها.
+			</li>
+			</div>
+			</div>
+		</ol>
+		<ol>
+			<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:11px;"><li style="font-weight: bold;" seq="4"> LEASE CONTRACT DURATION AND RENEWAL</li>  </div>
+		<div class="col-6 text-right" style="font-size:11px;"><li style="font-weight: bold;" seq="4" dir='rtl'>
+			 ‫   مدة الإيجار والتجديد 
+			
+		</li>     </div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="4.1"> 
+			 The Lease Contract Duration shall be for the period as indicated in Schedule “A”.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="4-1" dir='rtl'>   
+			‫       تكون مدة عقد الإيجار على النحو المشار إليه في الملحق "أ".
+			</li>
+			</div>
+			</div>
+		</ol>
+		<ol>
+			<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="4.2">    In the case where the Lessee continues to occupy the Leased Premises after the Expiry Date and the Lessor is aware and does not object to the Lessee’s continued occupation thereafter, the Lease Contract shall automatically renew with the same terms and conditions as stipulated in this Lease Contract.</li></div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="4-2" dir='rtl'>
+			 ‫       في حالة استمرار المستأجر في شغل العين المؤجرة بعد تاريخ الانتهاء مع علم المؤجر بذلك وعدم إبداء أي اعتراض على  شغل العين المؤجرة،  يتم تجديد عقد الإيجار تلقائيًا بنفس الشروط والأحكام المنصوص عليها في عقد الإيجار.
+			 </li>
+			 </div>
+			</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="4.3">  This Lease Contract shall be terminated on the Expiry Date and may be renewed as per the consent of the parties and subject to a new written contract with new terms and conditions. To exercise this option to renew, the Lessee must give the Lessor a written notice of intention to renew at least one (1) month prior to the Expiry Date, </li></div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="4-3" dir='rtl'>
+			 ‫         ينتهي عقد الإيجار في تاريخ الانتهاء ويجوز تجديده بناء على موافقة الطرفين وبموجب عقد إيجار جديد وبالشروط والأحكام التي يتضمنها التعاقد الجديد. على المستأجر إخطار المؤجر برغبته في التجديد  قبل تاريخ الإنتهاء ب (1) شهر على الأقل.
+			 </li>
+			 </div>
+			</div>
+		</ol>
+		<ol>
+			<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:11px;"><li style="font-weight: bold;" seq="5"> THE RENT, SECURITY DEPOSIT,  PRORATED RENT AND PAYMENTS</li> </div>
+		<div class="col-6 text-right" style="font-size:11px;"><li style="font-weight: bold;" seq="5" dir='rtl'>
+			 ‫   مبلغ الإيجار و وديعة الضمان والإيجار التناسبي و دفعات السداد 
+			
+		</li>    </div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="5.1">
+			  The Rent, and all payments and costs to be paid by the Lessee that are due under this Lease Contract as indicated in Schedule (“A”) shall be paid on its due date on the first of each calendar month without delay or postponement.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="5-1" dir='rtl'>   
+			‫        يجب سداد مبلغ الإيجار وكافة الدفعات والتكاليف المستحقة على المستأجر  بموجب عقد الإيجار على النحو المشار اليه في المحلق ("أ") في الموعد المستحق في الأول من كل شهر وبدون تأخير أو تأجيل حتى انتهاء عقد الأيجار. 
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="5.2">
+			  The  security deposit shall be paid  as indicated in Schedule (“A”) which shall be paid prior to or on the Commencement Date, the security deposit shall be retained by the Lessor for the Lease Contract Duration and returned to the Lessee, within two (2) weeks maximum, subject to the satisfactory final inspection of the Leased Premises (the “Final Inspection”) and other conditions stipulated in the Lease Contract. The Final Inspection shall mean the  inspection to be performed by the parties of this Lease Contract on the Leased Premises on the  Expiry Date to verify whether the Leased Premises is in the same good order and condition as it was during the Initial Inspection with the exception of normal wear and tear.  Moreover, depending on the nature and classification of the Leased Premises as mentioned in Schedule “A”, the Final Inspection shall include an inspection of an inventory list in connection with the Leased Premises.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="5-2" dir='rtl'>  
+			‫      يجب سداد مبلغ وديعة الضمان على النحو المشار اليه في  الملحق ("أ") قبل او في تاريخ النفاذ، يتم الاحتفاظ بها من قبل المؤجر طيلة مدة عقد الإيجار وتسترجع إلى المستأجر في غضون أسبوعين (2) كحد أقصى رهنًا للمعاينة النهائية المرضية للعين المؤجرة ("المعاينة النهائية") وللشروط الأخرى المحددة في عقد الإيجار. المعاينة النهائية يقصد بها المعاينة التي تتم من  قبل الطرفين في عقد الايجار على العين المؤجرة في تاريخ الانتهاء للتحقق من كون العين المؤجرة بنفس حالتها السابقة التي كانت عليها أثناء عملية المعاينة المبدئية باستثناء حالات الاهتراء والبلى الناتج من الاسـتخدام الطبيعي.  يجب أن تشمل عملية المعاينة النهائية على قائمة الجرد المرفقة بالملحق ذو الصلة ووفقاً لطبيعة وتصنيف العين المؤجرة المشار اليه في لملحق "أ"، يجب ان تشمل  عملية المعاينة النهائية على قائمة الجرد ذات الصلة والتي تتعلق بالعين المؤجرة.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="5.3">
+			  In the event that the Commencement Date is on a day other than the 1st day of the month and the Expiry Date is on a day other than the last day of the month, the payable Rent for such partial months, which is to be determined by the Handover Date, shall be calculated on a prorated rent basis. Prorated rent basis shall mean the value of a single day’s rent for any given month, irrespective of the actual days of the concerned month, determined by the following calculation: division of the Rent by thirty (30) days and shall pay as indicated in Schedule “A”. (the “Prorated Rent”).
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="5-3" dir='rtl'>   
+			‫      إذا لم يكن تاريخ نفاذ العقد في اول الشهر و لم يكن تاريخ إنتهاء العقد في نهاية الشهر ، فانه يتم إحتساب إيجار أجزاء هذه الأشهر على أساس الايجار التناسبي الذي يتم تحديده إستناداً الى تاريخ التسليم. الإيجار التناسبي يعني قيمة الايجار لليوم الواحد في أي شهر بغض النظر عن الأيام الفعلية في الشهر المحدد، وتحسب على أساس ثلاثين (30) يوماُ و تدفع على النحو المشار اليه في الملحق "أ" ("الايجار التناسبي").
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="5.4">
+			 The Lessee shall not be permitted to request for the Security Deposit to be used for any late or outstanding Rent payments during any stage of the Lease Agreement or after.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="5-4" dir='rtl'>   
+			‫     لا يجوز للمستأجر ان يطلب استخدام وديعة الضمان لاي مبلغ ايجار متأخر او غير مسدد خلال أي مرحلة من مراحل عقد الايجار او بعده.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<br></br>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="5.5">
+			 The Lessor is permitted by law to impose a rent increase of 5% of the Rent every two years subject to a notification to the Lessee in accordance with the provisions of the law.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="5-5" dir='rtl'>   
+			‫     يجوز للمؤجر زيادة  قيمة الإيجار بنسبة 5%  بعد مضي سنتين من تاريخ النفاذ وفقاً لأحكام القانون.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+			<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:11px;"><li style="font-weight: bold;" seq="6"> Costs, Charges and Features  – Inclusive or Exclusive of Rent</li>  </div>
+		<div class="col-6 text-right" style="font-size:11px;"><li style="font-weight: bold;" seq="6" dir='rtl'>
+			 ‫    التكاليف و الرسوم والمزايا – الشامل و الغير شامل لمبلغ الإيجار
+			
+		</li>     </div>
+		</div>
+		</ol>
+		<ul>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li>
+			For the purposes of this Lease Contract: the Leased Premises may include certain charges, costs and features, which shall be specified and stipulated in Schedule “B” (the “Costs, Charges and Features”). The list in Schedule “B” shall determine which party in the Lease Contract is responsible for paying the Costs and Charges associated with the Leased Premises.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;"><li> 
+			‫     قد تتضمن العين المؤجرة رسوم وتكاليف و مزايا معينة على النحو الموضح والمبين في الملحق “ب” (" التكاليف والرسوم والمزايا"). تحدد القائمة في الملحق "ب" الطرف المسؤول عن سداد التكاليف والرسوم المتعلقة بالعين المؤجرة. 
+			</li>  
+			</div>
+			</div>
+		</ul>
+		<ol>
+		<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:11px;"><li style="font-weight: bold;" seq="7"> LESSEE’S RIGHTS AND OBLIGATIONS</li>
+		<i>The Lessee shall:</i>
+		</div>
+		<div class="col-6 text-right" style="font-size:11px;"><li style="font-weight: bold;" seq="7" dir='rtl'>
+			 ‫    حقوق والتزامات المستأجر
+			
+		</li><i>    
+			 ‫    على المستأجر:
+		</i>
+		</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="7.1">
+			 Pay the Rent and any amounts that arise as a result of this Lease Contract, at the time and in the manner stipulated in Clause (5) of the Lease Contract without any deduction, set-off, or withholding whatsoever whether formally demanded or not.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="7-1" dir='rtl'>   
+			‫      سداد مبلغ الإيجار وأي مبالغ أخرى تنشا نتيجة لعقد الإيجار في الوقت والأسلوب المحدد في البند (5) من عقد الإيجار بدون أي استقطاع أو خصم أو احتجاز للمبالغ المذكورة سواء كان ذلك بطلب رسمي أم لا.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="7.2">
+			 Undertake to comply with the Rules and Regulations stipulated in the Lease Contract and as imposed by the Building, which shall be understood to have been read and agreed upon by the Lessee on the date of signing the Lease Contract. Moreover, undertake to comply with any new or amended Rules and Regulations that the Building may impose in the future.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="7-2" dir='rtl'>
+			‫     التعهد بالامتثال للقواعد واللوائح المحددة في عقد الإيجار والتي تفرضها إدارة المبنى والتي يقر المستأجر بقراءتها واستيعابها في وقت التوقيع على عقد الإيجار. كما يتعهد المستأجر بالامتثال لأي قواعد ولوائح جديدة أو معدلة قد تفرضها إدارة المبنى في المستقبل.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="7.3">
+			Use the Leased Premises for its intended purposes only.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="7-3" dir='rtl'>
+			‫     استخدام العين المؤجرة للأغراض المحددة فقط.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="7.4">
+			 Ensure that the Leased Premises is clean, tidy and hygienic.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="7-4" dir='rtl'>
+			‫     ضمان كون العين المؤجرة نظيفة ومرتبة وصحية.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="7.5">
+			 Properly dispose of waste material in the designated areas of the Leased Premises and the Building in accordance with the Rules and Regulations.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="7-5" dir='rtl'>
+			‫      التخلص من مواد النفايات بطريقة صحيحة في المناطق المخصصة لذلك في العين المؤجرة والمبنى وفقًا للقواعد واللوائح ذات العلاقة.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="7.6">
+			Keep the Leased Premises safe and secure.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="7-6" dir='rtl'>
+			‫     الحفاظ على سلامة وأمان العين المؤجرة.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="7.7">
+			 Not cause a nuisance and grievance to neighbors and any person or person(s) in the Building.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="7-7" dir='rtl'>
+			‫      عدم إحداث أي ضوضاء أو إزعاج للجيران أو أي شخص من المقيمين في المبنى.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="7.8">
+			 Not conduct unlawful or immoral activities in the Leased Premises and/or the Building.
+	       	</li>
+	       	</div>
+	       	<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="7-8" dir='rtl'>
+			‫     عدم القيام بأي أنشطة غير قانونية أو منافية للأخلاق في العين المؤجرة و/أو المبنى.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+	       <div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="7.9">
+	         Not introduce any hazardous materials or situations that may cause harm to any part of the Leased Premises or the Building and to be responsible for any costs, damages, and fees that arise thereof.
+	        </li>
+	        </div>
+	        <div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="7-9" dir='rtl'>
+			‫  عدم إدخال أي مواد خطرة أو المشاركة بشيء يسبب ضررًا لأي جزء من العين المؤجرة أو المبنى والمسؤولة عن أي تكاليف أو أضرار أو رسوم تنشأ عن ذلك.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+	        <div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="7.10">
+	        Carry out the rental maintenance of the Leased Premises and keep the Leased Premises in good order and condition and to keep every part thereof in good and substantial repair.  The rental maintenance shall mean the repairs required to maintain the Leased Premises for the upkeep and for the proper usage thereof (the “Rental Maintenance”). Moreover, the Rental Maintenance shall include obligations to maintain the day-to-day usage of any items or furniture in the Leased Premises and to replace or fix any damage or destruction to such items and furniture caused by the Lessee. Subsequently, ensure the return and delivery of the Leased Premises on the Expiry Date, in the same good order and condition as it was during the Initial Inspection and commits to pay any charges or amounts that are arise as a result thereof.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="7-10" dir='rtl'> 
+						‫      تنفيذ أعمال الصيانة للعين المؤجرة والحفاظ على العين المؤجرة بحالة سليمة وجيدة وكل جزء منها بحالة استعمال تامة. الصيانة الإيجارية يقصد بها أعمال الإصلاح اللازمة لصيانة العين المؤجرة والاستخدام المناسب لها ("الصيانة الايجارية").  إضافةً الى ذلك، تشمل الصيانة الايجارية الالتزام بالحفاظ على الاستخدام اليومي لأية عناصر او اثاث موجود في العين المؤجرة واستبدال او تصليح أي ضرر او تلف قد ينتج لهذه العناصر والأثاث من قبل المستأجر. والتعهد بإعادة وتسليم العين المؤجرة في تاريخ الإنتهاء بالحالة الجيدة التي كانت عليها خلال عملية المعاينة المبدئية وسداد أي رسوم أو مبالغ تنشأ عن ذلك..
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="7.11">
+			 Not permit any pets or animals inside the Leased Premises and the Building. In the event the Lessee violates the aforementioned and does not comply with the warnings / letters by the Lessor within seven (7) days, the Lessee shall be obligated to pay a penalty, equivalent to one (1) month Rent, for such violation. The aforementioned penalty shall continue to applied consecutively, for any given month, on the Lessee, in the event of noncompliance with the warnings / letters.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="7-11" dir='rtl'>
+						‫      عدم السماح لأي حيوانات منزلية أو غيرها من الحيوانات بالدخول للعين المؤجرة والمبنى وفي حال أخلاله لذلك و عدم التزامه لخطابات و اشعارات المؤجر المتعلقة بالأخلال في خلال سبعة (7) أيام سوف يُلزم المستأجر بدفع غرامة تعادل إيجار شهر (1) واحد لهذه المخالفة.  و وسيستمر تطبيق الغرامة المذكورة ادناه على المستأجر عن أي شهر في حال عدم الالتزام.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="7.12">
+	         Not make any alterations or additions to any part of the Leased Premises without the Lessor’s prior written consent.
+	        </li>
+	        </div>
+	        <div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="7-12" dir='rtl'>
+						‫     عدم إجراء أي تعديلات أو إضافات لأي جزء من العين المؤجرة دون الحصول على موافقة خطية مسبقة من المؤجر.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+	        <div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="7.13">
+	         Not permit or suffer to be done on the Leased Premises anything that would damage the Leased Premises and/or whereby the insurance or value of the Leased Premises, or the Building, may be rendered void or voidable or cause the premiums to be increased or decrease the value of the Leased Premises.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="7-13" dir='rtl'>
+						‫     عدم السماح أو محاولة عمل أي شيء على العين المؤجرة من شأنه إلحاق الضرر بها و/أو التأمين على العين المؤجرة أو قيمة العين المؤجرة أو المبنى مما يؤدي إلى إبطال أقساط التأمين أو زيادة أو خفض قيمة العين المؤجرة.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="7.14">
+	         Permit the Lessor, after notification and approval of the Lessee, to examine the Leased Premises at reasonable times and to show the Leased Premises to prospective purchasers of the Building and/or Leased Premises.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="7-14" dir='rtl'>
+						‫     السماح للمؤجر، بعد إخطار وموافقة المستأجر، بمعاينة العين المؤجرة في الأوقات المعقولة وعرضها على المشترين المتوقعين للمبنى و/أو العين المؤجرة.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="7.15">
+	         Permit the Lessor to enter the Leased Premises, when necessary, to inspect whether the Leased Premises requires repairs, improvements, alterations, or additions and to commit to provide the Lessor with necessary consents and approvals with respect to the aforementioned requirements and to inform the Lessor of any issues or matters regarding the Leased Premises that requires the Lessor’s attention within seven (7) days of the issue thereof.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="7-15" dir='rtl'>
+						‫     السماح للمؤجر بدخول العين المؤجرة، عندما يقتضي الأمر ذلك، لفحص ما لو كانت بحاجة لأعمال إصلاح أو تحسينات أو تغييرات أو إضافات ومنح المؤجر الموافقات والتصاريح اللازمة فيما يتعلق بالمتطلبات السابقة مع إبلاغ المؤجر بأي أمور أو مسائل تتعلق بالعين المؤجرة وتتطلب عناية المؤجر في غضون سبعة  (7) أيام عمل من ذلك.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="7.16">
+	         Not cede, assign any of his rights in this Lease Contract, sublet or give up occupation or possession of the Leased Premises or any portion thereof to any person or permit any person, whether a licensee, agent, occupier, custodian or otherwise, to enter into possession or to occupy or take possession of the Leased Premises or any portion thereof and that shall include but not limited to daily rental or any arrangement contrary to the purpose of this Lease Contract.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="7-16" dir='rtl'>
+						‫     عدم التنازل عن أي من حقوقه في عقد الإيجار أو التأجير من الباطن أو التخلي عن شغل  العين المؤجرة أو أي جزء منها لأي شخص أخر أو أن يسمح لأي شخص، سواء كان مرخص له، أو وكيل أو شاغل للعين أو قيم أو غير ذلك أن يشغل أو يضع يده على العين المؤجرة أو أي جزء منها، ويشمل ذلك على سبيل المثال لا الحصر، الإيجار اليومي أو أي إجراءات تتعارض مع الغرض من عقد الإيجار.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="7.17">
+	         If for whatever reason, the Leased Premises is not suitable to satisfy the purpose of the Lease Contract, or is not suitable for full utilization, or it is in a bad condition that it may cause serious danger to its inhabitants, then the Lessee may carry out the required repairs on the Lessor’s expense, that is, after the Lessee notifies the Lessor, of such conditions, intentions and proposed repairs.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="7-17" dir='rtl'>
+						‫     إذا كانت العين المؤجرة غير قابلة للإنتفاع حسب غرض عقد الإيجار، لأي سبب من الأسباب، أو لم تكن مناسبة للاستخدام التام أو أن حالتها سيئة بحيث تتسبب في خطورة كبيرة على السكان، يجوز للمستأجر تنفيذ الإصلاحات المطلوبة على حساب المؤجر، بعد ارسال المستأجر إشعار للمؤجر يبلغه عن هذه الحالة ورغبته في القيام بالإصلاحات المقترحة.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:11px;"><li style="font-weight: bold;" seq="8">  LESSOR’S RIGHTS AND OBLIGATIONS</li> 
+		<i>The Lessor shall:</i></div>
+		<div class="col-6 text-right" style="font-size:11px;"><li style="font-weight: bold;" seq="8" dir='rtl'>
+			 ‫    حقوق والتزامات المؤجر
+		</li>	
+		<i>  
+			 ‫    على المؤجر :
+		</i> 
+		</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="8.1">
+			 Handover the Leased Premises to the Lessee as  indicated in Schedule “A”.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="8-1" dir='rtl'>
+						‫       تسليم العين المؤجرة إلى المستأجر  على النحو المشار اليه في الملحق "أ".
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="8.2">
+			 Enter the Leased Premises at reasonable times either through its representatives, employees, or workmen or through its agents or contractors for the purpose of inspecting the Leased Premises, or for carrying out any repairs or other work provided that the Lessor shall not, in exercising its aforesaid rights, unduly or unreasonably interfere with Lessee’s occupancy in the Leased Premises and shall carry out any repairs or other work as expeditiously as possible.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="8-2" dir='rtl'>
+						‫      دخول العين المؤجرة في أوقات معقولة سواء عبر ممثليه أو موظفيه أو عماله أو من خلال وكلاءه أو مقاوليه بغرض معاينة العـين المؤجرة أو من أجل تنفيذ أية إصلاحات أو أعمال أخرى، شريطة عدم تدخل المؤجر في شغل المستأجر للعين المؤجرة، عند ممارسة حقوقه المذكورة سالفًا أو بإفراط أو بصورة غير منطقية، وعليه تنـفيذ الإصلاحات أو الأعـــمال الأخرى بأقــــــصى سرعة ممكنة. 
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="8.3">
+			 Reserve the right to cede and assign his rights in this Lease Contract to any person whatsoever, and to the extent it deems necessary, by a written notice to the Lessee only and without their consent thereof.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="8-3" dir='rtl'>
+						‫       الإحتفاظ بحقه في التنازل عن حقوقه في عقد الإيجار لأي شخص كان، وبالحد اللازم، من خلال ارسال إشعار مكتوب إلى المستأجر  وحسب ودون الحاجة لموافقة المستأجر. 
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="8.4">
+			 Maintain the exterior of the Leased Premises as well as the exterior walls and roofs of the Building, elevators, hallways, and passageways in good and functional order and keep the aforementioned: clean, neat, and sanitary.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="8-4" dir='rtl'>
+						‫       الحفاظ على المظهر الخارجي للعين المؤجرة بالإضافة إلى جدران وأسقف المبنى الخارجية والمصاعد والمداخل والممرات في نظام وظيفي جيد وكذلك الحفاظ على ما سبق نظيفًا ومنظمًا وصحيًا.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="8.5">
+			 The Lessor shall carry out the Necessary Maintenance for the Leased Premises, and in such case the Lessor refrains or is delayed in carrying out such maintenance, the Lessee may perform the required maintenance on the Lessor’s expense, that is, after the Lessee notifies the Lessor, of such conditions, intentions, and proposed repairs. The necessary maintenance shall mean the urgent and major repairs that are required to maintain the Leased Premises (the “Necessary Maintenance”). Furthermore, the Necessary Maintenance shall mean any of the major structural aspects of the Leased Premises and the Building and the Building's systems, air conditioning systems and the cleaning thereof, the plumbing and sanitary installation, and the electrical systems. Additionally, the Necessary Maintenance shall include maintenance of items and furniture provided in the Leased Premises if maintenance of such items falls under the principle of normal wear and tear; However, such items and furniture are destroyed or damaged by the Lessee, then the obligation shall transfer from the Lessor to the Lessee to repair such damage or destruction.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="8-5" dir='rtl'>
+						‫       تنفيذ الصيانة الضرورية للعين المؤجرة، وفي حالة امتناع أو تأخر المؤجر عن تنفيذ هذه الصيانة، يجوز للمستأجر تنفيذ الصيانة المطلوبة على نفقة المؤجر، بعد ارسال المستأجر إشعار للمؤجر يبلغه عن هذه الحالة وبرغبته في القيام بالإصلاحات المقترحة.  تعنى الصيانة الضـــرورية بأعمال الإصلاح العاجلة والرئيسية المطلوبة لصيانة العين المؤجرة والتي تنفذ على مسؤولية المؤجر ("الصيانة الضرورية").   إضافةً الى ذلك، تعني الصيانة الضرورية صيانة أيا من الجوانب الهيكلية الرئيسية للعين المؤجرة والمبنى و وأنظمة المبنى الرئيسية و أنظمة المكيف الهوائي وتنظيفها و التركيبات الصحية و السباكة والأنظمة الكهربائية. وكما تشمل الصيانة الضرورية الأصناف والاثاث الموجود في العين المؤجرة اذا كانت صيانة هذه الأشياء تخضع لحالات الاهتراء والبلى الناتج من الاســــــــــــــــــــــــــــتخدام الطبيعي الى اذا تم اتلاف وتدمير هذه الأصناف والاثاث من قبل المستأجر فثم يتحول هذا الالتزام من المؤجر الى المستأجر لإصلاح هذا التلف او التدمير.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="8.6">
+			 Shall refrain from causing any action that may undermine the Lessee’s rightful residency in the Leased Premises and ensure that the Lessee shall possess and enjoy the Leased Premises without any interruptions by the Lessor.
+			</li>
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="8-6" dir='rtl'>
+						‫     الامتناع عن إحداث أي أمر قد يقوض من حق المستأجر في الإنتفاع بالعين المؤجرة ويضمن حيازة المستأجر وتمتعه بالعين المؤجرة دون أية معوقات من قبل المؤجر.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:11px;"><li style="font-weight: bold;" seq="9">  DEFAULT, TERMINATION, FINAL INSPECTION</li> </div>
+		<div class="col-6 text-right" style="font-size:11px;"><li style="font-weight: bold;" seq="9" dir='rtl'>
+			 ‫     التقصير والإنهاء والمعاينة النهائية 
+			
+		</li>
+		</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="9.1">
+			 This Lease Contract shall be automatically terminated under the following instances:
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="9-1" dir='rtl'>
+						‫     ينتهي عقد الإيجار هذا تلقائيًا في الحالات التالية: 
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li style="font-weight: normal;" seq="a">
+			 The Lessee causes serious damage or destruction to the Leased Premises and does not rectify it within a period of (14) days after receipt of notice to that effect from the Lessor.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li  style="font-weight: normal;" seq="أ" dir='rtl'>
+						‫     إذا أحدث المستأجر ضررًا أو تدميرًا بالغًا في العين المؤجرة ولم يصححها خلال مدة (14) يومًا من تاريخ تسلمه إشعار يفيد بذلك من المؤجر.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<!-- </p>
+		<p style="page-break-before:always;"> -->
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li style="font-weight: normal;" seq="b"> 
+			 If the Lessee fails to pay the Rent or any other amount due to the Lessor as per the provisions of this Lease Contract within seven (7) days from its due date and/or from the date of receipt of a notice requesting the payment of the owed amounts thereof.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li style="font-weight: normal;" seq="ب" dir='rtl'>
+						‫     إذا أخفق المستأجر في سداد الإيجار أو أية مبالغ أخرى مستحقة للمؤجر بحسب الشروط الواردة في عقد الإيجار خلال سبعة (7) أيام من موعد الاستحقاق و/  أو من تاريخ تسلم اشعار بطلب سداد المبالغ المستحقة عليه.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li style="font-weight: normal;" seq="c">
+			 If the Lessee breaches any of the Rules and Regulations, its obligations under this Lease Contract or violates any of its terms
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li style="font-weight: normal;" seq="ج" dir='rtl'>
+						‫     إذا أخل المستأجر بأي من القواعد واللوائح والالتزامات بموجب عقد الإيجار أو خالف أي من بنوده.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="9.2">
+			 Should the Lessee decide to prematurely vacate the Leased Premises and terminate the Lease Contract before the Expiry Date, the Lessee, shall inform the Lessor, one (1) month in advance, of the intention to vacate. Nevertheless, the Lessee shall be obligated to pay the Lessor the remaining Rent until the Expiry date as early termination penalty or as per the discretion of the Lessor. Moreover, all of the instances mentioned in clause (9.1) shall activate the aforementioned early termination penalty.
+						</li>
+						</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="9-2" dir='rtl'>
+						‫       في حالة اتخاذ المستأجر قرارًا بإخلاء العين المؤجرة قبل الموعد المتفق عليه وفسخ عقد الإيجار قبل تاريخ الإنتهاء، على المستأجر إبلاغ المؤجر قبل شهر (1) مقدمًا، بنيته في الإخلاء. وعلى الرغم من ذلك، على المستأجر الالتزام بسداد باقي قيمة الإيجار حتى تاريخ الإنتهاء كغرامة عن الفسخ المبكر لعقد الإيجار أو بحسب تقدير المؤجر و تطبق الغرامة المذكورة في حال حدوث أي من الحالات المشار اليها في البند (9-1).
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="9.3">
+			 In the event that the Lessee is compelled to withdraw their presence from the Kingdom of Bahrain, the Lessee shall have the right to terminate the Lease Contract by serving the Lessor a one (1) month written notice, with no liability to pay the Lessor any Rent beyond the date of the notice given. The Security Deposit shall be reimbursed forthwith by the Lessor as per Clause (5.2). Ultimately, this Clause shall only be applicable after the lapse of six (6) months of the Commencement Date and as subject to documentary proof such as visa cancellation and termination or resignation letter evidencing the end of the employment contract between the Lessee and the Lessee’s employer pertaining to the Lessee’s compelled withdrawal from the Kingdom of Bahrain.
+			 <p><b style="border-bottom:1px solid black;">This clause is not applicable to Bahrainis and Companies.</b></p>
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbullets" style="font-weight: normal;" seq="9-3" dir='rtl'>
+						‫      إذا كان المستأجر مضطرًا لمغادرة مملكة البحرين، فيحق للمستأجر فسخ عقد الإيجار بعد ارسال اشعار بشهر واحد (1) إلى المؤجر مع عدم التزامه بسداد أي إيجار بعد ذلك التاريخ المذكور في الاشعار. على المؤجر إعادة وديعة الضمان وفقاً لحكم البند (2 -5). تـــسري أحكام هذا البند بعد مرور ستة (6) أشهر من تاريخ النفاذ ويجب تزويد المؤجر بكافة الوثائق الرسمية التي تثبت ذلك مثل إثبات إلغاء التأشيرة و خطاب  الاستقالة او خطاب بفسخ التعاقد بين المستأجر وصاحب العمل أو والتي تؤكد على إضطرار المستأجر على مغادرة مملكة البحرين.
+				<p>
+				<b style="border-bottom:1px solid black;">
+				 ‫ لا يسري هذا البند على الأشخاص الطبيعية والمعنوية من حاملي الجنسية البحرينية.
+				</b>
+				</p>
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="9.4">   The Security Deposit shall be retained by the Lessor as security for the Lessee’s commitments under this Lease Contract and the Lessor may utilize any or all of the Security Deposit in payment of any amount owed by the Lessee to the Lessor and/or for any damages and costs incurred by the Lessor as a result of the Lessee’s actions or noncompliance of the obligations under this Lease Contract, at any stage, or as determined by the Final Inspection. </li></div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"><li class="subbullets" style="font-weight: normal;" seq="9-4" dir='rtl'>
+			 ‫       على المؤجر الاحتفاظ بوديعة الضمان، كضمان لتنفيذ المستأجر لالتزاماته بموجب عقد الإيجار ويجوز للمؤجر استخدام أي جزء من أو كل وديعة الضمان في سداد أية مبالغ مستحقة على المستأجر لصالح المؤجر و\ أو مقابل أية أضرار أو تكاليف تحملها المؤجر نتيجة لأفعال المستأجر أو عدم امتثاله للالتزامات المنصوص عليها في عقد الإيجار، في أي مرحلة أو كما حددتها المعاينة النهائية.
+			</li>
+			</div>
+			</div>
+		</ol>
+		<ol>
+		<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:11px;"><li class="subbullets" style="font-weight: bold;" seq="10"> GOVERNING LAW AND JURISDICTION</li> </div>
+		<div class="col-6 text-right" style="font-size:11px;"><li class="subbullets" style="font-weight: bold;" seq="10" dir='rtl'>
+			 ‫   القانون والاختصاص القضائي
+			
+		</li>    </div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="10.1">
+			 This Lease Contract shall be subject to the provisions of law No. (27) of 2014 and shall, furthermore, be subject to the general provisions on leases provided for in the Civil Code in all matters that are not regulated by a specific provision in this Lease Contract.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="10-1" dir='rtl'> 
+						‫       يحكم ويفــــسر عقد الإيجار وفقاً لأحكام قانون أيجار العقارات رقم (27) لسنة 2014م ومن ثم الاحكام العامة في الايجار الواردة في القانون المدني في كل مالم يرد بشأنه نص في هذا العقد.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="10.2">
+			 Any dispute raised between the Lessor and Lessee concerning the terms and conditions of this Lease Contract shall be referred to the committee of the rental disputes and/or to any of the relevant courts of the Kingdom of Bahrain in its different levels and competences.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="10-2" dir='rtl'> 
+						‫       تختص لجنة المنازعات الإيجارية ومحاكم مملكة البحرين في الفصل بأي نزاع أو خلاف ينشأ بين المؤجر و المستأجر فيما يتعلق بشروط و بنود عقد الإيجار.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+		<!-- <div class="col-1"/> -->
+		<div class="col-6 text-left" style="font-size:11px;"><li class="subbullets" style="font-weight: bold;" seq="11"> GENERAL</li>  </div>
+		<div class="col-6 text-right" style="font-size:11px;"><li class="subbullets" style="font-weight: bold;" seq="11" dir='rtl'>
+			 ‫    شروط عامة
+			
+		</li>     </div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="11.1">
+			 All notices and other communications required or permitted under this Lease Contract shall be sent to both Parties as per their contact details provided in this Lease Contract; moreover, the notices and other communications shall be in writing and shall be personally delivered or sent by courier or registered post or by fax or by email attachment.  Any notice personally delivered shall be deemed as received at the time of delivery.  Any notice sent by courier or registered post shall be deemed as received on the date of delivery, as evidenced by the records of the courier or the post.  Any notice sent by fax shall be deemed as received at the date of transmission, as evidenced by the sender’s transmission report.  Any notice sent by email shall be deemed to have been received twenty four (24) hours after the time sent (as recorded on the device from which the sender sent the email), unless the sender receives an automated message that the email has not been delivered.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="11-1" dir='rtl'> 
+						‫      تُرسل كافة الإشعارات والمراسلات الأخرى المطلوبة أو المسموح بها بموجب عقد الإيجار هذا إلى الطرفين بحسب تفاصيل التواصل معهم المنصوص عليها في عقد الإيجار؛ علاوة على ذلك، يتعين أن تكون الإشعارات والمراسلات الأخرى مكتوبة وأن يتم توصيلها بصفة شخصية أو ارسالها عن طريق البريد السريع أو المسجل أو بالفاكس أو بالبريد الألكتروني. يعتبر أي إشعار تم ارساله بصفة شخصية، قد تم تسلمه في وقت التسليم المقرر. وأي إشعار تم ارساله بالبريد السريع أو المسجل يعتبر قد تم تسلمه في موعد التسليم كما يتضح من سجلات البريد. يعتبر اي إشعار تم ارساله عن طريق الفاكس، قد تم تسلمه في وقت التسليم كما يتضح من تقرير تسليم المرسل. وأي إشعار يتم ارساله بالبريد الألكتروني، يعتبر قد تم تسلمه بعد مرور أربع وعــشرين ساعة (24) من ارساله (كما هو مسجل على الجهاز الذي أرسل منه المرسل الرسالة الإليكترونية)، ما لم يتسلم المرسل رسالة إليكترونية تفيد بعد تسليم الرسالة.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="11.2">
+			 All prices mentioned in this Lease Contract are exclusive of any applicable taxes, including (but not limited to) VAT and/or other direct or indirect taxes that may be imposed by any public or governmental authority in respect of this Lease Contract. Each Party will bear their respective tax liability, if any, as applicable
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="11-2" dir='rtl'> 
+						‫       تعتبر كافة الأسعار الواردة في عقد الإيجار غير شاملة من أي ضرائب سارية وتشمل( على سبيل المثال لا الحصر) ضريبة القيمة المضافة و\ أو غيرها من الضرائب المباشرة وغير المباشرة التي قد تُفرض من جانب أي سلطة عامة أو حكومية فيما يخص عقد الإيجار هذا. يتحمل كل طرف التزاماته الضريبية، إن وجدت، بحسب الاقتضاء.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="11.3">
+			 This Lease Contract, as a whole, including all its Schedules, constitute the entire and only Lease Contract between the Lessor and Lessee, and no oral statements or representations or prior written matter(s) not contained in this Lease Contract shall have any force and effect. This Lease Contract shall not be modified in any way except by writing executed by both the Lessor and Lessee. 
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="11-3" dir='rtl'> 
+						‫      يشكل عقد الإيجار  مع كل ملحقاته مجمل التعاقد فيما بين المؤجر والمستأجر. ويجب هذ العقد كل الاتفاقيات والمناقشات والمفاوضات الشفهية او الكتابية السابقة بين الطرفين. لا يكون أي تعديل لبنود هذا العقد نافذاً إلا إذا حرر كتابياً وتم توقيعه من قبل الطرفين.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="11.4">
+			 If any term or clause of this Lease Contract or the application hereof, be held invalid or unenforceable, the remainder of this Lease Contract shall not be affected, and each term and clause of this Lease Contract shall be valid and be enforced to the fullest extent permitted by law. 
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="11-4" dir='rtl'> 
+						‫      إن عدم سريان أو عدم قانونية أو عدم قابلية تنفيذ أي حُكم من أحكام عقد الإيجار لن يؤثر على سريان مفعول أو قانونية أو سريان مفعول أي حُكم آخر في عقد الإيجار.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="11.5">
+			 All dates in this Lease Contract shall correspond with the Gregorian calendar.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="11-5" dir='rtl'> 
+						‫      تحدد جميع التواريخ والفترات الزمنية في عقد الإيجار وفقاً للتقويم الميلادي الجريجوري.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<ol>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;"><li class="subbulletss" seq="11.6">
+			 This Lease Contract has been executed in both Arabic and English, both being authentic. In the event of any difference between the two texts, the Arabic text shall prevail.
+			</li>
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;text-align:justify;"> <li class="subbulletss" seq="11-6" dir='rtl'> 
+						‫      حرر عقد الإيجار  باللغتين العربية والانجليزية ويعتبر كل من النصين ذا حجية متساوية وفي حال وجود اي اختلاف بين النصين فانه يرجح النص العربي.
+			</li>
+			</div>
+		</div>
+		</ol>
+		<!-- </p>
+		<p style="page-break-before:always;"> -->
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;"> IN WITNESS, WHEREOF, </div>
+			<div class="col-6 text-right" style="font-size:11px;">
+‫     وإشهادًا لما تقدم، 			 
+			 </div>
+			</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6" style="font-size:11px;text-align:justify;"> the Lessor and the Lessee have entered into this residential Lease Contract on the date first indicated above </div>
+			<div class="col-6" style="font-size:11px;text-align:right">
+‫    أبرم كل من المؤجر والمستأجر عقد أيجار شقة سكنية في التاريخ الوارد  أعلاه.			 
+			 </div>
+			</div>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-4 text-left" style="font-size:11px;border-top:1px solid black;"><b> LESSOR </b></div>
+			<div class="col-4"/>
+			<div class="col-4 text-right" style="font-size:11px;border-top:1px solid black;"><b> المؤجر </b></div>
+			</div>
+			<br/>
+			<br/>
+			<br></br>
+			<br></br>
+			<br></br>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-4 text-left" style="font-size:11px;border-top:1px solid black;"><b> LESSEE </b></div>
+			<div class="col-4"/>
+			<div class="col-4 text-right" style="font-size:11px;border-top:1px solid black;"><b> المستأجر </b></div>
+			</div>
+		<p style="page-break-before:always;">
+		<div class="row">
+			<div class="col-6 text-center" style="font-size:11px;">
+			<b>SCHEDULE “A”</b>
+			</div>
+			<div class="col-6 text-center" style="font-size:11px;">
+			<b>
+			‫     الملحق "أ"
+			</b>
+			</div>
+			</div>
+		<div class="row">
+			<div class="col-6 text-center" style="font-size:11px;">
+			<b> LEASE CONTRACT SUMMARY</b>
+			</div>
+			<div class="col-6 text-center" style="font-size:11px;">
+			<b> 
+			‫     موجز عقد الإيجار
+			</b>
+			</div>
+			</div>
+			<br/>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;">
+			<b>Parties:</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;"><b>
+			 ‫1) &#160;    الطرفان:
+			 ‫      
+			</b>
+			</div>
+		</div>
+		<br></br>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;">
+			<b>The Lessor: </b>
+			</div>
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-right" style="font-size:11px;"><b>
+			 ‫     المؤجر:
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Name:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+				<t t-if="o.owner_id.name">
+				<span t-esc="o.owner_id.name"/>
+				</t>
+				<t t-if="not o.owner_id.name">
+				<span style="visibility: hidden;">text</span>
+				</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<t t-if="o.owner_id.name_arabic">
+				<span t-esc="o.owner_id.name_arabic"/>
+				</t>
+				<t t-if="not o.owner_id.name_arabic">
+				<span style="visibility: hidden;">text</span>
+				</t>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫الإسم: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Nationality:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+				<t t-if="o.owner_id.nationality_id.name">
+				<span t-esc="o.owner_id.nationality_id.name"/>
+				</t>
+				<t t-if="not o.owner_id.nationality_id.name">
+				<span style="visibility: hidden;">text</span>
+				</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<t t-if="o.owner_id.nationality_id.nationality_arabic">
+				<span t-esc="o.owner_id.nationality_id.nationality_arabic"/></t>
+				<t t-if="not o.owner_id.nationality_id.nationality_arabic">
+				<span style="visibility: hidden;">text</span>
+				</t>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫الجنسية: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Passport No:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.owner_id.passport">
+			<span t-esc="o.owner_id.passport"/>
+			</t>
+			<t t-if="not o.owner_id.passport">
+			<span style="visibility: hidden;">text</span>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.owner_id.passport_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫ رقم جواز السفر: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Tel No.:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.owner_id.mobile">
+			<t t-if="not o.owner_id.phone">
+			<span t-esc="o.owner_id.mobile"/>
+			</t>
+			</t>
+			
+			<t t-if="not o.owner_id.mobile">
+			<t t-if="o.owner_id.phone">
+			<span t-esc="o.owner_id.phone"/>
+			</t>
+			</t>
+			
+			<t t-if="o.owner_id.mobile">
+			<t t-if="o.owner_id.phone">
+			<span t-esc="o.owner_id.mobile"/>/<span t-esc="o.owner_id.phone"/>
+			</t>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<t t-if="o.owner_id.mobile">
+			<t t-if="not o.owner_id.phone">
+			<span t-esc="o.owner_id.mobile"/>
+			</t>
+			</t>
+			
+			<t t-if="not o.owner_id.mobile">
+			<t t-if="o.owner_id.phone">
+			<span t-esc="o.owner_id.phone"/>
+			</t>
+			</t>
+			
+			<t t-if="o.owner_id.mobile">
+			<t t-if="o.owner_id.phone">
+			<span t-esc="o.owner_id.mobile"/>/<span t-esc="o.owner_id.phone"/>
+			</t>
+			</t>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫رقم التلفون: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Email:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<span t-field="o.owner_id.email"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<span t-field="o.owner_id.email"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫البريدالإلكتروني:
+			</b>
+			</div>
+		</div>
+		
+		<br></br>
+		<!-- <div class="row">
+			<div class="col-1"/>
+			<div class="col-6 text-left" style="font-size:15px;">
+			<b>AND</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:15px;">
+			<b>و</b>
+			</div>
+			<div class="col-1"/>
+		</div> -->
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;">
+			<b>The Lessee:</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;"><b> 
+						 ‫     المستأجر:
+			 </b>
+			</div>
+			<!-- <div class="col-1"/> -->
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Name:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.name">
+			<span t-esc="o.tenant_id.name"/>
+			</t>
+			<t t-if="not o.tenant_id.name">
+			<span style="visibility: hidden;">text</span>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<span t-esc="o.tenant_id.name_arabic"/>			
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫  الإسم: 
+			</b>
+			</div>
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Nationality:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.nationality_id">
+			<span t-esc="o.tenant_id.nationality_id.name"/>
+			</t>
+			<t t-if="not o.tenant_id.nationality_id">
+			<span style="visibility: hidden;">text</span>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.tenant_id.nationality_id.nationality_arabic"/>	
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫  الجنسية: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Passport No:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.passport">
+			<span t-esc="o.tenant_id.passport"/>
+			</t>
+			<t t-if="not o.tenant_id.passport">
+			<span style="visibility: hidden;">text</span>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.tenant_id.passport_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫ رقم جواز السفر: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			ID No.:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.cpr">
+			<span t-esc="o.tenant_id.cpr"/>
+			</t>
+			<t t-if="not o.tenant_id.cpr">
+			<span style="visibility: hidden;">text</span>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.tenant_id.cpr_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫ رقم الهوية: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Address:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.street">
+			<span t-field="o.tenant_id.street"/>
+			</t>
+			<t t-if="o.tenant_id.street2" t-esc="o.tenant_id.street2"/>
+			<t t-if="o.tenant_id.city" t-esc="o.tenant_id.city"/>
+			<t t-if="o.tenant_id.country_id.name" t-esc="o.tenant_id.country_id.name"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.tenant_id.address_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫العنوان: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;">
+			<b>Tel No.:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.mobile">
+			<t t-if="not o.tenant_id.phone">
+			<span t-esc="o.tenant_id.mobile"/>
+			</t>
+			</t>
+			
+			<t t-if="not o.tenant_id.mobile">
+			<t t-if="o.tenant_id.phone">
+			<span t-esc="o.tenant_id.phone"/>
+			</t>
+			</t>
+			
+			<t t-if="o.tenant_id.mobile">
+			<t t-if="o.tenant_id.phone">
+			<span t-esc="o.tenant_id.mobile"/>/<span t-esc="o.tenant_id.phone"/>
+			</t>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<t t-if="o.tenant_id.mobile">
+			<t t-if="not o.tenant_id.phone">
+			<span t-esc="o.tenant_id.mobile"/>
+			</t>
+			</t>
+			
+			<t t-if="not o.tenant_id.mobile">
+			<t t-if="o.tenant_id.phone">
+			<span t-esc="o.tenant_id.phone"/>
+			</t>
+			</t>
+			
+			<t t-if="o.tenant_id.mobile">
+			<t t-if="o.tenant_id.phone">
+			<span t-esc="o.tenant_id.mobile"/>/<span t-esc="o.tenant_id.phone"/>
+			</t>
+			</t>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+							‫رقم التلفون: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Email:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<span t-field="o.tenant_id.email"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-field="o.tenant_id.email"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫ البريدالإلكتروني: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Work Address:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.tenant_id.parent_id.street">
+			<span t-field="o.tenant_id.parent_id.street"/>
+			</t>
+			<t t-if="o.tenant_id.parent_id.street2" t-esc="o.tenant_id.parent_id.street2"/>
+			<t t-if="o.tenant_id.parent_id.city" t-esc="o.tenant_id.parent_id.city"/>
+			<t t-if="o.tenant_id.parent_id.country_id.name" t-esc="o.tenant_id.parent_id.country_id.name"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.tenant_id.parent_id.address_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫عنوان العمل: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			Reference Person Name:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<span t-field="o.ref_person_id.name"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+				<span t-esc="o.ref_person_id.name_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫ اسم الشخص المرجعي: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;">
+			<b>Tel No.:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.ref_person_id.mobile">
+			<t t-if="not o.ref_person_id.phone">
+			<span t-esc="o.ref_person_id.mobile"/>
+			</t>
+			</t>
+			
+			<t t-if="not o.ref_person_id.mobile">
+			<t t-if="o.ref_person_id.phone">
+			<span t-esc="o.ref_person_id.phone"/>
+			</t>
+			</t>
+			
+			<t t-if="o.ref_person_id.mobile">
+			<t t-if="o.ref_person_id.phone">
+			<span t-esc="o.ref_person_id.mobile"/>/<span t-esc="o.ref_person_id.phone"/>
+			</t>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<t t-if="o.ref_person_id.mobile">
+			<t t-if="not o.ref_person_id.phone">
+			<span t-esc="o.ref_person_id.mobile"/>
+			</t>
+			</t>
+			
+			<t t-if="not o.ref_person_id.mobile">
+			<t t-if="o.ref_person_id.phone">
+			<span t-esc="o.ref_person_id.phone"/>
+			</t>
+			</t>
+			
+			<t t-if="o.ref_person_id.mobile">
+			<t t-if="o.ref_person_id.phone">
+			<span t-esc="o.ref_person_id.mobile"/>/<span t-esc="o.ref_person_id.phone"/>
+			</t>
+			</t>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+							‫رقم التلفون: 
+			</b>
+			</div>
+		</div>
+		
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;">
+			<b>2)   The Address:</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;"><b>
+			 ‫2) &#160;      العنوان
+			</b>
+			</div>
+			</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;text-align:justify;">Flat <t t-esc="o.subproperty.name"></t>, Building <t t-esc="o.building_id.name"></t>,Road <t t-esc="o.building_id.building_address.street2"></t>,<t t-esc="o.building_id.building_address.city"></t>,<t t-esc="o.building_id.building_address.country_id.name"></t>
+			<br></br>
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;text-align:right;">
+						 ‫       شقة  
+			<t t-if="o.subproperty.unit_arabic">
+			<t t-esc="o.subproperty.unit_arabic"/>,</t>
+			<t t-else="">
+			<t t-esc="o.subproperty.name"/>,</t>
+			<t t-esc="o.building_id.address_arabic"/>
+			 <br></br>
+			 </div>
+			</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;text-align:justify;">
+			Cark Park Space - <t t-foreach="o.subproperty.other_features_ids" t-as="line">
+			<t t-if="line.is_car_park == True">
+			<t t-esc="line.name"/>
+			</t>
+			</t>
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;text-align:right;">
+						 ‫      مكان لوقوف السيارات –  
+			<t t-foreach="o.subproperty.other_features_ids" t-as="line">
+			<t t-if="line.is_car_park == True">
+			<t t-esc="line.name_arabic"/>
+			</t>
+			</t>
+			 </div>
+			</div>
+		<div class="row">
+			<!-- <div class="col-1"/> -->
+			<div class="col-6 text-left" style="font-size:11px;">
+			<b>3)&#160;   Lease Contract Duration</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;"><b>
+			 ‫3) &#160;       مدة عقد الإيجار
+			</b>
+			</div>
+			</div>
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;">
+			Duration:
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-esc="duration"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+						 ‫       <t t-esc="o.duration_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;">
+			 ‫المدة:                  
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;">
+			Commencement Date:
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<!-- <span t-esc="time.strftime('%d/%m/%Y',time.strptime(str(o.agreement_start_date),'%Y-%m-%d'))"/> -->
+			<span t-field="o.agreement_start_date"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<span t-esc="o.start_date_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;">
+			 ‫تاريخ النفاذ:                 
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;">
+			Expiry Date:
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<!-- <span t-esc="time.strftime('%d/%m/%Y',time.strptime(str(o.agreement_end_date),'%Y-%m-%d'))"/> -->
+			<span t-field="o.agreement_end_date"/>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<span t-esc="o.end_date_arabic"/>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;">
+			 ‫تاريخ الانتهاء:                
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			4)&#160;Handover Date:
+			</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			<t t-if="o.moving_date">
+		<!-- 	<span t-esc="time.strftime('%d/%m/%Y',time.strptime(str(o.moving_date),'%Y-%m-%d'))"/> -->
+			<span t-field="o.moving_date"/>
+			</t>
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			<t t-if="o.handover_date_arabic">
+			<span t-esc="o.handover_date_arabic"/>
+			</t>
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+			‫4) &#160;     تاريخ التسليم:
+			</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			5) The Rent:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			 BD <t t-esc="rent_amt"/>
+				/- (
+				<t t-esc="rent"/>
+				)
+			
+			per month.
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			
+			 ‫     د.ب <t t-esc="rent_amt"/>/-
+			 ‫       (<t t-esc="o.leasedpremise_rent_arabic"/>) في الشهر
+			
+			
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫5)   مبلغ الإيجار: 
+			</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-2 text-left" style="font-size:11px;"><b>
+			6)&#160;Prorated Rent:</b>
+			</div>
+			<div class="col-4 text-left" style="font-size:11px;">
+			BD <t t-esc="pro_rated_rent"></t> /- per day. <!-- (<t t-esc="pro_rent_words"/>)  -->
+			 
+			</div>
+			<div class="col-4 text-right" style="font-size:11px;">
+			 ‫     د.ب <t t-esc="pro_rated_rent"></t>/-
+			 ‫        في اليوم.
+			<!-- (<t t-esc="o.pro_rent_arabic"/>) -->
+			
+			</div>
+			<div class="col-2 text-right" style="font-size:11px;"><b>
+				‫6) &#160;  الايجار التناسبي: 
+			</b>
+			</div>
+		</div>
+			<div class="row">
+			<div class="col-6 text-left" style="font-size:11px;"><b>
+			7)&#160;</b> The <b>Lessee shall pay,</b> in advance: <t t-esc="pro_rent_days"/> days Prorated Rent on (<t t-if="o.moving_date">
+			<!-- <span t-esc="time.strftime('%d/%m/%Y',time.strptime(str(o.moving_date),'%Y-%m-%d'))"/> -->
+			<span t-field="o.moving_date"/>
+			</t>) and <t t-esc="mnth_words"/> (<t t-esc="month"/>) months' Rent and a Security Deposit on Handover Date.
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;"><b>
+			‫7) &#160;     
+			</b>
+			يتعين
+			<b>على المستأجر سداد قيمة</b>
+			الإيجار
+			التناسبي لـ
+			<t t-esc="pro_rent_days"/>
+			‫        أيام في
+			<!-- <t t-if="o.pro_rated_amt"><t t-esc="'{:,.3f}'.format(o.pro_rated_amt)"/></t>
+			<t t-if="o.pro_rated_amt_arabic">(<t t-esc="o.pro_rated_amt_arabic"/>)</t> -->
+			 ‫       <t t-if="o.moving_date">
+			<!-- <span t-esc="time.strftime('%d/%m/%Y',time.strptime(str(o.moving_date),'%Y-%m-%d'))"/> -->
+			<span t-field="o.moving_date"/>
+			</t>
+			‫     ، وإيجار شهر واحد (<t t-esc="month"/>)  ووديعة الضمان في تاريخ التسليم
+			
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-6 text-left" style="font-size:11px;"><b>
+			8)&#160; The Security Deposit
+			</b>shall be for the amount
+			<b>BD <t t-esc="security"/> /- (<t t-esc="deposit"/>).</b>
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;">
+			<b> ‫8)   وديعة الضمان </b>
+				تقدر بمبلغ
+				<b>
+				‫ د.ب.
+				<t t-esc="security"/>
+				/-<t t-if="o.security_deposit_arabic"> (
+				<t t-esc="o.security_deposit_arabic"/>
+				)</t>
+				</b>
+				</div>
+			</div>
+			<div class="row">
+			<div class="col-6 text-left" style="font-size:11px;">
+			9) The Leased Premises is <t t-if="o.subproperty.feature"><b><t t-esc="dict(o.subproperty.fields_get(allfields=['feature'])['feature']['selection'])[o.subproperty.feature]"/></b>
+			</t>
+			</div>
+			<div class="col-6 text-right" style="font-size:11px;">
+			‫9) &#160;     العين المؤجرة هي 
+			<b><t t-esc="o.subproperty.feature_arabic"/></b>
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-6 text-left" style="font-size:11px;"><b>
+			10) The Leased Premises’ Rent value includes
+			</b>
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;"><b>
+			 ‫10) &#160;      تشمل قيمة إيجار العين المؤجرة المرافق العامة مثل                 
+			</b>
+			</div>
+			</div>
+			
+			<div class="row">
+			<div class="col-6 text-left" style="font-size:11px;"><b>
+			EWA up to a limit <t t-esc="ewa_amt"/> BD/- (<t t-esc="ewa"/>)
+			</b>
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;"><b>
+			 ‫      الماء و الكهرباء                 
+			<t t-esc="ewa_amt"></t>
+			 ‫      د.ب /-
+			<t t-if="ewa_arabic">
+			 (<t t-esc="ewa_arabic"></t>)</t>
+			</b>
+			</div>
+			</div>
+			
+			<div class="row">
+			<div class="col-6 text-left" style="font-size:11px;"><b>
+			Internet Service <t t-esc="int_amt"/> BD/- (<t t-esc="int_words_fils"/>)
+			</b>
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;"><b>
+			 ‫      خدمة الإنترنت                 
+			<t t-esc="int_amt"/>
+			 ‫      د.ب /-
+			<t t-if="int_arabic">
+			(<t t-esc="int_arabic"></t>)</t>
+			</b>
+			</div>
+			</div>
+			
+		</p>
+		<p style="page-break-before:always;">
+		<div class="row">
+			<div class="col-6 text-center" style="font-size:11px;">
+			<b>SCHEDULE “B”</b>
+			</div>
+			<div class="col-6 text-center" style="font-size:11px;"><b>
+			‫    الملحق " ب"
+			</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-center" style="font-size:11px;">
+			<b>COSTS, CHARGES, AND FEATURES</b>
+			</div>
+			<div class="col-6 text-center" style="font-size:11px;"><b>
+			‫     التكاليف و الرسوم  والمزايا
+			</b>
+			</div>
+		</div>
+		<br></br>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;">
+			<b>1)&#160;Utilities:</b>
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;"><b>
+			‫1) &#160;     الخدمات:
+			</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;">
+			<b>Electricity and Water charges</b>
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;"><b>
+			‫     رسوم الكهرباء والماء
+			</b>
+			</div>
+		</div>
+		<br></br>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;">
+			The Lessor is obligated to pay the monthly Electricity and Water charges up to a limit of BD <t t-esc="ewa_amt"/> per month only. Any charges that exceed BD <t t-esc="ewa_amt"/> per month shall be borne by the Lessee thereafter. 
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;">
+			‫     يلتزم المؤجر بسداد الرسوم الشهرية للكهرباء الماء حتى
+			<t t-esc="ewa_amt"/>
+			‫      دينار بحريني في الشهر فقط. وأية رسوم تتعدى
+			<t t-esc="ewa_amt"/>
+‫     دينار بحريني يتحملها المستأجر لاحقًا.			
+			</div>
+		</div>
+		<br></br>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:justify;">
+			Note*: <br></br>- The consumption calculation shall be performed monthly. Therefore, the Lessee, commits to pay any charges that exceed the limit. 
+                                        <br></br>- The remaining balance of the unconsumed limit will not be carried forward to the next month.
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;">
+‫ ملاحظة*:	 
+                                            <br></br>
+                                             ‫ - يتم إحتساب الاستهلاك  شهريًا. وبناء عليه، يلتزم المستأجر بسداد أية رسوم تتعدى الحد.
+                                        	<br></br>
+                                            ‫ - لن يتم نقل أي رصيد متبقي من مبلغ الحد الأقصى للاستخدام لحساب الشهر القادم.			
+			</div>
+		</div>
+		<br></br>
+		<t t-if="o.tax_municipality in ['lessor','lessee']">
+			<div class="row">
+				<div class="col-6" style="font-size:11px;text-align:left;">
+					<b>2)&#160; Municipality Tax </b>
+				</div>
+				<div class="col-6" style="font-size:11px;text-align:right;"><b>
+					‫2) &#160;     رسوم البلدية
+					</b>
+				</div>
+			</div>
+		<br></br>
+		<div class="row">
+		<t t-if="o.tax_municipality == 'lessor'">
+			<div class="col-6" style="font-size:11px;text-align:justify;">
+			The monthly Municipality Tax as imposed by the relevant authority and as evidenced in the Leased Premises’ Electricity and Water bill of the Leased Premises shall be paid by the Lessor.
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;">
+‫على المؤجر سداد رسوم البلدية الشهرية التي تفرضها الجهة المختصة كما هو مبين في فاتورة الكهرباء والماء للعين المؤجرة.			</div>
+		</t>
+		<t t-if="o.tax_municipality == 'lessee'">
+		<div class="col-6" style="font-size:11px;text-align:justify;">
+			The monthly Municipality Tax as imposed by the relevant authority and as evidenced in the Leased Premises’ Electricity and Water bill of the Leased Premises shall be paid by the Lessee.
+		</div>
+		<div class="col-6" align="right" style="font-size:11px;">
+‫ على المستأجر سداد رسوم البلدية الشهرية التي تفرضها الجهة المختصة كما هو مبين في فاتورة الكهرباء والماء للعين المؤجرة.
+		</div>
+		</t>
+		</div>
+		<br></br>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:left;">
+				<b>3)&#160; Internet Service</b>
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;"><b>
+				‫3) &#160;     خدمة الانترنت
+				</b>
+			</div>
+		</div>
+		<br></br>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;">
+			The Lessor shall pay the for the Internet Services for the value of BD <t t-esc="int_amt"/> (<t t-esc="int_words_fils"/>) per month.
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;">
+			‫  على المؤجر سداد قيمة خدمة الإنترنت بقيمة
+			<b>
+			‫        د.ب <t t-esc="int_amt"/>  
+			<t t-if="int_arabic">
+			(<t t-esc="int_arabic"></t>)</t>
+			</b>
+			‫      في الشهر.
+			
+			</div>
+		</div>
+		</t>
+		<t t-else="">
+		<div class="row">
+			<div class="col-6" style="font-size:11px;text-align:left;">
+				<b>2)&#160; Internet Service</b>
+			</div>
+			<div class="col-6" style="font-size:11px;text-align:right;"><b>
+				‫2) &#160;     خدمة الانترنت
+				</b>
+			</div>
+		</div>
+		<br></br>
+		<div class="row">
+			<div class="col-6" style="font-size:11px;">
+			The Lessor shall pay the for the Internet Services for the value of BD <t t-esc="int_amt"/> (<t t-esc="int_words_fils"/>) per month.
+			</div>
+			<div class="col-6" align="right" style="font-size:11px;">
+			‫  على المؤجر سداد قيمة خدمة الإنترنت بقيمة
+			<b>
+			‫        د.ب <t t-esc="int_amt"/>  
+			<t t-if="int_arabic">
+			(<t t-esc="int_arabic"></t>)</t>
+			</b>
+			‫      في الشهر.
+			
+			</div>
+		</div>
+		</t>
+		</p>
+		</div>
+	</t>
+	</t>
+	</t>
+	</template>
+	<template id="non_managed_lease_external_layout">
+	    <div class="page_border" style="height:280mm;"/>
+		<div class="article o_report_layout_standard">
+		<t t-raw="0"/>
+		</div>
+		<div class="footer">
+			<div class="text-center" style="font-size:10px;padding-top:1cm;">
+			Page
+			<b><span class="page"/></b>
+			of
+			<b><span class="topage"/></b>
+			</div>
+			<div class="col-2 text-left" style="font-size:10px;">
+			Lessee’s Initial:
+			</div>
+			<br></br>
+			<div class="col-2 text-left" style="font-size:10px;border-top:1px solid black;padding-top:1cm;">
+			</div>
+		</div>
+	</template>
+</data>
+</odoo>

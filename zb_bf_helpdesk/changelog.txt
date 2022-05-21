@@ -1,0 +1,59 @@
+07/12/2021 v.0.19 THaslima
+	[ZB-7604] Open Tickets View
+	
+14/05/2021 v.0.18 THaslima
+	ZB-5824-Helpdesk Ticket Form Changes
+	
+04/02/2021 v.0.17 Neha
+	[ZB-5529] help desk: job order : create invoice wizard
+
+13/01/2021 v.0.16 Dayana
+	* passing building,module,lease while creating vendor bill from purchase.order
+
+04/01/20201 v.0.15 Neha
+	ZB-5294 - New ticket related buttons in kanban view of building
+
+23/12/2020 v.0.14 Neha
+	correction in the ticket_id field in sale and purchase
+
+18/12/2020 v.0.13 Neha
+	* Solved error in the onchange of building and module in ticket
+
+17/12/2020 v.0.12 Dayana
+	* Pass building setails to sale.order and purchase.order
+
+16/12/2020 v.0.11 Dayana
+	* Make the customer details below th building details
+
+16/12/2020 v.0.10 Neha
+	* Default responsible and added filters
+
+11/12/2020 v.0.9 Davis
+	* 4907 feedback changes -quantity default, owner from configuration
+
+09/12/2020 v.0.8 Davis
+	* 4907 feedback changes -restriction in unlink 
+
+
+08/12/2020 v.0.7 Davis
+	* 4907 feedback changes
+
+03/12/2020 v.0.6 Davis
+	* 4907
+
+24/11/2020 v.0.5 Neha
+	* required=True for complaint date field
+
+19/11/2020 v.0.4 Neha
+	* Created Ids for ticket types
+
+27/10/2020 v.0.3 Jeena
+	* ZB-4917 -Implemented job order model with functionalities in helpdesk-Feedbacks
+
+23/10/2020 v.0.2 Jeena
+	* ZB-4917 -Implemented job order model with functionalities in helpdesk
+
+23/10/2020 v.0.1 Jeena
+	* ZB-4917 -Implemented job order model with functionalities in helpdesk
+
+

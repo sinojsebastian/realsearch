@@ -1,0 +1,14 @@
+v 0.4 25/02/2022 by Aswanth
+	* [ZB-8063]-Bank Reconciliation Update
+
+v 0.3 17/09/2021 by Neha
+	* [ZB-7062] Settlement Date Inactive
+
+v 0.2 07/07/2020 by Rilu
+	* Corrected Bank Reconcilation Report
+	* Edited update_record function
+	
+v 0.1 25/04/2020 by Derick
+	* Migration of the module from version 11 to version 13
+	
+ 

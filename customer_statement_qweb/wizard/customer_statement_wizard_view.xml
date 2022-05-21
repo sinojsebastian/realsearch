@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+			<!-- Customer Statement Wizard Form View -->
+		<record id="view_customer_statement" model="ir.ui.view">
+			<field name="name">Customer Statement</field>
+			<field name="model">customer.statement.report</field>
+			<field name="arch" type="xml">
+				<form string="Customer Statement">
+					<group>
+						<group>
+	                        <field name="from_date"/>
+	                        <field name="partner_id" readonly ="1"/>
+	                        <field name="show_paid_inv"/>
+	                    </group>
+	                    <group>
+	                        <field name="to_date"/>
+	                    	<field name="building_id" required="1"/>
+	                    	<field name="module_id" domain="[('building_id','=',building_id)]" required="1"/>
+	                    </group>
+                    </group>
+					<!-- <group col="4">
+						<field name="show_paid_inv"/>
+						
+					</group> -->
+					<footer>
+						<button name="print_customer_statement" string="Print" type="object" class="oe_highlight"/>
+						or
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+	
+			<!-- Customer Statement Wizard Action -->
+		<record model="ir.actions.act_window" id="action_customer_statement">
+			<field name="name">Customer Statement</field>
+			<field name="res_model">customer.statement.report</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+	
+			<!-- Customer Statement Wizard Action Menu -->
+		<act_window id="action_customer_statement1"
+				name="Customer Statement"
+				res_model="customer.statement.report"
+				binding_model="res.partner"
+				view_mode="form" target="new"
+	            groups="base.group_partner_manager"/>
+	            
+
+	</data>
+</odoo>

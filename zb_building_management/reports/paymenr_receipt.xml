@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payment_receipt_new">
+            <t t-foreach="docs" t-as="o">
+                <t  t-call="web.basic_layout">
+                    <div class="page" style="font-size:12px;">
+           <div class="header" style="font-family:'Century Gothic'">
+            <div class="row">
+                <div class="col-xs-4 mb4">
+                    <img t-if="o.partner_id.company_id.logo" t-att-src="'data:image/png;base64,%s' % to_text(o.partner_id.company_id.logo)" style="max-height: 100px;"/>
+                </div>
+            <div  class="col-xs-4"/>
+            <div  class="col-xs-4" style="font-size:20px;">
+            <br>
+            <br></br></br>
+            RECEIPT
+            </div>
+              </div>
+            
+            <div class="row">
+	                <div class="col-xs-8" name="company_address">
+                                 <span t-field="o.company_id.partner_id" style="font-family:'Century Gothic,sans-serif'; font-size:16px; font-weight: bold;" 
+	                        t-field-options='{"widget": "contact", "fields": ["name"], "no_marker": true}'
+	                        />
+	                     <span t-field="o.company_id.partner_id" style="font-family:'Century Gothic'; font-size:14px; " 
+	                        t-field-options='{"widget": "contact", "fields": ["address","phone","fax"], "no_marker": true}'/>
+	                         <p t-if="o.company_id.email"><span style="color: red;font-size:12px;" t-field="o.company_id.email" /></p>
+                         </div>
+                    
+                   <div class="col-xs-1" />
+                   <br></br>
+                      <div class="col-xs-4" style="font-family:'Century Gothic,sans-serif'; font-size:14px">
+                      <strong>
+                      <table><tr>
+                      
+                         <td>
+                         <strong>Receipt No:
+                         </strong></td><td><span t-field="o.name"/></td>
+                         </tr>
+                         <tr>
+                         <td>
+                         <strong>DATE :</strong></td><td><span t-field="o.payment_date"/></td>
+                         </tr>
+                         </table>
+                        </strong> 
+                      </div>
+                      
+            </div>
+            </div>
+            <br></br>
+		            <br></br>
+		            <br></br>
+		            <br></br>
+            <div></div>
+		           <br></br>
+		            <br></br>
+		           <br></br>
+		           <br></br>
+                        <div class="row" style="font-family:'Century Gothic';font-size:14px">
+                            <div class="col-xs-3" t-if="o.partner_id">
+                                <t t-if="o.partner_id">
+                                    <strong>To: </strong>
+                                    <br></br>
+                                </t>
+                                </div>
+                                  <br></br>
+                                 <div class="col-xs-6 pull-left" t-if="o.partner_id">
+                                   <i>&#160; &#160; &#160; &#160; </i><span t-field="o.partner_id"/>
+                                   <br></br>
+                                   <t t-if="o.partner_id.street">
+                                     <i>&#160; &#160; &#160; &#160; Building No :</i><span t-field="o.partner_id.street"/>
+                                   </t>
+                                   <t t-if="o.partner_id.street2">
+                                     <i>Road No :</i><span t-field="o.partner_id.street2"/>
+                                   </t>
+                                   <br></br>
+                                   <t t-if="o.partner_id.city">
+                                     <i>&#160; &#160; &#160; &#160; Area :</i><span t-field="o.partner_id.city"/>
+                                   </t>
+                                   <t t-if="o.partner_id.place_id">
+                                     <i>Block :</i><span t-field="o.partner_id.place_id.name"/>
+                                   </t>
+                                   <br></br>
+                                   <t t-if="o.partner_id.zip">
+                                     <i>&#160; &#160; &#160; &#160; PO-Box :</i><span t-field="o.partner_id.zip"/>
+                                      <br></br>
+                                   </t>
+                                  
+                                   <t t-if="o.partner_id.country_id">
+                                     <i>&#160; &#160; &#160; &#160;  </i><span t-field="o.partner_id.country_id.name"/>
+                                      <br></br>
+                                   </t>
+                                  
+                                   <t t-if="o.partner_id.phone">
+                                     <i>&#160; &#160; &#160; &#160; Ph :</i><span t-field="o.partner_id.phone"/>
+                                     <br></br>
+                                   </t>
+                                   <t t-if="o.partner_id.mobile">
+                                    <i>&#160; &#160; &#160; &#160; Mob :</i><span t-field="o.partner_id.mobile"/>
+                                   </t>
+                                   <t t-if="o.partner_id.email">
+                                     <i>&#160; &#160; &#160; &#160;  </i><span style="color: red;" t-field="o.partner_id.email"/>
+                                   </t>
+                                </div>
+                            <div></div>
+                            <br></br>
+                           </div> 
+                         <p><u>______________________________________________________________________________________________________________________</u></p>
+                            <div class="row" style="font-family:'Calibri';font-size:14px">
+                             <div class="col-xs-6" t-if="o.payment_method_id">
+                               <t t-if="o.unit_id">
+                                <tr>
+                                <strong style="color: red;" >JOB - </strong>
+                                 <strong><span style="color: red;" t-field="o.building_id.name"/></strong>
+                               </tr>
+                               </t>
+                               
+                               <t t-if="o.module_id">
+                               <tr bgcolor = "green">
+                                <strong style="color: red;" >JOB-</strong>
+                                 <span style="color: red;"  t-field="o.building_id.name"/>
+                               </tr>
+                               </t>
+                                 
+                            </div>
+                             
+                            <div class="col-xs-3"/>
+                            <div class="col-xs-3" t-if="o.payment_method_id">
+                                <strong>PAYMENT TERMS </strong>
+                                <br></br>
+                            </div>
+                        </div>
+                         <p><u>______________________________________________________________________________________________________________________</u></p>
+                          <div class="row" style="font-family:'Calibri';font-size:14px">
+                             <div class="col-xs-6" t-if="o.payment_method_id">
+                              <tr style="color:red;">
+                                <t t-if="o.unit_id">
+                               Unit - <span t-field="o.unit_id.name"></span>
+                               </t>
+                               <t t-if="o.module_id">
+                               Flat/Office - <span t-field="o.module_id.name"> </span>
+                               </t>
+                               </tr>
+                                 
+                            </div>
+                             
+                            <div class="col-xs-3"/>
+                            <div class="col-xs-3" t-if="o.payment_method_id">
+                                <span t-field="o.payment_method_id.name"/>
+                            </div>
+                        </div>
+                       <p><u>______________________________________________________________________________________________________________________</u></p>
+                        
+                        
+                        <table class="table table-condensed" style="font-family:'Calibri';font-size:14px;">
+                            <thead>
+                                <tr bgcolor="#ffffff">
+                                    <th>Description</th>
+                                    <th class="text-right">AMOUNT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                              <t t-set="count" t-value ="1"/>
+                              <t t-set="line" t-value ="0"/>
+                              
+                           			<t t-if="count == 1">
+	                           	        <tr style="background-color: #e0a696;font-size:14px;">
+                                        <td width ="60%"><span t-field="o.notes"/></td>
+                                        <td class="text-right"><span t-esc="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                                     </tr>
+                                     <tr></tr>
+                                 </t>
+                                <t t-else ="">
+                                  <tr style="background-color: #e0a696;font-size:14px;">
+                                         <t  t-set="count" t-value="count+1"/>
+		                                 <t t-set ="line"  t-value="line+1"/> 
+                                     </tr>
+                                 </t> 
+                                
+                               <t t-set="loop" t-value="line"/>
+	                          <t t-set="length"  t-value="8"  /> 
+	                          <t t-foreach="range(loop,length)" t-as="i"> 
+	                          <t t-if="count == 1">  
+		                         <tr style="background-color: #e0a696;"  height="20px">
+			                                    <td></td>
+			                                    <td> </td>
+			                                    <!-- <td class="text-right"><span t-field="inv.residual"/></td> -->
+			                                    <t  t-set="loop" t-value="loop+1"/>
+			                                    <t  t-set="count" t-value="count-1"/>
+			                                    
+			                     </tr> 
+			                      </t>  
+			                      <t t-else ="">
+				                     <tr style="background-color: #ffffff;" height="20px">
+				                                    <td></td>
+				                                    <td> </td>
+				                                   <!--  <td class="text-right"><span t-field="inv.residual"/></td> -->
+				                                    <t  t-set="loop" t-value="loop+1"/>
+				                                    <t  t-set="count" t-value="count+1"/>
+				                     </tr> 
+			                     </t>
+		                     
+		                     </t>
+                                
+                            </tbody>
+                        </table>
+                        <t>
+                          <strong> Amount In Words : <span t-field="o.amount_total_words"/></strong>
+                        </t> 
+                        <br></br>
+                         <t style="font-family:'Calibri'; color: red;font-size:14px;" t-if="o.journal_id.type =='bank'">(Transfered to <span style="color: red;" t-field="o.journal_id.bank_id.name" />)
+                       </t>
+                        <div class="row" style="font-family:'Calibri';">
+                         <div class="col-xs-6"/>
+                           <div class="col-xs-3">
+                           </div>
+                            <div class="col-xs-3">
+                            <t t-set="sumd" t-value ="0"/>
+                            <t t-foreach="o.invoice_ids" t-as="inv">
+                             <t  t-set="sumd" t-value="sumd+inv.amount_residual"/>
+                            </t>
+                             Due/Balance: <span t-esc="sumd" />
+                             </div>
+                        </div>
+                        <br></br>
+                        <br></br>
+                        
+                   <div class="row" style="font-family:'Calibri';">
+                      <div class="col-xs-2"/>
+                      <div style="font-size:14px; color:grey;" width ="75%">
+                         Make all checks payable to <span t-field="o.company_id.name"/>,Subject to realisation of the cheque<br></br> 
+                     </div>
+                     </div>
+                     
+                     <div class="row" style="font-family:'Calibri';">
+                      <div class="col-xs-4"/>
+                      <div style="font-size:14px; color:grey;">
+                       THANK YOU FOR YOUR BUSINESS!
+                     </div>
+                     </div>
+                     <div style="font-family:'Calibri';font-size:14px;">
+                      Prepared by: 
+                     </div>
+                       <div style="font-family:'Calibri';">
+                         <span t-field="o.create_uid.name"/>
+                         <br></br>
+                         <br></br>
+                         <i>Signature</i>
+                      </div>
+                    </div>
+              </t> 
+            </t>
+               
+    </template>
+    
+    <template id="report_receipt_new">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="zb_building_management.report_payment_receipt_new"/>
+        </t>
+    </t>
+</template>
+    
+    
+</odoo>

@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_owner_statement">
+    	<t t-call="web.html_container">
+    	<t t-foreach="data" t-as="d">
+    	<t t-call="zb_bf_custom.owner_rental_layout">
+    	
+             <div class="page">
+             
+            <div class="container" style="border-bottom:none;padding:0px;margin:0px;"> 
+             <style>
+                            .border-black,td,table,tr{
+                            border:1px solid  #161A1D;
+                            }
+             </style>
+            
+            
+            <div class="row" style="height:0.5cm;background-color:#D4AF37;padding-top:0.3;">
+             	<div class="col-3 text-left" style="font-size:13px;padding-left:0.5cm;text-color:white;">
+	             Building Name
+	         	</div>
+	            <div class="col-3 text-center">
+	             	 <span style="visibility: hidden;">textttttttttttttt</span>
+	         	</div>
+	             <div class="col-6 text-right" style="font-size:13px;">
+	             	Mr/Mrs.&#160;&#160;<t t-if="docs.building_id.building_address.name"><b><span  t-field="docs.building_id.building_address.name"></span></b></t>
+	         	</div>
+	         </div>
+            
+            <div class="row">
+          		<div class="col-6 text-left">
+                        		<table align="left">
+                                 <tr>
+ 									<td class="text-left">Flat No:</td>
+ 									<td style="visibility:hidden;">textttttttttttttt</td>
+ 									<!-- <td class="text-left"><span t-if="o.name" t-field="o.name"/></td>  -->                            
+                                 </tr>                    		
+                        		<tr>
+ 									<td class="text-left">Lease Period</td>
+ 									<td style="visibility:hidden;">textttttttttttttt</td>
+ 									
+ 									<!-- <t t-if="o.state in ['done']">
+  										<td class="text-left">
+  											<span t-if="o.date_done" t-field="o.date_done" t-options='{"widget": "date", "format": "dd-MMM-Y"}' />
+  											
+  										</td>
+									</t>
+									<t t-else="">
+ 										 <td class="text-left">
+										 <span t-if="o.scheduled_date" t-field="o.scheduled_date" t-options='{"widget": "date", "format": "dd-MMM-Y"}'/>
+									</td>
+									</t> -->
+                                 </tr>
+                                 <tr>
+ 									<td class="text-left">Unit Type:</td>
+ 									<td style="visibility:hidden;">textttttttttttttt</td>
+<!--  									<td width="60%"  class="text-left"><span t-if="o.origin" t-field="o.origin"/></td>                             
+ -->                                 </tr>
+                                <tr>
+ 									<td class="text-left">EWA Limit:</td>
+ 									<td style="visibility:hidden; font-size: 13px;">textttttttttttttt</td>
+<!--                                 	<td class="text-left"><span t-if="o.sale_id.lpo_no" t-field="o.sale_id.lpo_no"/></td>
+ -->                                 </tr>  
+                                 <tr>
+ 									<td width="40%" class="text-left">Internet Package:</td>
+ 									<td style="visibility:hidden;">textttttttttttttt</td>
+ 									
+<!--  									<td class="text-left"><span t-if="o.sale_id.client_order_ref" t-field="o.sale_id.client_order_ref"/></td>                             
+ -->                                 </tr>
+                                 <tr>
+ 									<td class="text-left">Tabreed / BBU Limit:</td>
+ 									<td style="visibility:hidden;">textttttttttttttt</td>
+<!--  									<td class="text-left"><span t-if="o.company_id.vat" t-field="o.company_id.vat"/></td>                             
+ -->                             </tr>
+                        		<tr>
+ 									<td class="text-left">Housekeeping:</td>
+ 									<td style="visibility:hidden;">textttttttttttttt</td>
+<!--  									<td class="text-left"><span t-if="o.company_id.vat" t-field="o.company_id.vat"/></td>                             
+ -->                             </tr>
+                        		</table>
+                        	</div>
+                        
+                        	<div class="col-6 text-left">
+             					<table align="right">
+                                 <tr>
+ 									<td class="text-left">Tenant:</td>
+ 									<td style="visibility:hidden;">textttttttttttttt</td>
+ 									<!-- <td class="text-left"><span t-if="o.name" t-field="o.name"/></td>  -->                            
+                                 </tr>                    		
+                        		<tr>
+ 									<td class="text-left">Lease contract ref:</td>
+ 									<td style="visibility:hidden;">textttttttttttttt</td>
+ 									
+ 									<!-- <t t-if="o.state in ['done']">
+  										<td class="text-left">
+  											<span t-if="o.date_done" t-field="o.date_done" t-options='{"widget": "date", "format": "dd-MMM-Y"}' />
+  											
+  										</td>
+									</t>
+									<t t-else="">
+ 										 <td class="text-left">
+										 <span t-if="o.scheduled_date" t-field="o.scheduled_date" t-options='{"widget": "date", "format": "dd-MMM-Y"}'/>
+									</td>
+									</t> -->
+                                 </tr>
+                                 <tr>
+ 									<td class="text-left">Statement Date:</td>
+ 									<td style="visibility:hidden;">textttttttttttttt</td>
+<!--  									<td width="60%"  class="text-left"><span t-if="o.origin" t-field="o.origin"/></td>                             
+ -->                                 </tr>
+                                <tr>
+ 									<td class="text-left">Statement Period:</td>
+ 									<td style="visibility:hidden; font-size: 13px;">textttttttttttttt</td>
+<!--                                 	<td class="text-left"><span t-if="o.sale_id.lpo_no" t-field="o.sale_id.lpo_no"/></td>
+ -->                                 </tr>  
+                                 
+                                 <tr>
+ 									<td class="text-left">Annual Service charges:</td>
+ 									<td style="visibility:hidden;">textttttttttttttt</td>
+<!--  									<td class="text-left"><span t-if="o.company_id.vat" t-field="o.company_id.vat"/></td>                             
+ -->                             </tr>
+                        		<tr>
+ 									<td class="text-left">Service charges Period : </td>
+ 									<td style="visibility:hidden;">textttttttttttttt</td>
+<!--  									<td class="text-left"><span t-if="o.company_id.vat" t-field="o.company_id.vat"/></td>                             
+ -->                             </tr>
+                        		</table>
+             	</div>
+             	</div>
+             	<br></br>
+             	
+             	<div class="row" style="height:0.5cm;background-color:#D4AF37;padding-top:0.3;">
+             	<div class="col-3 text-left" style="font-size:13px;padding-left:0.5cm;text-color:white;">
+	              LEASE PERIOD SUMMARY 
+	         	</div>
+	            <div class="col-3 text-center">
+	             	 <span style="visibility: hidden;">textttttttttttttt</span>
+	         	</div>
+	            <div class="col-6 text-" style="font-size:13px;">
+	             Monthly Rent<t t-if="docs.building_id.building_address.name"><b><span  t-field="docs.building_id.building_address.name"></span></b></t>
+	         	</div>
+	         </div>
+
+			
+			</div>
+			</div>
+			</t>
+			</t>
+			</t>
+			</template>
+			
+
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             	
+             <!-- 	<div class="col-4 text-left" style="font-size:13px;padding-left:0.5cm;text-color:white;">
+	              Building Name:<t t-if="docs.building_id.name"><b><span  t-field="docs.building_id.name"></span></b></t>
+	         	</div>
+	            <div class="col-4 text-left" style="font-size:13px;padding-left:0.5cm;">
+	             OWNER STATEMENT<t t-if="docs.building_id.name"><b><span  t-field="docs.building_id.name"></span></b></t>
+	         	</div>
+	         </div>
+            
+            <div class="row">
+             <div class="col-3 text-left" style="font-size:14px;">
+	              <b>Flat Number</b>
+	         </div>
+	         <div class="col-1 text-left" style="font-size:14px;width:2mm"></div>
+	         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+	              <t t-if="o.partner_id.name"><span  t-field="o.partner_id.name"></span></t>
+	              <t t-if="not o.partner_id.name" > 
+			      <span style="visibility: hidden;">text</span></t>
+             </div> 
+             <div class="col-3 text-left" style="font-size:14px;">
+             	<b>Tenant:</b>
+             </div>
+             <div class="col-1 text-left" style="font-size:14px;width:2mm"></div>
+	         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+             	<t t-if="o.module_id.name"><span  t-field="o.module_id.name"></span></t>
+	            <t t-if="not o.module_id.name" > 
+			    <span style="visibility: hidden;">text</span></t>
+             </div>
+             </div>
+			 <div class="row">
+	             <div class="col-3 text-left" style="font-size:14px;">
+		              <b>Lease Period</b>
+		         </div>
+		         <div class="col-1 text-left" style="font-size:14px;width:2mm"></div>
+		         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+		              <t t-if="o.partner_id.name"><span  t-field="o.partner_id.name"></span></t>
+		              <t t-if="not o.partner_id.name" > 
+				      <span style="visibility: hidden;">text</span></t>
+	             </div> 
+	             <div class="col-3 text-left" style="font-size:14px;">
+	             	<b>Lease Contract ref:</b>
+	             </div>
+	             <div class="col-1 text-left" style="font-size:14px;width:2mm"></div>
+		         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+	             	<t t-if="o.module_id.name"><span  t-field="o.module_id.name"></span></t>
+		            <t t-if="not o.module_id.name" > 
+				    <span style="visibility: hidden;">text</span></t>
+	             </div>
+             </div>
+			<div class="row">
+	             <div class="col-3 text-left" style="font-size:14px;">
+		              <b>Unit TYpe</b>
+		         </div>
+		         <div class="col-1 text-left" style="font-size:14px;width:2mm"></div>
+		         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+		              <t t-if="o.partner_id.name"><span  t-field="o.partner_id.name"></span></t>
+		              <t t-if="not o.partner_id.name" > 
+				      <span style="visibility: hidden;">text</span></t>
+	             </div> 
+	             <div class="col-3 text-left" style="font-size:14px;">
+	             	<b>Statement Date</b>
+	             </div>
+	             <div class="col-1 text-left" style="font-size:14px;width:2mm"></div>
+		         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+	             	<t t-if="o.module_id.name"><span  t-field="o.module_id.name"></span></t>
+		            <t t-if="not o.module_id.name" > 
+				    <span style="visibility: hidden;">text</span></t>
+	             </div>
+             </div>
+			 <div class="row">
+	             <div class="col-3 text-left" style="font-size:14px;">
+		              <b>EWA Limit</b>
+		         </div>
+		         <div class="col-1 text-left" style="font-size:14px;width:2mm"></div>
+		         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+		              <t t-if="o.partner_id.name"><span  t-field="o.partner_id.name"></span></t>
+		              <t t-if="not o.partner_id.name" > 
+				      <span style="visibility: hidden;">text</span></t>
+	             </div> 
+	             <div class="col-3 text-left" style="font-size:14px;">
+	             	<b>Statement Period</b>
+	             </div>
+	             <div class="col-1 text-left" style="font-size:14px;width:2mm"></div>
+		         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+	             	<t t-if="o.module_id.name"><span  t-field="o.module_id.name"></span></t>
+		            <t t-if="not o.module_id.name" > 
+				    <span style="visibility: hidden;">text</span></t>
+	             </div>
+             </div>
+             <div class="row">
+	             <div class="col-3 text-left" style="font-size:14px;">
+		              <b>Internet Packages</b>
+		         </div>
+		         <div class="col-1 text-left" style="font-size:14px;width:2mm"></div>
+		         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+		              <t t-if="o.partner_id.name"><span  t-field="o.partner_id.name"></span></t>
+		              <t t-if="not o.partner_id.name" > 
+				      <span style="visibility: hidden;">text</span></t>
+	             </div> 
+	             <div class="col-3 text-left" style="font-size:14px;">
+	             	<b>Annual Service Charges</b>
+	             </div>
+	             <div class="col-1 text-left" style="font-size:14px;width:2mm"></div>
+		         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+	             	<t t-if="o.module_id.name"><span  t-field="o.module_id.name"></span></t>
+		            <t t-if="not o.module_id.name" > 
+				    <span style="visibility: hidden;">text</span></t>
+	             </div>
+             </div>
+
+			<div class="row">
+	             <div class="col-3 text-left" style="font-size:14px;">
+		              <b>Tabreed/BBU Limit:</b>
+		         </div>
+		         <div class="col-1 text-left" style="font-size:14px;width:2mm"></div>
+		         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+		              <t t-if="o.partner_id.name"><span  t-field="o.partner_id.name"></span></t>
+		              <t t-if="not o.partner_id.name" > 
+				      <span style="visibility: hidden;">text</span></t>
+	             </div> 
+	             <div class="col-3 text-left" style="font-size:14px;">
+	             	<b>Service Charges Period</b>
+	             </div>
+	             <div class="col-1 text-left" style="font-size:14px;width:2mm"></div>
+		         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+	             	<t t-if="o.module_id.name"><span  t-field="o.module_id.name"></span></t>
+		            <t t-if="not o.module_id.name" > 
+				    <span style="visibility: hidden;">text</span></t>
+	             </div>
+             </div>
+
+			<div class="row">
+	             <div class="col-3 text-left" style="font-size:14px;">
+		              <b>House Keeping</b>
+		         </div>
+		         <div class="col-1 text-left" style="font-size:14px;width:2mm"></div>
+		         <div class="col-2 text-left" style="font-size:14px;width:50mm">
+		              <t t-if="o.partner_id.name"><span  t-field="o.partner_id.name"></span></t>
+		              <t t-if="not o.partner_id.name" > 
+				      <span style="visibility: hidden;">text</span></t>
+	             </div> 
+	           
+             </div> -->
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<template id="owner_rental_layout">
+   <div class="header">
+   			  <div class="row " style=
+			      "width:110%;">
+			      <div class="col-3 text-left"><img  t-if="company_id.logo" t-att-src="image_data_uri(company_id.logo)" style="padding-top:0.5cm;max-height:150px;max-width:250px" alt="Company Logo"/></div>
+			      <div class="col-1">
+			      </div>
+			      <div class="col-9 text-left" style="padding-top:0.5cm;width:190mm">
+			      	<t t-if="company_id.name"><b><span t-field="company_id.name"></span>,<span  t-field="company_id.street"></span>,<span  t-field="company_id.city"></span>,<span  t-field="company_id.country_id.name"></span>,</b></t><br></br>
+			        Tel:<t t-if="company_id.phone" t-esc="company_id.phone"></t>|Mob:<br>
+			        </br>
+			    	Fax:<t t-if="company_id.phone" t-esc="company_id.fax"></t>|Email:<t t-if="company_id.email" t-esc="company_id.email"></t><br>
+					</br>
+			      
+			      
+			     <!--  <t t-if="company_id.name"><span t-field="company_id.name"/></t>
+			      <t t-if="company_id.street"><span t-field="company_id.street"/></t>
+                  <t t-if="o.building_address.company_id.street2"  t-esc="o.building_id.company_id.street2"></t><br></br>
+                  ,<t  t-if="company_id.city"  t-esc="company_id.city"></t>
+                   <t t-if="company_id.country_id.name" t-esc="company_id.country_id.name"></t>
+                   <t t-if="company_id.phone" t-esc="company_id.phone"></t> -->
+			      </div>
+			      <div class="col-2">
+			      </div>
+			  </div>
+        	 
+           
+  </div>
+  <div class="article o_report_layout_standard">
+            <t t-raw="0"/>
+  </div>
+  </template>
+</odoo>

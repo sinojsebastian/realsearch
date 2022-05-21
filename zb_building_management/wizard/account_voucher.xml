@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+	      
+	<record id="view_invoice_inherit" model="ir.ui.view">                      
+            <field name="name">account.voucher.receipt.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+               <xpath expr="//field[@name='payment_date']" position="after">
+                  <field name="check_no" invisible="1" />
+                  <field name="bank_id" invisible="1"/>
+                  <field name="report_status" />
+                  <field name="validated" invisible ="1"/>
+               </xpath>
+              <!--DB  <button name='action_validate_invoice_payment' position ="replace">
+                    <button string='Validate' name="action_validate_invoice_payment" type="object" class="btn-primary" attrs="{'invisible': [('validated', '=', True)]}"/>
+                  </button> -->
+                   <button name='post' position ="after">
+                    <button string='Reprint' name="action_validate_invoice_reprint" type="object" class="btn-primary" attrs="{'invisible': [('validated', '=', False)]}"/>
+                  </button>
+               
+            </field>
+    </record>
+  
+     
+     
+     	<!-- Reject Reason -->
+      <!--  <record id="view_open_rejectwizard" model="ir.ui.view">
+            <field name="name">reject wizard</field>
+            <field name="model">service.reject.reason</field>
+            <field name="arch" type="xml">
+            <form string="Reason" required ="1">
+            <sheet>
+              <group>
+               <field name="reason"/>
+              </group>            
+            </sheet>
+             <footer>
+             <button name="return_unit" string="Reject" 
+                    		type="object"  class="oe_highlight"/>
+                    		
+                    <button string="Cancel" class="oe_link"
+                        special="cancel" />
+                </footer> 
+                </form>     		
+             </field>
+        </record>
+        -->
+     	
+     <!-- pop up account filter -->		
+        <!-- <record id="custom_acnt_filter_form" model="ir.ui.view">
+            <field name="name">filter.account</field>
+            <field name="model">filter.account</field>
+            <field name="arch" type="xml">
+                <form string="Acount">
+                <group>
+                    <field name="account_id"/> 
+                     <field name="from_date" required ="1"/>
+                     <field name="todate" required= "1"/> 
+                  </group>   
+                    <footer>
+                       <button name='get_filter' type="object" class="btn-primary" string ='View'/>
+                       <button string="Close" class="btn-default" special="cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+       <record id="custom_acnt_filter_form_action" model="ir.actions.act_window">
+            <field name="name">Transaction</field>
+            <field name="res_model">filter.account</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field eval="False" name="view_id"/>
+            <field name="view_id" ref="zb_building_management.custom_acnt_filter_form"/>
+            
+        </record>
+        
+       <menuitem id="account-invoice_datas" name="Bank and Cash Transaction" parent="account.account_reports_management_menu"
+              action="custom_acnt_filter_form_action" sequence="5"/> -->
+     		
+	</data>
+</odoo>

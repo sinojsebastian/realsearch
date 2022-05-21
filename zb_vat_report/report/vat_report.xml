@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="vat_report_print_xlsx"
+            model="vat.report.wizard"
+            string="VAT Report Xlsx"
+            report_type="xlsx"
+            name="zb_vat_report.vat_report.xlsx"
+            file="VATReport"
+            attachment_use="False"
+        />
+    </data>
+</odoo>

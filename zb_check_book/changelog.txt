@@ -1,0 +1,30 @@
+/01/2021 v.0.10 PV
+	Added new option in Payment mode
+	
+6/01/2021 v.0.9 Neha
+	Resolved the error while confirming the payment
+
+31/12/2020 v.0.8 Neha
+	[ZB-4892] Check book-Feedback by rilu
+
+31/12/2020 v.0.7 Neha
+	Add a new field payment mode for check book visibility
+
+30/12/2020 v.0.6 Neha
+ * [ZB-4892] Check book - Feedbacks 
+
+23/12/2020 v.0.5 Neha
+ * ZB-4892 - Feedbacks on 23/12/2020 by Rilu
+
+23/12/2020 v.0.4 Neha
+ * ZB-4892 - Feedbacks
+
+16/11/2020 v.0.3 PV
+ * ZB-4892 - Check book Implementation -->modified functionality and view
+ 
+16/11/2020 v.0.2 Thaslima
+ * ZB-4892 - Check book Implementation
+ 
+28/10/2020 v.0.1 Jeena
+ * ZB-4892 - Check book Implementation
+

@@ -1,0 +1,38 @@
+Version 0.09 - 03/03/2021 by Neha
+	* [ZB-7905] Bank Journal Entry Details
+
+Version 0.08 - 28/07/2021 by Dhanalakshmi
+	* ZB-6629 - Accounting Module Name Change
+
+Version 0.07 - 28/06/2021 by Dhanalakshmi
+	* ZB-6430 - Go live Plan : Duplicate account menu to remove
+	
+Version 0.06 - 17/06/2021 by Neha
+	* [ZB-5491] PDC management :reject flow
+
+Version 0.05 - 13/11/2020 by PV
+	* Changes in View of Payment
+	
+Version 0.04 - 05/02/2020 by Derick
+	* Migrated to 13
+
+Version 0.03 - 22/06/2016 by Parvathy
+    * accounting configuration (discount account & rental account)
+
+Version 0.02 - 15/06/2016 by Parvathy
+    * added fields in Payment form
+
+Version 0.01 - 09/06/2016 by Parvathy
+    * PDC module ( migration from 6 to 9) 
+
+
+
+	
+
+
+
+
+
+	 
+
+	
