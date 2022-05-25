@@ -50,7 +50,11 @@ class AccountPayment(models.Model):
                             else:
                                 each_allocate +=(-each[2].get('allocation')) if each[2].get('allocation') > 0.00 else each[2].get('allocation')
                         else:
-                            each_allocate+=each[2].get('allocation')
+                            if vals.get('payment_type') == 'outbound':
+                                if each[2].get('debit') > 0.000:
+                                    each_allocate+=(-each[2].get('allocation')) if each[2].get('allocation') > 0.00 else each[2].get('allocation')
+                                else:
+                                    each_allocate +=each[2].get('allocation')
             if vals.get('amount', 0.0):   
                 amount=vals.get('amount')
             
@@ -76,7 +80,11 @@ class AccountPayment(models.Model):
                                 else:
                                     each_allocate +=(-each.allocation) if each.allocation > 0.000 else each.allocation
                             else:
-                                each_allocate += each.allocation
+                                if rec.payment_type == 'outbound':
+                                    if each.credit > 0.00:
+                                        each_allocate += each.allocation
+                                    elif each.debit > 0.00:
+                                        each_allocate -= each.allocation
                 if rec.amount:
                     amount = rec.amount
                 if not rec.payment_advise:
@@ -508,7 +516,7 @@ class AccountPayment(models.Model):
                     invoice_currency = order.invoice_ids[0].currency_id
                 debit, credit, amount_currency, currency_id = aml_obj.with_context(date=self.payment_date).compute_amount_fields(order.amount, order.currency_id, order.company_id.currency_id, invoice_currency)
                 #Write line corresponding to invoice payment
-                if order.payment_advise:
+                if order.payment_advise or order.payment_type == 'outbound':
                     res = super(AccountPayment, order).post() 
                     line_reconcile_id = order.move_line_ids.filtered(lambda line: line.account_id.user_type_id.type in ('receivable', 'payable'))
                     for pl in order.payment_line_ids:
@@ -697,7 +705,7 @@ class AccountPayment(models.Model):
                         move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel']),('move_id.module_id.building_id','=',self.building_id.id)])
                         inv_obj=self.env['account.move'].search([('type','in',('out_invoice','out_receipt')),('partner_id','=',self.partner_id.id),('state','not in',['draft','cancel']), ('invoice_payment_state', '!=', 'paid'),('building_id','=',self.building_id.id)])
                     else:
-                        move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel'])])
+                        move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel'])])
                         inv_obj=self.env['account.move'].search([('type','in',('out_invoice','out_receipt')),('partner_id','=',self.partner_id.id),('state','not in',['draft','cancel']), ('invoice_payment_state', '!=', 'paid')])
         if self.payment_advise:
             already_processed = []
@@ -836,7 +844,7 @@ class AccountPayment(models.Model):
     def _onchange_payment_line_ids(self):
 
         for order in self:
-            if order.payment_advise and order.method_type == 'adjustment':
+            if order.method_type == 'adjustment':
                 debit_allocation_total = 0.000
                 credit_total = 0.000
                 total = 0.000
@@ -853,17 +861,26 @@ class AccountPayment(models.Model):
                             debit_allocation_total += line.allocation
                         else:
                             credit_total += line.allocation
-                print('============================total',total)
-                if total < 0:
-                    order.amount = credit_total
+                if order.payment_advise or order.payment_type == 'outbound':
+                        print('============================total',total)
+                        if total < 0:
+                            order.amount = credit_total
+                        else:
+                            order.amount = credit_total - debit_allocation_total
+                        #Expense deduction from Payment Allocated Amount
+                        expense = 0        
+                        for exp_line in order.advance_expense_ids:
+                            expense += exp_line.amount
+                        if expense > 0:
+                           order.amount = order.amount - expense 
                 else:
-                    order.amount = credit_total - debit_allocation_total
-                #Expense deduction from Payment Allocated Amount
-                expense = 0        
-                for exp_line in order.advance_expense_ids:
-                    expense += exp_line.amount
-                if expense > 0:
-                   order.amount = order.amount - expense 
+                    if total < 0:
+                        order.amount = debit_allocation_total
+                    else:
+                        order.amount = debit_allocation_total - credit_total
+                
+                
+            
                     
     @api.onchange('advance_expense_ids')                
     def _onchange_advance_expense_ids(self):

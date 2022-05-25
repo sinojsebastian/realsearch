@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    	<record model="ir.ui.view" id="wizard_import_payment_adjustment_lines">
+            <field name="name">import.payment.adjustment.lines</field>
+            <field name="model">payment.adjustment.lines.import</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Payment Adjustment Lines">
+                	<sheet>
+                	<group>
+	                    <field name="csv_file" required="1" filename="csv_file_name"/>
+	                    <field name="csv_file_name" invisible="1"/>
+                    </group>
+                    </sheet>
+                    <footer>
+	                    <button class="oe_highlight" string="Import" name="import_payment_adjustment_lines" type="object"/>
+	                    <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+       <record id="action_import_payment_adjustment_lines" model="ir.actions.act_window">
+	            <field name="name">Import Payment Adjustment Lines</field>
+	            <field name="res_model">payment.adjustment.lines.import</field>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="wizard_import_payment_adjustment_lines"/>
+	            <field name="target">new</field>
+      </record>
+      
+      <menuitem id="menu_payment_adjustment_import" 
+	    name ="Import payment Adjustment" 
+	    sequence="29"
+	    parent="account.menu_finance_entries"
+	    action="action_import_payment_adjustment_lines"/>
+ 
+      
+      
+ </odoo> 
