@@ -9,6 +9,8 @@
     'description': """
         Bin Faqeeh Customization
 
+
+
     """,
     'version': '6.39',
     'depends': ['base', 'account', 'snailmail_account', 'bh_account_vat', 'zb_crm_property', 'zb_building_management',
