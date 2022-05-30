@@ -257,68 +257,69 @@ class BankReconiliation(models.Model):
 #                     domain.append(('journal_id', '=', record.journal_id.id))
                 move_line_ids = move_line_pool.search(domain)
                 for move_line_obj in move_line_ids:
-                    debit = 0.00
-                    credit = 0.00  
-                    file_no =check_no =''
-                    reconciled =False
-                    state='unreconciled'
-                    payment_name =''
-                    #checkno
-                    file_no =move_line_obj.name
-
-#                     voucher_domain = [('name', '=', file_no)]
-                    voucher_domain =[('move_id','=',move_line_obj.move_id.id)]
-                    
-                    if move_line_obj.payment_id:
-                        payment_name =move_line_obj.payment_id.name
-                        check_no =move_line_obj.payment_id.cheque_no
-#                     voucher_obj =voucher_pool.search(voucher_domain)
-#                     
-#                     if voucher_obj:
-#                         check_no = ''
-#                         payment_name =voucher_obj.number
-                    
-                    if not payment_name:
-                        payment_name = move_line_obj.move_id.name   
-                    
-#                     if payment_name ='':
-#                         payment_name =file_no
-                                 
-                    
-                    if move_line_obj.amount_currency:
-                        if move_line_obj.amount_currency < 0.00:
-                            credit = move_line_obj.amount_currency * -1
+                    if move_line_obj.move_id.state == 'posted':
+                        debit = 0.00
+                        credit = 0.00  
+                        file_no =check_no =''
+                        reconciled =False
+                        state='unreconciled'
+                        payment_name =''
+                        #checkno
+                        file_no =move_line_obj.name
+    
+    #                     voucher_domain = [('name', '=', file_no)]
+                        voucher_domain =[('move_id','=',move_line_obj.move_id.id)]
+                        
+                        if move_line_obj.payment_id:
+                            payment_name =move_line_obj.payment_id.name
+                            check_no =move_line_obj.payment_id.cheque_no
+    #                     voucher_obj =voucher_pool.search(voucher_domain)
+    #                     
+    #                     if voucher_obj:
+    #                         check_no = ''
+    #                         payment_name =voucher_obj.number
+                        
+                        if not payment_name:
+                            payment_name = move_line_obj.move_id.name   
+                        
+    #                     if payment_name ='':
+    #                         payment_name =file_no
+                                     
+                        
+                        if move_line_obj.amount_currency:
+                            if move_line_obj.amount_currency < 0.00:
+                                credit = move_line_obj.amount_currency * -1
+                            else:
+                                debit = move_line_obj.amount_currency
                         else:
-                            debit = move_line_obj.amount_currency
-                    else:
-                        debit = move_line_obj.debit or 0.00
-                        credit = move_line_obj.credit or 0.00 
-                        if move_line_obj.ref:
-                            notes =move_line_obj.ref
-                        else:
-                            notes =move_line_obj.name
-                            
-                        if move_line_obj.rec_date:
-                            rec_date = move_line_obj.rec_date
-                            reconciled =True  
-                            state='reconciled'
-                    if state == 'unreconciled':           
-                        vals = {
-                            'reconcile_id': record.id,
-                            'date': move_line_obj.date,
-                            'reference': notes,
-                            'move_id': move_line_obj.move_id.id,
-                            'document_no':payment_name or '',
-                            'move_line_id': move_line_obj.id,
-                            'partner_id':move_line_obj.partner_id.id or False,
-                            'rec_date': move_line_obj.rec_date,
-                            'reconciled':reconciled or False,
-                            'state':state,
-                            'cheque_no': check_no or False,
-                            'debit': move_line_obj.debit,
-                            'credit': move_line_obj.credit,
-                            }
-                        lines.append((0, 0, vals))
+                            debit = move_line_obj.debit or 0.00
+                            credit = move_line_obj.credit or 0.00 
+                            if move_line_obj.ref:
+                                notes =move_line_obj.ref
+                            else:
+                                notes =move_line_obj.name
+                                
+                            if move_line_obj.rec_date:
+                                rec_date = move_line_obj.rec_date
+                                reconciled =True  
+                                state='reconciled'
+                        if state == 'unreconciled':           
+                            vals = {
+                                'reconcile_id': record.id,
+                                'date': move_line_obj.date,
+                                'reference': notes,
+                                'move_id': move_line_obj.move_id.id,
+                                'document_no':payment_name or '',
+                                'move_line_id': move_line_obj.id,
+                                'partner_id':move_line_obj.partner_id.id or False,
+                                'rec_date': move_line_obj.rec_date,
+                                'reconciled':reconciled or False,
+                                'state':state,
+                                'cheque_no': check_no or False,
+                                'debit': move_line_obj.debit,
+                                'credit': move_line_obj.credit,
+                                }
+                            lines.append((0, 0, vals))
                 self.write({'reconcileline_ids': lines})
         if self.reconcileline_ids:
               self.get_amount()
