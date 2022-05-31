@@ -39,7 +39,6 @@ class AccountPayment(models.Model):
         res = super(AccountPayment, self).create(vals)
         each_allocate=0.0
         amount=0.0
-        
         if vals and vals.get('method_type')=='adjustment':
             if vals.get('payment_line_ids', False):
                 for each in vals.get('payment_line_ids'):
@@ -60,8 +59,8 @@ class AccountPayment(models.Model):
             
             if not vals.get('payment_advise'): 
                 if float_round(each_allocate, 3) != float_round(amount, 3):
-                    print('===========================',float_round(each_allocate, 3))
-                    print('===========================',float_round(amount, 3))
+                    print('============create===============',float_round(each_allocate, 3))
+                    print('==============create=============',float_round(amount, 3))
                     raise UserError(_('The Payment Amount does not match with total allocated amount'))
         return res
 
@@ -73,6 +72,7 @@ class AccountPayment(models.Model):
             if rec.method_type== 'adjustment':
                 if rec.payment_line_ids:
                     for each in rec.payment_line_ids:
+                        print('====================allocation',each.allocation)
                         if each.allocation:
                             if rec.payment_advise:
                                 if each.debit>0.00:
@@ -89,8 +89,8 @@ class AccountPayment(models.Model):
                     amount = rec.amount
                 if not rec.payment_advise:
                     if float_round(each_allocate, 3) != float_round(amount, 3):
-                        print('===========================',float_round(each_allocate, 3))
-                        print('===========================',float_round(amount, 3))
+                        print('============write===============',float_round(each_allocate, 3))
+                        print('===========write================',float_round(amount, 3))
                         raise UserError(_('The Payment Amount does not match with total allocated amount'))
         return payment
     

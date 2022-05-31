@@ -1,3 +1,28 @@
+30/05/2022 v.6.47 Neha
+	[ZB-8756] Additional option in EWA Settings
+
+26/05/2022 v.6.46 Neha
+	[ZB-8631] Vendor Payment Adjustment import
+
+24/05/2022 v.6.45 Shilpa mariya
+	[ZB-8605] - Bank Recon Report Statement Line
+
+19/05/2022 v.6.44 Neha
+	[ZB-8516] Tax Adjustments Report --> Feedbacks
+
+19/05/2022 v.6.43 Neha
+	[ZB-8605] Bank Recon Report Statement Line
+
+17/05/2022 v.6.42 Shilpamariya
+	[ZB-8339] Unit creation:- feedback
+
+17/05/2022 v.6.41 Shilpamariya
+	[ZB-8339] Unit creation
+
+13/05/2022 v.6.40 Neha
+	[ZB-8516] Tax Adjustments Report
+	[ZB-8515] Bank Reconciliation Report
+
 11/05/2022 v.6.39 Neha
 	[ZB-8464] Partner Ledger Filter
 

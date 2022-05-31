@@ -12,7 +12,7 @@
 
 
     """,
-    'version': '6.39',
+    'version': '6.47',
     'depends': ['base', 'account', 'snailmail_account', 'bh_account_vat', 'zb_crm_property', 'zb_building_management',
                 'purchase', 'crm', 'product','report_xlsx',],
     'data': [
@@ -58,7 +58,8 @@
         'wizard/create_jv_import_wizard_view.xml',
         'wizard/helpdesk_feedback_wiz_view.xml',
         'wizard/bf_rental_report.xml',
-        'wizard/payment_adjustment_import.xml',
+        'wizard/tax_adjustment_wizard.xml',
+	'wizard/payment_adjustment_import.xml',
         'reports/receipt_voucher_report.xml',
         'reports/rent_invoice_report.xml',
         'reports/payment_advice_report.xml',

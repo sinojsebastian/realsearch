@@ -9,12 +9,12 @@
         <field name="arch" type="xml">
             <button name="preview_invoice" position="replace">
             </button>
-            <!-- <xpath expr="//header/button[@name='button_draft']" position="attributes">
+            <xpath expr="//header/button[@name='button_draft']" position="attributes">
                 <attribute name="groups">zb_bf_custom.group_draft_cancel_menu</attribute>
             </xpath>
             <xpath expr="//header/button[@name='button_cancel']" position="attributes">
                 <attribute name="groups">zb_bf_custom.group_draft_cancel_menu</attribute>
-            </xpath> -->
+            </xpath>
         </field>
 
     </record>
@@ -146,12 +146,12 @@
                 </div>
             </xpath>
 
-             <!-- <xpath expr="//header/button[@name='action_draft']" position="attributes">
+             <xpath expr="//header/button[@name='action_draft']" position="attributes">
                 <attribute name="groups">zb_bf_custom.group_draft_cancel_menu</attribute>
             </xpath>
             <xpath expr="//header/button[@name='cancel']" position="attributes">
                 <attribute name="groups">zb_bf_custom.group_draft_cancel_menu</attribute>
-            </xpath> -->
+            </xpath>
             <!-- <xpath expr="//field[@name='journal_id']" position="attributes">
                 <attribute name="string">Payment Journal</attribute>
             </xpath> -->

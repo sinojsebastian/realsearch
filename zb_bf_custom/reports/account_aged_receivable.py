@@ -8,8 +8,12 @@ class AccountReport(models.AbstractModel):
     
     def open_action(self, options, domain,tax):
         assert isinstance(domain, (list, tuple))
-        domain += [('date', '>=', options.get('date').get('date_from')),
-                   ('date', '<=', options.get('date').get('date_to')),('journal_id.type','=',tax.type_tax_use)]
+        if tax:
+            domain += [('date', '>=', options.get('date').get('date_from')),
+                       ('date', '<=', options.get('date').get('date_to')),('journal_id.type','=',tax.type_tax_use)]
+        else:
+            domain += [('date', '>=', options.get('date').get('date_from')),
+                       ('date', '<=', options.get('date').get('date_to'))]
         if not options.get('all_entries'):
             domain += [('move_id.state', '=', 'posted')]
 
@@ -38,14 +42,14 @@ class AccountReport(models.AbstractModel):
         tax = self.env['account.tax'].browse(active_id)
         tag_template = self.env['account.tax.report.line'].browse(active_id)
         domain = [('tag_ids', 'in', tag_template.tag_ids.ids), ('tax_exigible', '=', True)]
-        return self.open_action(options, domain,tax)
+        return self.open_action(options, domain,tax=False)
 
     def open_tax_report_line(self, options, params=None):
         active_id = int(str(params.get('id')).split('_')[0])
         tax = self.env['account.tax'].browse(active_id)
         line = self.env['account.financial.html.report.line'].browse(active_id)
         domain = ast.literal_eval(line.domain)
-        action = self.open_action(options, domain,tax)
+        action = self.open_action(options, domain,tax=False)
         action['display_name'] = _('Journal Items (%s)') % line.name
         return action
 

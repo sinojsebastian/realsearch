@@ -21,7 +21,7 @@ class ImportPaymentAdjustmentLines(models.TransientModel):
         due_date = ''
         move_line_ids = ''
         inv_obj = ''
-        full_reconcile = raw.get('Full Reconcile')
+        full_reconcile = raw.get('Full Reconcile',False)
         allocated_amt = raw.get('Line level allocation amount')
         payment_type = raw.get('Payment Type', False)
         payment_line_inv = raw.get('Payment Lines')
@@ -79,87 +79,121 @@ class ImportPaymentAdjustmentLines(models.TransientModel):
             list_raw_data = self.get_data_from_attchment(self.csv_file, self.csv_file_name)
             if not list_raw_data:
                 raise UserError(_("Cannot import blank sheet."))
-            line_list = []
             ctx = dict(self.env.context or {}) 
             amount = 0
             payment_partner_id = False
+            payment_method_id = False
+            payment_id = False
+            payment_dict = {}
+            raw_count = 0
+            payment_type_dict = {'outbound':'Send Money','inbound':'Receive Money','transfer':'Internal Transfer'}
+            method_type_dict = {'advance':'Advance Payment','adjustment':'Payment Adjustment'}
+            partner_type_dict = {'customer':'Customer','supplier':'Vendor'}
+            payment_mode_dict = {'cash':'Cash','cheque':'Cheque','transfer':'Transfer','credit card':'Credit Card'}
             for raw in list_raw_data:
-                print('raw++++++++++++++===============', raw)
+                line_list = []
                 partner_name = raw.get('Partner', False)
-                print('==========partner_name==========',partner_name)
                 partner_id = self.env['res.partner'].search([('name','=',partner_name)])
-                print('==========partner_id==========',partner_id)
-                payment_type = raw.get('Payment Type', False)
-                method_of_payment = raw.get('Method of Payment', False)
-                partner_type = raw.get('Partner Type', False)
-                payment_journal = raw.get('Payment Journal', False)
-                payment_journal_id = self.env['account.journal'].search([('name','=',payment_journal)])
-                payment_mode = raw.get('Payment Mode', False)
-                description = raw.get('Description', False)
-                acc_payee = raw.get('Account payee', False)
-                cheque_no = raw.get('Cheque no', False)
-                cheque_date = raw.get('Cheque Date', False)
-                lang_code = self.env.user.lang
-                lang = self.env['res.lang']
-                lang_id = lang._lang_get(lang_code)
-                date_format = lang_id.date_format
-                cheque_date_format = False
-                if cheque_date:
-                    cheque_date_format = datetime.strptime(str(cheque_date),'%Y-%m-%d')
-                cheque_bank = raw.get('Cheque Bank', False)
-                cheque_bank_id = self.env['res.bank'].search([('name','=',cheque_bank)])
-                name_on_cheque = raw.get('Name On Cheque', False)
-                payment_method_code = raw.get('Payment Method Code')
-                payment_method_code_value = self.env['account.payment.method'].search([('payment_type','=','outbound'),('code','=',payment_method_code)])
-                date = raw.get('Date', False)
-                payment_date_format = False
-                if date:
-                    payment_date_format = datetime.strptime(str(date),'%Y-%m-%d')
-                memo = raw.get('Memo', False)
                 if partner_id:
+                    raw_count += 1
+                    raw_payment_type = raw.get('Payment Type', False)
+                    payment_type = list(payment_type_dict.keys())[list(payment_type_dict.values()).index(raw_payment_type)]
+                    raw_method_of_payment = raw.get('Method of Payment', False)
+                    method_of_payment = list(method_type_dict.keys())[list(method_type_dict.values()).index(raw_method_of_payment)]
+                    raw_partner_type = raw.get('Partner Type', False)
+                    partner_type = list(partner_type_dict.keys())[list(partner_type_dict.values()).index(raw_partner_type)]
+                    payment_journal = raw.get('Payment Journal', False)
+                    payment_journal_id = self.env['account.journal'].search([('name','=',payment_journal)])
+                    raw_payment_mode = raw.get('Payment Mode', False)
+                    payment_mode = list(payment_mode_dict.keys())[list(payment_mode_dict.values()).index(raw_payment_mode)]
+                    check_book_id = False
+                    if payment_mode == 'cheque':
+                        check_book_id = self.env['check.book'].search([('state','=','active'),('bank_account_id','=',payment_journal_id.id)],order='id ASC',limit=1)
+                    description = raw.get('Description', False)
+                    acc_payee = raw.get('Account payee')
+                    cheque_no = raw.get('Cheque no', False)
+                    cheque_date = raw.get('Cheque Date', False)
+                    lang_code = self.env.user.lang
+                    lang = self.env['res.lang']
+                    lang_id = lang._lang_get(lang_code)
+                    date_format = lang_id.date_format
+                    cheque_date_format = False
+                    if cheque_date:
+                        cd = datetime.strptime(cheque_date, '%d/%m/%Y')
+                        cheque_date_format = cd.strftime('%Y-%m-%d')
+                        # cheque_date.strftime('%d/%b/%Y').strptime(str(cheque_date),'%Y-%m-%d')
+                    cheque_bank = raw.get('Cheque Bank', False)
+                    cheque_bank_id = self.env['res.bank'].search([('name','=',cheque_bank)])
+                    name_on_cheque = raw.get('Name On Cheque', False)
+                    payment_method_code = raw.get('Payment Method Code')
+                    payment_method_code_value = self.env['account.payment.method'].search([('payment_type','=','outbound'),('name','=',payment_method_code)])
+                    date = raw.get('Date', False)
+                    payment_date_format = False
+                    if date:
+                        d = datetime.strptime(date, '%d/%m/%Y')
+                        payment_date_format = d.strftime('%Y-%m-%d')
+                        # payment_date_format = cheque_date.strftime('%d/%b/%Y').strptime(str(date),'%Y-%m-%d')
+                    memo = raw.get('Memo', False)
+                    payment_vals = {
+                            'payment_type':payment_type,
+                            'method_type':method_of_payment,
+                            'partner_type':partner_type,
+                            'partner_id':partner_id.id,
+                            'journal_id':payment_journal_id.id,
+                            'payment_mode':payment_mode,
+                            'notes':description,
+                            'ac_payee':acc_payee,
+                            'check_book_id':check_book_id.id if check_book_id else False,
+                            'cheque_no':cheque_no,
+                            'cheque_date':cheque_date_format,
+                            'cheque_bank_id':cheque_bank_id.id,
+                            'name_on_cheque':name_on_cheque,
+                            'payment_method_id':payment_method_code_value.id,
+                            'amount':raw.get('Amount', False) if method_of_payment == 'advance' else 0.000,
+                            'payment_line_ids':[],
+                            'payment_date':payment_date_format,
+                            'communication':memo,
+                            }
+                
+                    if raw.get('Payment Lines'):
+                        payment_lines_vals = self._load_payment_lines(raw,payment_partner_id)
+                        if payment_lines_vals:
+                            line_list.append((0, 0, payment_lines_vals))
+                # if partner_id:
+                #     raw_count += 1
                     amount = raw.get('Amount', False)
                     payment_partner_id = partner_id
+                    payment_method_id = method_of_payment
                     if raw.get('Payment Lines'):
-                        print('Payment Lines++++++++++++++===============', raw.get('Payment Lines'))
                         payment_lines_vals = self._load_payment_lines(raw,payment_partner_id)
                         if payment_lines_vals:
-                            line_list.append((0, 0, payment_lines_vals))
-                    payment_vals = {
-                        'payment_type':payment_type,
-                        'method_type':method_of_payment,
-                        'partner_type':partner_type,
-                        'partner_id':partner_id.id,
-                        'journal_id':payment_journal_id.id,
-                        'payment_mode':payment_mode,
-                        'notes':description,
-                        'ac_payee':acc_payee,
-                        'cheque_no':cheque_no,
-                        'cheque_date':cheque_date_format,
-                        'cheque_bank_id':cheque_bank_id.id,
-                        'name_on_cheque':name_on_cheque,
-                        'payment_method_id':payment_method_code_value.id,
-                        'amount':0.000,
-                        'payment_date':payment_date_format,
-                        'communication':memo,
-                        }
-                    payment_id = self.env['account.payment'].create(payment_vals)
-                    print('=====================payment',payment_id)
+                            # line_list.append((0, 0, payment_lines_vals))
+                            payment_vals['payment_line_ids'] = [(0, 0, payment_lines_vals)]
+                        payment_dict.update({raw_count:payment_vals})
+                    else:
+                        payment_dict.update({raw_count:payment_vals})
+                    
+                    
                 else:
                     if raw.get('Payment Lines'):
-                        print('Payment Lines++++++++++++++===============', raw.get('Payment Lines'))
                         payment_lines_vals = self._load_payment_lines(raw,payment_partner_id)
                         if payment_lines_vals:
-                            line_list.append((0, 0, payment_lines_vals))
-            if line_list:
-                debit_allocation_total = 0.000
-                credit_total = 0.000
-                for each in line_list:
-                    if each[2] and each[2]['allocation']:
-                        if each[2]['credit'] > 0:
-                            credit_total += each[2]['allocation']
-                        elif each[2]['debit'] > 0:
-                            debit_allocation_total += each[2]['allocation']
-                total_amount = credit_total - debit_allocation_total
-                print('=============total_amount==============',total_amount)
-                payment_id.write({'amount':total_amount,
-                                  'payment_line_ids':line_list})
+                            payment_dict[raw_count]['payment_line_ids'].append((0, 0, payment_lines_vals))
+
+            for key,vals in payment_dict.items():
+                if vals['method_type'] == 'adjustment':
+                    if vals['payment_line_ids']:
+                        debit_allocation_total = 0.000
+                        credit_total = 0.000
+                        for each in vals['payment_line_ids']:
+                            if each[2] and each[2]['allocation']:
+                                if each[2]['credit'] > 0:
+                                    credit_total += each[2]['allocation']
+                                elif each[2]['debit'] > 0:
+                                    debit_allocation_total += each[2]['allocation']
+                        total_amount = credit_total - debit_allocation_total
+                        vals['amount'] = total_amount
+                                          
+                payment_id = self.env['account.payment'].create(vals)
+                
+                

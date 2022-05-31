@@ -31,8 +31,8 @@
       
       <menuitem id="menu_payment_adjustment_import" 
 	    name ="Import payment Adjustment" 
-	    sequence="29"
-	    parent="account.menu_finance_entries"
+	    sequence="21"
+	    parent="account.menu_finance_payables"
 	    action="action_import_payment_adjustment_lines"/>
  
       
