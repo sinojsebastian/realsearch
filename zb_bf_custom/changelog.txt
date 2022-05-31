@@ -1,3 +1,6 @@
+31/05/2022 v.6.48 Neha
+	[ZB-8631] Vendor Payment Adjustment import -->Feedbacks
+
 30/05/2022 v.6.47 Neha
 	[ZB-8756] Additional option in EWA Settings
 

@@ -1,3 +1,6 @@
+26/05/2022 v.0.41 Neha
+	[ZB-8671] JV entries/Vendor invoice Adjustment
+
 28/04/2022 v.0.40 shilpa mariya
 	[ZB-8169] Advance Expenses Adjustment
 
