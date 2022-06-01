@@ -904,6 +904,7 @@ class AccountMoveLine(models.Model):
     sellable_unit_id = fields.Many2one('zbbm.unit',string="Sellable Unit",related="move_id.unit_id")
     building_module_ref = fields.Char(compute='_get_building_flat', string='Unit',store=True)
     module_building_ref_dummy = fields.Char(compute='_get_building_flat', string='Unit',store=True)
+    tax_report_line = fields.Many2one(string="Tax Report Line", comodel_name='account.tax.report.line')
     
     @api.depends('building_id','module_id')
     def _get_building_flat(self):
