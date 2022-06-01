@@ -56,6 +56,7 @@
         'wizard/create_jv_import_wizard_view.xml',
         'wizard/helpdesk_feedback_wiz_view.xml',
         'wizard/bf_rental_report.xml',
+	'wizard/tax_adjustment_wizard.xml',
         'reports/receipt_voucher_report.xml',
         'reports/rent_invoice_report.xml',
         'reports/payment_advice_report.xml',

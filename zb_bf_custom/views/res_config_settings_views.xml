@@ -124,7 +124,7 @@
 		            		<div class="col-12 col-lg-6 o_setting_box">
 	                            <div class="o_setting_left_pane"/>
 	                            <div class="o_setting_right_pane">
-	                                <span class="o_form_label"></span>
+	                                <span class="o_form_label">EWA</span>
 	                                <!-- <div class="text-muted">
 	                                    EWA
 	                                </div> -->
@@ -141,23 +141,13 @@
 	                                        	
 	                                        </div>
 	                                 </div>
-	                           		<!-- <div class="text-muted">
-	                                    Internet
-	                                </div> -->
-	                                <div class="content-group">
-                                        <div class="row mt16">
-                                        	<label for="internet_product_id" class="col-lg-3 o_light_label"/>
-                                            <field name="internet_product_id" domain="[('type', '=', ('service'))]"/>
-                                        </div>
-	                                </div>
-	                                <div class="content-group">
-	                                <div class="row mt16">
-	                                            <label for="internet_journal_id" class="col-lg-3 o_light_label"/>
-	                                            <field name="internet_journal_id"/>
-	                                        	
-	                                        </div>
-	                                 </div>
-	                                
+	                          	</div>
+	                      </div>
+	                      
+	                     <div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                            	<span class="o_form_label">Tabreed</span>
 	                                <div class="content-group">
                                         <div class="row mt16">
                                         	<label for="tabreed_product_id" class="col-lg-3 o_light_label"/>
@@ -173,6 +163,41 @@
 	                                 </div>
 	                            </div>
 	                        </div>
+	                       <div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                           		<!-- <div class="text-muted">
+	                                    Internet
+	                                </div> -->
+	                                <span class="o_form_label">Internet</span>
+	                                <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="internet_product_id" class="col-lg-3 o_light_label"/>
+                                            <field name="internet_product_id" domain="[('type', '=', ('service'))]"/>
+                                        </div>
+	                                </div>
+	                                <div class="content-group">
+	                                <div class="row mt16">
+	                                            <label for="internet_journal_id" class="col-lg-3 o_light_label"/>
+	                                            <field name="internet_journal_id"/>
+	                                        	
+	                                        </div>
+	                                 </div>
+	                                 <div class="content-group">
+                                        <div class="row mt16">
+                                        	<label for="internet_stc_product_id" class="col-lg-3 o_light_label"/>
+                                            <field name="internet_stc_product_id" domain="[('type', '=', ('service'))]"/>
+                                        </div>
+	                                </div>
+	                                <div class="content-group">
+	                                <div class="row mt16">
+	                                            <label for="internet_stc_journal_id" class="col-lg-3 o_light_label"/>
+	                                            <field name="internet_stc_journal_id"/>
+	                                        	
+	                                        </div>
+	                                 </div>
+	                           </div>
+	                     </div>
 					     </div>
 					     
 					     <h2>Service Income Accounts</h2>

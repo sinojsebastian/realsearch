@@ -2740,7 +2740,7 @@ class RawServices(models.Model):
                 if lease_service_id:
                     order.lease_agreement_id = lease_service_id.lease_id.id
                     order.product_id = lease_service_id.product_id.id
-                    order.module_id = lease_service_id.module_id.id
+                    order.module_id = lease_service_id.lease_id.subproperty.id
                 else:
                     order.lease_agreement_id = False
                     if service_id and not service_id.building_id:
@@ -2855,7 +2855,10 @@ class RawServices(models.Model):
         company_id = currnet_user.company_id
 #         company_id = self.env['res.company']._company_default_get()   
         
-        service_id = self.env['zbbm.services'].search([('account_no','=',res.account_no)])
+        if res.lease_agreement_id:
+            service_id = self.env['zbbm.services.agreement'].search([('account_no','=',res.account_no)])
+        elif res.module_id or res.building_id:
+            service_id = self.env['zbbm.services'].search([('account_no','=',res.account_no)])
         
         
         if res.building_id and not res.module_id:

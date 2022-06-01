@@ -65,5 +65,6 @@ from . import import_account
 from . import sale_make_invoice_advance
 from . import import_account_balance
 from . import bf_rental_report
+from . import tax_adjustment_wizard
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
