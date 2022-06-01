@@ -1,3 +1,6 @@
+31/05/2022 v.6.49 Aswanth
+	ZB-8467-Hide Reset to Draft / Cancel Menu Buttons(Journal entries)-->Feedbacks
+
 31/05/2022 v.6.48 Neha
 	[ZB-8631] Vendor Payment Adjustment import -->Feedbacks
 

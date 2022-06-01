@@ -59,6 +59,13 @@
                 <field name="credit" sum="Total Credit" digits="[14, 3]"/>
             </xpath>
 
+            <xpath expr="//header/button[@name='button_draft']" position="attributes">
+                <attribute name="groups">zb_bf_custom.group_draft_cancel_menu</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='button_cancel']" position="attributes">
+                <attribute name="groups">zb_bf_custom.group_draft_cancel_menu</attribute>
+            </xpath>
+
         </field>
     </record>
 
