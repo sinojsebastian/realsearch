@@ -28,8 +28,8 @@ class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
     
 
-    rec_date =fields.Date('Reconciled Date')
-    reconcilation_id =fields.Many2one('bank.reconciliation','Reconciled Record')
+    rec_date =fields.Date('Reconciled Date',copy=False)
+    reconcilation_id =fields.Many2one('bank.reconciliation','Reconciled Record',copy=False)
     date_vals = fields.Date('Date', compute="action_move_type", store=True)
 
     @api.depends('move_id')
