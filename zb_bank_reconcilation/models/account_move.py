@@ -27,7 +27,14 @@ class AccountMoveLine(models.Model):
     
     _inherit = 'account.move.line'
     
-    
-    
+
     rec_date =fields.Date('Reconciled Date')
     reconcilation_id =fields.Many2one('bank.reconciliation','Reconciled Record')
+    date_vals = fields.Date('Date', compute="action_move_type", store=True)
+
+    @api.depends('move_id')
+    def action_move_type(self):
+        for line in self:
+            if line.move_id.type in ['in_invoice', 'out_invoice']:
+                line.date_vals = line.move_id.invoice_date
+

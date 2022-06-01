@@ -1,3 +1,9 @@
+v 0.6 30/05/2022 by Neha
+	* [ZB-8673] Cancelled/Draft Entries (Bank Recon)
+
+v 0.5 14/03/2022 by shilpa mariya
+	* Bug fix in tax report
+
 v 0.4 25/02/2022 by Aswanth
 	* [ZB-8063]-Bank Reconciliation Update
 

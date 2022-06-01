@@ -34,7 +34,7 @@
 
 {
     "name"         : "Bank Reconcilation",
-    "version"      : "13.0.4",
+    "version"      : "13.0.6",
     "author"       : "ZestyBeanz Technology Solution",
     "website"      : "http://www.zbeanztech.com",
     "description"  : """ZestyBeanz Bank reconcilation odoo version 13""",
