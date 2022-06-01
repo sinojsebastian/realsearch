@@ -64,7 +64,7 @@ class TaxAdjustments(models.TransientModel):
         for line in move.line_ids:
             if line.tax_report_line:
                 line.tax_line_id = self.tax_id.id
-        move.post()
+        # move.post()
     
         # Return an action opening the created move
         action = self.env.ref(self.env.context.get('action', 'account.action_move_line_form'))
