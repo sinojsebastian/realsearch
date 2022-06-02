@@ -29,5 +29,5 @@ class AccountMoveLine(models.Model):
     
     
     
-    rec_date =fields.Date('Reconciled Date')
-    reconcilation_id =fields.Many2one('bank.reconciliation','Reconciled Record')
+    rec_date =fields.Date('Reconciled Date',copy=False)
+    reconcilation_id =fields.Many2one('bank.reconciliation','Reconciled Record',copy=False)
