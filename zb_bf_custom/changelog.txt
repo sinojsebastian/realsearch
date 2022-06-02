@@ -1,3 +1,6 @@
+02/06/2022 v.6.51 Neha
+	[ZB-8772] Add Bank details (Debit Note Print)
+
 02/06/2022 v.6.50 Neha
 	[ZB-8790] Reference Person( Book unit- CRM)
 
