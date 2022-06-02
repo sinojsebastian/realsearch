@@ -105,6 +105,9 @@ class ResPartner(models.Model):
         elif 'default_crm_process' in context and context.get('default_crm_process') == 'rental':
             pass
         
+        elif 'lease_reference_person' in context and context.get('lease_reference_person') == True:
+            pass
+        
         elif 'is_company' in vals and vals['is_company'] == False:
             if 'res_partner_search_mode' in context and context['res_partner_search_mode'] == 'customer':
                 if 'default_crm_process' in context and context.get('default_crm_process') in ['sale','resale']:
