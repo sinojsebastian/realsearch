@@ -1,3 +1,6 @@
+02/06/2022 v.6.50 Neha
+	[ZB-8790] Reference Person( Book unit- CRM)
+
 31/05/2022 v.6.49 Aswanth
 	ZB-8467-Hide Reset to Draft / Cancel Menu Buttons(Journal entries)-->Feedbacks
 
