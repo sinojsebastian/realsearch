@@ -250,6 +250,129 @@
 	</t>
 	</div>
 	</div>
+	<br/>
+	<div class="row">
+			<div class="col-3 text-left" style="padding-left:1cm;font-size:14px;">
+			<b>Bank Details</b>
+			</div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div> -->
+			<div class="col-3 text-left" style="font-size:14px;width:51mm;padding-left:1.5cm;">
+			Bank Name <br></br>
+			Account Name<br></br>
+			Account No<br></br>
+			IBAN<br></br>
+			SWIFT CODE </div>
+			<div class="col-1 text-left" style="font-size:14px;width:2mm">:<br></br>
+			:<br></br>
+			:<br></br>
+			:<br></br>
+			:<br></br>
+			</div>
+			<div class="col-8" style="font-size:14px;">
+			<t t-if="o.building_id and o.building_id.bank_id">
+				<t t-if="o.building_id.bank_id.bank_id.name">
+					<span t-field="o.building_id.bank_id.bank_id.name"/>
+				</t>
+				<t t-else="">
+					<span style="visibility: hidden;">text</span>
+				</t>
+			</t>
+			<t t-else="">
+             	<t t-if="'name' in bank_data[o.id]">
+             		<span  t-esc="bank_data[o.id]['name']"></span>
+             	</t>
+             </t>
+             <br></br>
+			<!-- <t t-if="not o.building_id.bank_id.bank_id.name">
+			<span style="visibility: hidden;">text</span></t><br></br> -->
+			<t t-if="o.building_id and o.building_id.bank_id">
+				<t t-if="o.building_id.bank_id.acc_holder_name">
+					<span t-field="o.building_id.bank_id.acc_holder_name"/>
+				</t>
+				<t t-else="">
+					<span style="visibility: hidden;">text</span>
+				</t>
+			</t>
+			<t t-else="">
+             	<t t-if="'partner' in bank_data[o.id]">
+             		<span  t-esc="bank_data[o.id]['partner']"></span>
+             	</t>
+             </t>
+             <br></br>
+			
+			
+			<!-- <t t-if="o.building_id.bank_id.acc_holder_name">
+			<span t-field="o.building_id.bank_id.acc_holder_name"/>
+			</t>
+			<t t-if="not o.building_id.bank_id.acc_holder_name">
+			<span style="visibility: hidden;">text</span></t><br></br> -->
+			<t t-if="o.building_id and o.building_id.bank_id">
+				<t t-if="o.building_id.bank_id.acc_number">
+					<span t-field="o.building_id.bank_id.acc_number"/>
+				</t>
+				<t t-else="">
+					<span style="visibility: hidden;">text</span>
+				</t>
+			</t>
+			<t t-else="">
+             	<t t-if="'acc_number' in bank_data[o.id]">
+             		<span  t-esc="bank_data[o.id]['acc_number']"></span>
+             	</t>
+             </t>
+             <br></br>
+			
+			<!-- <t t-if="o.building_id.bank_id.acc_number">
+			<span t-field="o.building_id.bank_id.acc_number"/>
+			</t>
+			<t t-if="not o.building_id.bank_id.acc_number">
+			<span style="visibility: hidden;">text</span></t><br></br> -->
+			<t t-if="o.building_id and o.building_id.bank_id">
+				<t t-if="o.building_id.bank_id.iban_no">
+					<span t-field="o.building_id.bank_id.iban_no"/>
+				</t>
+				<t t-else="">
+					<span style="visibility: hidden;">text</span>
+				</t>
+			</t>
+			<t t-else="">
+             	<t t-if="'iban' in bank_data[o.id]">
+             		<span  t-esc="bank_data[o.id]['iban']"></span>
+             	</t>
+             </t>
+             <br></br>
+			
+			
+			<!-- <t t-if="o.building_id.bank_id.iban_no">
+			<span t-field="o.building_id.bank_id.iban_no"/>
+			</t>
+			<t t-if="not o.building_id.bank_id.iban_no">
+			<span style="visibility: hidden;">text</span></t><br></br> -->
+			<t t-if="o.building_id and o.building_id.bank_id">
+				<t t-if="o.building_id.bank_id.bank_id.bic">
+					<span t-field="o.building_id.bank_id.bank_id.bic"/>
+				</t>
+				<t t-else="">
+					<span style="visibility: hidden;">text</span>
+				</t>
+			</t>
+			<t t-else="">
+             	<t t-if="'bic' in bank_data[o.id]">
+             		<span  t-esc="bank_data[o.id]['bic']"></span>
+             	</t>
+             </t>
+             <br></br>
+			
+			
+			<!-- <t t-if="o.building_id.bank_id.bank_id.bic">
+			<span t-field="o.building_id.bank_id.bank_id.bic"/>
+			</t>
+			<t t-if="not o.building_id.bank_id.bank_id.bic">
+			<span style="visibility: hidden;">text</span></t><br></br> -->
+			</div>
+			
+			</div>
 	</div>
 	</t>
 	</t>

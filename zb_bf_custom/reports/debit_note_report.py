@@ -13,6 +13,12 @@ class DebitNoteReportQWeb(models.AbstractModel):
     
     @api.model
     def _get_report_values(self, docids, data=None):
+        bank_dict ={}
+        params = self.env['ir.config_parameter'].sudo() 
+        company_bank_id = params.get_param('zb_bf_custom.company_bank_id') or False
+        bank = self.env['res.partner.bank'].search([('id','=',company_bank_id)])
+        if not company_bank_id:
+            raise Warning(_("""Please configure Company bank in the Genaeral Settings"""))
         move_ids = self.env['account.move'].browse(docids)
         vouch = {}
         payment_ids = []
@@ -29,6 +35,13 @@ class DebitNoteReportQWeb(models.AbstractModel):
                         for inv in payment.reconciled_invoice_ids:
                             if inv.id == invoice_id.id:
                                 payment_ids.append(payment)
+            bank_dict[move_id.id] = {
+                                    'name' : bank.bank_id.name,
+                                    'partner':bank.partner_id.name,
+                                    'acc_number':bank.acc_number,
+                                    'iban':bank.iban_no,
+                                    'bic':bank.bank_id.bic
+                                    }
         vouch[move_ids] = {
                             'payno' : payment_ids,
                             'inv' : invoice_id
