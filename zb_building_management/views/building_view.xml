@@ -53,9 +53,9 @@
                 <form string="Properties">
                     <header>
                         <field name="state" widget="statusbar" statusbar_visible="new,available,blocked,delisted" />
-                        <button name="make_available" string="Make Available" type="object" states="new,delisted,blocked" class="oe_highlight" />
-                        <button name="action_delist" string="Delist" type="object" states="new,available,blocked" class="oe_highlight" />
-                        <button name="action_unavailable" string="Make Unavailable" type="object" states="new,available" class="oe_highlight" />
+                        <button name="make_available" string="Make Available" type="object" states="new,delisted,blocked" class="oe_highlight" groups="base.group_system"/>
+                        <button name="action_delist" string="Delist" type="object" states="new,available,blocked" class="oe_highlight" groups="base.group_system"/>
+                        <button name="action_unavailable" string="Make Unavailable" type="object" states="new,available" class="oe_highlight" groups="base.group_system"/>
                     </header>
                     <sheet>
                         <field name="image" widget="image"  class="oe_avatar"/>
@@ -308,10 +308,10 @@
                     <header>
                         <field name="state" widget="statusbar" statusbar_visible="new,available,occupied,blocked,delisted" />
                         <button name="action_flatdetails_send" string="Send by Email" type="object" class="btn-primary" />
-                        <button name="make_available" string="Make Available" type="object" states="new,delisted,blocked" class="oe_highlight" />
+                        <button name="make_available" string="Make Available" type="object" states="new,delisted,blocked" class="oe_highlight"  groups="base.group_system"/>
                         <button name="action_occupied" string="Make Occupied" type="object" class="oe_highlight" groups="base.group_no_one" invisible="True" />
-                        <button name="action_delist" string="Delist" type="object" states="occupied" class="oe_highlight" />
-                        <button name="action_unavailable" string="Make Unavailable" type="object" states="available" class="oe_highlight" />
+                        <button name="action_delist" string="Delist" type="object" states="occupied" class="oe_highlight" groups="base.group_system"/>
+                        <button name="action_unavailable" string="Make Unavailable" type="object" states="available" class="oe_highlight" groups="base.group_system"/>
                     </header>
                     <sheet>
                         <div class="oe_button_box" position="inside" align="right">

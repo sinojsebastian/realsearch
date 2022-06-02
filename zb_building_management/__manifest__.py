@@ -33,7 +33,7 @@
 
 {
     "name"         : "Building Management",
-    "version"      : "0.37",
+    "version"      : "0.42",
     "author"       : "InforiseIT & ZestyBeanz",
     "website"      : "http://www.zbeanztech.com",
     "description"  : """Building and rent management""",

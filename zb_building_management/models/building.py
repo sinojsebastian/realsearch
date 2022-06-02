@@ -1674,12 +1674,21 @@ class Installment(models.Model):
 import base64
 import binascii
 
+
 class zbbm_module(models.Model):
     _name = "zbbm.module"
     _inherit = ['mail.thread','portal.mixin']
     _description = "Module / Flat"
     
 
+    @api.model
+    def create(self, vals):
+        res = super(zbbm_module, self).create(vals)
+        if vals.get('building_id'):
+            building = self.env['zbbm.building'].browse(vals.get('building_id'))
+            if building.state in ['available'] and not self.env.user.has_group('base.group_system'):
+                raise Warning(_('You cannot create the unit!!'))
+        return res
 
     #portal url
     def _compute_access_url(self):

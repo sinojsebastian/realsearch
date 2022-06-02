@@ -1,6 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_zbbm_module,zbbm.module,model_zbbm_module,sales_team.group_sale_salesman_all_leads,1,1,1,1
-access_zbbm_building,zbbm.building,model_zbbm_building,sales_team.group_sale_salesman_all_leads,1,1,1,1
+access_zbbm_module,zbbm.module,model_zbbm_module,base.group_system,1,1,1,1
+access_zbbm_building,zbbm.building,model_zbbm_building,base.group_system,1,1,1,1
 access_zbbm_type,zbbm.type,model_zbbm_type,base.group_user,1,1,1,1
 access_zbbm_month,zbbm.month,model_zbbm_month,base.group_user,1,1,1,1
 access_rental_analysis,rental.analysis,model_rental_analysis,base.group_user,1,1,1,1

@@ -73,7 +73,7 @@
 	              <button name="make_approve" string="Request" 
 	                    type="object" class="oe_highlight"  attrs="{'invisible': ['|',('state','in', ['Waiting','done','new','rejected']),('category','=','gen')]}"/>
 	              <button name="make_available" string="Approve" 
-	                    type="object" class="oe_highlight"  attrs="{'invisible': [('state','in', ['start','done','new','rejected'])]}" groups ="project.group_project_manager"/>
+	                    type="object" class="oe_highlight"  attrs="{'invisible': [('state','in', ['start','done','new','rejected'])]}" groups ="project.group_project_manager,base.group_system"/>
 	              <button name="make_done" string="Done" 
 	                    type="object" class="oe_highlight"  attrs="{'invisible': [('state','in', ['done','start','rejected','Waiting'])]}"/>
 	               <button name="make_reject" string="Reject" 
