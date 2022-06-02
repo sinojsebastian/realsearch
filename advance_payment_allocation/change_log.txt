@@ -1,3 +1,6 @@
+02/06/2022 v.0.42 Neha
+	[ZB-8782] Owner Credit Note
+
 26/05/2022 v.0.41 Neha
 	[ZB-8671] JV entries/Vendor invoice Adjustment
 

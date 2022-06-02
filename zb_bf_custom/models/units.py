@@ -2856,7 +2856,7 @@ class RawServices(models.Model):
 #         company_id = self.env['res.company']._company_default_get()   
         
         if res.lease_agreement_id:
-            service_id = self.env['zbbm.services.agreement'].search([('account_no','=',res.account_no)])
+            service_id = self.env['zbbm.services.agreement'].search([('account_no','=',res.account_no),('lease_id','=',res.lease_agreement_id.id)])
         elif res.module_id or res.building_id:
             service_id = self.env['zbbm.services'].search([('account_no','=',res.account_no)])
         
