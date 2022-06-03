@@ -822,9 +822,9 @@
                 <field name="start_date_arabic"/>
                 <field name="end_date_arabic"/>
             </xpath>
-            <!-- <xpath expr="//header/button[@name='set_to_draft']" position="attributes">
+            <xpath expr="//header/button[@name='set_to_draft']" position="attributes">
                 <attribute name="groups">zb_bf_custom.group_draft_cancel_menu</attribute>
-            </xpath> -->
+            </xpath>
         </field>
     </record>
 
