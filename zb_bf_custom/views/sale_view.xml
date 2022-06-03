@@ -37,9 +37,9 @@
             <xpath expr="//field[@name='module_id']" position="attributes">
                 <attribute name="domain">[('building_id', '=', building_id)]</attribute>
             </xpath>
-			 <!-- <xpath expr="//header/button[@name='action_cancel']" position="attributes">
+			 <xpath expr="//header/button[@name='action_cancel']" position="attributes">
             <attribute name="groups">zb_bf_custom.group_draft_cancel_menu</attribute>
-        </xpath> -->
+        </xpath>
         </field>
     </record>
 

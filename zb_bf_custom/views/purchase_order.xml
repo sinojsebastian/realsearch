@@ -9,9 +9,9 @@
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="owner_approval"/>
                 </xpath>
-                <!-- <xpath expr="//header/button[@name='button_cancel']" position="attributes">
+                <xpath expr="//header/button[@name='button_cancel']" position="attributes">
                     <attribute name="groups">zb_bf_custom.group_draft_cancel_menu</attribute>
-                </xpath> -->
+                </xpath>
             </field>
         </record>
 
