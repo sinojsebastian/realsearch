@@ -35,7 +35,7 @@ class DebitNoteReportQWeb(models.AbstractModel):
                         for inv in payment.reconciled_invoice_ids:
                             if inv.id == invoice_id.id:
                                 payment_ids.append(payment)
-            bank_dict[move_id.id] = {
+            bank_dict[move_id.id] = { # Testing bank changes
                                     'name' : bank.bank_id.name,
                                     'partner':bank.partner_id.name,
                                     'acc_number':bank.acc_number,
