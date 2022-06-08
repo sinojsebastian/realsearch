@@ -141,7 +141,8 @@ class account_bank_reconciliation_report(models.AbstractModel):
                 aml.id,
                 aml.name,
                 aml.ref,
-                aml.date,
+                aml.date, 
+                aml.payment_id, 
                 aml.''' + amount_field + '''                    AS balance
             FROM account_move_line aml
             LEFT JOIN res_company company                       ON company.id = aml.company_id
