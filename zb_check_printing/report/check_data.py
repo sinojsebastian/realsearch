@@ -1,10 +1,27 @@
 from odoo import api, fields, models, _
 import datetime
+from odoo.exceptions import ValidationError,Warning
 from datetime import timedelta
 from num2words import num2words
 
 
+class ChequeQWeb(models.AbstractModel):
 
+    _name = 'report.zb_check_printing.report_check'
+    _description='Model For Cheque printing'
+
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        payment_ids = self.env['account.payment'].browse(docids)
+        print('===============cheque-payment===============',payment_ids)
+        for payment_id in payment_ids:
+            if payment_id.state == 'draft':
+                raise Warning(_('You cannot make the Cheque printing on Draft Payment'))
+        return {
+            'doc_ids': docids,
+            'docs': self.env['account.payment'].browse(docids),
+            'doc_model': self.env['account.payment'],
+        }
 
 class check_data_get(models.Model):
     _inherit = "account.payment"

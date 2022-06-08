@@ -1,3 +1,6 @@
+08/06/2022 v.6.52 Neha
+	* [ZB-8834] Restriction on Payment Voucher and check Printing (Draft)
+
 02/06/2022 v.6.51 Neha
 	[ZB-8772] Add Bank details (Debit Note Print)
 

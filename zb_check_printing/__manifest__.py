@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Check Printing',
-    'version': '1.5',
+    'version': '1.6',
     'category': 'Hidden/Dependency',
     'summary': 'Check printing commons',
     'description': """

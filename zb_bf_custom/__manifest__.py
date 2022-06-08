@@ -12,7 +12,7 @@
 
 
     """,
-    'version': '6.51',
+    'version': '6.52',
     'depends': ['base', 'account', 'snailmail_account', 'bh_account_vat', 'zb_crm_property', 'zb_building_management',
                 'purchase', 'crm', 'product','report_xlsx',],
     'data': [
