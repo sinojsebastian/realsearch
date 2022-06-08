@@ -35,7 +35,7 @@ class DebitNoteReportQWeb(models.AbstractModel):
                         for inv in payment.reconciled_invoice_ids:
                             if inv.id == invoice_id.id:
                                 payment_ids.append(payment)
-            bank_dict[move_id.id] = { # Testing bank changes
+            bank_dict[move_id.id] = {
                                     'name' : bank.bank_id.name,
                                     'partner':bank.partner_id.name,
                                     'acc_number':bank.acc_number,
@@ -63,6 +63,7 @@ class DebitNoteReportQWeb(models.AbstractModel):
         return {
             'doc_ids': docids,
             'docs': self.env['account.move'].browse(docids),
+            'bank_data' : bank_dict,
             'doc_model': self.env['account.move'],
             'words':word,
             'payment_no' : vouch,
