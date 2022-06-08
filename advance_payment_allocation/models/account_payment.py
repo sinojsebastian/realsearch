@@ -674,30 +674,30 @@ class AccountPayment(models.Model):
         if self.method_type =='adjustment' and self.partner_id:
             if self.payment_type == 'outbound':
                 if self.module_id:
-                    move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel']),('move_id.module_id','=',self.module_id.id)])
+                    move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','out_refund','in_refund','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel']),('move_id.module_id','=',self.module_id.id)])
                     inv_obj=self.env['account.move'].search([('type','in',('in_invoice','in_receipt')),('partner_id','=',self.partner_id.id),('state','not in',['draft','cancel']), ('invoice_payment_state', '!=', 'paid'),('module_id','=',self.module_id.id)])
                 elif self.unit_id:
-                    move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel']),('move_id.unit_id','=',self.unit_id.id)])
+                    move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','out_refund','in_refund','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel']),('move_id.unit_id','=',self.unit_id.id)])
                     inv_obj=self.env['account.move'].search([('type','in',('in_invoice','in_receipt')),('partner_id','=',self.partner_id.id),('state','not in',['draft','cancel']), ('invoice_payment_state', '!=', 'paid'),('unit_id','=',self.unit_id.id)])
                 elif self.building_id:
-                    move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel']),('move_id.module_id.building_id','=',self.building_id.id)])
+                    move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','in_receipt','out_refund','in_refund','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel']),('move_id.module_id.building_id','=',self.building_id.id)])
                     inv_obj=self.env['account.move'].search([('type','in',('in_invoice','in_receipt')),('partner_id','=',self.partner_id.id),('state','not in',['draft','cancel']), ('invoice_payment_state', '!=', 'paid'),('building_id','=',self.building_id.id)])
                 else:
-                    move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel'])])
+                    move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','in_receipt','out_refund','in_refund','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel'])])
                     inv_obj=self.env['account.move'].search([('type','in',('in_invoice','in_receipt')),('partner_id','=',self.partner_id.id),('state','not in',['draft','cancel']), ('invoice_payment_state', '!=', 'paid')])
             else:
                 if self.payment_type == 'inbound':
                     if self.module_id:
-                        move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel']),('move_id.module_id','=',self.module_id.id)])
+                        move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('out_invoice','out_refund','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel']),('move_id.module_id','=',self.module_id.id)])
                         inv_obj=self.env['account.move'].search([('type','in',('out_invoice','out_receipt')),('partner_id','=',self.partner_id.id),('state','not in',['draft','cancel']), ('invoice_payment_state', '!=', 'paid'),('module_id','=',self.module_id.id)])
                     elif self.unit_id:
-                        move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel']),('move_id.unit_id','=',self.unit_id.id)])
+                        move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('out_invoice','out_refund','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel']),('move_id.unit_id','=',self.unit_id.id)])
                         inv_obj=self.env['account.move'].search([('type','in',('out_invoice','out_receipt')),('partner_id','=',self.partner_id.id),('state','not in',['draft','cancel']), ('invoice_payment_state', '!=', 'paid'),('unit_id','=',self.unit_id.id)])
                     elif self.building_id:
-                        move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel']),('move_id.module_id.building_id','=',self.building_id.id)])
+                        move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('out_invoice','out_refund','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel']),('move_id.module_id.building_id','=',self.building_id.id)])
                         inv_obj=self.env['account.move'].search([('type','in',('out_invoice','out_receipt')),('partner_id','=',self.partner_id.id),('state','not in',['draft','cancel']), ('invoice_payment_state', '!=', 'paid'),('building_id','=',self.building_id.id)])
                     else:
-                        move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel'])])
+                        move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('out_invoice','out_refund','out_receipt','entry')),('partner_id','=',self.partner_id.id),('move_id.state','not in',['draft','cancel'])])
                         inv_obj=self.env['account.move'].search([('type','in',('out_invoice','out_receipt')),('partner_id','=',self.partner_id.id),('state','not in',['draft','cancel']), ('invoice_payment_state', '!=', 'paid')])
         if self.payment_advise:
             already_processed = []
