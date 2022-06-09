@@ -80,15 +80,44 @@ class CustomersStatementReport(models.AbstractModel):
                      })
 
         return vals
-    
+
+    def action_statement_values(self, check):
+        data = []
+        maturity = ''
+        due_date = ''
+        for line in check:
+            description = ''
+            desc_list = []
+            refr = '%s: %s'%(line.move_id.name,line.name)
+            # '%s'%(line.move_id.name)
+            if not line.reconciled and not line.payment_id:
+                due_date = line.date_maturity
+                if due_date:
+                    maturity = (datetime.strptime(str(fields.Date.today()), DEFAULT_SERVER_DATE_FORMAT)-datetime.strptime(str(due_date), DEFAULT_SERVER_DATE_FORMAT)).days
+            for each in line.move_id.invoice_line_ids:
+                desc_list.append(each.name)
+            description = (','.join(desc_list))
+
+            data.append({
+            'date': line.move_id.date,
+            'ref': refr,
+            'description':description,
+            'due_date':due_date or '',
+            'due_days':maturity or '',
+            'debit': line.debit or 0.000,
+            'credit': line.credit or 0.000,
+            })
+        return data
+
+
     def get_invoice_voucher(self, show_paid_inv,customer_id, date, end_date, journal_type,module_id):
-        
+
         move_line_search_conditions = """l.account_id = a.id
                                         and a.user_type_id = act.id
                                         and act.type in ('receivable')
                                         and l.move_id = m.id
                                         and m.state in ('posted')
-                                        and m.journal_id = jn.id
+                                        and m.journal_id = jn.id 
                                         and jn.type not in ('post_dated_chq')
                                         
                                         
@@ -100,50 +129,32 @@ class CustomersStatementReport(models.AbstractModel):
            move_line_search_conditions += "and m.date <= '%s'"%end_date
         # if not show_paid_inv :
         #    move_line_search_conditions += "and l.full_reconcile_id is NULL "
-        if show_paid_inv :
-            move_line_search_conditions += "and m.invoice_payment_state in ('paid','in_payment','not_paid')"
-        else:
-            move_line_search_conditions += "and m.invoice_payment_state in ('in_payment','not_paid')"
-        
+
+        # if show_paid_inv:
+        #     move_line_search_conditions += "and m.invoice_payment_state in ('paid','in_payment','not_paid')"
+        # else:
+        #     move_line_search_conditions += "and m.invoice_payment_state in ('in_payment','not_paid')"
+
         if customer_id:
-            move_line_search_conditions += "and l.partner_id = '%s'"%customer_id     
+            move_line_search_conditions += "and l.partner_id = '%s'"%customer_id
         if module_id:
             move_line_search_conditions += "and l.module_id = '%s'"%module_id
-        
+
         move_line_search_conditions += " order by l.debit,l.credit"
         self._cr.execute('select l.id from account_move_line l, \
         account_account_type act,account_journal jn,account_move m,account_account a where %s'
                    %move_line_search_conditions)
         line_ids = map(lambda x: x[0], self._cr.fetchall())
         move_line_ids = self.env['account.move.line'].sudo().browse(line_ids)
-        data = []        
-        maturity = ''
-        due_date = ''
-        for line in move_line_ids:
-            description = ''
-            desc_list = []
-            refr = '%s: %s'%(line.move_id.name,line.name)
-            # '%s'%(line.move_id.name)            
-            if not line.reconciled and not line.payment_id:
-                due_date = line.date_maturity
-                if due_date:
-                    maturity = (datetime.strptime(str(fields.Date.today()), DEFAULT_SERVER_DATE_FORMAT)-datetime.strptime(str(due_date), DEFAULT_SERVER_DATE_FORMAT)).days
-            for each in line.move_id.invoice_line_ids:
-                desc_list.append(each.name)
-            description = (','.join(desc_list))
-            
-            data.append({
-            'date': line.move_id.date,
-            'ref': refr,
-            'description':description,
-            'due_date':due_date or '',
-            'due_days':maturity or '',
-            'debit': line.debit or 0.000,
-            'credit': line.credit or 0.000,
-            })
-        return data
-    
-#      
+        if show_paid_inv:
+            move_lines = move_line_ids.filtered(lambda inv: inv.move_id.invoice_payment_state in ('paid','in_payment','not_paid') or inv.move_id.type == 'entry')
+            data = self.action_statement_values(move_lines)
+            return data
+        else:
+            move_lines = move_line_ids.filtered(lambda inv: inv.move_id.invoice_payment_state in ('in_payment', 'not_paid') or inv.move_id.type == 'entry')
+            data = self.action_statement_values(move_lines)
+            return data
+
     @api.model
     def _get_report_values(self, docids,data=None):
         if not data.get('form') or not self.env.context.get('active_model') or not self.env.context.get('active_id'):
