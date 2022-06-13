@@ -146,7 +146,7 @@
 	         </div>
 	         <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
 	         <div class="col-3 text-left" style="font-size:14px;width:300mm">
-	              <t t-if="o.amount"><span  t-field="o.amount"></span></t>
+	              <t t-if="o.amount"><span  t-field="o.amount"/></t>
 	              <t t-if="not o.amount" > 
 			      <span style="visibility: hidden;">text</span></t>
              </div>
@@ -155,8 +155,8 @@
              </div>
              <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
 	         <div class="col-3 text-left" style="font-size:14px;width:350mm">
-             	<t t-if="o.partner_id.name"><span  t-field="o.partner_id.name"></span></t>
-	            <t t-if="not o.partner_id.name" > 
+             	<t t-if="o.name_on_cheque"><span  t-field="o.name_on_cheque"/></t>
+	            <t t-if="not o.name_on_cheque" >
 			    <span style="visibility: hidden;">text</span></t>
              </div>
              </div>
