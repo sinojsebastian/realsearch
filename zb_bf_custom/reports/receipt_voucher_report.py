@@ -1,5 +1,6 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError,Warning
 from num2words import num2words
 import math
 from odoo.tools.float_utils import float_round
@@ -19,6 +20,8 @@ class ReceiptVoucherReportQWeb(models.AbstractModel):
         sum=0
         advance_sum = 0
         for payment_id in payment_ids:
+            if payment_id.state == 'draft':
+                raise Warning(_('You cannot take the print on Draft payment'))
             if payment_id.method_type=='advance':
                 if payment_id.payment_entries():
                     for payment in payment_id.payment_entries():
