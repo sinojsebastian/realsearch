@@ -3,3 +3,4 @@
 
 from . import res_company
 from . import account
+from . import vendor_receipt
