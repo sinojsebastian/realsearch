@@ -416,20 +416,20 @@
 		<div class="col-2"> </div>
 	</div> -->
 	<h2 style="font-size:23px;padding-top:1cm;">
-		<center>
-			<t t-set="count" t-value="0"/>
-				<t t-if="count==0">
-					<t t-foreach="o.invoice_line_ids" t-as="line">
-						<t t-if="line.tax_ids">
-						<span><b>Tax Debit Note</b></span>
+				<center>
+					<t t-set="count" t-value="0"/>
+						<t t-foreach="o.invoice_line_ids" t-as="line">
+							<t t-if="count == 0">
+								<t t-if="line.tax_ids">
+									<span><b>Tax Debit Note</b></span>
+									</t>
+									<t t-if="not line.tax_ids">
+									<span><b>Debit Note</b></span>
+									</t>
+									<t t-set="count" t-value="count+1"/>
+							</t>
 						</t>
-						<t t-if="not line.tax_ids">
-						<span><b>Debit Note</b></span>
-						</t>
-						<t t-set="count" t-value="count+1"/>
-					</t>
-				</t>
-		</center>
+				</center>
 	</h2>
 </div>
 <div class="article o_report_layout_standard">
