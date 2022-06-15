@@ -188,6 +188,7 @@ class account_bank_reconciliation_report(models.AbstractModel):
         # Final Bank Reconciliation
         last_statement = self.env['bank.reconciliation'].search([
             ('journal_id', '=', journal.id),
+            ('state', '!=', 'draft'),
             ('to_date', '<=', self._context['date_to']),
         ], order="to_date desc, id desc", limit=1)
         # rslt['last_st_balance'] = last_statement.balance_end
