@@ -92,6 +92,7 @@ class ResPartner(models.Model):
     @api.model
     def create(self, vals):
         context = self._context
+        print('========================context',context)
         if self._context.get('module_tenant') or vals.get('is_tenant') == True or self._context.get('default_is_tenant'):
             seq = self.env['ir.sequence'].next_by_code('tenant') 
             vals['code'] = seq
@@ -106,6 +107,9 @@ class ResPartner(models.Model):
             pass
         
         elif 'lease_reference_person' in context and context.get('lease_reference_person') == True:
+            pass
+        
+        elif 'default_is_an_agent' in context:
             pass
         
         elif 'is_company' in vals and vals['is_company'] == False:
