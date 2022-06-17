@@ -30,21 +30,27 @@ from odoo.tools.translate import _
 from odoo import tools as openerp_tools
 import os
 from odoo.exceptions import UserError, Warning
+import tempfile
+import logging
+_logger = logging.getLogger(__name__)
+
 
 class data_import_wizard(models.TransientModel):
     _name = 'data_import.wizard'
     
     def get_data_from_attchment(self, binary_file, file_name):
+        fullpath = None
         list_raw = []
         if '.csv' in file_name:
             for raw_data in csv.DictReader(StringIO(base64.b64decode(binary_file)),delimiter='\t', quotechar='"'):
                 list_raw.append(raw_data)
         if '.dat' in file_name or '.xlsx' or '.xls' in file_name:   
-            path = openerp_tools.config['addons_path'].split(",")[-1]
+            path = tempfile.mkdtemp()
             if '.xls' in file_name:
                 fullpath = os.path.join(path, 'export_file.xls')
             if '.xlsx' in file_name:
                 fullpath = os.path.join(path, 'export_file.xlsx')
+            _logger.info('\n\nfullpath*********************%s', fullpath)
             with open(fullpath, 'wb') as f:
                 f.write(base64.decodestring(binary_file))
             rb = xlrd.open_workbook(fullpath)
