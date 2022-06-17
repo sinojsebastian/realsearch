@@ -1,9 +1,10 @@
-from odoo import fields, models,api
+from odoo import fields, models,api,_
 import re
 from num2words import num2words
 import math
 from odoo.tools.float_utils import float_round
 import time
+from odoo.exceptions import UserError,Warning
 
 class DebitNoteReportQWeb(models.AbstractModel):
 
@@ -20,6 +21,8 @@ class DebitNoteReportQWeb(models.AbstractModel):
         if not company_bank_id:
             raise Warning(_("""Please configure Company bank in the Genaeral Settings"""))
         move_ids = self.env['account.move'].browse(docids)
+        if len(move_ids) > 1:
+            raise Warning(_("""Please Choose one record at a time!"""))
         vouch = {}
         payment_ids = []
         invoice_id = ''
@@ -69,4 +72,3 @@ class DebitNoteReportQWeb(models.AbstractModel):
             'payment_no' : vouch,
             
         }
-      
