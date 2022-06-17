@@ -21,10 +21,9 @@ class DebitNoteReportQWeb(models.AbstractModel):
         if not company_bank_id:
             raise Warning(_("""Please configure Company bank in the Genaeral Settings"""))
         move_ids = self.env['account.move'].browse(docids)
-        if len(move_ids) > 1:
-            raise Warning(_("""Please Choose one record at a time!"""))
         vouch = {}
         payment_ids = []
+        line_list = []
         invoice_id = ''
         for move_id in move_ids:
             if move_id.ref:
@@ -38,6 +37,11 @@ class DebitNoteReportQWeb(models.AbstractModel):
                         for inv in payment.reconciled_invoice_ids:
                             if inv.id == invoice_id.id:
                                 payment_ids.append(payment)
+            vouch[move_id.id] = {
+                'payno': payment_ids,
+                'inv': invoice_id
+            }
+            line_list.append(vouch)
             bank_dict[move_id.id] = {
                                     'name' : bank.bank_id.name,
                                     'partner':bank.partner_id.name,
@@ -45,12 +49,10 @@ class DebitNoteReportQWeb(models.AbstractModel):
                                     'iban':bank.iban_no,
                                     'bic':bank.bank_id.bic
                                     }
-        vouch[move_ids] = {
-                            'payno' : payment_ids,
-                            'inv' : invoice_id
-                            }
+
         word = {}
         sum=0
+        res_list = [i for n, i in enumerate(line_list) if i not in line_list[n + 1:]]
         for payment in move_ids:
 #             for line in payment.invoice_line_ids:
             sum=sum+payment.amount_total
@@ -61,15 +63,16 @@ class DebitNoteReportQWeb(models.AbstractModel):
             else:
                 words = num2words(int(bd)).title()+' '+' Bahraini Dinar '+' Only'
             word.update({payment.id:words})
-                
-                
-        return {
+
+        vals =  {
             'doc_ids': docids,
             'docs': self.env['account.move'].browse(docids),
             'bank_data' : bank_dict,
             'doc_model': self.env['account.move'],
             'words':word,
-            'payment_no' : vouch,
+            'payment_no' : res_list,
             
         }
-      
+        return vals
+
+
