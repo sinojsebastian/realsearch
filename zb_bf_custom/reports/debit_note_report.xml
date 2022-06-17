@@ -38,17 +38,25 @@
 		</div>
 		<div class="col-1 text-left" style="font-size:14px;max-width:10px">:</div>
 		<div class="col-3" style="font-size:14px;max-width:350px;">
-		<t t-if="payment_no[o]['payno']">
-			<t t-set="count" t-value ="1"/>
-			<t t-foreach="payment_no[o]['payno']" t-as="doc">
-				<span t-esc="doc.name"/>
-				<t t-if="count != len(payment_no[o]['payno'])">,</t>
-				<t t-set="count" t-value="count+1"/>
+
+			<t t-foreach="payment_no" t-as="record">
+				<t t-foreach="record" t-as="data">
+					<t t-if="int(data) == o.id">
+						<t t-if="record[data]['payno']">
+							<t t-set="count" t-value ="1">
+								<t t-foreach="record[data]['payno']" t-as="doc">
+									<span t-esc="doc.name"/>
+									<t t-if="count != len(payment_no['payno'])">,</t>
+									<t t-set="count" t-value="count+1"/>
+								</t>
+							</t>
+						</t>
+						<t t-else="">
+							<span style="visibility: hidden;">text</span>
+						</t>
+					</t>
+				</t>
 			</t>
-		</t>
-		<t t-else="">
-		<span style="visibility: hidden;">text</span>
-		</t>
 		</div>
 		</div>
 		<div class="row">
@@ -69,11 +77,20 @@
 		</div>
 		<div class="col-1 text-left" style="font-size:14px;max-width:10px;">:</div>
 		<div class="col-3 text-left" style="font-size:14px;max-width:350px;">
-		<t t-if="payment_no[o]['inv']">
-			<span t-field="payment_no[o]['inv'].name"/></t>
-		<t t-else="">
-			<span style="visibility: hidden;">text</span>
-		</t>
+
+			<t t-foreach="payment_no" t-as="record">
+				<t t-foreach="record" t-as="data">
+					<t t-if="int(data) == o.id">
+						<t t-if="record[data]['inv']">
+							<span t-field="record[data]['inv'].name"/>
+						</t>
+						<t t-else="">
+							<span style="visibility: hidden;">text</span>
+						</t>
+					</t>
+				</t>
+			</t>
+
 		</div>
 		</div>
 		<div class="row">
@@ -95,23 +112,32 @@
 		</div>
 		<div class="col-1 text-left" style="font-size:14px;max-width:10px;">:</div>
 		<div class="col-3 text-left" style="font-size:14px;max-width:350px;">
+
 			<t t-if="o.ref">
-		<t t-if="payment_no[o]['inv'].invoice_date">
-		<span t-field="payment_no[o]['inv'].invoice_date"/>
-		<!-- <span t-field="payment_no[o]['inv'].invoice_date" t-field-options='{"format": "dd/MM/yyyy"}'/> --></t>
-		<t t-if="not payment_no[o]['inv'].invoice_date">
-		<span style="visibility: hidden;">text</span>
-		</t>
-		<t t-if="not o.date">
-		<span style="visibility: hidden;">text</span>
-		</t></t>
+				<t t-foreach="payment_no" t-as="record">
+					<t t-foreach="record" t-as="data">
+						<t t-if="int(data) == o.id">
+							<t t-if="record[data]['inv'].invoice_date">
+								<span t-field="record[data]['inv'].invoice_date"/>
+							</t>
+							<t t-else="">
+								<span style="visibility: hidden;">text</span>
+							</t>
+							<t t-if="not o.date">
+								<span style="visibility: hidden;">text</span>
+							</t>
+						</t>
+					</t>
+				</t>
+			</t>
+
 		</div>
 		</div>
 		<div class="row">
 		<div class="col-2 text-left" style="font-size:14px;max-width:200px;">
 		
 		</div>
-		<div class="col-1 text-left" style="font-size:14px;max-width:10px;"></div>
+		<div class="col-1 text-left" style="font-size:14px;max-width:10px;"/>
 		<div class="col-3 text-left" style="font-size:14px;max-width:350px;">
 		</div>
 		<div class="col-2 text-left" style="font-size:14px;max-width:200px;;">
@@ -234,7 +260,7 @@
              </div>
              <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
 	         <div class="col-9" style="font-size:14px;">
-              <span t-esc="words[o.id]"></span>
+              <span t-esc="words[o.id]"/>
              </div>
              </div>
              <br/>
