@@ -54,7 +54,6 @@ class DebitNoteReportQWeb(models.AbstractModel):
         sum=0
         res_list = [i for n, i in enumerate(line_list) if i not in line_list[n + 1:]]
         for payment in move_ids:
-#             for line in payment.invoice_line_ids:
             sum=sum+payment.amount_total
             fils,bd = math.modf(sum)
             fils = (float_round(fils,payment.currency_id.decimal_places)*(10**payment.currency_id.decimal_places))

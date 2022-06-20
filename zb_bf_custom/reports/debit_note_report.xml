@@ -366,7 +366,7 @@
 			</t>
 			<t t-else="">
              	<t t-if="'iban' in bank_data[o.id]">
-             		<span  t-esc="bank_data[o.id]['iban']"></span>
+             		<span  t-esc="bank_data[o.id]['iban']"/>
              	</t>
              </t>
              <br></br>
@@ -387,7 +387,7 @@
 			</t>
 			<t t-else="">
              	<t t-if="'bic' in bank_data[o.id]">
-             		<span  t-esc="bank_data[o.id]['bic']"></span>
+             		<span  t-esc="bank_data[o.id]['bic']"/>
              	</t>
              </t>
              <br></br>
