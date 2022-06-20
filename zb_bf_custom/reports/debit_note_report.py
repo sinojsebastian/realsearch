@@ -76,3 +76,6 @@ class DebitNoteReportQWeb(models.AbstractModel):
         return vals
 
 
+
+
+
