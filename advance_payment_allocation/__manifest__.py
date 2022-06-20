@@ -12,6 +12,7 @@
     'category': 'Accounting',
     'website': 'http://www.knacktechs.com',
     'depends': ['base','sale','account'],
+    
     'data': [   
             'security/ir.model.access.csv',
             'views/account_payment_view.xml',
