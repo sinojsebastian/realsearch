@@ -468,7 +468,7 @@
 					</div>
 				</div>
 				<div class="row last-page">
-				  <div class="col-3 text-left" style="font-size:14px;padding-top:20mm;">
+				  <div class="col-3 text-left" style="font-size:14px;padding-top:15mm;">
 					  <b>Receiver Signature : </b>
 				  </div>
 				</div>
@@ -499,11 +499,11 @@
 			</t>
 			
 		  	<div class="row last-page">
-				<div class="col-12 text-right" style="font-size:14px;padding-top:20mm;">
+				<div class="col-12 text-right" style="font-size:14px;padding-top:10mm;">
 				Computer generated document requires no signature 
 				</div>
 		    </div>
-        	<div class="row" style="padding-top:25mm;">
+        	<div class="row" style="padding-top:20mm;">
 				<img t-if="o.company_id.footer_image"  t-att-src="image_data_uri(o.company_id.footer_image)" style="max-height:140px;max-width:1000px"/>
             </div>
         </div>
