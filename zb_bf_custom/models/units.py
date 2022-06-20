@@ -993,7 +993,6 @@ class zbbm_module(models.Model):
         ir_cron_ids = self.env.ref('zb_bf_custom.fixed_service_invoice_generation')
         params = self.env['ir.config_parameter'].sudo()
         if ir_cron_ids:
-            
             last_date = ir_cron_ids.nextcall.date()
             updated_last_date = datetime.strptime(str(last_date), '%Y-%m-%d')
         
@@ -1034,20 +1033,19 @@ class zbbm_module(models.Model):
                             service_list = []
                             description = 'Fixed service invoice for the Period for the Month '+ updated_last_date.strftime("%Y")+' '+ updated_last_date.strftime("%B")
                             for service in fixed_services:
-                                
-                                service_list.append(({
-                                                    'product_id':service.product_id.id,
-                                                    'name':description,
-                                                    'price_unit': service.owner_share,
-                                                    'quantity': 1,
-                                                    'tax_ids' : service.product_id.taxes_id.ids,
-                                                    'analytic_account_id':module_id.building_id.analytic_account_id.id if module_id.building_id.analytic_account_id else '',
-                                                    'account_id':service.product_id.property_account_income_id,
-                                                     }))
-                                
-                                
-                            if fixed_services:
-                                
+                                if service.product_id:
+                                    service_list.append(({
+                                                        'product_id':service.product_id.id, ###9029
+                                                        'name':description,
+                                                        'price_unit': service.owner_share,
+                                                        'quantity': 1,
+                                                        'tax_ids' : service.product_id.taxes_id.ids,
+                                                        'analytic_account_id':module_id.building_id.analytic_account_id.id if module_id.building_id.analytic_account_id else '',
+                                                        'account_id':service.product_id.property_account_income_id,
+                                                         }))
+
+
+                            if fixed_services and service_list:
                                 vals = {
                                           'partner_id':int(owner_id),
                                           'type': 'out_invoice',
