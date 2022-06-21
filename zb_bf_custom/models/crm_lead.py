@@ -376,9 +376,8 @@ class Lead(models.Model):
     
     
     def make_open(self):
-        
-        
         stage_fields = []
+
         if self.stage_id.field_ids:
             for items in self.env['crm.stage'].search([('probability','=',70)]).field_ids:
                 stage_fields.append(items.name)
@@ -424,7 +423,6 @@ class Lead(models.Model):
                     raise Warning(_("Booking fee and Payment plan and hasn't been configured on the unit"))
             
             elif self.unit_id.invoice_total < self.unit_id.price or self.unit_id.price == 0:
-                
                 view_id = self.env.ref('zb_crm_property.'
                                    'view_open-unit_wizard')
                 return {
@@ -488,7 +486,6 @@ class Lead(models.Model):
                                           'customer':True,
                                            
                                            })
-                             
                     if not module_ids.buyer_id.passport and module_ids.buyer_id.cpr:
                         raise Warning(_('Please provide Passport and CPR '))
                     domain  = [('id', '=',module_ids.id)]
@@ -509,10 +506,9 @@ class Lead(models.Model):
                             'view_mode': 'form',
                             'res_model': 'zbbm.unit',
                             'type': 'ir.actions.act_window',
-                            'res_model': 'zbbm.unit',
                             'res_id': module_ids.id or False,
                     }
-                    
+
         # res = super(Lead, self).make_open()
         
         else:
@@ -530,7 +526,8 @@ class Lead(models.Model):
                     d = self.env['res.partner'].browse(self.partner_id.id)
                     d.write({'is_tenant':True,
                                   'customer':True,
-                                   
+                                  'is_a_prospect':False,
+
                                    })
             if self._context.get('booked')!= 'make_open':
                 return self
