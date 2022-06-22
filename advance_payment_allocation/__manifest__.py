@@ -6,7 +6,7 @@
     'description': """
     This module allows to do the partial payment of multiple invoices of same customer from payment menu.
 """,
-    "version": "13.1.0.43",
+    "version": "13.1.0.44",
     "license": "AGPL-3",
     'author': "Knacktechs Solutions",
     'category': 'Accounting',

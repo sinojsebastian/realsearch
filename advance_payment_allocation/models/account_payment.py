@@ -74,7 +74,7 @@ class AccountPayment(models.Model):
         amount = 0.0
         payment=super(AccountPayment, self).write(vals)
         for rec in self:
-            if rec.method_type== 'adjustment':
+            if 'amount' in vals and rec.method_type== 'adjustment':
                 if rec.payment_line_ids:
                     for each in rec.payment_line_ids:
                         print('====================allocation',each.allocation)
@@ -88,8 +88,10 @@ class AccountPayment(models.Model):
                                 if rec.payment_type == 'outbound':
                                     if each.credit > 0.00:
                                         each_allocate += each.allocation
+                                        print('========each_allocate111=============',each_allocate)
                                     elif each.debit > 0.00:
                                         each_allocate -= each.allocation
+                                        print('========each_allocate222=============',each_allocate)
                                 elif rec.payment_type == 'inbound':
                                     if each.debit > 0.00:
                                         each_allocate += each.allocation
@@ -815,23 +817,28 @@ class AccountPayment(models.Model):
         else:
             if move_line_ids:
                 for each in move_line_ids:
+                    original_amount = 0.0
                     if each.account_id.user_type_id.type in ('receivable', 'payable') and not each.payment_id:
                         line_reconcile_id = each
                         allocated_amount=0.0
                         if each.move_id.type == 'entry':
                             acc_date = each.move_id.date
-                            partial_id = self.env['account.partial.reconcile'].search(['|',('credit_move_id.move_id','=',each.move_id.id),('debit_move_id.move_id','=',each.move_id.id)])
+                            partial_id = self.env['account.partial.reconcile'].search(['|',('credit_move_id','=',each.id),('debit_move_id','=',each.id)])
+                            print('===========partial_id================',partial_id)
+                            original_amount = each.debit or each.credit
                             if len(partial_id) > 0:   
                                 partial_amount = 0                                             
                                 for entry in partial_id:
                                     partial_amount += entry.amount
-                                balance_amount = each.move_id.amount_total - partial_amount
+                                balance_amount = original_amount - partial_amount
                             
                             else:
-                                balance_amount = each.move_id.amount_total - partial_id.amount
+                                balance_amount = original_amount - partial_id.amount
+                                print('=========================')
                         else:
                             acc_date = each.move_id.invoice_date
                             balance_amount = each.move_id.amount_residual
+                            original_amount = each.move_id.amount_total
                             # acc_date=self.env['account.move'].search([('type','=','entry'),('name','=',each.name)])
                         pay_line_id=payment_line_obj.search([('inv_id','=',each.move_id.id)])
                         if pay_line_id:
@@ -844,8 +851,8 @@ class AccountPayment(models.Model):
                             'inv_id':each.move_id.id,
                             'move_line_id':line_reconcile_id.id if line_reconcile_id else False,
                             'ref_num':each.move_id.ref,
-                            'acc_id':each.partner_id.property_account_receivable_id.id if self.payment_type == 'inbound' else each.partner_id.property_account_payable_id.id ,
-                            'original_amount':each.move_id.amount_total,
+                            'acc_id':each.account_id.id,
+                            'original_amount':original_amount,
                             'due_date':each.move_id.invoice_date_due, #it will change the date format in d/m/y
                             'original_date':acc_date,
                             'currency_id':each.currency_id.id,
@@ -877,10 +884,10 @@ class AccountPayment(models.Model):
             else:
                 self.partner_bank_account_id = False
         
-            
-        payment_lines = self._load_payment_lines()
         self.payment_line_ids = [(6, 0, [])]
+        payment_lines = self._load_payment_lines()
         self.payment_line_ids = payment_lines
+        self._onchange_payment_line_ids()
             
         return {'domain': {'partner_bank_account_id': [('partner_id', 'in', [self.partner_id.id, self.partner_id.commercial_partner_id.id])]}}      
 
