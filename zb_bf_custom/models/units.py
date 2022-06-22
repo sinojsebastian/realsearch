@@ -725,6 +725,12 @@ class zbbm_module(models.Model):
                      
         res = super(zbbm_module, self).write(vals)
         return res
+
+    @api.onchange('service_ids')
+    def _onchange_service_data(self):
+        for service in self.service_ids:
+            if not service.account_no:
+                raise Warning(_('You cannot update services without account number!!'))
     
     def get_las_reser(self):
         for items in self:
@@ -789,7 +795,7 @@ class zbbm_module(models.Model):
                  
                 return True
         return True
-    
+
     
     
     @api.model
@@ -993,7 +999,6 @@ class zbbm_module(models.Model):
         ir_cron_ids = self.env.ref('zb_bf_custom.fixed_service_invoice_generation')
         params = self.env['ir.config_parameter'].sudo()
         if ir_cron_ids:
-            
             last_date = ir_cron_ids.nextcall.date()
             updated_last_date = datetime.strptime(str(last_date), '%Y-%m-%d')
         
@@ -1034,20 +1039,19 @@ class zbbm_module(models.Model):
                             service_list = []
                             description = 'Fixed service invoice for the Period for the Month '+ updated_last_date.strftime("%Y")+' '+ updated_last_date.strftime("%B")
                             for service in fixed_services:
-                                
-                                service_list.append(({
-                                                    'product_id':service.product_id.id,
-                                                    'name':description,
-                                                    'price_unit': service.owner_share,
-                                                    'quantity': 1,
-                                                    'tax_ids' : service.product_id.taxes_id.ids,
-                                                    'analytic_account_id':module_id.building_id.analytic_account_id.id if module_id.building_id.analytic_account_id else '',
-                                                    'account_id':service.product_id.property_account_income_id,
-                                                     }))
-                                
-                                
-                            if fixed_services:
-                                
+                                if service.product_id:
+                                    service_list.append(({
+                                                        'product_id':service.product_id.id,
+                                                        'name':description,
+                                                        'price_unit': service.owner_share,
+                                                        'quantity': 1,
+                                                        'tax_ids' : service.product_id.taxes_id.ids,
+                                                        'analytic_account_id':module_id.building_id.analytic_account_id.id if module_id.building_id.analytic_account_id else '',
+                                                        'account_id':service.product_id.property_account_income_id,
+                                                         }))
+
+
+                            if fixed_services and service_list:
                                 vals = {
                                           'partner_id':int(owner_id),
                                           'type': 'out_invoice',
@@ -2543,7 +2547,7 @@ class ServicesLeaseAgreement(models.Model):
     tenant_share = fields.Float('Tenant Share',digits = (12,3))
     managed_by_rs = fields.Boolean(string="Managed By RS")
     package_name = fields.Char(string="Package Name")
-    account_no = fields.Char(string="Account No")
+    account_no = fields.Char(string="Account No", required=True)
     ewa = fields.Boolean(string="EWA",related="product_id.product_tmpl_id.ewa")
     owner_id = fields.Many2one('res.partner',string="Owner")
     from_date = fields.Date(string="Disconnected Date")
@@ -2608,7 +2612,7 @@ class Service_Building(models.Model):
     tenant_share = fields.Float('Tenant Share',digits = (12,3))
     managed_by_rs = fields.Boolean(string="Managed By RS")
     package_name = fields.Char(string="Package Name")
-    account_no = fields.Char(string="Account No")
+    account_no = fields.Char(string="Account No", required=True)
     ewa = fields.Boolean(string="EWA",related="product_id.product_tmpl_id.ewa")
     owner_id = fields.Many2one('res.partner',string="Owner")
     from_date = fields.Date(string="Disconnected Date")
@@ -2839,6 +2843,7 @@ class RawServices(models.Model):
         formatted_service_date = ''
         from_date_format = ''
         to_date_format = ''
+        service_id = None
         if res.service_date:
             formatted_service_date = datetime.strptime(str(res.service_date),DEFAULT_SERVER_DATE_FORMAT).strftime(date_format)
         if res.from_date:
