@@ -1,3 +1,15 @@
+22/06/2022 v.0.44 Neha
+	[ZB-9062] advance payment lines : value issue
+
+17/06/2022 v.0.43 Neha
+	[ZB-8671] JV entries/Vendor invoice Adjustment
+
+02/06/2022 v.0.42 Neha
+	[ZB-8782] Owner Credit Note
+
+26/05/2022 v.0.41 Neha
+	[ZB-8671] JV entries/Vendor invoice Adjustment
+
 28/04/2022 v.0.40 shilpa mariya
 	[ZB-8169] Advance Expenses Adjustment
 
