@@ -108,21 +108,26 @@ class AgreementInvoiceWizard(models.TransientModel):
         if not agreement.invoice_cycle_num:
             raise Warning(_('Invoice cycle number should be greater than 0'))
         
+        leases = False
         if agreement.subproperty:
             _logger.info("agreement........................................................ %s",agreement.subproperty)
             subproperty = agreement.subproperty
             subproperty.sudo().monthly_rate = agreement.monthly_rent
             subproperty.sudo().tenant_id = agreement.tenant_id.id
-            leases = subproperty.agreement_ids.filtered(lambda r: r.state == 'active')
+            # leases = subproperty.agreement_ids.filtered(lambda r: r.state == 'active')
 #             for lease in leases:
-            if subproperty.state in ['available','book']:
-                subproperty.sudo().state='occupied'
-            elif subproperty.state == 'new':
-                subproperty.sudo().state == 'available'
-            else:
-                raise UserError('Already Occupied!!!')
+            leases = self.env['zbbm.module.lease.rent.agreement'].search([('subproperty','=',agreement.subproperty.id),('state','=','active')])
+            if not leases:
+                if subproperty.state in ['available','book']:
+                    subproperty.sudo().state='occupied'
+                elif subproperty.state == 'new':
+                    subproperty.sudo().state == 'available'
+                else:
+                    raise UserError('Already Occupied!!!')
         else:
             raise UserError('Please Assign Subproperty!!!')
+        if leases:
+            raise UserError('There exist an active lease for the unit!!!')
         agreement.state='active'
          
         if not agreement.tenant_id:
