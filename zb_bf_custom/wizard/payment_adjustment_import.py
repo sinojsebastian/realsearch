@@ -25,13 +25,15 @@ class ImportPaymentAdjustmentLines(models.TransientModel):
         allocated_amt = raw.get('Line level allocation amount')
         payment_type = raw.get('Payment Type', False)
         payment_line_inv = raw.get('Payment Lines')
-        if payment_line_inv and partner_id:
-            move_line_ids = self.env['account.move.line'].search([('move_id.type','in',('in_invoice','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',partner_id.id),('move_id.state','not in',['draft','cancel'])])
-        
+        payment_line_inv_id = self.env['account.move'].search([('name','=',payment_line_inv)])
+        print('=============payment_line_inv_id=================',payment_line_inv_id)
+        if payment_line_inv_id and partner_id:
+            move_line_ids = self.env['account.move.line'].search([('move_id','=',payment_line_inv_id.id),('move_id.type','in',('in_invoice','in_receipt','out_invoice','out_receipt','entry')),('partner_id','=',partner_id.id),('move_id.state','not in',['draft','cancel'])])
+        print('=============move_line_ids=================',move_line_ids)
         if move_line_ids:
             for each in move_line_ids:
-                payment_line_inv_id = self.env['account.move'].search([('name','=',payment_line_inv)])
-                print('=============payment_line_inv_id=================',payment_line_inv_id)
+                # payment_line_inv_id = self.env['account.move'].search([('name','=',payment_line_inv)])
+                # print('=============payment_line_inv_id=================',payment_line_inv_id)
                 if each.account_id.user_type_id.type in ('receivable', 'payable') and not each.payment_id and each.move_id.id == payment_line_inv_id.id:
                     line_reconcile_id = each
                     allocated_amount=0.0
