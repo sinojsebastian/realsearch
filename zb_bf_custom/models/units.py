@@ -725,6 +725,12 @@ class zbbm_module(models.Model):
                      
         res = super(zbbm_module, self).write(vals)
         return res
+
+    @api.onchange('service_ids')
+    def _onchange_service_data(self):
+        for service in self.service_ids:
+            if not service.account_no:
+                raise Warning(_('You cannot update services without account number!!'))
     
     def get_las_reser(self):
         for items in self:
@@ -789,7 +795,7 @@ class zbbm_module(models.Model):
                  
                 return True
         return True
-    
+
     
     
     @api.model
@@ -2541,7 +2547,7 @@ class ServicesLeaseAgreement(models.Model):
     tenant_share = fields.Float('Tenant Share',digits = (12,3))
     managed_by_rs = fields.Boolean(string="Managed By RS")
     package_name = fields.Char(string="Package Name")
-    account_no = fields.Char(string="Account No")
+    account_no = fields.Char(string="Account No", required=True)
     ewa = fields.Boolean(string="EWA",related="product_id.product_tmpl_id.ewa")
     owner_id = fields.Many2one('res.partner',string="Owner")
     from_date = fields.Date(string="Disconnected Date")
@@ -2606,7 +2612,7 @@ class Service_Building(models.Model):
     tenant_share = fields.Float('Tenant Share',digits = (12,3))
     managed_by_rs = fields.Boolean(string="Managed By RS")
     package_name = fields.Char(string="Package Name")
-    account_no = fields.Char(string="Account No")
+    account_no = fields.Char(string="Account No", required=True)
     ewa = fields.Boolean(string="EWA",related="product_id.product_tmpl_id.ewa")
     owner_id = fields.Many2one('res.partner',string="Owner")
     from_date = fields.Date(string="Disconnected Date")
@@ -2837,6 +2843,7 @@ class RawServices(models.Model):
         formatted_service_date = ''
         from_date_format = ''
         to_date_format = ''
+        service_id = None
         if res.service_date:
             formatted_service_date = datetime.strptime(str(res.service_date),DEFAULT_SERVER_DATE_FORMAT).strftime(date_format)
         if res.from_date:
