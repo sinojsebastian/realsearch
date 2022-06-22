@@ -727,7 +727,7 @@
                             <field name="owner_id" invisible="1"/>
                             <field name="package_name"/>
                             <field name="osn_extra_charge" invisible="1"/>
-                            <field name="account_no"/>
+                            <field name="account_no" required="1"/>
                             <field name="bill"/>
                             <field name="trf_status" invisible="1"/>
                             <field name="module_id" invisible="1"/>
