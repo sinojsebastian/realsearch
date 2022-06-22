@@ -423,8 +423,8 @@
                                 </notebook>
                             </page>
                             <page string="Agreements">
-                                <field name="agreement_ids">
-                                    <tree string="Details" editable="bottom">
+                                <field name="agreement_ids" readonly="1">
+                                    <tree string="Details">
                                         <field name="reference_no" />
                                         <field name="tenant_id" domain="[('is_tenant','=',True)]" context="{'default_is_tenant':True}"/>
                                         <field name="agent" domain="[('supplier','=',True)]" context="{'default_supplier':True}"/>
