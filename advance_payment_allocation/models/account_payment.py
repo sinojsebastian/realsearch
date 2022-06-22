@@ -50,7 +50,16 @@ class AccountPayment(models.Model):
                             else:
                                 each_allocate +=(-each[2].get('allocation')) if each[2].get('allocation') > 0.00 else each[2].get('allocation')
                         else:
-                            each_allocate+=each[2].get('allocation')
+                            if vals.get('payment_type') == 'outbound':
+                                if each[2].get('debit') > 0.000:
+                                    each_allocate+=(-each[2].get('allocation')) if each[2].get('allocation') > 0.00 else each[2].get('allocation')
+                                else:
+                                    each_allocate +=each[2].get('allocation')
+                            elif vals.get('payment_type') == 'inbound':
+                                if each[2].get('debit') > 0.000:
+                                    each_allocate +=each[2].get('allocation')
+                                else:
+                                    each_allocate += (-each[2].get('allocation')) if each[2].get('allocation') > 0.00 else each[2].get('allocation')
             if vals.get('amount', 0.0):   
                 amount=vals.get('amount')
             
@@ -66,7 +75,7 @@ class AccountPayment(models.Model):
         amount = 0.0
         payment=super(AccountPayment, self).write(vals)
         for rec in self:
-            if rec.method_type== 'adjustment':
+            if 'amount' in vals and rec.method_type== 'adjustment':
                 if rec.payment_line_ids:
                     for each in rec.payment_line_ids:
                         if each.allocation:
@@ -76,7 +85,19 @@ class AccountPayment(models.Model):
                                 else:
                                     each_allocate +=(-each.allocation) if each.allocation > 0.000 else each.allocation
                             else:
-                                each_allocate += each.allocation
+                                if rec.payment_type == 'outbound':
+                                    if each.credit > 0.00:
+                                        each_allocate += each.allocation
+                                        print('========each_allocate111=============',each_allocate)
+                                    elif each.debit > 0.00:
+                                        each_allocate -= each.allocation
+                                        print('========each_allocate222=============',each_allocate)
+                                elif rec.payment_type == 'inbound':
+                                    if each.debit > 0.00:
+                                        each_allocate += each.allocation
+                                    elif each.credit > 0.00:
+                                        each_allocate -= each.allocation
+                print('=============each_allocate============',each_allocate)
                 if rec.amount:
                     amount = rec.amount
                 if not rec.payment_advise:
@@ -348,12 +369,12 @@ class AccountPayment(models.Model):
         if self.method_type=='adjustment' and debit>0.0 and amount_currency==False and self.partner_type=='customer':
             debit=0.0
             for each in self.payment_line_ids:
-                if each.allocation>0.0:
+                if each.debit>0.0:
                     debit+=each.allocation
         elif self.method_type=='adjustment' and credit>0.0 and amount_currency==False and self.partner_type=='supplier':
             credit=0.0
             for each in self.payment_line_ids:
-                if each.allocation>0.0:
+                if each.credit>0.0:
                     credit+=each.allocation
         return {
             'partner_id': self.payment_type in ('inbound', 'outbound') and self.env['res.partner']._find_accounting_partner(self.partner_id).id or False,
@@ -368,7 +389,7 @@ class AccountPayment(models.Model):
      
      
      
-    def _get_counterpart_move_line_vals(self, invoice=False):
+    def _get_counterpart_move_line_vals(self,line, invoice=False):
         if self.payment_type == 'transfer':
             name = self.name
         else:
@@ -389,9 +410,14 @@ class AccountPayment(models.Model):
                     if inv.state == 'posted':
                         name += inv.name + ', '
                 name = name[:len(name)-2]
+        account_id = False
+        if line.move_line_id.account_id.user_type_id.type == 'receivable':
+            account_id = self.partner_id.property_account_receivable_id.id
+        elif line.move_line_id.account_id.user_type_id.type == 'payable':
+            account_id = self.partner_id.property_account_payable_id.id
         return {
             'name': name,
-            'account_id': self.destination_account_id.id,
+            'account_id': account_id,
             'currency_id': self.currency_id != self.company_id.currency_id and self.currency_id.id or False,
         }
         
@@ -419,17 +445,24 @@ class AccountPayment(models.Model):
         }
         return lines
     
-    def get_counter_line(self,amount,move,inv):
+    def get_counter_line(self,amount,line,move,inv):
         '''
         Counter Payment Move Line for payment move
         '''
         aml_obj = self.env['account.move.line']
-        if self.payment_type == 'inbound':
-                debit_amount = amount
-                credit_amount = 0.00
-        else:
+        if line.move_line_id.account_id.user_type_id.type == 'receivable':
             debit_amount = 0.00
             credit_amount = amount
+        elif line.move_line_id.account_id.user_type_id.type == 'payable':
+            debit_amount = amount
+            credit_amount = 0.00
+        
+        # if self.payment_type == 'inbound':
+        #         debit_amount = amount
+        #         credit_amount = 0.00
+        # else:
+        #     debit_amount = 0.00
+        #     credit_amount = amount
         lines = {
             'partner_id': self.payment_type in ('inbound', 'outbound') and self.env['res.partner']._find_accounting_partner(self.partner_id).id or False,
 #             'invoice_id': invoice_id and invoice_id.id or False,
@@ -443,6 +476,42 @@ class AccountPayment(models.Model):
             'debit' : debit_amount
         }
         return lines
+    
+    def _get_receivable_move_line_vals(self,move,amount_currency):
+        credit = 0.00
+        debit = 0.00
+        for each in self.payment_line_ids:
+            if each.move_line_id.account_id.user_type_id.type=='receivable':
+                if each.allocation>0.0:
+                    credit+=each.allocation
+        return {
+            'partner_id': self.payment_type in ('inbound', 'outbound') and self.env['res.partner']._find_accounting_partner(self.partner_id).id or False,
+#             'invoice_id': invoice_id and invoice_id.id or False,
+            'move_id': move.id,
+            'debit': debit,
+            'credit': credit,
+            'amount_currency': amount_currency or False,
+            'payment_id': self.id,
+            'account_id':self.partner_id.property_account_receivable_id.id,
+        }
+        
+    def _get_payable_move_line_vals(self,move,amount_currency):
+        credit = 0.00
+        debit = 0.00
+        for each in self.payment_line_ids:
+            if each.move_line_id.account_id.user_type_id.type=='payable':
+                if each.allocation>0.0:
+                    debit+=each.allocation
+        return {
+            'partner_id': self.payment_type in ('inbound', 'outbound') and self.env['res.partner']._find_accounting_partner(self.partner_id).id or False,
+#             'invoice_id': invoice_id and invoice_id.id or False,
+            'move_id': move.id,
+            'debit': debit,
+            'credit': credit,
+#             'amount_currency': amount_currency or False,
+            'payment_id': self.id,
+            'account_id':self.partner_id.property_account_payable_id.id,
+        }
         
      
     def get_posted(self):
@@ -611,41 +680,32 @@ class AccountPayment(models.Model):
                 
                 else:
                     #Partial Matching for Payment adjustment missing Partial Reconciliation.
+                    move = self.env['account.move'].create(order._get_move_vals())
+                    move_line_list = []
+                    receivable_aml_dict = order._get_receivable_move_line_vals(move,amount_currency)
+                    payable_aml_dict = order._get_payable_move_line_vals(move,amount_currency)
+                    payment_move_line_dict = order.payment_move_line(move,amount_currency)
+                    if payable_aml_dict['debit'] > 0.0:
+                        move_line_list.append((0,0,payable_aml_dict))
+                        # move.write({'line_ids':[(0,0,payable_aml_dict)]})
+                    if receivable_aml_dict['credit'] > 0.0:
+                        move_line_list.append((0,0,receivable_aml_dict))
+                        # move.write({'line_ids':[(0,0,receivable_aml_dict)]})
+                    move_line_list.append((0,0,payment_move_line_dict))
+                    move.write({'line_ids':move_line_list})
+                    move.post()
+                    move_name = order._get_move_name_transfer_separator().join(move.mapped('name'))
                     for each in self.payment_line_ids:
-                        if each.allocation>0.0:
-                            move = self.env['account.move'].create(order._get_move_vals())
-                            inv_id=each.inv_id
-                            if inv_id.type == 'out_invoice':
-                                credit=each.allocation
+                        if each.allocation > 0.00:
+                            if each.move_line_id.account_id.user_type_id.type=='receivable':
+                                pay_term_line_ids = move.line_ids.filtered(lambda line: line.account_id.user_type_id.type in ('receivable'))
+                                partial_id = self.env['account.partial.reconcile'].create({'debit_move_id': each.move_line_id.id, 'credit_move_id': pay_term_line_ids.id, 'amount': each.allocation})
+                                # each.inv_id.register_payment(pay_term_line_ids)
                             else:
-                                if inv_id.type == 'entry' and order.payment_type == 'inbound':
-                                    credit=each.allocation
-                                else:
-                                    credit=0.0
-                            if inv_id.type == 'in_invoice':
-                                debit=each.allocation
-                            else:
-                                if inv_id.type == 'entry' and order.payment_type == 'outbound':
-                                    debit=each.allocation
-                                else:
-                                    debit=0.0
-                                
-                            counterpart_aml_dict = order._get_shared_move_line_vals(debit, credit, amount_currency, move.id, inv_id)
-                            counterpart_aml_dict.update(order._get_counterpart_move_line_vals(each.inv_id))
-                            counterpart_aml_dict.update({'currency_id': currency_id})
-                            print('========================counterpart_aml_dict',counterpart_aml_dict)
-    #PV                         counterpart_aml.payment_id.write({'invoice_ids': [(4, each.inv_id.id, None)]})
-                            counterpart_aml_dict2 = order.get_counter_line(each.allocation, move.id, inv_id)
-                            counterpart_aml_dict2.update({'account_id':order.journal_id.default_debit_account_id.id})
-                            print('========================counterpart_aml_dict2',counterpart_aml_dict2)
-                            move.write({'line_ids':[(0,0,counterpart_aml_dict),(0,0,counterpart_aml_dict2)]})
-                            print('========================lines',move.line_ids)
-    #                         order.payment_move_line(move,amount_currency)
-                            move.post()
-                            pay_term_line_ids = move.line_ids.filtered(lambda line: line.account_id.user_type_id.type in ('receivable', 'payable'))
-                            each.inv_id.register_payment(pay_term_line_ids)
-                            move_name = order._get_move_name_transfer_separator().join(move.mapped('name'))
-                    # res = super(AccountPayment, order).post()
+                                pay_term_line_ids = move.line_ids.filtered(lambda line: line.account_id.user_type_id.type in ('payable'))
+                                partial_id = self.env['account.partial.reconcile'].create({'credit_move_id': each.move_line_id.id, 'debit_move_id': pay_term_line_ids.id, 'amount': each.allocation})
+                                # each.inv_id.register_payment(pay_term_line_ids)
+                    
                     self.get_posted()
                     order.write({'move_name': move_name,'state':'posted'})
                 
@@ -757,23 +817,28 @@ class AccountPayment(models.Model):
         else:
             if move_line_ids:
                 for each in move_line_ids:
+                    original_amount = 0.0
                     if each.account_id.user_type_id.type in ('receivable', 'payable') and not each.payment_id:
                         line_reconcile_id = each
                         allocated_amount=0.0
                         if each.move_id.type == 'entry':
                             acc_date = each.move_id.date
-                            partial_id = self.env['account.partial.reconcile'].search(['|',('credit_move_id.move_id','=',each.move_id.id),('debit_move_id.move_id','=',each.move_id.id)])
+                            partial_id = self.env['account.partial.reconcile'].search(['|',('credit_move_id','=',each.id),('debit_move_id','=',each.id)])
+                            print('===========partial_id================',partial_id)
+                            original_amount = each.debit or each.credit
                             if len(partial_id) > 0:   
                                 partial_amount = 0                                             
                                 for entry in partial_id:
                                     partial_amount += entry.amount
-                                balance_amount = each.move_id.amount_total - partial_amount
+                                balance_amount = original_amount - partial_amount
                             
                             else:
-                                balance_amount = each.move_id.amount_total - partial_id.amount
+                                balance_amount = original_amount - partial_id.amount
+                                print('=========================')
                         else:
                             acc_date = each.move_id.invoice_date
                             balance_amount = each.move_id.amount_residual
+                            original_amount = each.move_id.amount_total
                             # acc_date=self.env['account.move'].search([('type','=','entry'),('name','=',each.name)])
                         pay_line_id=payment_line_obj.search([('inv_id','=',each.move_id.id)])
                         if pay_line_id:
@@ -786,8 +851,8 @@ class AccountPayment(models.Model):
                             'inv_id':each.move_id.id,
                             'move_line_id':line_reconcile_id.id if line_reconcile_id else False,
                             'ref_num':each.move_id.ref,
-                            'acc_id':each.partner_id.property_account_receivable_id.id if self.payment_type == 'inbound' else each.partner_id.property_account_payable_id.id ,
-                            'original_amount':each.move_id.amount_total,
+                            'acc_id':each.account_id.id,
+                            'original_amount':original_amount,
                             'due_date':each.move_id.invoice_date_due, #it will change the date format in d/m/y
                             'original_date':acc_date,
                             'currency_id':each.currency_id.id,
@@ -819,10 +884,10 @@ class AccountPayment(models.Model):
             else:
                 self.partner_bank_account_id = False
         
-            
-        payment_lines = self._load_payment_lines()
         self.payment_line_ids = [(6, 0, [])]
+        payment_lines = self._load_payment_lines()
         self.payment_line_ids = payment_lines
+        self._onchange_payment_line_ids()
             
         return {'domain': {'partner_bank_account_id': [('partner_id', 'in', [self.partner_id.id, self.partner_id.commercial_partner_id.id])]}}      
 
@@ -836,7 +901,7 @@ class AccountPayment(models.Model):
     def _onchange_payment_line_ids(self):
 
         for order in self:
-            if order.payment_advise and order.method_type == 'adjustment':
+            if order.method_type == 'adjustment':
                 debit_allocation_total = 0.000
                 credit_total = 0.000
                 total = 0.000
@@ -853,17 +918,26 @@ class AccountPayment(models.Model):
                             debit_allocation_total += line.allocation
                         else:
                             credit_total += line.allocation
-                print('============================total',total)
-                if total < 0:
-                    order.amount = credit_total
+                if order.payment_advise or order.payment_type == 'outbound':
+                        print('============================total',total)
+                        if total < 0:
+                            order.amount = credit_total
+                        else:
+                            order.amount = credit_total - debit_allocation_total
+                        #Expense deduction from Payment Allocated Amount
+                        expense = 0        
+                        for exp_line in order.advance_expense_ids:
+                            expense += exp_line.amount
+                        if expense > 0:
+                           order.amount = order.amount - expense 
                 else:
-                    order.amount = credit_total - debit_allocation_total
-                #Expense deduction from Payment Allocated Amount
-                expense = 0        
-                for exp_line in order.advance_expense_ids:
-                    expense += exp_line.amount
-                if expense > 0:
-                   order.amount = order.amount - expense 
+                    if total < 0:
+                        order.amount = debit_allocation_total
+                    else:
+                        order.amount = debit_allocation_total - credit_total
+                
+                
+            
                     
     @api.onchange('advance_expense_ids')                
     def _onchange_advance_expense_ids(self):
