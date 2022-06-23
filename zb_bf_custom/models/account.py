@@ -490,6 +490,7 @@ class AccountPayment(models.Model):
             if entry:
                 for move in entry:
                     move.state = 'cancel'
+        
         move_line_ids = self.env['account.move.line'].search([('payment_id','=',self.id)])
         for line in move_line_ids:
             if line.reconciliation_id or line.rec_date:
