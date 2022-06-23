@@ -21,6 +21,10 @@
 			<xpath expr="//field[@name='reconcileline_ids']" position="attributes">
 				  	<attribute name="attrs">{'readonly': [('state', 'in',['validated'])]}</attribute>
 			</xpath>
+			<xpath expr="//button[@name='validate']" position="after">
+				  	<button string="Reset to Draft" type="object" name="reset_bank_reconcilation" class="oe_highlight"
+                            attrs="{'invisible':[('state','=','draft')]}"/>
+			</xpath>
         </field>
     </record>
 </odoo>

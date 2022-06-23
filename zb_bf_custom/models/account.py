@@ -490,6 +490,10 @@ class AccountPayment(models.Model):
             if entry:
                 for move in entry:
                     move.state = 'cancel'
+        move_line_ids = self.env['account.move.line'].search([('payment_id','=',self.id)])
+        for line in move_line_ids:
+            if line.reconciliation_id or line.rec_date:
+                raise Warning(_('This Payment is already reconciled'))
             # moves = order.payment_line_ids.filtered(lambda line:line.debit > 0 and line.full_reconcile == True).mapped('move_line_id.move_id')
             # moves.filtered(lambda move: move.state == 'posted').button_draft()
             # moves.with_context(force_delete=True).unlink()
@@ -860,6 +864,14 @@ class AccountMove(models.Model):
                             if entry.reconcilied_payment_id.state == 'posted':
                                 raise Warning(_('This transaction is reconciled with the Payment Advise %s, Kindly unreconcile it from Payment Advise'%(entry.reconcilied_payment_id.name)))
         
+        move_line_ids = self.env['account.move.line'].search([('move_id','=',self.id)])
+        for line in move_line_ids:
+            if line.reconcilation_id or line.rec_date:
+                raise Warning(_('The journal enrty %s is already reconciled'%(line.move_id.name)))
+            else:
+                bank_reconcile_line_id = self.env['bank.reconciliation.line'].search([('move_line_id','=',line.id)])
+                if bank_reconcile_line_id:
+                    raise Warning(_('The line is loaded for reconcilation,Kindly remove it from the record %s'%(bank_reconcile_line_id.reconcile_id.name)))
         
         return super(AccountMove, self).button_draft()
     

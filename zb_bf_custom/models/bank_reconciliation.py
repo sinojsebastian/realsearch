@@ -20,6 +20,38 @@ class BankReconiliation(models.Model):
     _description= "Bank Statement Reconcilation"
     
     
+    def reset_bank_reconcilation(self):
+        print('============hiiiiiiiiiii')
+        for line in self.reconcileline_ids:
+            if line.state == 'reconciled':
+                move_line_obj = line.move_line_id
+                line.rec_date = False
+                line.state = 'unreconciled'
+                line.reconciled = False
+                self.state = 'draft'
+                if line.debit > 0.00:
+                    self.debit += line.debit
+#                         self.closing_balance += reconcile_line.debit
+                    self.difference += line.debit
+                elif line.credit > 0.00:
+                    self.credit += line.credit
+#                         self.closing_balance += reconcile_line.credit
+                    self.difference -= line.credit
+                move_line_obj.write({
+                        'rec_date':False,
+                        'reconcilation_id':False
+                        
+                        })
+                if 'CUST.IN'or 'SUPP.OUT' in move_line_obj.name:
+                    payments = self.env['account.payment'].search([('name', '=', move_line_obj.name)])
+                    for payment in payments:
+                        # payment._get_move_reconciled()
+                        payment.state = 'posted'
+                            
+                if move_line_obj.payment_id:
+                    move_line_obj.payment_id.settlement_date = False
+    
+    
     def validate(self):
         payment_pool = self.env['account.payment'] 
         line_vals={}
@@ -109,6 +141,97 @@ class BankReconciliationLine(models.Model):
     unit_ref = fields.Char('Unit',compute='_get_building_flat')
     
     
-    
-    
+class account_bank_reconciliation_report(models.AbstractModel):
+    _inherit = 'account.bank.reconciliation.report'
+    _description = 'Bank Reconciliation Report'
+
+
+    @api.model
+    def _get_bank_rec_report_data(self, options, journal):
+        # General data + setup
+        rslt = {}
+
+        accounts = journal.default_debit_account_id + journal.default_credit_account_id
+        company = journal.company_id
+        amount_field = 'amount_currency' if journal.currency_id else 'balance'
+        states = ['posted']
+        states += options.get('all_entries') and ['draft'] or []
+
+        # Get total already accounted.
+        self._cr.execute('''
+            SELECT SUM(aml.''' + amount_field + ''')
+            FROM account_move_line aml
+            LEFT JOIN account_move am ON aml.move_id = am.id
+            WHERE aml.date <= %s AND aml.company_id = %s AND aml.account_id IN %s
+            AND am.state in %s
+        ''', [self.env.context['date_to'], journal.company_id.id, tuple(accounts.ids), tuple(states)])
+        rslt['total_already_accounted'] = self._cr.fetchone()[0] or 0.0
+
+        # Payments not reconciled with a bank statement line
+        self._cr.execute('''
+            SELECT
+                aml.id,
+                aml.name,
+                aml.ref,
+                aml.date, 
+                aml.payment_id, 
+                aml.''' + amount_field + '''                    AS balance
+            FROM account_move_line aml
+            LEFT JOIN res_company company                       ON company.id = aml.company_id
+            LEFT JOIN account_account account                   ON account.id = aml.account_id
+            LEFT JOIN account_account_type account_type         ON account_type.id = account.user_type_id
+            LEFT JOIN account_bank_statement_line st_line       ON st_line.id = aml.statement_line_id
+            LEFT JOIN account_payment payment                   ON payment.id = aml.payment_id
+            LEFT JOIN account_journal journal                   ON journal.id = aml.journal_id
+            LEFT JOIN account_move move                         ON move.id = aml.move_id
+            LEFT JOIN bank_reconciliation rec                   ON rec.id = aml.reconcilation_id
+            WHERE aml.date <= %s
+            AND aml.company_id = %s
+            AND CASE WHEN journal.type NOT IN ('cash', 'bank')
+                     THEN payment.journal_id
+                     ELSE aml.journal_id
+                 END = %s
+            AND account_type.type = 'liquidity'
+            AND full_reconcile_id IS NULL
+            AND (aml.statement_line_id IS NULL OR st_line.date > %s)
+            AND (aml.reconcilation_id IS NULL OR aml.rec_date > %s)
+            AND (company.account_bank_reconciliation_start IS NULL OR aml.date >= company.account_bank_reconciliation_start)
+            AND move.state in %s
+            ORDER BY aml.date DESC, aml.id DESC
+        ''', [self._context['date_to'], journal.company_id.id, journal.id, self._context['date_to'],self._context['date_to'],tuple(states)])
+        rslt['not_reconciled_payments'] = self._cr.dictfetchall()
+
+        # Bank statement lines not reconciled with a payment
+        rslt['not_reconciled_st_positive'] = self.env['account.bank.statement.line'].search([
+            ('statement_id.journal_id', '=', journal.id),
+            ('date', '<=', self._context['date_to']),
+            ('journal_entry_ids', '=', False),
+            ('amount', '>', 0),
+            ('company_id', '=', company.id)
+        ])
+
+        rslt['not_reconciled_st_negative'] = self.env['account.bank.statement.line'].search([
+            ('statement_id.journal_id', '=', journal.id),
+            ('date', '<=', self._context['date_to']),
+            ('journal_entry_ids', '=', False),
+            ('amount', '<', 0),
+            ('company_id', '=', company.id)
+        ])
+        # Final Bank Reconciliation
+        last_statement = self.env['bank.reconciliation'].search([
+            ('journal_id', '=', journal.id),
+            ('state', '!=', 'draft'),
+            ('to_date', '<=', self._context['date_to']),
+        ], order="to_date desc, id desc", limit=1)
+        # rslt['last_st_balance'] = last_statement.balance_end
+        rslt['last_st_balance'] = last_statement.closing_balance_stmt
+        rslt['last_st_end_date'] = last_statement.to_date
+        return rslt
+
+
+
+
+
+
+
     
