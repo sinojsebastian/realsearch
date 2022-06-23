@@ -1,3 +1,6 @@
+23/06/2022 v.6.54 Neha
+	* [ZB-8801] bank reconcilation & journal entry
+
 17/06/2022 v.6.53 Neha
 	* [ZB-8790] Reference Person( Book unit- CRM)
 

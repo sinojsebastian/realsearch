@@ -20,6 +20,38 @@ class BankReconiliation(models.Model):
     _description= "Bank Statement Reconcilation"
     
     
+    def reset_bank_reconcilation(self):
+        print('============hiiiiiiiiiii')
+        for line in self.reconcileline_ids:
+            if line.state == 'reconciled':
+                move_line_obj = line.move_line_id
+                line.rec_date = False
+                line.state = 'unreconciled'
+                line.reconciled = False
+                self.state = 'draft'
+                if line.debit > 0.00:
+                    self.debit += line.debit
+#                         self.closing_balance += reconcile_line.debit
+                    self.difference += line.debit
+                elif line.credit > 0.00:
+                    self.credit += line.credit
+#                         self.closing_balance += reconcile_line.credit
+                    self.difference -= line.credit
+                move_line_obj.write({
+                        'rec_date':False,
+                        'reconcilation_id':False
+                        
+                        })
+                if 'CUST.IN'or 'SUPP.OUT' in move_line_obj.name:
+                    payments = self.env['account.payment'].search([('name', '=', move_line_obj.name)])
+                    for payment in payments:
+                        # payment._get_move_reconciled()
+                        payment.state = 'posted'
+                            
+                if move_line_obj.payment_id:
+                    move_line_obj.payment_id.settlement_date = False
+    
+    
     def validate(self):
         payment_pool = self.env['account.payment'] 
         line_vals={}
