@@ -50,7 +50,7 @@ class CustomersStatementReport(models.AbstractModel):
                                       """
         lines_to_display = {}
         if date:
-           move_line_search_conditions += "and m.date < '%s'"%date
+           move_line_search_conditions += "and m.date <= '%s'"%date
         if customer_id:
             move_line_search_conditions += "and l.partner_id = '%s'"%customer_id
 
@@ -126,8 +126,8 @@ class CustomersStatementReport(models.AbstractModel):
                                         
                                       """
                                       #and not l.reconciled
-        # if date:
-        #    move_line_search_conditions += "and m.date >= '%s'"%date
+        if date:
+           move_line_search_conditions += "and m.date >= '%s'"%date
         if end_date:
            move_line_search_conditions += "and m.date <= '%s'"%end_date
         # if not show_paid_inv :
@@ -177,8 +177,8 @@ class CustomersStatementReport(models.AbstractModel):
         cdt = False
         sign = ''
         company_currency = self.env.user.company_id.currency_id
-        from_date = data['form'][0].get('from_date', time.strftime(date_format))
-        to_date = data['form'][0].get('to_date', time.strftime(date_format))
+        wiz_from_date = data['form'][0].get('from_date', time.strftime(date_format))
+        wiz_to_date = data['form'][0].get('to_date', time.strftime(date_format))
         show_paid_inv = data['form'][0].get('show_paid_inv',False)
         module_id = data['form'][0].get('module_id',False)
         if module_id:
@@ -190,6 +190,15 @@ class CustomersStatementReport(models.AbstractModel):
         journal_type = {
             'sale':'Sales'
         }
+        data_dict = {}
+        if wiz_from_date:
+            from_date = wiz_from_date
+        else:
+            from_date = ''
+        if wiz_to_date:
+            to_date = wiz_to_date
+        else:
+            to_date = datetime.today().strftime(date_format)
         if to_date:
             open_balance = self.get_opening_balance(to_date, customer_id,show_paid_inv,module)
             check_first_move_line = True
