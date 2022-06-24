@@ -167,7 +167,7 @@ class CustomersStatementReport(models.AbstractModel):
         lang = self.env['res.lang']
         lang_id = lang._lang_get(lang_code)
         date_format = lang_id.date_format
-        
+        print('==============date_format==========',date_format)
         result =[]
         model = self.env.context.get('active_model')
         docs = self.env[model].browse(self.env.context.get('active_id', []))
@@ -187,12 +187,12 @@ class CustomersStatementReport(models.AbstractModel):
             module = False
         customer = docs.name
         if not to_date:
-            to_date = datetime.today().strftime(date_format)
+            to_date = datetime.strptime(str(fields.Date.today()), DEFAULT_SERVER_DATE_FORMAT).date()
         journal_type = {
             'sale':'Sales'
         }
         data_dict = {}
-        open_balance = self.get_opening_balance(from_date, customer_id,show_paid_inv,module)
+        open_balance = self.get_opening_balance(to_date, customer_id,show_paid_inv,module)
         check_first_move_line = True
         balance_for_line = open_balance.get('balance')
         list_data = self.get_invoice_voucher(show_paid_inv,customer_id, from_date, to_date, journal_type,module)
