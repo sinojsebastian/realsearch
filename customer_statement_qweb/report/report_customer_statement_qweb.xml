@@ -5,6 +5,7 @@
 		<t t-call="web.html_container">
 			<t t-call="web.external_layout">
 				<div class="page">
+					<div class="container" style="border-bottom:none;padding:0px;margin:0px;"> 
 					<style>
 						thead { display: table-header-group }
 						tfoot { display: table-row-group }
@@ -31,8 +32,15 @@
 										</div>
 										<t t-if="count == 1">
 											<div class="col-6" align="right">
-												<b>From Date:  <t t-esc="datetime.datetime.strptime(d['from_date'], server_date).strftime(date_format)"/><br/></b>
-												<b>To Date:  <t t-esc="datetime.datetime.strptime(d['to_date'], server_date).strftime(date_format)"/></b>
+												<t t-if="d['from_date']">
+													<b>From Date:  <t t-esc="datetime.datetime.strptime(d['from_date'], server_date).strftime(date_format)"/><br/></b>
+												</t>
+												<t t-if="d['to_date']">
+													<b>To Date:  <t t-esc="datetime.datetime.strptime(d['to_date'], server_date).strftime(date_format)"/></b>
+												</t>
+												<t t-else="">
+													<b>To Date:  <t t-esc="context_timestamp(datetime.datetime.now()).strftime(date_format)"/></b>
+												</t>
 												<!-- <t t-esc="context_timestamp(datetime.datetime.now()).strftime(date_format)"/> -->
 											</div>
 										</t>
@@ -44,7 +52,7 @@
 	                    			<t t-set="balance" t-value="0"/>
 	                    			<t t-set="opening_balance" t-value="0"/>
 									<table class="table table-bordered mb32">
-										<thead>
+										<thead style="display:table-header-group;">
 											<tr>
 												<th>Date</th>                    
 												<th>Particulars</th>    
@@ -56,7 +64,7 @@
 												<th>Overdue by days</th>                        
 											</tr>
 										</thead>
-										<tbody>
+										<tbody style="display:table-header-group;">
 						                    	<t t-foreach="statement_data[module]" t-as="data">
 						                    		<t t-if="data">
 						                    		<tr>
@@ -162,6 +170,7 @@
                 			</div>
 							
 					</t>
+					</div>
 				</div> 
 			
 			</t>
