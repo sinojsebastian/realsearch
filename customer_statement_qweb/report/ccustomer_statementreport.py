@@ -95,8 +95,10 @@ class CustomersStatementReport(models.AbstractModel):
                 if due_date:
                     maturity = (datetime.strptime(str(fields.Date.today()), DEFAULT_SERVER_DATE_FORMAT)-datetime.strptime(str(due_date), DEFAULT_SERVER_DATE_FORMAT)).days
             for each in line.move_id.invoice_line_ids:
-                desc_list.append(each.name)
-            description = (','.join(desc_list))
+                if each.name:
+                    desc_list.append(each.name)
+            if desc_list:
+                description = (','.join(desc_list))
 
             data.append({
             'date': line.move_id.date,
@@ -104,6 +106,7 @@ class CustomersStatementReport(models.AbstractModel):
             'description':description,
             'due_date':due_date or '',
             'due_days':maturity or '',
+            'module_id':line.module_id or False,
             'debit': line.debit or 0.000,
             'credit': line.credit or 0.000,
             })
@@ -123,8 +126,8 @@ class CustomersStatementReport(models.AbstractModel):
                                         
                                       """
                                       #and not l.reconciled
-        if date:
-           move_line_search_conditions += "and m.date >= '%s'"%date
+        # if date:
+        #    move_line_search_conditions += "and m.date >= '%s'"%date
         if end_date:
            move_line_search_conditions += "and m.date <= '%s'"%end_date
         # if not show_paid_inv :
@@ -187,73 +190,123 @@ class CustomersStatementReport(models.AbstractModel):
         journal_type = {
             'sale':'Sales'
         }
-        if from_date:
-            open_balance = self.get_opening_balance(from_date, customer_id,show_paid_inv,module)
+        if to_date:
+            open_balance = self.get_opening_balance(to_date, customer_id,show_paid_inv,module)
             check_first_move_line = True
             balance_for_line = open_balance.get('balance')
             list_data = self.get_invoice_voucher(show_paid_inv,customer_id, from_date, to_date, journal_type,module)
             list_data = sorted(list_data, key=lambda d: (d['date'])) 
-            debit_sum = 0
-            credit_sum = 0
-            data_dict ={}
-            if not list_data:
-                data_dict = { 
+            data_dict = {}
+            for each in list_data:
+                key = each['module_id']
+                if key in data_dict:
+                    data_dict[key].append(each)
+                else:
+                    data_dict.update({key:[each]})
+            for module in data_dict:
+                debit_sum = 0
+                credit_sum = 0
+                if not data_dict[module]:
+                    data_vals = { 
                          'ref': 'Opening Balance',
                          'journal': ' ',
                          'description':' ',
-                         'debit': open_balance.get('debit'),
-                         'credit': open_balance.get('credit'),
+                         'debit': open_balance['debit'],
+                         'credit': open_balance['credit'],
                          'due_date':'',
                          'due_days':'',
-                         'open_balance': open_balance.get('balance'),
+                         'open_balance': open_balance['balance'],
                          'date':'',
                          'currency_id':company_currency.id
                     }
-                result.append(data_dict)
+                    data_dict[module].append(data_vals)
+                data_vals = {}
+                for each_data in data_dict[module]:
+                    if check_first_move_line:
+                        check_first_move_line = False
+                        data_vals = { 
+                         'ref': 'Opening Balance',
+                         'journal': ' ',
+                         'description':' ',
+                         'debit': open_balance['debit'],
+                         'credit': open_balance['credit'],
+                         'due_date':'',
+                         'due_days':'',
+                         'open_balance': open_balance['balance'],
+                         'date':'',
+                         'currency_id':company_currency.id
+                         }
+                        # data_dict[module].insert(0,data_vals)
+                    if each_data['debit'] > 0:
+                        balance_for_line = balance_for_line + each_data['debit']
+                        debit_sum += each_data['debit']
+                    if each_data['credit']>0:
+                        credit_sum += each_data['credit']
+                        balance_for_line = balance_for_line - each_data['credit']
+                    each_data.update({'open_balance':balance_for_line})
+                data_dict[module].insert(0,data_vals)
+            # debit_sum = 0
+            # credit_sum = 0
+            # data_dict ={}
+            # if not list_data:
+            #     data_dict = { 
+            #              'ref': 'Opening Balance',
+            #              'journal': ' ',
+            #              'description':' ',
+            #              'debit': open_balance.get('debit'),
+            #              'credit': open_balance.get('credit'),
+            #              'due_date':'',
+            #              'due_days':'',
+            #              'open_balance': open_balance.get('balance'),
+            #              'date':'',
+            #              'currency_id':company_currency.id
+            #         }
+            #     result.append(data_dict)
                 
-            for each_data in list_data:
-                if check_first_move_line:
-                    check_first_move_line = False
-                    data_dict = { 
-                         'ref': 'Opening Balance',
-                         'journal': ' ',
-                         'description':' ',
-                         'debit': open_balance.get('debit'),
-                         'credit': open_balance.get('credit'),
-                         'due_date':'',
-                         'due_days':'',
-                         'open_balance': open_balance.get('balance'),
-                         'date':'',
-                         'currency_id':company_currency.id
-                    }
-                    result.append(data_dict)
-                    
-                if each_data['debit'] > 0:
-                    balance_for_line = balance_for_line + each_data['debit']
-                    debit_sum += each_data['debit']
-                if each_data['credit']>0:
-                    credit_sum += each_data['credit']
-                    balance_for_line = balance_for_line - each_data['credit']
-                data_dict = {
-                    'date': each_data['date'] or '',
-                    'ref': each_data['ref'],
-                    'description':each_data['description'],
-                    'debit': each_data['debit'],
-                    'credit': each_data['credit'],
-                    'open_balance': balance_for_line,
-                    'due_date':each_data['due_date'] or '',
-                    'due_days':each_data['due_days'],
-                    'currency_id':company_currency.id
-                    
-                }
-                result.append(data_dict)
+            # for each_data in list_data:
+            #     if check_first_move_line:
+            #         check_first_move_line = False
+            #         data_dict = { 
+            #              'ref': 'Opening Balance',
+            #              'journal': ' ',
+            #              'description':' ',
+            #              'debit': open_balance.get('debit'),
+            #              'credit': open_balance.get('credit'),
+            #              'due_date':'',
+            #              'due_days':'',
+            #              'open_balance': open_balance.get('balance'),
+            #              'date':'',
+            #              'currency_id':company_currency.id
+            #         }
+            #         result.append(data_dict)
+            #
+            #     if each_data['debit'] > 0:
+            #         balance_for_line = balance_for_line + each_data['debit']
+            #         debit_sum += each_data['debit']
+            #     if each_data['credit']>0:
+            #         credit_sum += each_data['credit']
+            #         balance_for_line = balance_for_line - each_data['credit']
+            #     data_dict = {
+            #         'date': each_data['date'] or '',
+            #         'ref': each_data['ref'],
+            #         'description':each_data['description'],
+            #         'debit': each_data['debit'],
+            #         'credit': each_data['credit'],
+            #         'open_balance': balance_for_line,
+            #         'due_date':each_data['due_date'] or '',
+            #         'due_days':each_data['due_days'],
+            #         'currency_id':company_currency.id
+            #
+            #     }
+            #     result.append(data_dict)
+        print('=======================data_dict',data_dict)
         docargs = {
                    'doc_ids':self._ids,
                    'doc_model': model,
                    'docs': docs,
                    'server_date':DEFAULT_SERVER_DATE_FORMAT,
                    'date_format':date_format,
-                   'statement_data' : result,
+                   'statement_data' : data_dict,
                    'data': data['form'],
                    }
         return docargs
