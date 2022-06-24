@@ -177,8 +177,8 @@ class CustomersStatementReport(models.AbstractModel):
         cdt = False
         sign = ''
         company_currency = self.env.user.company_id.currency_id
-        wiz_from_date = data['form'][0].get('from_date', time.strftime(date_format))
-        wiz_to_date = data['form'][0].get('to_date', time.strftime(date_format))
+        from_date = data['form'][0].get('from_date', time.strftime(date_format))
+        to_date = data['form'][0].get('to_date', time.strftime(date_format))
         show_paid_inv = data['form'][0].get('show_paid_inv',False)
         module_id = data['form'][0].get('module_id',False)
         if module_id:
@@ -186,74 +186,66 @@ class CustomersStatementReport(models.AbstractModel):
         else:
             module = False
         customer = docs.name
-        end_date = datetime.today().strftime(date_format)
+        if not to_date:
+            to_date = datetime.today().strftime(date_format)
         journal_type = {
             'sale':'Sales'
         }
         data_dict = {}
-        if wiz_from_date:
-            from_date = wiz_from_date
-        else:
-            from_date = ''
-        if wiz_to_date:
-            to_date = wiz_to_date
-        else:
-            to_date = datetime.today().strftime(date_format)
-        if to_date:
-            open_balance = self.get_opening_balance(to_date, customer_id,show_paid_inv,module)
-            check_first_move_line = True
-            balance_for_line = open_balance.get('balance')
-            list_data = self.get_invoice_voucher(show_paid_inv,customer_id, from_date, to_date, journal_type,module)
-            list_data = sorted(list_data, key=lambda d: (d['date'])) 
-            data_dict = {}
-            for each in list_data:
-                key = each['module_id']
-                if key in data_dict:
-                    data_dict[key].append(each)
-                else:
-                    data_dict.update({key:[each]})
-            for module in data_dict:
-                debit_sum = 0
-                credit_sum = 0
-                if not data_dict[module]:
+        open_balance = self.get_opening_balance(from_date, customer_id,show_paid_inv,module)
+        check_first_move_line = True
+        balance_for_line = open_balance.get('balance')
+        list_data = self.get_invoice_voucher(show_paid_inv,customer_id, from_date, to_date, journal_type,module)
+        list_data = sorted(list_data, key=lambda d: (d['date'])) 
+        data_dict = {}
+        for each in list_data:
+            key = each['module_id']
+            if key in data_dict:
+                data_dict[key].append(each)
+            else:
+                data_dict.update({key:[each]})
+        for module in data_dict:
+            debit_sum = 0
+            credit_sum = 0
+            if not data_dict[module]:
+                data_vals = { 
+                     'ref': 'Opening Balance',
+                     'journal': ' ',
+                     'description':' ',
+                     'debit': open_balance['debit'],
+                     'credit': open_balance['credit'],
+                     'due_date':'',
+                     'due_days':'',
+                     'open_balance': open_balance['balance'],
+                     'date':'',
+                     'currency_id':company_currency.id
+                }
+                data_dict[module].append(data_vals)
+            data_vals = {}
+            for each_data in data_dict[module]:
+                if check_first_move_line:
+                    check_first_move_line = False
                     data_vals = { 
-                         'ref': 'Opening Balance',
-                         'journal': ' ',
-                         'description':' ',
-                         'debit': open_balance['debit'],
-                         'credit': open_balance['credit'],
-                         'due_date':'',
-                         'due_days':'',
-                         'open_balance': open_balance['balance'],
-                         'date':'',
-                         'currency_id':company_currency.id
-                    }
-                    data_dict[module].append(data_vals)
-                data_vals = {}
-                for each_data in data_dict[module]:
-                    if check_first_move_line:
-                        check_first_move_line = False
-                        data_vals = { 
-                         'ref': 'Opening Balance',
-                         'journal': ' ',
-                         'description':' ',
-                         'debit': open_balance['debit'],
-                         'credit': open_balance['credit'],
-                         'due_date':'',
-                         'due_days':'',
-                         'open_balance': open_balance['balance'],
-                         'date':'',
-                         'currency_id':company_currency.id
-                         }
-                        # data_dict[module].insert(0,data_vals)
-                    if each_data['debit'] > 0:
-                        balance_for_line = balance_for_line + each_data['debit']
-                        debit_sum += each_data['debit']
-                    if each_data['credit']>0:
-                        credit_sum += each_data['credit']
-                        balance_for_line = balance_for_line - each_data['credit']
-                    each_data.update({'open_balance':balance_for_line})
-                data_dict[module].insert(0,data_vals)
+                     'ref': 'Opening Balance',
+                     'journal': ' ',
+                     'description':' ',
+                     'debit': open_balance['debit'],
+                     'credit': open_balance['credit'],
+                     'due_date':'',
+                     'due_days':'',
+                     'open_balance': open_balance['balance'],
+                     'date':'',
+                     'currency_id':company_currency.id
+                     }
+                    # data_dict[module].insert(0,data_vals)
+                if each_data['debit'] > 0:
+                    balance_for_line = balance_for_line + each_data['debit']
+                    debit_sum += each_data['debit']
+                if each_data['credit']>0:
+                    credit_sum += each_data['credit']
+                    balance_for_line = balance_for_line - each_data['credit']
+                each_data.update({'open_balance':balance_for_line})
+            data_dict[module].insert(0,data_vals)
             # debit_sum = 0
             # credit_sum = 0
             # data_dict ={}
