@@ -50,7 +50,7 @@ class CustomersStatementReport(models.AbstractModel):
                                       """
         lines_to_display = {}
         if date:
-           move_line_search_conditions += "and m.date <= '%s'"%date
+           move_line_search_conditions += "and m.date < '%s'"%date
         if customer_id:
             move_line_search_conditions += "and l.partner_id = '%s'"%customer_id
 
