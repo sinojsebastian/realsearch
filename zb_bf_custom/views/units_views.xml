@@ -609,7 +609,7 @@
                 <field name="crm_lead_id"></field>
                 <field name="campaign_id"></field>
                 <field name="source_id"></field>
-                <field name="ref_person_id"/>
+                <field name="ref_person_id" context="{'lease_reference_person': True}"/>
                 <field name="prep_priority"/>
                 <field name="moving_date"/>
                 <field name="handover_date_arabic"/>
