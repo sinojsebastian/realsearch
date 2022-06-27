@@ -106,6 +106,9 @@ class ImportPaymentAdjustmentLines(models.TransientModel):
                     partner_type = list(partner_type_dict.keys())[list(partner_type_dict.values()).index(raw_partner_type)]
                     payment_journal = raw.get('Payment Journal', False)
                     payment_journal_id = self.env['account.journal'].search([('name','=',payment_journal)])
+                    journal_type = False
+                    if payment_journal_id:
+                        journal_type = payment_journal_id.type
                     raw_payment_mode = raw.get('Payment Mode', False)
                     payment_mode = list(payment_mode_dict.keys())[list(payment_mode_dict.values()).index(raw_payment_mode)]
                     check_book_id = False
@@ -125,7 +128,12 @@ class ImportPaymentAdjustmentLines(models.TransientModel):
                         cheque_date_format = cd.strftime('%Y-%m-%d')
                         # cheque_date.strftime('%d/%b/%Y').strptime(str(cheque_date),'%Y-%m-%d')
                     cheque_bank = raw.get('Cheque Bank', False)
-                    cheque_bank_id = self.env['res.bank'].search([('name','=',cheque_bank)])
+                    cheque_bank_id = False
+                    if cheque_bank:
+                        cheque_bank_name_list = cheque_bank.split(' ')
+                        cheque_bank_id = self.env['res.bank'].search([('bic','=',cheque_bank_name_list[-1])])
+                        if not cheque_bank_id:
+                            cheque_bank_id = self.env['res.bank'].search([('name','=',cheque_bank)])
                     name_on_cheque = raw.get('Name On Cheque', False)
                     payment_method_code = raw.get('Payment Method Code')
                     payment_method_code_value = self.env['account.payment.method'].search([('payment_type','=','outbound'),('name','=',payment_method_code)])
@@ -142,6 +150,7 @@ class ImportPaymentAdjustmentLines(models.TransientModel):
                             'partner_type':partner_type,
                             'partner_id':partner_id.id,
                             'journal_id':payment_journal_id.id,
+                            'journal_type':journal_type,
                             'payment_mode':payment_mode,
                             'notes':description,
                             'ac_payee':acc_payee,
