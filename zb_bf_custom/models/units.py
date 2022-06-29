@@ -2957,7 +2957,7 @@ class RawServices(models.Model):
             
             
             invoice_debit_tenant_vals = {
-                    'partner_id': res.tenant_id.id if res.tenant_id and res.lease_agreement_id else owner_id.id,
+                    'partner_id': res.lease_agreement_id.tenant_id.id if res.lease_agreement_id else owner_id.id,
                     'type': 'out_invoice',
                     'invoice_date':res.service_date,
                     'from_date':res.from_date,
