@@ -31,24 +31,24 @@ class BankReconiliation(models.Model):
 #                     if line.state is 'unreconciled':
                     move_line_obj = line.move_line_id
                     line.rec_date =fields.date.today()
-                    if move_line_obj.name:
-                        if 'CUST.IN' or 'SUPP.OUT' in move_line_obj.name:
-                            payments = payment_pool.search([('name', '=', move_line_obj.name)])
-                            for payment in payments:
-                                payment._get_move_reconciled()
-                                payment.state = 'reconciled'
-                                line_vals = {
-                                    'state': 'reconciled'
-                                }
-                                lines.append((1, line.id, line_vals))
-                                move_line_obj.write({
-                                    'rec_date': line.rec_date,
-                                    'reconcilation_id': self.id
+                    if move_line_obj and move_line_obj.payment_id.name:
+                        # if 'CUST.IN' or 'SUPP.OUT' in move_line_obj.name:
+                        payments = payment_pool.search([('name', '=', move_line_obj.payment_id.name)])
+                        for payment in payments:
+                            payment._get_move_reconciled()
+                            payment.state = 'reconciled'
+                            line_vals = {
+                                'state': 'reconciled'
+                            }
+                            lines.append((1, line.id, line_vals))
+                            move_line_obj.write({
+                                'rec_date': line.rec_date,
+                                'reconcilation_id': self.id
 
-                                })
-                                self.write({
-                                    'reconcileline_ids': lines
-                                })
+                            })
+                            self.write({
+                                'reconcileline_ids': lines
+                            })
 
 
                         linereconciled = True
