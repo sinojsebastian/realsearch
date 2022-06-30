@@ -871,8 +871,13 @@ class AccountMove(models.Model):
                 raise Warning(_('The journal enrty %s is already reconciled'%(line.move_id.name)))
             else:
                 bank_reconcile_line_id = self.env['bank.reconciliation.line'].search([('move_line_id','=',line.id)])
-                if bank_reconcile_line_id:
-                    raise Warning(_('The line is loaded for reconcilation,Kindly remove it from the record %s'%(bank_reconcile_line_id.reconcile_id.name)))
+                reconcile_list = []
+                for line in bank_reconcile_line_id:
+                    if line.reconcile_id:
+                        reconcile_list.append(line.reconcile_id.name)
+                reconcile_list_new = ",".join(reconcile_list)
+                if reconcile_list_new:
+                    raise Warning(_('The line is loaded for reconcilation,Kindly remove it from the records %s'%(reconcile_list_new)))
         
         return super(AccountMove, self).button_draft()
     

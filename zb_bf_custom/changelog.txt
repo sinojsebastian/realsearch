@@ -1,3 +1,6 @@
+30/06/2022 v.6.55 Neha
+	* [ZB-8801] bank reconcilation & journal entry -- > Feedbacks
+
 23/06/2022 v.6.54 Neha
 	* [ZB-8801] bank reconcilation & journal entry
 

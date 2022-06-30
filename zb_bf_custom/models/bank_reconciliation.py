@@ -42,8 +42,8 @@ class BankReconiliation(models.Model):
                         'reconcilation_id':False
                         
                         })
-                if 'CUST.IN'or 'SUPP.OUT' in move_line_obj.name:
-                    payments = self.env['account.payment'].search([('name', '=', move_line_obj.name)])
+                if move_line_obj.payment_id:
+                    payments = self.env['account.payment'].search([('id', '=', move_line_obj.payment_id.id)])
                     for payment in payments:
                         # payment._get_move_reconciled()
                         payment.state = 'posted'
@@ -64,30 +64,28 @@ class BankReconiliation(models.Model):
 #                     if line.state is 'unreconciled':
                     move_line_obj = line.move_line_id
                     line.rec_date =fields.date.today()
-                    if move_line_obj:
-                        if 'CUST.IN' or 'SUPP.OUT' in move_line_obj.name:
-                            payments = payment_pool.search([('name', '=', move_line_obj.name)])
-                            for payment in payments:
-                                payment._get_move_reconciled()
-                                payment.state = 'reconciled'
-                                line_vals = {
-                                    'state': 'reconciled'
-                                }
-                                lines.append((1, line.id, line_vals))
-                                move_line_obj.write({
-                                    'rec_date': line.rec_date,
-                                    'reconcilation_id': self.id
+                    if move_line_obj.payment_id:
+                        payments = self.env['account.payment'].search([('id', '=', move_line_obj.payment_id.id)])
+                        for payment in payments:
+                            payment._get_move_reconciled()
+                            payment.state = 'reconciled'
+                            line_vals = {
+                                'state': 'reconciled'
+                            }
+                            lines.append((1, line.id, line_vals))
+                            move_line_obj.write({
+                                'rec_date': line.rec_date,
+                                'reconcilation_id': self.id
 
-                                })
-                                self.write({
-                                    'reconcileline_ids': lines
-                                })
+                            })
+                            self.write({
+                                'reconcileline_ids': lines
+                            })
 
 
                         linereconciled = True
-                        if move_line_obj.payment_id:
-                            if line.settlement_date:
-                                move_line_obj.payment_id.settlement_date = line.settlement_date
+                        if line.settlement_date:
+                            move_line_obj.payment_id.settlement_date = line.settlement_date
             # line_entries = self.reconcileline_ids.filtered(lambda entry: entry.state != 'reconciled')
             # print("\n\n======================", line_entries)
             # if not line_entries:
