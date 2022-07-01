@@ -21,7 +21,6 @@ class BankReconiliation(models.Model):
     
     
     def reset_bank_reconcilation(self):
-        print('============hiiiiiiiiiii')
         for line in self.reconcileline_ids:
             if line.state == 'reconciled':
                 move_line_obj = line.move_line_id
@@ -60,8 +59,6 @@ class BankReconiliation(models.Model):
             linereconciled = False
             for line in self.reconcileline_ids:
                 if line.reconciled and line.state == 'unreconciled':
-#                     print line
-#                     if line.state is 'unreconciled':
                     move_line_obj = line.move_line_id
                     line.rec_date =fields.date.today()
                     if move_line_obj and move_line_obj.payment_id:
@@ -81,14 +78,24 @@ class BankReconiliation(models.Model):
                             self.write({
                                 'reconcileline_ids': lines
                             })
-
-
                         linereconciled = True
-                        if line.settlement_date:
-                            move_line_obj.payment_id.settlement_date = line.settlement_date
-            # line_entries = self.reconcileline_ids.filtered(lambda entry: entry.state != 'reconciled')
-            # print("\n\n======================", line_entries)
-            # if not line_entries:
+                        if move_line_obj.payment_id:
+                            if line.settlement_date:
+                                move_line_obj.payment_id.settlement_date = line.settlement_date
+                    else:
+                        line_vals = {
+                            'state': 'reconciled'
+                        }
+                        lines.append((1, line.id, line_vals))
+                        move_line_obj.write({
+                            'rec_date': line.rec_date,
+                            'reconcilation_id': self.id
+
+                        })
+                        self.write({
+                            'reconcileline_ids': lines
+                        })
+                        linereconciled = True
             self.write({
                 'state': 'validated'
             })
