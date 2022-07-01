@@ -1251,7 +1251,12 @@ class AccountReconcilePartial(models.Model):
         else:
             analytic = False
             
-        owner_id = self.env['res.partner'].get_owner_id(move_line.move_id.module_id,move_line.move_id.lease_id)
+        if move_line.move_id.owner_id:
+            owner_id = move_line.move_id.owner_id
+        else:
+            owner_id = self.env['res.partner'].get_owner_id(move_line.move_id.module_id,move_line.move_id.lease_id)
+        if not owner_id:
+            owner_id = self.env['res.partner'].browse(int(config_owner_id))
         
         lang_id = self.env['res.lang']._lang_get(self.env.user.lang)
         date_format = lang_id.date_format
