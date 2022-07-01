@@ -31,9 +31,8 @@ class BankReconiliation(models.Model):
 #                     if line.state is 'unreconciled':
                     move_line_obj = line.move_line_id
                     line.rec_date =fields.date.today()
-                    if move_line_obj and move_line_obj.payment_id.name:
-                        # if 'CUST.IN' or 'SUPP.OUT' in move_line_obj.name:
-                        payments = payment_pool.search([('name', '=', move_line_obj.payment_id.name)])
+                    if move_line_obj and move_line_obj.payment_id:
+                        payments = payment_pool.search([('id', '=', move_line_obj.payment_id.id)])
                         for payment in payments:
                             payment._get_move_reconciled()
                             payment.state = 'reconciled'
