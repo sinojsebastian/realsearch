@@ -852,7 +852,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_park_tree" />
         </record>
-        <menuitem id="menu_zbbm_parking" name="Car park" action="action_park_model" sequence="5" parent="menu_zbbm_buildings" groups="zb_building_management.group_tijaria_admin" />
+        <menuitem id="menu_zbbm_parking" name="Car park" action="action_park_model" sequence="5" parent="menu_zbbm_buildings" groups="zb_building_management.group_tijaria_admin,sales_team.group_sale_salesman_all_leads"/>
         <!-- Tenant tree view -->
         <record id="view_tenants_tree" model="ir.ui.view">
             <field name="name">tenant.tree</field>
