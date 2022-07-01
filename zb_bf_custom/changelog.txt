@@ -1,3 +1,6 @@
+01/07/2022 v.6.56 Neha
+	* [ZB-9245] Tenant Deposit Reconcile Issue
+
 30/06/2022 v.6.55 Neha
 	* [ZB-8801] bank reconcilation & journal entry -- > Feedbacks
 

@@ -1268,9 +1268,13 @@ class AccountReconcilePartial(models.Model):
             analytic = move_line.move_id.building_id.analytic_account_id.id
         else:
             analytic = False
-            
-        owner_id = self.env['res.partner'].get_owner_id(move_line.move_id.module_id,move_line.move_id.lease_id)
-        
+        if move_line.move_id.owner_id:
+            owner_id = move_line.move_id.owner_id
+        else:
+            owner_id = self.env['res.partner'].get_owner_id(move_line.move_id.module_id,move_line.move_id.lease_id)
+        if not owner_id:
+            owner_id = self.env['res.partner'].browse(int(config_owner_id))
+
         lang_id = self.env['res.lang']._lang_get(self.env.user.lang)
         date_format = lang_id.date_format
         
@@ -1291,7 +1295,6 @@ class AccountReconcilePartial(models.Model):
             'debit':0.000 if move_line.move_id.type=='out_refund' else amount,
             'credit':amount if move_line.move_id.type=='out_refund' else 0.000,
              }
-         
         deposit_credit_val = {
                     'account_id': owner_id.property_account_receivable_id.id,
                     'analytic_account_id':analytic,
