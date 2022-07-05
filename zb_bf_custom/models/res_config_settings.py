@@ -101,6 +101,9 @@ class ResConfigSettings(models.TransientModel):
         internet_stc_product_id = self.env['ir.config_parameter'].sudo().get_param('zb_bf_custom.internet_stc_product_id')
         internet_stc_journal_id = self.env['ir.config_parameter'].sudo().get_param('zb_bf_custom.internet_stc_journal_id')
         
+        credit_note_product_id = self.env['ir.config_parameter'].sudo().get_param('zb_bf_custom.credit_note_product_id') 
+        credit_note_journal_id = self.env['ir.config_parameter'].sudo().get_param('zb_bf_custom.credit_note_journal_id') 
+        
         
         res.update({
             'max_reservation_time_lease' : int(max_reservation_time_lease),
@@ -188,6 +191,9 @@ class ResConfigSettings(models.TransientModel):
         
         res.update(internet_stc_product_id=int(internet_stc_product_id))
         res.update(internet_stc_journal_id=int(internet_stc_journal_id))
+        
+        res.update(credit_note_product_id=int(credit_note_product_id))
+        res.update(credit_note_journal_id=int(credit_note_journal_id))
         
         if income_account_ids == False:
             res.update(income_account_ids=[(6, 0, ast.literal_eval('None'))],)
@@ -322,6 +328,9 @@ class ResConfigSettings(models.TransientModel):
         
         set_param('zb_bf_custom.internet_stc_product_id', self.internet_stc_product_id.id)
         set_param('zb_bf_custom.internet_stc_journal_id', self.internet_stc_journal_id.id)
+        
+        set_param('zb_bf_custom.credit_note_product_id', self.credit_note_product_id.id)
+        set_param('zb_bf_custom.credit_note_journal_id', self.credit_note_journal_id.id)
 
     
     install_journal_id = fields.Many2one('account.journal',string="Installment Transfer Journal")
@@ -410,6 +419,9 @@ class ResConfigSettings(models.TransientModel):
     
     internet_stc_product_id = fields.Many2one('product.product',string="Internet STC Product")
     internet_stc_journal_id = fields.Many2one('account.journal',string='Internet STC Journal')
+    
+    credit_note_product_id = fields.Many2one('product.product',string="Credit Note Product")
+    credit_note_journal_id = fields.Many2one('account.journal',string="Credit Note Journal")
     
     #default=datetime.strptime('2021-01-01','%Y-%m-%d')
     
