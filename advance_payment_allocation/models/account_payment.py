@@ -100,11 +100,11 @@ class AccountPayment(models.Model):
                 print('=============each_allocate============',each_allocate)
                 if rec.amount:
                     amount = rec.amount
-                if not rec.payment_advise:
-                    if float_round(each_allocate, 3) != float_round(amount, 3):
-                        print('============write===============',float_round(each_allocate, 3))
-                        print('===========write================',float_round(amount, 3))
-                        raise UserError(_('The Payment Amount does not match with total allocated amount'))
+                # if not rec.payment_advise:
+                #     if float_round(each_allocate, 3) != float_round(amount, 3):
+                #         print('============write===============',float_round(each_allocate, 3))
+                #         print('===========write================',float_round(amount, 3))
+                #         raise UserError(_('The Payment Amount does not match with total allocated amount'))
         return payment
     
 

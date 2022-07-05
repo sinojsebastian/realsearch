@@ -499,6 +499,14 @@ class AccountPayment(models.Model):
             # moves.filtered(lambda move: move.state == 'posted').button_draft()
             # moves.with_context(force_delete=True).unlink()
         return res
+
+    @api.model
+    def action_set_to_draft(self):
+        for rec in self.search([('name', '=', False),('state', '=', 'reconciled')]):
+            rec.action_draft()
+        return True
+
+
     
     @api.onchange('load_other_transactions','module_ids')
     def get_unrelated_transactions(self):
