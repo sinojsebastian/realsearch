@@ -853,28 +853,28 @@ class AccountMove(models.Model):
         return res
     
     def button_draft(self):
-        for rec in self:
-            # if not self._context.get('default_payment_type') == 'inbound':
-            #     if not self._context.get('active_model') == 'zbbm.module.lease.rent.agreement':
-            if 'active_model' in rec._context and not rec._context.get('active_model') == 'zbbm.module.lease.rent.agreement':
-                reconciled_lines = rec.line_ids._reconciled_lines()
+        # if not self._context.get('default_payment_type') == 'inbound':
+        #     if not self._context.get('active_model') == 'zbbm.module.lease.rent.agreement':
+        if 'active_model' in self._context and not self._context.get('active_model') == 'zbbm.module.lease.rent.agreement':
+            reconciled_lines = self.line_ids._reconciled_lines()
+            for lines in reconciled_lines:
+                partial_entries = self.env['account.partial.reconcile'].search([('credit_move_id','=',lines)])
+                for entry in partial_entries:
+                    if entry.reconcilied_payment_id:
+                        if entry.reconcilied_payment_id.state == 'posted':
+                            raise Warning(_('This transaction is reconciled with the Payment Advise %s, Kindly unreconcile it from Payment Advise'%(entry.reconcilied_payment_id.name)))
+        else:
+            if 'default_payment_type' not in self._context and 'active_model' not in self._context:
+                reconciled_lines = self.line_ids._reconciled_lines()
                 for lines in reconciled_lines:
-                    partial_entries = rec.env['account.partial.reconcile'].search([('credit_move_id','=',lines)])
+                    partial_entries = self.env['account.partial.reconcile'].search([('credit_move_id','=',lines)])
                     for entry in partial_entries:
                         if entry.reconcilied_payment_id:
                             if entry.reconcilied_payment_id.state == 'posted':
                                 raise Warning(_('This transaction is reconciled with the Payment Advise %s, Kindly unreconcile it from Payment Advise'%(entry.reconcilied_payment_id.name)))
-            else:
-                if 'default_payment_type' not in rec._context and 'active_model' not in rec._context:
-                    reconciled_lines = rec.line_ids._reconciled_lines()
-                    for lines in reconciled_lines:
-                        partial_entries = rec.env['account.partial.reconcile'].search([('credit_move_id','=',lines)])
-                        for entry in partial_entries:
-                            if entry.reconcilied_payment_id:
-                                if entry.reconcilied_payment_id.state == 'posted':
-                                    raise Warning(_('This transaction is reconciled with the Payment Advise %s, Kindly unreconcile it from Payment Advise'%(entry.reconcilied_payment_id.name)))
 
-            move_line_ids = self.env['account.move.line'].search([('move_id','=',rec.id)])
+        for order in self:
+            move_line_ids = self.env['account.move.line'].search([('move_id','=', order.id)])
             for line in move_line_ids:
                 if line.reconcilation_id or line.rec_date:
                     raise Warning(_('The journal enrty %s is already reconciled'%(line.move_id.name)))
@@ -888,7 +888,7 @@ class AccountMove(models.Model):
                     if reconcile_list_new:
                         raise Warning(_('The line is loaded for reconcilation,Kindly remove it from the records %s'%(reconcile_list_new)))
 
-            return super(AccountMove, rec).button_draft()
+        return super(AccountMove, self).button_draft()
     
     
     is_service_charge = fields.Boolean('Service Charge Invoice',default=False)
