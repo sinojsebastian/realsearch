@@ -18,9 +18,8 @@
             parent="crm.crm_menu_root"
             sequence="1"/>
           
-          
-          
-          
+           <delete model='crm.stage' search="[('id','=',ref('crm.stage_lead3'))]" />
+
           <record id="view_crm_case_opportunities_filter_inherited" model="ir.ui.view">
 	        <field name="name">crm.lead.form.inherit</field>
 	        <field name="model">crm.lead</field>
