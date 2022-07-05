@@ -478,11 +478,11 @@ class AccountPayment(models.Model):
     def action_draft(self):
         res = super(AccountPayment, self).action_draft()
         for order in self:
-            pdc = self.env['pdc.management'].search([('payment_ref_id','=',self.id)])
+            pdc = self.env['pdc.management'].search([('payment_ref_id','=',order.id)])
             if pdc:
                 for payment in pdc:
                     payment.unlink()
-            
+
             reconcilied_ids = self.env['account.partial.reconcile'].search([('reconcilied_payment_id','=',order.id)])
             reconcilied_ids.unlink()
         for adv_exp_line in self.advance_expense_ids:
@@ -494,7 +494,15 @@ class AccountPayment(models.Model):
             # moves.filtered(lambda move: move.state == 'posted').button_draft()
             # moves.with_context(force_delete=True).unlink()
         return res
-    
+
+    @api.model
+    def action_set_to_draft(self):
+        for rec in self.search([('name', '=', False),('state', '=', 'reconciled')]):
+            rec.action_draft()
+        return True
+
+
+
     @api.onchange('load_other_transactions','module_ids')
     def get_unrelated_transactions(self):
         for rec in self:
