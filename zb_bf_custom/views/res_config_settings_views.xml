@@ -67,6 +67,38 @@
 	                            </div>
 	                        </div>
                        </div>
+                       <h2>Service Credit Note</h2>
+	            		<div class="row mt16 o_settings_container">
+		            		<div class="col-12 col-lg-6 o_setting_box">
+	                            <div class="o_setting_left_pane"/>
+	                            <div class="o_setting_right_pane">
+	                            
+	                                <span class="o_form_label">Service Credit Note</span>
+	                                <div class="text-muted">
+	                                     Product For Service Credit Note
+	                                </div>
+	                                <div class="content-group">
+	                                        <div class="row mt16">
+	                                            <!-- <label for="service_products_ids" class="col-lg-3 o_light_label"/>
+	                                            <field name="service_products_ids" widget="many2many_tags"/> -->
+	                                        	<label for="credit_note_product_id" class="col-lg-3 o_light_label"/>
+	                                        	<field name="credit_note_product_id"/>
+	                                        </div>
+	                                    </div>
+	                                <div class="text-muted">
+	                                     Journal For Service Credit Note
+	                                </div>
+	                                <div class="content-group">
+	                                        <div class="row mt16">
+	                                            <!-- <label for="service_products_ids" class="col-lg-3 o_light_label"/>
+	                                            <field name="service_products_ids" widget="many2many_tags"/> -->
+	                                        	<label for="credit_note_journal_id" class="col-lg-3 o_light_label"/>
+	                                        	<field name="credit_note_journal_id"/>
+	                                        </div>
+	                                    </div>
+	                            </div>
+	                        </div>
+                       </div>
                        <h2>Products and Journal For Admin Fees</h2>
 						<div class="row mt16 o_settings_container">
 							<div class="col-12 col-lg-6 o_setting_box">
