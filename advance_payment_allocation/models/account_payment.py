@@ -427,12 +427,16 @@ class AccountPayment(models.Model):
         Counter Payment Move Line for payment move
         '''
         aml_obj = self.env['account.move.line']
-        if self.payment_type == 'inbound':
-                debit_amount = self.amount
-                credit_amount = 0.00
+        if not self.payment_advise:
+            if self.payment_type == 'inbound':
+                    debit_amount = self.amount
+                    credit_amount = 0.00
+            else:
+                debit_amount = 0.00
+                credit_amount = self.amount
         else:
-            debit_amount = 0.00
-            credit_amount = self.amount
+            debit_amount = self.amount
+            credit_amount = 0.00
         lines = {
             'partner_id': self.payment_type in ('inbound', 'outbound') and self.env['res.partner']._find_accounting_partner(self.partner_id).id or False,
 #             'invoice_id': invoice_id and invoice_id.id or False,
@@ -480,10 +484,20 @@ class AccountPayment(models.Model):
     def _get_receivable_move_line_vals(self,move,amount_currency):
         credit = 0.00
         debit = 0.00
-        for each in self.payment_line_ids:
-            if each.move_line_id.account_id.user_type_id.type=='receivable':
-                if each.allocation>0.0:
-                    credit+=each.allocation
+        if not self.payment_advise:
+            for each in self.payment_line_ids:
+                if each.move_line_id.account_id.user_type_id.type=='receivable':
+                    if each.allocation>0.0:
+                        credit+=each.allocation
+        else:
+            for each in self.payment_line_ids:
+                if each.move_line_id.account_id.user_type_id.type=='receivable':
+                    if each.credit > 0:
+                        if each.allocation>0.0:
+                            credit+=each.allocation
+                    elif each.debit > 0:
+                        if each.allocation>0.0:
+                            credit-=each.allocation
         return {
             'partner_id': self.payment_type in ('inbound', 'outbound') and self.env['res.partner']._find_accounting_partner(self.partner_id).id or False,
 #             'invoice_id': invoice_id and invoice_id.id or False,
@@ -577,137 +591,164 @@ class AccountPayment(models.Model):
                     invoice_currency = order.invoice_ids[0].currency_id
                 debit, credit, amount_currency, currency_id = aml_obj.with_context(date=self.payment_date).compute_amount_fields(order.amount, order.currency_id, order.company_id.currency_id, invoice_currency)
                 #Write line corresponding to invoice payment
-                if order.payment_advise:
-                    res = super(AccountPayment, order).post() 
-                    line_reconcile_id = order.move_line_ids.filtered(lambda line: line.account_id.user_type_id.type in ('receivable', 'payable'))
-                    for pl in order.payment_line_ids:
-                        if pl.allocation > 0 :
-                            all_lines.append({
-                                                'id' : pl.move_line_id.id,
-                                                'debit' : pl.move_line_id.debit, 
-                                                'credit' : pl.move_line_id.credit, 
-                                                'allocation' : pl.allocation, 
-                                                'remaining' : pl.allocation, 
-                                                'note' : pl.move_line_id.name,
-                                                'payment_line_id': pl.id
-                                                })
-                    for adv_exp_line in self.advance_expense_ids:
-                        advance_entry_id = adv_exp_line._create_advance_expense_journal_entry()
-                        for adv_line in advance_entry_id.line_ids:
-                            if adv_line.debit:
-                                all_lines.append({
-                                                'id' : adv_line.id,
-                                                'debit' : adv_line.debit, 
-                                                'credit' : adv_line.credit, 
-                                                'allocation' : adv_exp_line.amount, 
-                                                'remaining' : adv_exp_line.amount, 
-                                                'note' : adv_exp_line.name,
-                                                'payment_line_id': adv_exp_line.id
-                                                })
-                    reconcile_records =[] 
-                    debit_lines = []
-                    credit_lines = []
-                    cr_dict = {}
-                    
-                    for line in all_lines:
-                        if line['allocation'] > 0:
-                            if line['debit'] > 0:
-                                debit_lines.append(line)
-                            else:
-                                cr_dict.update({line['id']:line['allocation']})
-                                credit_lines.append(line)
-                    
-                    while (debit_lines and credit_lines):
-                        dr = debit_lines.pop()
-                        cr = credit_lines.pop()
-                        if dr['remaining'] == cr['remaining']:
-                            amount = dr['remaining']
-                            cr.update({'remaining' : 0})
-                            dr.update({'remaining' : 0})
-                            reconcile_records.append({
-                                'cr_id' : cr,
-                                'dr_id' : dr,
-                                'amount' : amount
-                                })
-
-                        elif dr['remaining'] > cr['remaining']:       
-                            amount = cr['remaining'] 
-                            cr.update({'remaining' : 0})
-                            dr.update({'remaining' : dr['remaining'] - amount})
-                            reconcile_records.append({
-                                'cr_id' : cr,
-                                'dr_id' : dr,
-                                'amount' : amount
-                                })
-                            debit_lines.append(dr)
-                            
-                        else:       
-                            amount = dr['remaining'] 
-                            cr.update({'remaining' : cr['remaining'] - dr['remaining']})
-                            dr.update({'remaining' : 0})
-                            reconcile_records.append({
-                                'cr_id' : cr,
-                                'dr_id' : dr,
-                                'amount' : amount
-                                })
-                            credit_lines.append(cr)
-                    amt = 0
-                    partial_val_list = []
-                    
-                    for x in reconcile_records:
-                        for k,v in x.items():
-                            if k == 'cr_id':
-                                if cr_dict.get(v['id']):
-                                    if v['remaining'] == 0:
-                                        cr_dict.pop(v['id'])
-                                    else:
-                                        cr_dict[v['id']] = v['remaining']
-                            elif k == 'amount':
-                                amt += v
-                            else:
-                                partial_val_list.append({'debit_move_id': v['id'], 'credit_move_id': x['cr_id']['id'], 'amount': x['amount']})
-                    
-                    if len(cr_dict) > 0 :
-                        for m,a in cr_dict.items():
-                            partial_val_list.append({'debit_move_id': line_reconcile_id.id, 'credit_move_id': m, 'amount': a})
-                    
-                    reconcile_dict = {}
-                    final_list = []
-                    for vals in partial_val_list:
-                        vals.update({'reconcilied_payment_id':self.id})
-                        partial_id = self.env['account.partial.reconcile'].create(vals)
-                    
-                
-                else:
-                    #Partial Matching for Payment adjustment missing Partial Reconciliation.
-                    move = self.env['account.move'].create(order._get_move_vals())
-                    move_line_list = []
-                    receivable_aml_dict = order._get_receivable_move_line_vals(move,amount_currency)
-                    payable_aml_dict = order._get_payable_move_line_vals(move,amount_currency)
-                    payment_move_line_dict = order.payment_move_line(move,amount_currency)
-                    if payable_aml_dict['debit'] > 0.0:
-                        move_line_list.append((0,0,payable_aml_dict))
-                        # move.write({'line_ids':[(0,0,payable_aml_dict)]})
-                    if receivable_aml_dict['credit'] > 0.0:
-                        move_line_list.append((0,0,receivable_aml_dict))
-                        # move.write({'line_ids':[(0,0,receivable_aml_dict)]})
-                    move_line_list.append((0,0,payment_move_line_dict))
-                    move.write({'line_ids':move_line_list})
-                    move.post()
-                    move_name = order._get_move_name_transfer_separator().join(move.mapped('name'))
-                    for each in self.payment_line_ids:
-                        if each.allocation > 0.00:
-                            if each.move_line_id.account_id.user_type_id.type=='receivable':
-                                pay_term_line_ids = move.line_ids.filtered(lambda line: line.account_id.user_type_id.type in ('receivable'))
-                                partial_id = self.env['account.partial.reconcile'].create({'debit_move_id': each.move_line_id.id, 'credit_move_id': pay_term_line_ids.id, 'amount': each.allocation})
+                # if order.payment_advise:
+                #     res = super(AccountPayment, order).post() 
+                #     line_reconcile_id = order.move_line_ids.filtered(lambda line: line.account_id.user_type_id.type in ('receivable', 'payable'))
+                #     for pl in order.payment_line_ids:
+                #         if pl.allocation > 0 :
+                #             all_lines.append({
+                #                                 'id' : pl.move_line_id.id,
+                #                                 'debit' : pl.move_line_id.debit, 
+                #                                 'credit' : pl.move_line_id.credit, 
+                #                                 'allocation' : pl.allocation, 
+                #                                 'remaining' : pl.allocation, 
+                #                                 'note' : pl.move_line_id.name,
+                #                                 'payment_line_id': pl.id
+                #                                 })
+                #     for adv_exp_line in self.advance_expense_ids:
+                #         advance_entry_id = adv_exp_line._create_advance_expense_journal_entry()
+                #         for adv_line in advance_entry_id.line_ids:
+                #             if adv_line.debit:
+                #                 all_lines.append({
+                #                                 'id' : adv_line.id,
+                #                                 'debit' : adv_line.debit, 
+                #                                 'credit' : adv_line.credit, 
+                #                                 'allocation' : adv_exp_line.amount, 
+                #                                 'remaining' : adv_exp_line.amount, 
+                #                                 'note' : adv_exp_line.name,
+                #                                 'payment_line_id': adv_exp_line.id
+                #                                 })
+                #     reconcile_records =[] 
+                #     debit_lines = []
+                #     credit_lines = []
+                #     cr_dict = {}
+                #
+                #     for line in all_lines:
+                #         if line['allocation'] > 0:
+                #             if line['debit'] > 0:
+                #                 debit_lines.append(line)
+                #             else:
+                #                 cr_dict.update({line['id']:line['allocation']})
+                #                 credit_lines.append(line)
+                #
+                #     while (debit_lines and credit_lines):
+                #         dr = debit_lines.pop()
+                #         cr = credit_lines.pop()
+                #         if dr['remaining'] == cr['remaining']:
+                #             amount = dr['remaining']
+                #             cr.update({'remaining' : 0})
+                #             dr.update({'remaining' : 0})
+                #             reconcile_records.append({
+                #                 'cr_id' : cr,
+                #                 'dr_id' : dr,
+                #                 'amount' : amount
+                #                 })
+                #
+                #         elif dr['remaining'] > cr['remaining']:       
+                #             amount = cr['remaining'] 
+                #             cr.update({'remaining' : 0})
+                #             dr.update({'remaining' : dr['remaining'] - amount})
+                #             reconcile_records.append({
+                #                 'cr_id' : cr,
+                #                 'dr_id' : dr,
+                #                 'amount' : amount
+                #                 })
+                #             debit_lines.append(dr)
+                #
+                #         else:       
+                #             amount = dr['remaining'] 
+                #             cr.update({'remaining' : cr['remaining'] - dr['remaining']})
+                #             dr.update({'remaining' : 0})
+                #             reconcile_records.append({
+                #                 'cr_id' : cr,
+                #                 'dr_id' : dr,
+                #                 'amount' : amount
+                #                 })
+                #             credit_lines.append(cr)
+                #     amt = 0
+                #     partial_val_list = []
+                #
+                #     for x in reconcile_records:
+                #         for k,v in x.items():
+                #             if k == 'cr_id':
+                #                 if cr_dict.get(v['id']):
+                #                     if v['remaining'] == 0:
+                #                         cr_dict.pop(v['id'])
+                #                     else:
+                #                         cr_dict[v['id']] = v['remaining']
+                #             elif k == 'amount':
+                #                 amt += v
+                #             else:
+                #                 partial_val_list.append({'debit_move_id': v['id'], 'credit_move_id': x['cr_id']['id'], 'amount': x['amount']})
+                #
+                #     if len(cr_dict) > 0 :
+                #         for m,a in cr_dict.items():
+                #             partial_val_list.append({'debit_move_id': line_reconcile_id.id, 'credit_move_id': m, 'amount': a})
+                #
+                #     reconcile_dict = {}
+                #     final_list = []
+                #     for vals in partial_val_list:
+                #         vals.update({'reconcilied_payment_id':self.id})
+                #         partial_id = self.env['account.partial.reconcile'].create(vals)
+                #
+                #
+                # else:
+                #Partial Matching for Payment adjustment missing Partial Reconciliation.
+                move = self.env['account.move'].create(order._get_move_vals())
+                move_line_list = []
+                receivable_aml_dict = order._get_receivable_move_line_vals(move,amount_currency)
+                payable_aml_dict = order._get_payable_move_line_vals(move,amount_currency)
+                payment_move_line_dict = order.payment_move_line(move,amount_currency)
+                if payable_aml_dict['debit'] > 0.0:
+                    move_line_list.append((0,0,payable_aml_dict))
+                    # move.write({'line_ids':[(0,0,payable_aml_dict)]})
+                if receivable_aml_dict['credit'] > 0.0:
+                    move_line_list.append((0,0,receivable_aml_dict))
+                    # move.write({'line_ids':[(0,0,receivable_aml_dict)]})
+                move_line_list.append((0,0,payment_move_line_dict))
+                move.write({'line_ids':move_line_list})
+                move.post()
+                move_name = order._get_move_name_transfer_separator().join(move.mapped('name'))
+                # if not self.payment_advise:
+                for each in self.payment_line_ids:
+                    if each.allocation > 0.00:
+                        partial_entries = False
+                        if each.move_line_id.account_id.user_type_id.type=='receivable':
+                            pay_term_line_ids = move.line_ids.filtered(lambda line: line.account_id.user_type_id.type in ('receivable'))
+                            partial_id = self.env['account.partial.reconcile'].create({'debit_move_id': each.move_line_id.id, 'credit_move_id': pay_term_line_ids.id, 'amount': each.allocation})
+                            partial_entries = self.env['account.partial.reconcile'].search([('debit_move_id','=',each.move_line_id.id)])
+                            # each.inv_id.register_payment(pay_term_line_ids)
+                        else:
+                            pay_term_line_ids = move.line_ids.filtered(lambda line: line.account_id.user_type_id.type in ('payable'))
+                            partial_id = self.env['account.partial.reconcile'].create({'credit_move_id': each.move_line_id.id, 'debit_move_id': pay_term_line_ids.id, 'amount': each.allocation})
+                            # each.inv_id.register_payment(pay_term_line_ids)
+                            partial_entries = self.env['account.partial.reconcile'].search([('credit_move_id','=',each.move_line_id.id)])
+                        total_amt = 0
+                        partial_list = []
+                        reconciled_list = []
+                        for partial in partial_entries:
+                            partial_list.append(partial.id)
+                            if partial.debit_move_id.id not in reconciled_list:
+                                reconciled_list.append(partial.debit_move_id.id)
+                            if partial.credit_move_id.id not in reconciled_list:
+                                reconciled_list.append(partial.credit_move_id.id)
+                            total_amt += partial.amount
+                        if total_amt == each.original_amount:
+                            full_reconcile_id = self.env['account.full.reconcile'].create({'partial_reconcile_ids': [(6, 0, partial_list)], 'reconciled_line_ids': [(6, 0, reconciled_list)]})
+                # else:
+                #     for each in self.payment_line_ids:
+                #         if each.allocation > 0.00:
+                #             if each.move_line_id.account_id.user_type_id.type=='receivable':
+                #                 pay_term_line_ids = move.line_ids.filtered(lambda line: line.account_id.user_type_id.type in ('receivable'))
+                #                 print('=========pay_term_line_ids=============',pay_term_line_ids)
+                #                 partial_id = self.env['account.partial.reconcile'].create({'debit_move_id': each.move_line_id.id, 'credit_move_id': pay_term_line_ids.id, 'amount': each.allocation})
+                                # if each.credit > 0:
+                                #
+                                # elif each.debit > 0:
+                                #     partial_id = self.env['account.partial.reconcile'].create({'debit_move_id': each.move_line_id.id, 'credit_move_id': pay_term_line_ids.id, 'amount': each.allocation})
                                 # each.inv_id.register_payment(pay_term_line_ids)
-                            else:
-                                pay_term_line_ids = move.line_ids.filtered(lambda line: line.account_id.user_type_id.type in ('payable'))
-                                partial_id = self.env['account.partial.reconcile'].create({'credit_move_id': each.move_line_id.id, 'debit_move_id': pay_term_line_ids.id, 'amount': each.allocation})
-                                # each.inv_id.register_payment(pay_term_line_ids)
-                    
-                    self.get_posted()
-                    order.write({'move_name': move_name,'state':'posted'})
+                self.get_posted()
+                order.write({'move_name': move_name,'state':'posted'})
                 
             
             else:
@@ -782,7 +823,8 @@ class AccountPayment(models.Model):
                                     
                                     balance_amount = 0
                                     if match_line.move_id.type == 'entry':
-                                        partial_entry = self.env['account.partial.reconcile'].search([('credit_move_id','=',match_line.id)])
+                                        partial_entry = self.env['account.partial.reconcile'].search(['|',('credit_move_id','=',match_line.id),('debit_move_id','=',match_line.id)])
+                                        print('==========partial_entry===============',partial_entry)
                                         if len(partial_entry) > 0:                                                
                                             line_amount = match_line.credit if match_line.credit > 0 else match_line.debit
                                             for entry in partial_entry:
