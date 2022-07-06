@@ -1,3 +1,6 @@
+22/06/2022 v.0.45 Neha
+	[[ZB-9242] Partial Payment Adjustment modification
+
 22/06/2022 v.0.44 Neha
 	[ZB-9062] advance payment lines : value issue
 
