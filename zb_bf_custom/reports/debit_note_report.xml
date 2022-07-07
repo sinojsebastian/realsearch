@@ -38,17 +38,25 @@
 		</div>
 		<div class="col-1 text-left" style="font-size:14px;max-width:10px">:</div>
 		<div class="col-3" style="font-size:14px;max-width:350px;">
-		<t t-if="payment_no[o]['payno']">
-			<t t-set="count" t-value ="1"/>
-			<t t-foreach="payment_no[o]['payno']" t-as="doc">
-				<span t-esc="doc.name"/>
-				<t t-if="count != len(payment_no[o]['payno'])">,</t>
-				<t t-set="count" t-value="count+1"/>
+
+			<t t-foreach="payment_no" t-as="record">
+				<t t-foreach="record" t-as="data">
+					<t t-if="int(data) == o.id">
+						<t t-if="record[data]['payno']">
+							<t t-set="count" t-value ="1">
+								<t t-foreach="record[data]['payno']" t-as="doc">
+									<span t-esc="doc.name"/>
+									<t t-if="count != len(payment_no['payno'])">,</t>
+									<t t-set="count" t-value="count+1"/>
+								</t>
+							</t>
+						</t>
+						<t t-else="">
+							<span style="visibility: hidden;">text</span>
+						</t>
+					</t>
+				</t>
 			</t>
-		</t>
-		<t t-else="">
-		<span style="visibility: hidden;">text</span>
-		</t>
 		</div>
 		</div>
 		<div class="row">
@@ -69,11 +77,20 @@
 		</div>
 		<div class="col-1 text-left" style="font-size:14px;max-width:10px;">:</div>
 		<div class="col-3 text-left" style="font-size:14px;max-width:350px;">
-		<t t-if="payment_no[o]['inv']">
-			<span t-field="payment_no[o]['inv'].name"/></t>
-		<t t-else="">
-			<span style="visibility: hidden;">text</span>
-		</t>
+
+			<t t-foreach="payment_no" t-as="record">
+				<t t-foreach="record" t-as="data">
+					<t t-if="int(data) == o.id">
+						<t t-if="record[data]['inv']">
+							<span t-field="record[data]['inv'].name"/>
+						</t>
+						<t t-else="">
+							<span style="visibility: hidden;">text</span>
+						</t>
+					</t>
+				</t>
+			</t>
+
 		</div>
 		</div>
 		<div class="row">
@@ -95,23 +112,32 @@
 		</div>
 		<div class="col-1 text-left" style="font-size:14px;max-width:10px;">:</div>
 		<div class="col-3 text-left" style="font-size:14px;max-width:350px;">
+
 			<t t-if="o.ref">
-		<t t-if="payment_no[o]['inv'].invoice_date">
-		<span t-field="payment_no[o]['inv'].invoice_date"/>
-		<!-- <span t-field="payment_no[o]['inv'].invoice_date" t-field-options='{"format": "dd/MM/yyyy"}'/> --></t>
-		<t t-if="not payment_no[o]['inv'].invoice_date">
-		<span style="visibility: hidden;">text</span>
-		</t>
-		<t t-if="not o.date">
-		<span style="visibility: hidden;">text</span>
-		</t></t>
+				<t t-foreach="payment_no" t-as="record">
+					<t t-foreach="record" t-as="data">
+						<t t-if="int(data) == o.id">
+							<t t-if="record[data]['inv'].invoice_date">
+								<span t-field="record[data]['inv'].invoice_date"/>
+							</t>
+							<t t-else="">
+								<span style="visibility: hidden;">text</span>
+							</t>
+							<t t-if="not o.date">
+								<span style="visibility: hidden;">text</span>
+							</t>
+						</t>
+					</t>
+				</t>
+			</t>
+
 		</div>
 		</div>
 		<div class="row">
 		<div class="col-2 text-left" style="font-size:14px;max-width:200px;">
 		
 		</div>
-		<div class="col-1 text-left" style="font-size:14px;max-width:10px;"></div>
+		<div class="col-1 text-left" style="font-size:14px;max-width:10px;"/>
 		<div class="col-3 text-left" style="font-size:14px;max-width:350px;">
 		</div>
 		<div class="col-2 text-left" style="font-size:14px;max-width:200px;;">
@@ -158,68 +184,70 @@
 		</thead>
 		<t t-set="count" t-value="1"/>
 		<t t-foreach="o.invoice_line_ids" t-as="line">
-		<tr>
-		<td class="text-center" style="width:10%;">
-		<t t-esc="count"/>
-		</td>
-		<td class="pl-3 text-left" style="width:40%;">
-		<t t-if="line.name">
-		<span t-esc="line.name"/>
-		</t>
-		<t t-if="not line.name">
-		<span style="visibility: hidden;">text</span>
-		</t>
-		</td>
-		<td class="text-center" style="width:10%;">
-		<t t-if="line.quantity">
-		<span t-esc="line.quantity"/>
-		</t>
-		<t t-if="not line.quantity">
-		<span style="visibility: hidden;">text</span>
-		</t>
-		</td>
-		<td class="text-right" style="width:10%;padding-right:1mm">
-		<t t-if="line.price_unit">
-		<span t-esc="'{:,.3f}'.format(line.price_unit)"/>
-		</t>
-		<t t-if="not line.price_unit">
-		<span style="visibility: hidden;">text</span>
-		</t>
-		</td>
-		<td class="text-right" style="width:10%;padding-right:1mm">
-		<t t-if="line.price_subtotal">
-		<span t-esc="'{:,.3f}'.format(line.price_subtotal)"/>
-		</t>
-		<t t-if="not line.price_subtotal">
-		<span style="visibility: hidden;">text</span>
-		</t>
-		</td>
-		<td class="text-center" style="width:10%;">
-		<t t-if="line.tax_ids.name">
-		<span t-esc="line.tax_ids.name"/>
-		</t>
-		<t t-if="not line.tax_ids.name">
-		<span style="visibility: hidden;">text</span>
-		</t>
-		</td>
-		<td class="text-right" style="width:10%;padding-right:1mm">
-		<t t-if="line.tax_ids">
-		<span t-esc="'{:,.3f}'.format(line.price_total-line.price_subtotal)"/>
-		</t>
-		<t t-if="not line.tax_ids">
-		<span style="visibility: hidden;">text</span>
-		</t>
-		</td>
-		<td class="text-right" style="width:10%;padding-right:1mm">
-		<t t-if="line.price_total">
-		<span t-esc="'{:,.3f}'.format(line.price_total)"/>
-		</t>
-		<t t-if="not line.price_total">
-		<span style="visibility: hidden;">text</span>
-		</t>
-		</td>
-		<t t-set="count" t-value="count+1"/>
-		</tr>
+			<t t-if="not line.display_type">
+				<tr>
+				<td class="text-center" style="width:10%;">
+				<t t-esc="count"/>
+				</td>
+				<td class="pl-3 text-left" style="width:40%;">
+				<t t-if="line.name">
+				<span t-esc="line.name"/>
+				</t>
+				<t t-if="not line.name">
+				<span style="visibility: hidden;">text</span>
+				</t>
+				</td>
+				<td class="text-center" style="width:10%;">
+				<t t-if="line.quantity">
+				<span t-esc="line.quantity"/>
+				</t>
+				<t t-if="not line.quantity">
+				<span style="visibility: hidden;">text</span>
+				</t>
+				</td>
+				<td class="text-right" style="width:10%;padding-right:1mm">
+				<t t-if="line.price_unit">
+				<span t-esc="'{:,.3f}'.format(line.price_unit)"/>
+				</t>
+				<t t-if="not line.price_unit">
+				<span style="visibility: hidden;">text</span>
+				</t>
+				</td>
+				<td class="text-right" style="width:10%;padding-right:1mm">
+				<t t-if="line.price_subtotal">
+				<span t-esc="'{:,.3f}'.format(line.price_subtotal)"/>
+				</t>
+				<t t-if="not line.price_subtotal">
+				<span style="visibility: hidden;">text</span>
+				</t>
+				</td>
+				<td class="text-center" style="width:10%;">
+				<t t-if="line.tax_ids.name">
+				<span t-esc="line.tax_ids.name"/>
+				</t>
+				<t t-if="not line.tax_ids.name">
+				<span style="visibility: hidden;">text</span>
+				</t>
+				</td>
+				<td class="text-right" style="width:10%;padding-right:1mm">
+				<t t-if="line.tax_ids">
+				<span t-esc="'{:,.3f}'.format(line.price_total-line.price_subtotal)"/>
+				</t>
+				<t t-if="not line.tax_ids">
+				<span style="visibility: hidden;">text</span>
+				</t>
+				</td>
+				<td class="text-right" style="width:10%;padding-right:1mm">
+				<t t-if="line.price_total">
+				<span t-esc="'{:,.3f}'.format(line.price_total)"/>
+				</t>
+				<t t-if="not line.price_total">
+				<span style="visibility: hidden;">text</span>
+				</t>
+				</td>
+				<t t-set="count" t-value="count+1"/>
+				</tr>
+			</t>
 		</t>
 		</table>
 		</div>
@@ -232,7 +260,7 @@
              </div>
              <div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
 	         <div class="col-9" style="font-size:14px;">
-              <span t-esc="words[o.id]"></span>
+              <span t-esc="words[o.id]"/>
              </div>
              </div>
              <br/>
@@ -414,18 +442,20 @@
 		<div class="col-2"> </div>
 	</div> -->
 	<h2 style="font-size:23px;padding-top:1cm;">
-	<center>
-	<t t-foreach="o.invoice_line_ids" t-as="line">
-		<t t-if="line.tax_ids">
-		<span>	<b>Tax Debit Note</b></span> 
-		</t>
-		<t t-if="not line.tax_ids">
-		<span><b>Debit Note</b></span>
-		</t>
-	
-	</t>
-	</center>
-	
+				<center>
+					<t t-set="count" t-value="0"/>
+						<t t-foreach="o.invoice_line_ids" t-as="line">
+							<t t-if="count == 0">
+								<t t-if="line.tax_ids">
+									<span><b>Tax Debit Note</b></span>
+									</t>
+									<t t-if="not line.tax_ids">
+									<span><b>Debit Note</b></span>
+									</t>
+									<t t-set="count" t-value="count+1"/>
+							</t>
+						</t>
+				</center>
 	</h2>
 </div>
 <div class="article o_report_layout_standard">
@@ -433,3 +463,6 @@
 </div>
 </template>
 </odoo>
+
+
+
