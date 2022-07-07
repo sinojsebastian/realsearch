@@ -612,7 +612,7 @@ class Lead(models.Model):
                     mail = self.env['mail.mail'].create(mail_values)
                 else:
                     raise Warning(_('Please provide Assigned user/Email'))
-                self.module_id.sudo().write({'reservation_time':0})
+                # self.module_id.sudo().write({'reservation_time':0})
             return self.write({'probability': 0, 'active': False})
         return super(Lead, self).action_set_lost(**additional_values)
     

@@ -1,3 +1,6 @@
+07/07/2022 v.6.59 Neha
+	* [ZB-5741] Probability and stage -->Feedbacks
+
 05/07/2022 v.6.58 Neha
 	* [ZB-9267] Credit Note for Non-Managed Flats
 
