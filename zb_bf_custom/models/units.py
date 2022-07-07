@@ -1146,14 +1146,15 @@ class LeaseRentAgreement(models.Model):
             subproperty.make_available()
 #             subproperty.state = 'available'
             subproperty.sudo().tenant_id = self.tenant_id.id
-            if rec.voucher_move_id:
-                if rec.voucher_move_id.state == 'posted':
-                    rec.voucher_move_id.button_draft()
-                    rec.voucher_move_id.button_cancel()
-                else:
-                    if rec.voucher_move_id.state =='draft':
-                        rec.voucher_move_id.unlink()
             rec.state='expired'
+            # if rec.voucher_move_id:
+            #     if rec.voucher_move_id.state == 'posted':
+            #         rec.voucher_move_id.button_draft()
+            #         rec.voucher_move_id.button_cancel()
+            #     else:
+            #         if rec.voucher_move_id.state =='draft':
+            #             rec.voucher_move_id.unlink()
+            
             
    
    
