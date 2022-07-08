@@ -2919,7 +2919,7 @@ class RawServices(models.Model):
                                             'account_id':res.product_id.property_account_expense_id.id if res.product_id.property_account_expense_id else int(building_expense_account_id),
                                             'partner_id':res.product_id.service_product_partner_id.id,
                                             'product_id':res.product_id.id,
-                                            'name':'%s %s'%(res.product_id.name,ref),
+                                            'name':'%s - %s %s'%(res.building_id.code,res.product_id.name,ref),
                                             'price_unit':res.amount,
                                             'quantity': 1,
                                             'tax_ids' : res.product_id.supplier_taxes_id.ids,
