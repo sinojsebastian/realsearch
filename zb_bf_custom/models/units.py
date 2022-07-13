@@ -3026,7 +3026,7 @@ class RawServices(models.Model):
                                             'analytic_account_id':res.module_id.building_id.analytic_account_id.id,
                                              })]
                     }
-            if res.module_id.managed == False:
+            if service_id.managed_by_rs == False:
                 if not credit_note_pdt_id:
                     raise Warning(_('Please Configure Service Credit Note Product'))
                 if not credit_note_journal_id:
@@ -3052,7 +3052,7 @@ class RawServices(models.Model):
     #                                             'partner_id':res.product_id.service_product_partner_id.id,
                                                 'product_id':credit_note_pdt_id.id,
                                                 'name':'%s- %s - %s %s'%(res.module_id.building_id.code,res.module_id.name,credit_note_pdt_id.name,ref_credit_note),
-                                                'price_unit':res.tenant_share + res.owner_share,
+                                                'price_unit':res.owner_share,
                                                 'quantity': 1,
                                                 'tax_ids' : credit_note_pdt_id.supplier_taxes_id.ids,
                                                 'analytic_account_id':res.module_id.building_id.analytic_account_id.id,
@@ -3078,7 +3078,7 @@ class RawServices(models.Model):
                 tenant_move = tenant_move_id.action_post()
             if vals.get('amount') > 0:
                 if res.product_id.service_product_journal_id.id != int(tabreed_journal_id):
-                    if res.module_id.managed == True:
+                    if service_id.managed_by_rs == True:
                         if payable_owner:
                             payable_move_id = self.env['account.move'].create(invoice_payable_vals)
                             payable_move_id.action_post()
