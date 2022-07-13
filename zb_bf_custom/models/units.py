@@ -2842,6 +2842,7 @@ class RawServices(models.Model):
         formatted_service_date = ''
         from_date_format = ''
         to_date_format = ''
+        service_id = None
         if res.service_date:
             formatted_service_date = datetime.strptime(str(res.service_date),DEFAULT_SERVER_DATE_FORMAT).strftime(date_format)
         if res.from_date:
@@ -2910,7 +2911,7 @@ class RawServices(models.Model):
                                             'account_id':res.product_id.property_account_expense_id.id if res.product_id.property_account_expense_id else int(building_expense_account_id),
                                             'partner_id':res.product_id.service_product_partner_id.id,
                                             'product_id':res.product_id.id,
-                                            'name':'%s %s'%(res.product_id.name,ref),
+                                            'name':'%s - %s %s'%(res.building_id.code,res.product_id.name,ref),
                                             'price_unit':res.amount,
                                             'quantity': 1,
                                             'tax_ids' : res.product_id.supplier_taxes_id.ids,
@@ -2952,7 +2953,7 @@ class RawServices(models.Model):
                     'invoice_line_ids': [(0, 0, {
 #                                             'partner_id':res.module_id.owner_id.id,
                                             'product_id':res.product_id.id,
-                                            'name': '%s %s'%(res.product_id.name,ref),
+                                            'name':'%s- %s - %s %s'%(res.module_id.building_id.code,res.module_id.name,res.product_id.name,ref),
                                             'price_unit':res.owner_share,
                                             'quantity': 1,
                                             'tax_ids' : res.product_id.taxes_id.ids,
@@ -2981,7 +2982,7 @@ class RawServices(models.Model):
                                             'account_id':res.product_id.property_account_income_id.id if res.product_id.property_account_income_id else int(building_income_account_id),
 #                                             'partner_id':res.tenant_id.id,
                                             'product_id':res.product_id.id,
-                                            'name':'%s %s'%(res.product_id.name,ref),
+                                            'name':'%s- %s - %s %s'%(res.module_id.building_id.code,res.module_id.name,res.product_id.name,ref),
                                             'price_unit':res.tenant_share,
                                             'tax_ids' : res.product_id.taxes_id.ids,
                                             'quantity': 1,
@@ -3010,14 +3011,14 @@ class RawServices(models.Model):
                                             'account_id':payable_account,
 #                                             'partner_id':res.product_id.service_product_partner_id.id,
                                             'product_id':res.product_id.id,
-                                            'name':'%s %s'%(res.product_id.name,ref),
+                                            'name':'%s- %s - %s %s'%(res.module_id.building_id.code,res.module_id.name,res.product_id.name,ref),
                                             'price_unit':res.tenant_share + res.owner_share,
                                             'quantity': 1,
                                             'tax_ids' : res.product_id.supplier_taxes_id.ids,
                                             'analytic_account_id':res.module_id.building_id.analytic_account_id.id,
                                              })]
                     }
-            if res.module_id.managed == False:
+            if service_id.managed_by_rs == False:
                 if not credit_note_pdt_id:
                     raise Warning(_('Please Configure Service Credit Note Product'))
                 if not credit_note_journal_id:
@@ -3043,7 +3044,7 @@ class RawServices(models.Model):
     #                                             'partner_id':res.product_id.service_product_partner_id.id,
                                                 'product_id':credit_note_pdt_id.id,
                                                 'name':'%s- %s - %s %s'%(res.module_id.building_id.code,res.module_id.name,credit_note_pdt_id.name,ref_credit_note),
-                                                'price_unit':res.tenant_share + res.owner_share,
+                                                'price_unit':res.owner_share,
                                                 'quantity': 1,
                                                 'tax_ids' : credit_note_pdt_id.supplier_taxes_id.ids,
                                                 'analytic_account_id':res.module_id.building_id.analytic_account_id.id,
@@ -3069,7 +3070,7 @@ class RawServices(models.Model):
                 tenant_move = tenant_move_id.action_post()
             if vals.get('amount') > 0:
                 if res.product_id.service_product_journal_id.id != int(tabreed_journal_id):
-                    if res.module_id.managed == True:
+                    if service_id.managed_by_rs == True:
                         if payable_owner:
                             payable_move_id = self.env['account.move'].create(invoice_payable_vals)
                             payable_move_id.action_post()
