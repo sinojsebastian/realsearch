@@ -6,12 +6,12 @@ from odoo.tools.float_utils import float_round
 import time
 from odoo.exceptions import UserError,Warning
 
+
 class DebitNoteReportQWeb(models.AbstractModel):
 
     _name = 'report.zb_bf_custom.debit_note_report'
     _description='Model For Debit Note Report'
-    
-    
+
     @api.model
     def _get_report_values(self, docids, data=None):
         bank_dict ={}
@@ -74,3 +74,8 @@ class DebitNoteReportQWeb(models.AbstractModel):
             
         }
         return vals
+
+
+
+
+

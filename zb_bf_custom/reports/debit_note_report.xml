@@ -250,9 +250,28 @@
 			</t>
 		</t>
 		</table>
+			<br/>
 		</div>
 	</div>
 	<br/>
+			<div class="row">
+				<div class="col-2 text-left" style="font-size:14px;padding-left:1cm;">
+				 <b>Section/Notes</b>
+				 </div>
+				<div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
+				<div class="col-9" style="font-size:14px;">
+					<t t-set="count" t-value="1"/>
+					<t t-foreach="o.invoice_line_ids" t-as="line">
+						<t t-if="line.display_type">
+							<t t-if="count > 1">,</t>
+							<t t-if="line.name">
+								<span t-esc="line.name"/>
+								<t t-set="count" t-value="count+1"/>
+							</t>
+						</t>
+					</t>
+				</div>
+			</div>
 	<br/>
 	 <div class="row">
              <div class="col-2 text-left" style="font-size:14px;padding-left:1cm;">
@@ -325,7 +344,7 @@
 			</t>
 			<t t-else="">
              	<t t-if="'partner' in bank_data[o.id]">
-             		<span  t-esc="bank_data[o.id]['partner']"></span>
+             		<span  t-esc="bank_data[o.id]['partner']"/>
              	</t>
              </t>
              <br></br>
@@ -346,7 +365,7 @@
 			</t>
 			<t t-else="">
              	<t t-if="'acc_number' in bank_data[o.id]">
-             		<span  t-esc="bank_data[o.id]['acc_number']"></span>
+             		<span  t-esc="bank_data[o.id]['acc_number']"/>
              	</t>
              </t>
              <br></br>
@@ -366,7 +385,7 @@
 			</t>
 			<t t-else="">
              	<t t-if="'iban' in bank_data[o.id]">
-             		<span  t-esc="bank_data[o.id]['iban']"></span>
+             		<span  t-esc="bank_data[o.id]['iban']"/>
              	</t>
              </t>
              <br></br>
@@ -387,7 +406,7 @@
 			</t>
 			<t t-else="">
              	<t t-if="'bic' in bank_data[o.id]">
-             		<span  t-esc="bank_data[o.id]['bic']"></span>
+             		<span  t-esc="bank_data[o.id]['bic']"/>
              	</t>
              </t>
              <br></br>
