@@ -184,6 +184,7 @@
 		</thead>
 		<t t-set="count" t-value="1"/>
 		<t t-foreach="o.invoice_line_ids" t-as="line">
+			<tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
 			<t t-if="not line.display_type">
 				<tr>
 				<td class="text-center" style="width:10%;">
@@ -248,30 +249,26 @@
 				<t t-set="count" t-value="count+1"/>
 				</tr>
 			</t>
+				<t t-if="line.display_type == 'line_section'">
+					<td/>
+					<td colspan="99">
+						<span t-field="line.name"/>
+					</td>
+				</t>
+				<t t-if="line.display_type == 'line_note'">
+					<td/>
+					<td colspan="99">
+						<span t-field="line.name"/>
+					</td>
+				</t>
+			</tr>
 		</t>
 		</table>
 			<br/>
 		</div>
 	</div>
 	<br/>
-			<div class="row">
-				<div class="col-2 text-left" style="font-size:14px;padding-left:1cm;">
-				 <b>Section/Notes</b>
-				 </div>
-				<div class="col-1 text-left" style="font-size:14px;width:2mm">:</div>
-				<div class="col-9" style="font-size:14px;">
-					<t t-set="count" t-value="1"/>
-					<t t-foreach="o.invoice_line_ids" t-as="line">
-						<t t-if="line.display_type">
-							<t t-if="count > 1">,</t>
-							<t t-if="line.name">
-								<span t-esc="line.name"/>
-								<t t-set="count" t-value="count+1"/>
-							</t>
-						</t>
-					</t>
-				</div>
-			</div>
+
 	<br/>
 	 <div class="row">
              <div class="col-2 text-left" style="font-size:14px;padding-left:1cm;">
