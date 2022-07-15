@@ -817,7 +817,10 @@
             <field name="context">{'search_default_building': 1}</field>
             <field name="view_id" ref="view_unit_tree" />
         </record>
-        <menuitem id="menu_zbbm_units" name="Sellable Units" action="action_unit_model" sequence="4" parent="menu_zbbm_buildings"/>
+        <menuitem id="menu_zbbm_units" name="Sellable Units" action="action_unit_model" sequence="4"
+                  parent="menu_zbbm_buildings"
+                  groups="zb_bf_custom.group_property_advisor"
+        />
         <!-- Car Parking -->
         <record id="view_park_tree" model="ir.ui.view">
             <field name="name">zbbm.park.tree</field>

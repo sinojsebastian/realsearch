@@ -6,6 +6,8 @@ access_view_unit,view.unit,model_view_unit,base.group_user,1,1,1,1
 acess_zbbm_services,zbbm_services_model,model_zbbm_services,base.group_user,1,1,1,1
 acess_raw_services,raw_services_model,model_raw_services,base.group_user,1,1,1,1
 acess_invoice_plan,invoice_plan,model_invoice_plan,base.group_user,1,1,1,1
+access_zbbm_module_user,zbbm.module.user,zb_building_management.model_zbbm_module,zb_building_management.group_property_user,1,0,0,0
+access_zbbm_module_admin,zbbm.module.admin,zb_building_management.model_zbbm_module,zb_building_management.group_tijaria_admin,1,0,0,0
 access_zbm_module_portal,zbbm.module.portal,zb_building_management.model_zbbm_module,base.group_portal,1,0,0,0
 access_zbbm_module_lease_rent_agreement,zbbm.module.lease.rent.agreement.portal,zb_building_management.model_zbbm_module_lease_rent_agreement,base.group_portal,1,0,0,0
 access_activity_details,access_activity_details,model_activity_details,base.group_user,1,1,1,1 
