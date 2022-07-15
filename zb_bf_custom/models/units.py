@@ -3019,10 +3019,6 @@ class RawServices(models.Model):
                                              })]
                     }
             if service_id.managed_by_rs == False:
-                if not credit_note_pdt_id:
-                    raise Warning(_('Please Configure Service Credit Note Product'))
-                if not credit_note_journal_id:
-                    raise Warning(_('Please Configure Service Credit Note Journal'))
             
                 bill_credit_note_vals = {
                         'partner_id': owner_id.id,
@@ -3040,18 +3036,18 @@ class RawServices(models.Model):
                         'invoice_origin':vals['name'],
                         'ref':res.bill_no,
                         'invoice_line_ids': [(0, 0, {
-                                                'account_id':credit_note_pdt_id.property_account_income_id.id if credit_note_pdt_id.property_account_income_id else int(building_income_account_id),
+                                                'account_id':res.product_id.property_account_income_id.id if res.product_id.property_account_income_id else int(building_income_account_id),
     #                                             'partner_id':res.product_id.service_product_partner_id.id,
-                                                'product_id':credit_note_pdt_id.id,
-                                                'name':'%s- %s - %s %s'%(res.module_id.building_id.code,res.module_id.name,credit_note_pdt_id.name,ref_credit_note),
+                                                'product_id':res.product_id.id,
+                                                'name':'%s- %s - %s %s'%(res.module_id.building_id.code,res.module_id.name,res.product_id.name,ref_credit_note),
                                                 'price_unit':res.owner_share,
                                                 'quantity': 1,
-                                                'tax_ids' : credit_note_pdt_id.supplier_taxes_id.ids,
+                                                'tax_ids' : res.product_id.supplier_taxes_id.ids,
                                                 'analytic_account_id':res.module_id.building_id.analytic_account_id.id,
                                                  })]
                         }
                 
-                if vals.get('amount') > 0:
+                if res.owner_share > 0:
                     if owner_id:
                         credit_move_id = self.env['account.move'].create(bill_credit_note_vals)
                         credit_move_id.action_post()
