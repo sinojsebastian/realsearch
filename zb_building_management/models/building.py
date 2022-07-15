@@ -1077,11 +1077,12 @@ class zbbm_Unit(models.Model):
             if module.payments_ids:
                 total_payments = 0.00
                 for payments in module.payments_ids:
-                    if payments.state not in ['draft', 'cancel'] :
-                        if payments.payment_type == 'outbound':
-                            total_payments = total_payments - payments.amount
-                        if payments.payment_type == 'inbound':
-                            total_payments = total_payments + payments.amount
+                    if payments.partner_id.id == module.buyer_id.id:
+                        if payments.state not in ['draft', 'cancel'] :
+                            if payments.payment_type == 'outbound':
+                                total_payments = total_payments - payments.amount
+                            if payments.payment_type == 'inbound':
+                                total_payments = total_payments + payments.amount
                 module.payment_total = total_payments
             else:
                 module.payment_total = 0
