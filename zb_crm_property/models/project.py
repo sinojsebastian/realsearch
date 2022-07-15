@@ -152,7 +152,7 @@ class Lead(models.Model):
                 else:
                     raise Warning(_('Please provide Assigned user/Email'))
                 #neha
-                self.unit_id.write({'reservation_time':0})
+                # self.unit_id.write({'reservation_time':0})
             return self.write({'probability': 0, 'active': False,'store_prob':0})
      
     def action_set_won(self):
