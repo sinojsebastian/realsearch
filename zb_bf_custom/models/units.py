@@ -3030,7 +3030,7 @@ class RawServices(models.Model):
                         'building_id':res.module_id.building_id.id if res.module_id else res.building_id.id,
                         'agreement_id':res.lease_agreement_id.id if res.lease_agreement_id else '',
                         'lease_id':res.lease_agreement_id.id if res.lease_agreement_id else '',
-                        'journal_id':credit_note_journal_id.id if credit_note_journal_id else False,
+                        'journal_id':res.product_id.service_product_journal_id.id,
                         'deposit_jv_desc':ref_credit_note,
                         'raw_service_id':res.id,
                         'invoice_origin':vals['name'],
@@ -3047,26 +3047,57 @@ class RawServices(models.Model):
                                                  })]
                         }
                 
+                bill_to_owner_vals = {
+                        'partner_id': owner_id.id,
+                        'type': 'in_invoice',
+                        'invoice_date':res.service_date,
+                        'from_date':res.from_date,
+                        'to_date':res.to_date,
+                        'module_id': res.module_id.id if res.module_id else False,
+                        'building_id':res.module_id.building_id.id if res.module_id else res.building_id.id,
+                        'agreement_id':res.lease_agreement_id.id if res.lease_agreement_id else '',
+                        'lease_id':res.lease_agreement_id.id if res.lease_agreement_id else '',
+                        'journal_id':res.product_id.service_product_vendor_journal_id.id,
+                        'deposit_jv_desc':ref,
+                        'raw_service_id':res.id,
+                        'invoice_origin':vals['name'],
+                        'ref':res.bill_no,
+                        'invoice_line_ids': [(0, 0, {
+                                                'account_id':payable_account,
+    #                                             'partner_id':res.product_id.service_product_partner_id.id,
+                                                'product_id':res.product_id.id,
+                                                'name':'%s- %s - %s %s'%(res.module_id.building_id.code,res.module_id.name,res.product_id.name,ref),
+                                                'price_unit':res.tenant_share,
+                                                'quantity': 1,
+                                                'tax_ids' : res.product_id.supplier_taxes_id.ids,
+                                                'analytic_account_id':res.module_id.building_id.analytic_account_id.id,
+                                                 })]
+                        }
+                if res.tenant_share > 0:
+                    tenant_share_id = self.env['account.move'].create(invoice_debit_tenant_vals)
+                    tenant_share_id.action_post()
+                    owner_bill_id = self.env['account.move'].create(bill_to_owner_vals)
+                    owner_bill_id.action_post()
+                if res.owner_share > 0:
+                    owner_share_id = self.env['account.move'].create(invoice_debit_owner_vals)
+                    owner_share_id.action_post()
+                    owner_credit_note_id = self.env['account.move'].create(bill_credit_note_vals)
+                    owner_credit_note_id.action_post()
+                # if res.owner_share > 0:
+                #     if owner_id:
+                #         credit_move_id = self.env['account.move'].create(bill_credit_note_vals)
+                #         credit_move_id.action_post()
+            else:
                 if res.owner_share > 0:
                     if owner_id:
-                        credit_move_id = self.env['account.move'].create(bill_credit_note_vals)
-                        credit_move_id.action_post()
-            if res.owner_share > 0:
-                if owner_id:
-                    owner_move_id = self.env['account.move'].create(invoice_debit_owner_vals)
-                    owner_move = owner_move_id.action_post()
-#                 for line in owner_move_id.line_ids:
-#                     if line.credit > 0.000:
-#                         line.partner_id = company_id.partner_id.id
+                        owner_move_id = self.env['account.move'].create(invoice_debit_owner_vals)
+                        owner_move = owner_move_id.action_post()
                 
-            if res.tenant_share > 0:
-                # if res.lease_agreement_id and res.lease_agreement_id.state == 'active':
-                #     if res.tenant_id:
-                tenant_move_id = self.env['account.move'].create(invoice_debit_tenant_vals)
-                tenant_move = tenant_move_id.action_post()
-            if vals.get('amount') > 0:
-                if res.product_id.service_product_journal_id.id != int(tabreed_journal_id):
-                    if service_id.managed_by_rs == True:
+                if res.tenant_share > 0:
+                    tenant_move_id = self.env['account.move'].create(invoice_debit_tenant_vals)
+                    tenant_move = tenant_move_id.action_post()
+                if vals.get('amount') > 0:
+                    if res.product_id.service_product_journal_id.id != int(tabreed_journal_id):
                         if payable_owner:
                             payable_move_id = self.env['account.move'].create(invoice_payable_vals)
                             payable_move_id.action_post()
