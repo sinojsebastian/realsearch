@@ -97,8 +97,13 @@ class CustomerStatementXlsxReport(models.AbstractModel):
         lang_id = lang._lang_get(lang_code)
         date_format = lang_id.date_format
         
-        to_date_wiz =  datetime.strptime(str(wiz.to_date), DEFAULT_SERVER_DATE_FORMAT).strftime(date_format) or '',
-        from_date_wiz = datetime.strptime(str(wiz.from_date), DEFAULT_SERVER_DATE_FORMAT).strftime(date_format) or '',
+        if wiz.to_date:
+            to_date_wiz =  datetime.strptime(str(wiz.to_date), DEFAULT_SERVER_DATE_FORMAT).strftime(date_format) or '',
+        else:
+            to_date_wiz = datetime.strptime(str(fields.Date.today()), DEFAULT_SERVER_DATE_FORMAT).strftime(date_format) or ''
+        from_date_wiz = ''
+        if wiz.from_date:
+            from_date_wiz = datetime.strptime(str(wiz.from_date), DEFAULT_SERVER_DATE_FORMAT).strftime(date_format) or '',
         name_wiz = wiz.partner_id.name
         user_id = self.env['res.users'].browse(self.env.uid)
         company_id = user_id.company_id
@@ -120,6 +125,13 @@ class CustomerStatementXlsxReport(models.AbstractModel):
             city += company_id.zip
         if company_id.country_id:
             country += company_id.country_id.name 
+        building_name = ''
+        module_name = ''
+        if wiz.building_id:
+            building_name = wiz.building_id.name
+        if wiz.module_id:
+            module_name = wiz.module_id.name
+            
             
         print('===========================',wiz.building_id.name)
         worksheet.set_column('A:A', 12)
@@ -137,12 +149,15 @@ class CustomerStatementXlsxReport(models.AbstractModel):
         worksheet.merge_range('A4:H4',country,text_left)
         
         worksheet.merge_range('A5:H5','Statement Of Account',heading_format)
-        worksheet.merge_range('A6:H6','As On'+" "+str(to_date_wiz[0]),sub_heading_format)
+        worksheet.merge_range('A6:H6','As On'+" "+str(to_date_wiz),sub_heading_format)
         worksheet.merge_range('A7:H7','Name: '+" "+str(name_wiz),sub_heading_format1)
-        worksheet.merge_range('A8:B8','Building: '+" "+str(wiz.building_id.name),sub_heading_format1)
-        worksheet.merge_range('A9:B9','Module: '+" "+str(wiz.module_id.name),sub_heading_format1)
-        worksheet.merge_range('C8:H8','From date: '+" "+str(from_date_wiz[0]),sub_heading_format2)
-        worksheet.merge_range('C9:H9','To date: '+" "+str(to_date_wiz[0]),sub_heading_format2)
+        worksheet.merge_range('A8:B8','Building: '+" "+building_name,sub_heading_format1)
+        worksheet.merge_range('A9:B9','Module: '+" "+module_name,sub_heading_format1)
+        # if from_date_wiz:
+        #     worksheet.merge_range('C8:H8','From date: '+" "+str(from_date_wiz[0]),sub_heading_format2)
+        # else:
+        #     worksheet.merge_range('C8:H8','From date:',sub_heading_format2)
+        # worksheet.merge_range('C9:H9','To date: '+" "+str(to_date_wiz),sub_heading_format2)
 
         worksheet.write(10, 0, "Date", sub_heading_format1)
         worksheet.write(10, 1, "Particulars", sub_heading_format1)
@@ -166,100 +181,73 @@ class CustomerStatementXlsxReport(models.AbstractModel):
         company_currency = self.env.user.company_id.currency_id
         from_date = wiz.from_date
         end_date = wiz.to_date
+        if not end_date:
+            end_date = datetime.strptime(str(fields.Date.today()), DEFAULT_SERVER_DATE_FORMAT).date()
         from_date_wiz = wiz.from_date
         show_paid_inv = wiz.show_paid_inv
 
         journal_type = {
             'sale':'Sales'
         }
-        if from_date:
-            open_balance = self.get_opening_balance(from_date, customer_id,show_paid_inv,wiz.module_id)
-            check_first_move_line = True
-            balance_for_line = open_balance.get('balance')
-            list_data = self.get_invoice_voucher(show_paid_inv,customer_id, from_date, end_date, journal_type,wiz.module_id)
-            print('=============list_data==============',list_data)
-            list_data = sorted(list_data, key=lambda d: (d['date'])) 
-            debit_sum = 0
-            credit_sum = 0
-            data_dict ={}
-            if not list_data:
-                data_dict = { 
-                         'ref': 'Opening Balance',
-                         'journal': ' ',
-                         'description':' ',
-                         'debit': open_balance.get('debit'),
-                         'credit': open_balance.get('credit'),
-                         'due_date':'',
-                         'due_days':'',
-                         'open_balance': open_balance.get('balance'),
-                         'date':'',
-                         'currency_id':company_currency.id
-                    }
-                result.append(data_dict)
+        open_balance = self.get_opening_balance(end_date, customer_id,show_paid_inv,wiz.module_id)
+        check_first_move_line = True
+        balance_for_line = open_balance.get('balance')
+        list_data = self.get_invoice_voucher(show_paid_inv,customer_id, from_date, end_date, journal_type,wiz.module_id)
+        print('=============list_data==============',list_data)
+        list_data = sorted(list_data, key=lambda d: (d['date'])) 
+        debit_sum = 0
+        credit_sum = 0
+        data_dict ={}
+        if not list_data:
+            data_dict = { 
+                     'ref': 'Opening Balance',
+                     'journal': ' ',
+                     'description':' ',
+                     'debit': open_balance.get('debit'),
+                     'credit': open_balance.get('credit'),
+                     'due_date':'',
+                     'due_days':'',
+                     'open_balance': open_balance.get('balance'),
+                     'date':'',
+                     'currency_id':company_currency.id
+                }
+            result.append(data_dict)
+            row = row+1
+            for record in result:
+                if record['debit'] >=0:
+                    balance_for_line = balance_for_line - record['debit']
+                    debit_sum += record['debit']
+                if record['credit']>=0:
+                    credit_sum += record['credit']
+                    balance_for_line = balance_for_line + record['credit']
+                worksheet.write(row, 0, record['date'],text_center)
+                worksheet.write(row, 1, record['ref'],text_left)
+                worksheet.write(row, 2, record['description'],text_left)
+                worksheet.write(row, 3, record['debit'],number_format)
+                worksheet.write(row, 4, record['credit'],number_format)
+                worksheet.write(row, 5, record['open_balance'],number_format)
+                worksheet.write(row, 6, record['due_date'],text_center)
+                worksheet.write(row, 7, record['due_days'],text_center)
+                worksheet.set_row(row, 25)
                 row = row+1
-                for record in result:
-                    if record['debit'] >=0:
-                        balance_for_line = balance_for_line + record['debit']
-                        debit_sum += record['debit']
-                    if record['credit']>=0:
-                        credit_sum += record['credit']
-                        balance_for_line = balance_for_line - record['credit']
-                    worksheet.write(row, 0, record['date'],text_center)
-                    worksheet.write(row, 1, record['ref'],text_left)
-                    worksheet.write(row, 2, record['description'],text_left)
-                    worksheet.write(row, 3, record['debit'],number_format)
-                    worksheet.write(row, 4, record['credit'],number_format)
-                    worksheet.write(row, 5, record['open_balance'],number_format)
-                    worksheet.write(row, 6, record['due_date'],text_center)
-                    worksheet.write(row, 7, record['due_days'],text_center)
-                    worksheet.set_row(row, 25)
-                    row = row+1
-            for each_data in list_data:
-                if check_first_move_line:
-                    check_first_move_line = False
-                    data_dict = { 
-                         'ref': 'Opening Balance',
-                         'description':' ',
-                         'journal': ' ',
-                         'debit': open_balance.get('debit'),
-                         'credit': open_balance.get('credit'),
-                         'due_date':'',
-                         'due_days':'',
-                         'open_balance': open_balance.get('balance'),
-                         'date':'',
-                         'currency_id':company_currency.id
-                    }
-                    result.append(data_dict)
-                    row = row+1
-                    worksheet.write(row, 0, '')
-                    worksheet.write(row, 1, data_dict['ref'],text_left)
-                    worksheet.write(row, 2, data_dict['description'],text_left)
-                    worksheet.write(row, 3, data_dict['debit'],number_format)
-                    worksheet.write(row, 4, data_dict['credit'],number_format)
-                    worksheet.write(row, 5, data_dict['open_balance'],number_format)
-                    worksheet.set_row(row, 25)
-                     
-                if each_data['debit'] >=0:
-                    balance_for_line = balance_for_line + each_data['debit']
-                    debit_sum += each_data['debit']
-                if each_data['credit']>=0:
-                    credit_sum += each_data['credit']
-                    balance_for_line = balance_for_line - each_data['credit']
-                data_dict = {
-                    'date': each_data['date'] and datetime.strptime(str(each_data['date']), DEFAULT_SERVER_DATE_FORMAT).strftime(date_format) or '',
-                    'ref': each_data['ref'],
-                    'description':each_data['description'],
-                    'debit': each_data['debit'],
-                    'credit': each_data['credit'],
-                    'open_balance': balance_for_line,
-                    'due_date':each_data['due_date'] and datetime.strptime(str(each_data['due_date']), DEFAULT_SERVER_DATE_FORMAT).strftime(date_format) or '',
-                    'due_days':each_data['due_days'],
-                    'currency_id':company_currency.id
-                     
+        for each_data in list_data:
+            if check_first_move_line:
+                check_first_move_line = False
+                data_dict = { 
+                     'ref': 'Opening Balance',
+                     'description':' ',
+                     'journal': ' ',
+                     'debit': open_balance.get('debit'),
+                     'credit': open_balance.get('credit'),
+                     'due_date':'',
+                     'due_days':'',
+                     'open_balance': open_balance.get('balance'),
+                     'date':'',
+                     'currency_id':company_currency.id
                 }
                 result.append(data_dict)
                 row = row+1
-                worksheet.write(row, 0, data_dict['date'],text_center)
+                worksheet.write(row, 0, '')
                 worksheet.write(row, 1, data_dict['ref'],text_left)
                 worksheet.write(row, 2, data_dict['description'],text_left)
                 worksheet.write(row, 3, data_dict['debit'],number_format)
@@ -268,18 +256,48 @@ class CustomerStatementXlsxReport(models.AbstractModel):
                 worksheet.write(row, 6, data_dict['due_date'],text_center)
                 worksheet.write(row, 7, data_dict['due_days'],text_center)
                 worksheet.set_row(row, 25)
+                 
+            if each_data['debit'] >=0:
+                balance_for_line = balance_for_line - each_data['debit']
+                debit_sum += each_data['debit']
+            if each_data['credit']>=0:
+                credit_sum += each_data['credit']
+                balance_for_line = balance_for_line + each_data['credit']
+            data_dict = {
+                'date': each_data['date'] and datetime.strptime(str(each_data['date']), DEFAULT_SERVER_DATE_FORMAT).strftime(date_format) or '',
+                'ref': each_data['ref'],
+                'description':each_data['description'],
+                'debit': each_data['debit'],
+                'credit': each_data['credit'],
+                'open_balance': balance_for_line,
+                'due_date':each_data['due_date'] and datetime.strptime(str(each_data['due_date']), DEFAULT_SERVER_DATE_FORMAT).strftime(date_format) or '',
+                'due_days':each_data['due_days'],
+                'currency_id':company_currency.id
+                 
+            }
+            result.append(data_dict)
             row = row+1
-            worksheet.write(row, 1, 'Balance',text)
-            if debit_sum < credit_sum:
-                 credit = '{:,.3f}'.format(data_dict['open_balance'])
-                 worksheet.write(row, 4,"-"+credit+"Cr",bold)
-            elif debit_sum > credit_sum:
-                 debit = '{:,.3f}'.format(data_dict['open_balance'])
-                 worksheet.write(row, 4,debit+"Dr",bold)
-            elif debit_sum == 0 and credit_sum == 0:
-                 worksheet.write(row, 4,data_dict['open_balance'],bold)
-            elif (debit_sum and credit_sum > 0) and debit_sum == credit_sum:
-                worksheet.write(row, 4,debit_sum - credit_sum,bold)
+            worksheet.write(row, 0, data_dict['date'],text_center)
+            worksheet.write(row, 1, data_dict['ref'],text_left)
+            worksheet.write(row, 2, data_dict['description'],text_left)
+            worksheet.write(row, 3, data_dict['debit'],number_format)
+            worksheet.write(row, 4, data_dict['credit'],number_format)
+            worksheet.write(row, 5, data_dict['open_balance'],number_format)
+            worksheet.write(row, 6, data_dict['due_date'],text_center)
+            worksheet.write(row, 7, data_dict['due_days'],text_center)
+            worksheet.set_row(row, 25)
+        row = row+1
+        worksheet.write(row, 1, 'Balance',text)
+        if debit_sum < credit_sum:
+             credit = '{:,.3f}'.format(data_dict['open_balance'])
+             worksheet.write(row, 4,"-"+credit+"Cr",bold)
+        elif debit_sum > credit_sum:
+             debit = '{:,.3f}'.format(data_dict['open_balance'])
+             worksheet.write(row, 4,debit+"Dr",bold)
+        elif debit_sum == 0 and credit_sum == 0:
+             worksheet.write(row, 4,data_dict['open_balance'],bold)
+        elif (debit_sum and credit_sum > 0) and debit_sum == credit_sum:
+            worksheet.write(row, 4,debit_sum - credit_sum,bold)
 
     
     def get_opening_balance(self, date, customer_id,show_paid_inv,module_id):
@@ -298,10 +316,10 @@ class CustomerStatementXlsxReport(models.AbstractModel):
            move_line_search_conditions += "and m.date < '%s'"%date
         if customer_id:
             move_line_search_conditions += "and l.partner_id = '%s'"%customer_id
-        if show_paid_inv :
-            move_line_search_conditions += "and m.invoice_payment_state in ('paid','in_payment','not_paid')"
-        else:
-            move_line_search_conditions += "and m.invoice_payment_state in ('in_payment','not_paid')"
+        # if show_paid_inv :
+        #     move_line_search_conditions += "and m.invoice_payment_state in ('paid','in_payment','not_paid')"
+        # else:
+        #     move_line_search_conditions += "and m.invoice_payment_state in ('in_payment','not_paid')"
         if module_id:
             move_line_search_conditions += "and l.module_id = '%s'"%module_id.id  
         move_line_search_conditions += " order by l.debit,l.credit"
@@ -309,6 +327,10 @@ class CustomerStatementXlsxReport(models.AbstractModel):
                    %move_line_search_conditions)
         line_ids = map(lambda x: x[0], self._cr.fetchall())
         move_line_ids = self.env['account.move.line'].sudo().browse(line_ids)
+        if show_paid_inv:
+            move_line_ids = move_line_ids.filtered(lambda inv: inv.move_id.invoice_payment_state in ('paid','in_payment','not_paid') or inv.full_reconcile_id != False)
+        else:
+            move_line_ids = move_line_ids.filtered(lambda inv: inv.move_id.invoice_payment_state in ('in_payment', 'not_paid') or not inv.full_reconcile_id)
         debit=credit=0.0
         for line in move_line_ids:
             debit += line.debit
@@ -337,10 +359,10 @@ class CustomerStatementXlsxReport(models.AbstractModel):
            move_line_search_conditions += "and m.date >= '%s'"%date
         if end_date:
            move_line_search_conditions += "and m.date <= '%s'"%end_date
-        if show_paid_inv :
-            move_line_search_conditions += "and m.invoice_payment_state in ('paid','in_payment','not_paid')"
-        else:
-            move_line_search_conditions += "and m.invoice_payment_state in ('in_payment','not_paid')"
+        # if show_paid_inv :
+        #     move_line_search_conditions += "and m.invoice_payment_state in ('paid','in_payment','not_paid')"
+        # else:
+        #     move_line_search_conditions += "and m.invoice_payment_state in ('in_payment','not_paid')"
         if customer_id:
             move_line_search_conditions += "and l.partner_id = '%s'"%customer_id  
         if module_id:
@@ -352,6 +374,10 @@ class CustomerStatementXlsxReport(models.AbstractModel):
                    %move_line_search_conditions)
         line_ids = map(lambda x: x[0], self._cr.fetchall())
         move_line_ids = self.env['account.move.line'].sudo().browse(line_ids)
+        if show_paid_inv:
+            move_line_ids = move_line_ids.filtered(lambda inv: inv.move_id.invoice_payment_state in ('paid','in_payment','not_paid') or inv.full_reconcile_id != False)
+        else:
+            move_line_ids = move_line_ids.filtered(lambda inv: inv.move_id.invoice_payment_state in ('in_payment', 'not_paid') or not inv.full_reconcile_id)
         data = []
         l_debt =0
         l_credit =0
