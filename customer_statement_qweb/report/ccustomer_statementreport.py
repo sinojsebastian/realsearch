@@ -54,10 +54,10 @@ class CustomersStatementReport(models.AbstractModel):
         if customer_id:
             move_line_search_conditions += "and l.partner_id = '%s'"%customer_id
 
-        if show_paid_inv :
-            move_line_search_conditions += "and m.invoice_payment_state in ('paid','in_payment','not_paid')"
-        else:
-            move_line_search_conditions += "and m.invoice_payment_state in ('in_payment','not_paid')"
+        # if show_paid_inv :
+        #     move_line_search_conditions += "and m.invoice_payment_state in ('paid','in_payment','not_paid')"
+        # else:
+        #     move_line_search_conditions += "and m.invoice_payment_state in ('in_payment','not_paid')"
         
         if module_id:
             move_line_search_conditions += "and l.module_id = '%s'"%module_id
@@ -67,7 +67,10 @@ class CustomersStatementReport(models.AbstractModel):
                    %move_line_search_conditions)
         line_ids = map(lambda x: x[0], self._cr.fetchall())
         move_line_ids = self.env['account.move.line'].sudo().browse(line_ids)
-
+        if show_paid_inv:
+            move_line_ids = move_line_ids.filtered(lambda inv: inv.move_id.invoice_payment_state in ('paid','in_payment','not_paid') or inv.full_reconcile_id != False)
+        else:
+            move_line_ids = move_line_ids.filtered(lambda inv: inv.move_id.invoice_payment_state in ('in_payment', 'not_paid') or not inv.full_reconcile_id)
         debit=credit=0.0
         for line in move_line_ids:
 
@@ -154,7 +157,7 @@ class CustomersStatementReport(models.AbstractModel):
             data = self.action_statement_values(move_lines)
             return data
         else:
-            move_lines = move_line_ids.filtered(lambda inv: inv.move_id.invoice_payment_state in ('in_payment', 'not_paid') or inv.move_id.type == 'entry')
+            move_lines = move_line_ids.filtered(lambda inv: inv.move_id.invoice_payment_state in ('in_payment', 'not_paid') or not inv.full_reconcile_id)
             data = self.action_statement_values(move_lines)
             return data
 
@@ -195,6 +198,7 @@ class CustomersStatementReport(models.AbstractModel):
         open_balance = self.get_opening_balance(to_date, customer_id,show_paid_inv,module)
         check_first_move_line = True
         balance_for_line = open_balance.get('balance')
+        print('============balance_for_line=================',balance_for_line)
         list_data = self.get_invoice_voucher(show_paid_inv,customer_id, from_date, to_date, journal_type,module)
         list_data = sorted(list_data, key=lambda d: (d['date'])) 
         data_dict = {}
@@ -223,6 +227,7 @@ class CustomersStatementReport(models.AbstractModel):
                 data_dict[module].append(data_vals)
             data_vals = {}
             for each_data in data_dict[module]:
+                print('=====================each_data',each_data)
                 if check_first_move_line:
                     check_first_move_line = False
                     data_vals = { 
@@ -239,11 +244,11 @@ class CustomersStatementReport(models.AbstractModel):
                      }
                     # data_dict[module].insert(0,data_vals)
                 if each_data['debit'] > 0:
-                    balance_for_line = balance_for_line + each_data['debit']
+                    balance_for_line = balance_for_line - each_data['debit']
                     debit_sum += each_data['debit']
                 if each_data['credit']>0:
                     credit_sum += each_data['credit']
-                    balance_for_line = balance_for_line - each_data['credit']
+                    balance_for_line = balance_for_line + each_data['credit']
                 each_data.update({'open_balance':balance_for_line})
             data_dict[module].insert(0,data_vals)
             # debit_sum = 0

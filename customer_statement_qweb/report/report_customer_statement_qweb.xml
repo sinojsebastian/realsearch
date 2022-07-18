@@ -30,7 +30,7 @@
 											<b>Building:  <t t-if="module"> <t t-esc="module.building_id.name"/></t></b><br></br>
 											<b>Module:   <t t-if="module"> <t t-esc="module.name"/> </t></b>
 										</div>
-										<t t-if="count == 1">
+										<!-- <t t-if="count == 1">
 											<div class="col-6" align="right">
 												<t t-if="d['from_date']">
 													<b>From Date:  <t t-esc="datetime.datetime.strptime(d['from_date'], server_date).strftime(date_format)"/><br/></b>
@@ -41,9 +41,9 @@
 												<t t-else="">
 													<b>To Date:  <t t-esc="context_timestamp(datetime.datetime.now()).strftime(date_format)"/></b>
 												</t>
-												<!-- <t t-esc="context_timestamp(datetime.datetime.now()).strftime(date_format)"/> -->
+												<t t-esc="context_timestamp(datetime.datetime.now()).strftime(date_format)"/>
 											</div>
-										</t>
+										</t> -->
 								</div>
 								<t t-set="count" t-value="count + 1"/>
 								<div class="col-xs-12">

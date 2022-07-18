@@ -9,14 +9,14 @@
 				<form string="Customer Statement">
 					<group>
 						 <group>
-	                        <field name="from_date" required="1"/>
+	                        <field name="from_date"/>
 	                        <field name="partner_id" readonly ="1"/>
 	                        <field name="show_paid_inv"/>
 	                    </group>
 	                    <group>
-	                    	<field name="to_date" required="1"/>
-	                    	<field name="building_id" required="1"/>
-		                    <field name="module_id" domain="[('building_id','=',building_id)]" required="1"/>
+	                    	<field name="to_date"/>
+	                    	<field name="building_id"/>
+		                    <field name="module_id" domain="[('building_id','=',building_id)]"/>
 	                    </group>
                     </group>
 					<footer>
