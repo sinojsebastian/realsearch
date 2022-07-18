@@ -189,16 +189,16 @@
                 <field name="lease_id"/>
             </field>
             <field name="amount_untaxed_signed" position="replace">
-                <field name="amount_untaxed_signed" string="VAT Excluded" digits="[16,3]"/>
+            	<field name="amount_untaxed_signed" string="VAT Excluded" digits="[16,3]" sum="Total" optional="show"/>
             </field>
             <field name="amount_tax_signed" position="replace">
-                <field name="amount_tax_signed" string="Tax" optional="hide" digits="[16,3]"/>
+            	<field name="amount_tax_signed" string="Tax" sum="Total" optional="hide" digits="[16,3]"/>
             </field>
             <field name="amount_total_signed" position="replace">
-                <field name="amount_total_signed" string="Total" digits="[16,3]"/>
+            	<field name="amount_total_signed" string="Total" sum="Total" optional="show" digits="[16,3]"/>
             </field>
             <field name="amount_residual_signed" position="replace">
-                <field name="amount_residual_signed" string="Amount Due" digits="[16,3]"/>
+            	<field name="amount_residual_signed" string="Amount Due" sum="Amount Due" optional="show" digits="[16,3]"/>
             </field>
         </field>
     </record>
