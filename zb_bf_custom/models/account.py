@@ -500,13 +500,6 @@ class AccountPayment(models.Model):
             # moves.with_context(force_delete=True).unlink()
         return res
 
-    @api.model
-    def action_set_to_draft(self):
-        for rec in self.search([('name', '=', False),('state', '=', 'reconciled')]):
-            rec.action_draft()
-        return True
-
-
     
     @api.onchange('load_other_transactions','module_ids')
     def get_unrelated_transactions(self):
@@ -887,7 +880,6 @@ class AccountMove(models.Model):
                     reconcile_list_new = ",".join(reconcile_list)
                     if reconcile_list_new:
                         raise Warning(_('The line is loaded for reconcilation,Kindly remove it from the records %s'%(reconcile_list_new)))
-
         return super(AccountMove, self).button_draft()
     
     
@@ -1618,7 +1610,7 @@ class AccountReconcilePartial(models.Model):
                 rent_tranfer.button_cancel()
                 lines.unlink()
             if payment_advise:
-                payment_advise.unlink()
+                payment_advise.action_draft()
             if mngmnt_entry:
                 mngmnt_entry.button_cancel()
                 mngmnt_entry_lines.unlink()
