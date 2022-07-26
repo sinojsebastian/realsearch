@@ -1593,7 +1593,7 @@ class AccountReconcilePartial(models.Model):
                 rent_tranfer.button_cancel()
                 lines.unlink()
             if payment_advise:
-                payment_advise.unlink()
+                payment_advise.action_draft()
             if mngmnt_entry:
                 mngmnt_entry.button_cancel()
                 mngmnt_entry_lines.unlink()
